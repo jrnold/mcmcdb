@@ -21,6 +21,3 @@ setClass("McmcTable2", contains="McmcTable",
 
 
 
-
-
-

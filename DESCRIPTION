@@ -21,3 +21,4 @@ Collate:
     'gelman-diag.R'
     'mcmc.R'
     'mcmcTable.R'
+    'epil.R'

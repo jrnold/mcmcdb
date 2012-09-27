@@ -1,7 +1,57 @@
-Mcmc <- function(x, start=1, end=nrow(x), thin=1) {
-    new("mcmc", as.numeric(x),
-        mcpar=c(start=start, end=end, thin=thin))
+##' Create mcmc
+##'
+##' Generic function to create mcmc objects from various types of inputs.
+##'
+##' @param data Input object
+##' @export
+setGeneric("mcmc",
+           function(data, ...) {
+               standardGeneric("mcmc")
+           })
+mcmc_matrix <- function(data, start=1, end=NULL, thin=1, ...) {
+    niter <- nrow(data)
+    if (missing(end))
+        end <- start + (niter - 1) * thin
+    else if (missing(start))
+        start <- end - (niter - 1) * thin
+    nobs <- floor((end - start)/thin + 1)
+    if (niter < nobs)
+        stop("Start, end and thin incompatible with data")
+    else {
+        end <- start + thin * (nobs - 1)
+        if (nobs < niter)
+            data <- data[1:nobs, , drop = FALSE]
+    }
+    new("mcmc", data, mcpar=c(start, end, thin))
 }
+
+##' @param data start Iteration number for end of sample.
+##' @param data end Iteration number for start of sample.
+##' @param thin end Iteration number for start of sample.
+##' @rdname mcmc
+setMethod("mcmc", "matrix", mcmc_matrix)
+
+##' @param ... passed to next generic
+##' @rdname mcmc
+mcmc_numeric <- function(data, ...) {
+    callGeneric(as.matrix(data), ...)
+}
+setMethod("mcmc", "numeric", mcmc_numeric)
+
+##' @rdname mcmc
+mcmc_ts <- function(data, ...) {
+    start <- start(data)[1]
+    end <- end(data)[1]
+    thin <- deltat(data)
+    ## Make sure that thin is at least 1
+    if (thin < 1) {
+        end <- start + (end - start) / thin
+        thin <- 1
+    }
+    callGeneric(as.matrix(data),
+                start=start, end=end, thin=thin)
+}
+setMethod("mcmc", "ts", mcmc_ts)
 
 ## mcmc  methods
 setMethod("coef", "mcmc",
@@ -34,6 +84,17 @@ setAs("summary.mcmc", "data.frame",
           to
       })
 
+mcmc.list <- function (x, ...) {
+    new("mcmc.list", c(x, list(...)))
+}
+##' Create mcmc.list
+##'
+##' Unlike \code{\link[coda]{mcmc.list}} this does
+##' not enforce equal
+##'
+##' @param ... \code{mcmc} objects.
+##' @export
+setGeneric("mcmc.list")
 
 ## Apply function to Mmcm Scalar Parameter over ALL chains
 ## Use one column at a time to conserve memory
@@ -67,4 +128,5 @@ setMethod("vcov", "mcmc.list",
           function(object, ...) {
               cov(do.call(rbind, object), ...)
           })
+
 

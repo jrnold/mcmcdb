@@ -1,10 +1,29 @@
-##' @exportClass mcmc
-##' @exportClass mcmc.list
-##' @exportClass summary.mcmc
-NULL
-
 setClass("Mcmc4", contains="matrix",
          representation(mcpar="numeric"))
+mcmc_validity <- function(object) {
+    msg <- c()
+
+    if (!is.numeric(object)) {
+        msg <- append(mst, "Matrix is not numeric")
+    }
+    start <- object@mcpar[1]
+    end <- object@mcpar[2]
+    thin <- object@mcpar[3]
+    nobs <- floor((end - start)/thin + 1)
+    if (length(thin) < 1) {
+        msg <- append(msg, "thin < 1")
+    }
+    if (nobs < nrow(object)) {
+        msg <- append(msg, "Start, end and thin are incompatible with data")
+    }
+    ## Return
+    if (length(msg)) {
+        msg
+    } else {
+        TRUE
+    }
+}
+setValidity("Mcmc4", mcmc_validity)
 
 ##' Markov Chain Monte Carlo Objects
 ##'
@@ -27,7 +46,10 @@ setClass("Mcmc4", contains="matrix",
 ##' @aliases mcmc-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
+##' @exportClass mcmc
 setOldClass("mcmc", S4Class="Mcmc4")
+removeClass("Mcmc4")
+
 
 setClass("McmcList4", contains="list")
 mcmc_list_validity <- function(object) {
@@ -64,9 +86,9 @@ setValidity("McmcList4", mcmc_list_validity)
 ##' @aliases mcmc.list-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
+##' @exportClass mcmc.list
 setOldClass("mcmc.list", S4Class="McmcList4")
-## removeClass("McmcList4")
-
+removeClass("McmcList4")
 
 setClass("SummaryMcmc4",
          representation(statistics = "matrix",
@@ -75,7 +97,6 @@ setClass("SummaryMcmc4",
                         end = "numeric",
                         thin = "numeric",
                         nchain = "numeric"))
-setOldClass("summary.mcmc", S4Class="SummaryMcmc4")
 
 ##' Summary Markov Chain Monte Carlo Objects
 ##'
@@ -86,5 +107,6 @@ setOldClass("summary.mcmc", S4Class="SummaryMcmc4")
 ##' @aliases summary.mcmc-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{summary.mcmc}}
+##' @exportClass summary.mcmc
 setOldClass("summary.mcmc", S4Class="SummaryMcmc4")
-## removeClass("SummaryMcmc4")
+removeClass("SummaryMcmc4")
