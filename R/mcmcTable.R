@@ -1,10 +1,8 @@
-##' @import data.table
-
-setClass("McmcTable", contains=c("data.table"))
-
+##' @export
+setClass("McmcTable", contains="data.table")
 validate_mcmc_table <- function(object) {
     msg <- character()
-    if (colnames(obj) != c("parameter", "chain", "iter", "value")) {
+    if (colnames(object) != c("parameter", "chain", "iter", "value")) {
         msg <- append(msg, "Column names are incorrect")
     }
     if (length(msg)) {
@@ -13,9 +11,10 @@ validate_mcmc_table <- function(object) {
         TRUE
     }
 }
-setValidate("McmcTable", validate_mcmc_table)
+setValidity("McmcTable", validate_mcmc_table)
 
-setClass("McmcTable2", contains=c("McmcTable"),
+##' @export
+setClass("McmcTable2", contains="McmcTable",
          representation(parameters="list",
                         columns="list"))
 

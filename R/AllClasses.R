@@ -5,7 +5,7 @@ NULL
 
 ##' Markov Chain Monte Carlo Objects
 ##'
-##' S4 class which wraps the \bold{coda} S3 class \code[coda]{\link{mcmc}}.
+##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc}}.
 ##'
 ##' \section{Slots}{
 ##'   \describe{
@@ -24,15 +24,9 @@ NULL
 ##' @aliases mcmc-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
-setClass("mcmc4", contains="matrix",
+setClass("Mcmc4", contains="matrix",
          representation(mcpar="numeric"))
-setOldClass("mcmc", S4Class="mcmc4")
-## removeClass("mcmc4")
-
-Mcmc <- function(x, start=1, end=nrow(x), thin=1) {
-    new("mcmc", as.numeric(x),
-        mcpar=c(start=start, end=end, thin=thin))
-}
+setOldClass("mcmc", S4Class="Mcmc4")
 
 ##' Markov Chain Monte Carlo Object List
 ##'
@@ -53,7 +47,7 @@ Mcmc <- function(x, start=1, end=nrow(x), thin=1) {
 ##' @aliases mcmc.list-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
-setClass("mcmclist4", contains="list")
+setClass("McmcList4", contains="list")
 mcmc_list_validity <- function(object) {
     ## Allow for empty lists
     if (length(object@.Data) == 0) {
@@ -67,8 +61,8 @@ mcmc_list_validity <- function(object) {
         }
     }
 }
-setValidity("mcmclist4", mcmc_list_validity)
-setOldClass("mcmc.list", S4Class="mcmclist4")
+setValidity("McmcList4", mcmc_list_validity)
+setOldClass("mcmc.list", S4Class="McmcList4")
 ## removeClass("McmcList4")
 
 
@@ -79,12 +73,12 @@ setOldClass("mcmc.list", S4Class="mcmclist4")
 ##'
 ##'
 ##' @seealso \code{\link[coda]{summary.mcmc}}
-setClass("summarymcmc4",
+setClass("SummaryMcmc4",
          representation(statistics = "matrix",
                         quantiles = "matrix",
                         start = "numeric",
                         end = "numeric",
                         thin = "numeric",
                         nchain = "numeric"))
-setOldClass("summary.mcmc", S4Class="summarymcmc4")
+setOldClass("summary.mcmc", S4Class="SummaryMcmc4")
 ## removeClass("SummaryMcmc4")

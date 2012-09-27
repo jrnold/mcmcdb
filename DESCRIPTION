@@ -9,7 +9,8 @@ Depends:
     methods,
     coda
 Imports:
-    stats4
+    stats4,
+    data.table
 Suggests:
     coda,
     testthat,
@@ -19,3 +20,4 @@ Collate:
     'AllClasses.R'
     'gelman-diag.R'
     'mcmc.R'
+    'mcmcTable.R'
