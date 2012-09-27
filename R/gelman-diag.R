@@ -1,7 +1,6 @@
 ## Sum of squared errors
 sumsqe <- function(x)  sum((x - mean(x))^2)
 
-## Assumes a list of matrices
 gelman_diag <- function(x, ...) {
     x <- lapply(x, as.matrix)
     m <- length(x)
@@ -25,15 +24,6 @@ gelman_diag <- function(x, ...) {
     Rhat
 }
 
-##' Gelman-Rubin Criteria
-##'
-##' See STAN Manual 27.2
-##'
-##' @param x \code{mcmc.list}
-##'
-##' @export
-setGeneric("gelman_diag", gelman_diag)
-
 ## Gelman diag not generalizing for ragged chains
 ## gelman_diag <- function(x)  {
 ##     m <- length(x)
@@ -45,12 +35,25 @@ setGeneric("gelman_diag", gelman_diag)
 ##     pmax(1, sqrt(vartheta / W))
 ## }
 
-##' Gelman-Rubin Diagnostic for Split Single Chain
+##' Gelman-Rubin Criteria
 ##'
-##' @param x \code{mcmc} object. A single chain.
+##' @param x object representing a single chain.
+##'
+##' @references Stan Manual, Section 27.2.
+##'
+##' @export
+setGeneric("gelman_diag", gelman_diag)
+
+
+##' Gelman-Rubin Diagnostic with a Split Single Chain
+##'
+##' @param x Object containing the MCMC samples.
 ##'
 ##' The single chain is split in half, and then
-##' \code{gelman_diag_ragged} is run on the two halves.
+##' \code{gelman_diag} is run on the two halves.
+##'
+##' @references Stan Manual, Section 27.2.
+##'
 ##' @export
 setGeneric("gelman_diag_split", function(x, ...) standardGeneric("gelman_diag_split"))
 
