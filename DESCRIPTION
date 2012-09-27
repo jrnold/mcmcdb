@@ -1,0 +1,21 @@
+Package: mcmc4
+Maintainer: Jeffrey B. Arnold <jeffrey.arnold@gmail.com>
+Author: Jeffrey B. Arnold <jeffrey.arnold@gmail.com>
+Version: 1.0
+License: GPL-3
+Title: S4 Mcmc Class
+Description: S4 wrapper for the mcmc classes from the coda package.
+Depends:
+    methods,
+    coda
+Imports:
+    stats4
+Suggests:
+    coda,
+    testthat,
+    roxygen2
+Collate:
+    'mcmc4-package.r'
+    'AllClasses.R'
+    'gelman-diag.R'
+    'mcmc.R'

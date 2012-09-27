@@ -1,0 +1,7 @@
+exportClasses(mcmc)
+exportClasses(mcmc.list)
+exportClasses(summary.mcmc)
+exportMethods(gelman_diag)
+exportMethods(gelman_diag_split)
+importMethodsFrom(stats4,coef)
+importMethodsFrom(stats4,vcov)
