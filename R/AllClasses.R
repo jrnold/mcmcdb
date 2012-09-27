@@ -3,6 +3,9 @@
 ##' @exportClass summary.mcmc
 NULL
 
+setClass("Mcmc4", contains="matrix",
+         representation(mcpar="numeric"))
+
 ##' Markov Chain Monte Carlo Objects
 ##'
 ##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc}}.
@@ -24,9 +27,23 @@ NULL
 ##' @aliases mcmc-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
-setClass("Mcmc4", contains="matrix",
-         representation(mcpar="numeric"))
 setOldClass("mcmc", S4Class="Mcmc4")
+
+setClass("McmcList4", contains="list")
+mcmc_list_validity <- function(object) {
+    ## Allow for empty lists
+    if (length(object@.Data) == 0) {
+        TRUE
+    } else {
+        allmcmc <- all(sapply(object, is, class2="mcmc"))
+        if (allmcmc) {
+            TRUE
+        } else {
+            "Not all elements in the list are mcmc objects."
+        }
+    }
+}
+setValidity("McmcList4", mcmc_list_validity)
 
 ##' Markov Chain Monte Carlo Object List
 ##'
@@ -47,32 +64,10 @@ setOldClass("mcmc", S4Class="Mcmc4")
 ##' @aliases mcmc.list-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
-setClass("McmcList4", contains="list")
-mcmc_list_validity <- function(object) {
-    ## Allow for empty lists
-    if (length(object@.Data) == 0) {
-        TRUE
-    } else {
-        allmcmc <- all(sapply(object, is, class2="mcmc"))
-        if (allmcmc) {
-            TRUE
-        } else {
-            "Not all elements in the list are mcmc objects."
-        }
-    }
-}
-setValidity("McmcList4", mcmc_list_validity)
 setOldClass("mcmc.list", S4Class="McmcList4")
 ## removeClass("McmcList4")
 
 
-##' Summary Markov Chain Monte Carlo Objects
-##'
-##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{summary.mcmc}}.
-##'
-##'
-##'
-##' @seealso \code{\link[coda]{summary.mcmc}}
 setClass("SummaryMcmc4",
          representation(statistics = "matrix",
                         quantiles = "matrix",
@@ -80,5 +75,16 @@ setClass("SummaryMcmc4",
                         end = "numeric",
                         thin = "numeric",
                         nchain = "numeric"))
+setOldClass("summary.mcmc", S4Class="SummaryMcmc4")
+
+##' Summary Markov Chain Monte Carlo Objects
+##'
+##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{summary.mcmc}}.
+##'
+##' @name summary.mcmc-class
+##' @rdname summary.mcmc-class
+##' @aliases summary.mcmc-class
+##' @docType class
+##' @seealso \code{\link[coda]{summary.mcmc}}
 setOldClass("summary.mcmc", S4Class="SummaryMcmc4")
 ## removeClass("SummaryMcmc4")

@@ -10,9 +10,9 @@ Depends:
     coda
 Imports:
     stats4,
-    data.table
+    data.table,
+    coda
 Suggests:
-    coda,
     testthat,
     roxygen2
 Collate:
