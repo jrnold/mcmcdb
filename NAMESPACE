@@ -1,5 +1,4 @@
 exportClasses(McmcTable)
-exportClasses(McmcTable2)
 exportClasses(mcmc)
 exportClasses(mcmc.list)
 exportClasses(summary.mcmc)

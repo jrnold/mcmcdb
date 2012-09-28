@@ -11,6 +11,8 @@ Depends:
 Imports:
     stats4,
     data.table,
+    reshape2,
+    plyr
 Suggests:
     testthat,
     roxygen2,

@@ -118,10 +118,22 @@ setMethod("rbind2", signature(x="mcmc.list", y="missing"),
              do.call(rbind, x)
          })
 
+##' @export
+setMethod("melt", "mcmc.list",
+          function(data, ...) {
+              chains <- length(data)
+              data_len <- laply(data, function(x) prod(dim(x)))
+              result <- do.call(rbind, llply(data, melt))
+              result$chain <-
+                  as.integer((mapply(function(x, y) rep(x, y),
+                                     seq_len(chains), data_len)))
+              rownames(result) <- with(result, paste(parameter,
+                                                     iteration, chain, sep="."))
+              result
+          })
+
 ## Coercion
 setAs("mcmc.list", "matrix", function(from) rbind2(from))
 
 setAs("mcmc.list", "mcmc", function(from) mcmc(as(from, "matrix")))
-
-
 

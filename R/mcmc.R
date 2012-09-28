@@ -130,4 +130,12 @@ setMethod("median", "mcmc",
               apply(x, 2, median, na.rm=na.rm)
           })
 
+##' @export
+setMethod("melt", "mcmc",
+    function(data, ...) {
+        result <- callGeneric(as(data, "matrix"))
+        colnames(result)[1:2] <- c("iteration", "parameter")
+        rownames(result) <- with(result, paste(parameter, iteration, sep="."))
+        result
+    })
 

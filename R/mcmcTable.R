@@ -1,5 +1,10 @@
+##' @section Slots
+##'
 ##' @export
-setClass("McmcTable", contains="data.table")
+setClass("McmcTable",
+         contains="data.table",
+         representation(parameters="list",
+                        template="list"))
 validate_mcmc_table <- function(object) {
     msg <- character()
     if (colnames(object) != c("parameter", "chain", "iter", "value")) {
@@ -13,10 +18,9 @@ validate_mcmc_table <- function(object) {
 }
 setValidity("McmcTable", validate_mcmc_table)
 
-##' @export
-setClass("McmcTable2", contains="McmcTable",
-         representation(parameters="list",
-                        columns="list"))
+setAs("McmcTable", "mcmc.list",
+
+
 
 
 
