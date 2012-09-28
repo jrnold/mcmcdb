@@ -1,6 +1,6 @@
 \docType{data}
-\name{epil-data}
-\alias{epil-data}
+\name{epil}
+\alias{epil}
 \title{Epilepsy Data (BUGS Example Vol. 1)}
 \description{
   Data from OpenBUGS Examples, Volume 1, "Epilepsy:

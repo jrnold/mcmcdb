@@ -11,12 +11,6 @@
 \arguments{
   \item{data}{Input object}
 
-  \item{data}{start Iteration number for end of sample.}
-
-  \item{data}{end Iteration number for start of sample.}
-
-  \item{thin}{end Iteration number for start of sample.}
-
   \item{...}{passed to next generic}
 }
 \description{

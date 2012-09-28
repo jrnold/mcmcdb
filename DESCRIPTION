@@ -22,5 +22,5 @@ Collate:
     'summary-mcmc.R'
     'gelman-diag.R'
     'mcmcTable.R'
-    'epil.R'
     'csv.R'
+    'data.R'

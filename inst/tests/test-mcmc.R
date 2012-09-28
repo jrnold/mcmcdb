@@ -1,6 +1,3 @@
-library(testthat)
-library(stats)
-
 context("Tests for mcmc class")
 
 foo <- matrix(1:10)

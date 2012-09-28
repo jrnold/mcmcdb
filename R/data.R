@@ -8,5 +8,5 @@
 ##'
 ##' \href{http://code.google.com/p/stan/source/browse/#git%2Fsrc%2Fmodels%2Fbugs_examples%2Fvol1%2Fepil}{Stan source code repsository}
 ##' @docType data
-##' @name epil-data
+##' @name epil
 NULL

@@ -1,3 +1,31 @@
+##' @exportClass mcmc
+NULL
+
+##' Markov Chain Monte Carlo Objects
+##'
+##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc}}.
+##'
+##' @section Slots:
+##'
+##' \describe{
+##'     \item{\code{.Data}:}{Object of class \code{"matrix"}. Parameter matrix.}
+##'     \item{\code{mcpar}:}{Object of class \code{"numeric"} of length 3: start, end, and
+##'           thin of the iterations. }
+##'     \item{\code{.S3Class}:}{This class extends an S3 class.}
+##' }
+##'
+##' @section Extends:
+##'
+##' Class \code{"\linkS4class{oldClass}"}, directly.
+##' Class \code{"\linkS4class{matrix}"}, from data part.
+##'
+##' @name mcmc-class
+##' @rdname mcmc-class
+##' @aliases mcmc-class
+##' @docType class
+##' @seealso \code{\link[coda]{mcmc}}
+NULL
+
 setClass("Mcmc4", contains="matrix",
          representation(mcpar="numeric"))
 mcmc_validity <- function(object) {
@@ -27,31 +55,6 @@ mcmc_validity <- function(object) {
     }
 }
 setValidity("Mcmc4", mcmc_validity)
-
-##' Markov Chain Monte Carlo Objects
-##'
-##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc}}.
-##'
-##' @section Slots:
-##'
-##' \describe{
-##'     \item{\code{.Data}:}{Object of class \code{"matrix"}. Parameter matrix.}
-##'     \item{\code{mcpar}:}{Object of class \code{"numeric"} of length 3: start, end, and
-##'           thin of the iterations. }
-##'     \item{\code{.S3Class}:}{This class extends an S3 class.}
-##' }
-##'
-##' @section Extends:
-##'
-##' Class \code{"\linkS4class{oldClass}"}, directly.
-##' Class \code{"\linkS4class{matrix}"}, from data part.
-##'
-##' @name mcmc-class
-##' @rdname mcmc-class
-##' @aliases mcmc-class
-##' @docType class
-##' @seealso \code{\link[coda]{mcmc}}
-##' @exportClass mcmc
 setOldClass("mcmc", S4Class="Mcmc4")
 removeClass("Mcmc4")
 

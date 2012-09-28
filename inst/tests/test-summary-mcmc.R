@@ -1,5 +1,4 @@
-library(testthat)
-library(mcmc4)
+context("summary.mcmc tests")
 
 data("line", package="coda")
 line_summary <- summary(line)

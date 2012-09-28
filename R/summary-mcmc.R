@@ -1,3 +1,6 @@
+##' @exportClass summary.mcmc
+NULL
+
 ##' MCMC summary class
 ##'
 ##' @section Slots
@@ -16,7 +19,8 @@
 ##'
 ##' @name summary.mcmc-class
 ##' @rdname summary.mcmc-class
-##' @exportClass summary.mcmc
+NULL
+
 setClass("SummaryMcmc4", "list")
 validity_summary_mcmc <- function(object) {
     msg <- c()

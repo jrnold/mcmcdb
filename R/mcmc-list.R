@@ -1,3 +1,6 @@
+##' @exportClass mcmc.list
+NULL
+
 ##' Markov Chain Monte Carlo Object List
 ##'
 ##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc.list}}.
@@ -19,7 +22,6 @@
 ##' @aliases mcmc.list-class
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
-##' @exportClass mcmc.list
 NULL
 
 setClass("McmcList4", contains="list")
@@ -40,7 +42,6 @@ setValidity("McmcList4", mcmc_list_validity)
 setOldClass("mcmc.list", S4Class="McmcList4")
 removeClass("McmcList4")
 
-##' @export
 mcmc.list <- function (x, ...) {
     new("mcmc.list", c(x, list(...)))
 }
@@ -118,9 +119,9 @@ setMethod("rbind2", signature(x="mcmc.list", y="missing"),
          })
 
 ## Coercion
-
 setAs("mcmc.list", "matrix", function(from) rbind2(from))
 
 setAs("mcmc.list", "mcmc", function(from) mcmc(as(from, "matrix")))
+
 
 
