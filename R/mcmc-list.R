@@ -1,20 +1,3 @@
-
-setClass("McmcList4", contains="list")
-mcmc_list_validity <- function(object) {
-    ## Allow for empty lists
-    if (length(object@.Data) == 0) {
-        TRUE
-    } else {
-        allmcmc <- all(sapply(object, is, class2="mcmc"))
-        if (allmcmc) {
-            TRUE
-        } else {
-            "Not all elements in the list are mcmc objects."
-        }
-    }
-}
-setValidity("McmcList4", mcmc_list_validity)
-
 ##' Markov Chain Monte Carlo Object List
 ##'
 ##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc.list}}.
@@ -37,6 +20,23 @@ setValidity("McmcList4", mcmc_list_validity)
 ##' @docType class
 ##' @seealso \code{\link[coda]{mcmc}}
 ##' @exportClass mcmc.list
+NULL
+
+setClass("McmcList4", contains="list")
+mcmc_list_validity <- function(object) {
+    ## Allow for empty lists
+    if (length(object@.Data) == 0) {
+        TRUE
+    } else {
+        allmcmc <- all(sapply(object, is, class2="mcmc"))
+        if (allmcmc) {
+            TRUE
+        } else {
+            "Not all elements in the list are mcmc objects."
+        }
+    }
+}
+setValidity("McmcList4", mcmc_list_validity)
 setOldClass("mcmc.list", S4Class="McmcList4")
 removeClass("McmcList4")
 
@@ -53,8 +53,11 @@ mcmc.list <- function (x, ...) {
 ##' @export
 setGeneric("mcmc.list")
 
-## Apply function to Mmcm Scalar Parameter over ALL chains
-## Use one column at a time to conserve memory
+## Apply function to parameters concatenated over all chains
+##
+## This iterates one column at a time to conserve memory (I hope).
+##
+##
 mcmc_iter_column <- function(x, FUN=identity, ...) {
     n <- ncol(x[[1]])
     sapply(seq_len(n),
@@ -95,4 +98,20 @@ setMethod("vcov", "mcmc.list",
               cov(do.call(rbind, object), ...)
           })
 
+##' Mcmc.list into a matrix.
+##'
+##' Binds all \code{mcmc} objects in a \code{mcmc.list} into
+##' a single matrix.
+##'
+##' @return \code{matrix} object with columns equal to the number of
+##' parameters in the \code{mcmc} objects, and a number of rows equal
+##' to the sum of the iterations over all chains.
+##'
+##' @export
+setMethod(rbind2, signature(x="mcmc.list", y="missing"),
+         function(x, y, ...) {
+             do.call(rbind, x)
+         })
+##' @export
+setAs("mcmc.list", "matrix", function(from, to) rbind2(from))
 

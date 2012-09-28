@@ -70,7 +70,19 @@ setMethod("gelman_diag_split", "matrix",
               apply(x, 2, gelman_diag_split)
           })
 
+setMethod("gelman_diag_split", "list",
+          function(x, ...) {
+              lapply(x, gelman_diag_split, ...)
+          })
+
+## Should work via inheritance
+## setMethod("gelman_diag_split", "mcmc",
+##           function(x, ...) {
+##               gelman_diag_split(as.matrix(x), ...)
+##           })
+
 setMethod("gelman_diag_split", "mcmc",
           function(x, ...) {
               gelman_diag_split(as.matrix(x), ...)
           })
+
