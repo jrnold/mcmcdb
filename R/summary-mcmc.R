@@ -1,6 +1,6 @@
 ##' @exportClass summary.mcmc
-setClass("SummaryMcmcS4", "list")
-setValidity(function(object) {
+setClass("SummaryMcmc4", "list")
+validity_summary_mcmc <- function(object) {
     msg <- c()
     if (names(object) != c("statistics", "quantiles", "start",
              "end", "thin", "nchain")) {
@@ -12,9 +12,10 @@ setValidity(function(object) {
     } else {
         TRUE
     }
-})
-setOldClass("summary.mcmc", S4="SummaryMcmcS4")
-removeClass("SummaryMcmcS4")
+}
+setValidity("SummaryMcmc4", validity_summary_mcmc)
+setOldClass("summary.mcmc", S4="SummaryMcmc4")
+removeClass("SummaryMcmc4")
 
 ## summary.mcmc methods
 ##' @export
