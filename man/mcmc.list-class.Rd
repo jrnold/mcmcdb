@@ -7,13 +7,15 @@
   \code{\link[coda]{mcmc.list}}. This is simply a list of
   \code{\link{mcmc}} object.
 }
-\details{
-  \section{Slots}{ \describe{ \item{\code{.Data}:}{Object
-  of class \code{"list"} of \code{"mcmc"} objects. }
+\section{Slots}{
+  \describe{ \item{\code{.Data}:}{Object of class
+  \code{"list"} of \code{"mcmc"} objects. }
   \item{\code{.S3Class}:}{Object of class
-  \code{"character"}, name of S3 class this extends. } } }
-  \section{Extends}{ Class \code{"\linkS4class{list}"},
-  from data part. }
+  \code{"character"}, name of S3 class this extends. } }
+}
+
+\section{Extends}{
+  Class \code{"\linkS4class{list}"}, from data part.
 }
 \seealso{
   \code{\link[coda]{mcmc}}

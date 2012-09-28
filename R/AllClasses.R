@@ -4,7 +4,7 @@ mcmc_validity <- function(object) {
     msg <- c()
 
     if (!is.numeric(object)) {
-        msg <- append(mst, "Matrix is not numeric")
+        msg <- append(msg, "Matrix is not numeric")
     }
     start <- object@mcpar[1]
     end <- object@mcpar[2]
@@ -29,18 +29,20 @@ setValidity("Mcmc4", mcmc_validity)
 ##'
 ##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc}}.
 ##'
-##' \section{Slots}{
-##'   \describe{
+##' @section Slots:
+##'
+##' \describe{
 ##'     \item{\code{.Data}:}{Object of class \code{"matrix"}. Parameter matrix.}
 ##'     \item{\code{mcpar}:}{Object of class \code{"numeric"} of length 3: start, end, and
 ##'           thin of the iterations. }
 ##'     \item{\code{.S3Class}:}{This class extends an S3 class.}
-##'   }
 ##' }
-##' \section{Extends}{
-##'   Class \code{"\linkS4class{oldClass}"}, directly.
-##'   Class \code{"\linkS4class{matrix}"}, from data part.
-##' }
+##'
+##' @section Extends:
+##'
+##' Class \code{"\linkS4class{oldClass}"}, directly.
+##' Class \code{"\linkS4class{matrix}"}, from data part.
+##'
 ##' @name mcmc-class
 ##' @rdname mcmc-class
 ##' @aliases mcmc-class
@@ -72,15 +74,17 @@ setValidity("McmcList4", mcmc_list_validity)
 ##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc.list}}.
 ##' This is simply a list of \code{\link{mcmc}} object.
 ##'
-##' \section{Slots}{
-##'   \describe{
+##' @section Slots:
+##'
+##' \describe{
 ##'     \item{\code{.Data}:}{Object of class \code{"list"} of \code{"mcmc"} objects. }
 ##'     \item{\code{.S3Class}:}{Object of class \code{"character"}, name of S3 class this extends. }
-##'   }
 ##' }
-##' \section{Extends}{
-##'   Class \code{"\linkS4class{list}"}, from data part.
-##' }
+##'
+##' @section Extends:
+##'
+##' Class \code{"\linkS4class{list}"}, from data part.
+##'
 ##' @name mcmc.list-class
 ##' @rdname mcmc.list-class
 ##' @aliases mcmc.list-class

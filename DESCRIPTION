@@ -11,14 +11,13 @@ Depends:
 Imports:
     stats4,
     data.table,
-    coda
 Suggests:
     testthat,
     roxygen2
 Collate:
-    'mcmc4-package.r'
     'AllClasses.R'
     'gelman-diag.R'
     'mcmc.R'
     'mcmcTable.R'
     'epil.R'
+    'mcmc4-package.R'

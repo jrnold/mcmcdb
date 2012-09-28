@@ -28,6 +28,11 @@ test_that("mcmc function works with signature ts", {
     expect_that(tsdata@mcpar, is_identical_to(c(1959, 1967, 1)))
 })
 
-test_that("mcmc generic functions work", {
+test_that("Check mcmc generic functions", {
     x <- mcmc(matrix(rnorm(20), ncol=4))
+    expect_that(length(mean(x)), is_identical_to(ncol(x)))
+    expect_that(length(median(x)), is_identical_to(ncol(x)))
+    expect_that(dim(quantile(x)), equals(c(5, ncol(x))))
+    expect_that(length(coef(x)), is_identical_to(ncol(x)))
+    expect_that(dim(vcov(x)), equals(rep(ncol(x), 2)))
 })
