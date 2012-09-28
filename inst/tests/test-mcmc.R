@@ -3,38 +3,38 @@ library(stats)
 
 context("Tests for mcmc class")
 
-test_that("works with matrices", {
-    foo <- mcmc(matrix(1:10, ncol=2))
-    expect_is(foo, "mcmc")
-    expect_that(foo@.Data, is_identical_to(matrix(1:10, ncol=2)))
-    expect_that(foo@mcpar, is_identical_to(c(1, 5, 1)))
+foo <- matrix(1:10)
+
+test_that("initialization with no parameters works", {
+    x <- new("mcmc", foo)
+    expect_equal(x@.Data, foo)
+    expect_equal(x@mcpar, c(1, 10, 1))
 })
 
-test_that("sets mcpar correctly", {
-    foo <- mcmc(matrix(1:10, ncol=2))
-    expect_that(mcmc(matrix(1:10, ncol=2), start=6, end=14, thin=2)@mcpar,
-                is_identical_to(c(6, 14, 2)))
+test_that("initialization with start works", {
+    x <- new("mcmc", foo, start=6)
+    expect_equal(x@mcpar, c(6, 15, 1))
 })
-
-
+test_that("initialization with end works", {
+    x <- new("mcmc", foo, end=20)
+    expect_equal(x@mcpar, c(1, 20, 2))
+})
+test_that("catches inconsistent mcpar", {
+    expect_error(new("mcmc", foo, start=1, end=5))
+    expect_error(new("mcmc", foo, start=1, end=10, thin=5))
+})
 test_that("throws error with non-numeric matrices", {
-    expect_error(new("mcmc", matrix(letters), ))
+    expect_error(new("mcmc", matrix(letters)))
 })
-
-## expect_that(mcmc(matrix(1:10, ncol=2), start=1, thin=1)@mcpar,
-##             is_identical_to(c(1, 5, 1)))
-## expect_that(mcmc(matrix(1:10, ncol=2), end=10, thin=1)@mcpar,
-##             is_identical_to(c(6, 10, 1)))
-## expect_error(mcmc(matrix(1:10, ncol=2), start=1, end=10, thin=1)@mcpar)
 
 test_that("mcmc function works with signature numeric", {
-    expect_that(mcmc(1:10)@.Data, is_identical_to(matrix(1:10)))
+    expect_is(mcmc(1:10), "mcmc")
 })
 
 test_that("mcmc function works with signature ts", {
-    tsdata <- mcmc(ts(1:10, frequency = 4, start = c(1959, 2)))
-    expect_that(tsdata@.Data, is_identical_to(matrix(1:9)))
-    expect_that(tsdata@mcpar, is_identical_to(c(1959, 1967, 1)))
+    x <- mcmc(ts(foo))
+    expect_identical(x@.Data, foo)
+    expect_identical(x@mcpar, c(1, 10, 1))
 })
 
 test_that("Check mcmc generic functions", {
@@ -45,3 +45,5 @@ test_that("Check mcmc generic functions", {
     expect_that(length(coef(x)), is_identical_to(ncol(x)))
     expect_that(dim(vcov(x)), equals(rep(ncol(x), 2)))
 })
+
+
