@@ -60,9 +60,10 @@ setGeneric("mcmc.list")
 ##
 mcmc_iter_column <- function(x, FUN=identity, ...) {
     n <- ncol(x[[1]])
+    .FUN <- match.fun(FUN)
     sapply(seq_len(n),
            function(i){
-               FUN(unlist(lapply(x, function(j) as.numeric(j[ , i]))), ...)
+               .FUN(unlist(lapply(x, function(j) as.numeric(j[ , i]))), ...)
            })
 }
 
@@ -88,7 +89,7 @@ setMethod("quantile", "mcmc.list",
 ##' @export
 setMethod("coef", "mcmc.list",
           function(object, FUN="mean", ...) {
-              mcmc_iter_column(object, FUN, ...)
+              mcmc_iter_column(object, FUN=FUN, ...)
           })
 
 ##' @export
@@ -115,8 +116,11 @@ setMethod("rbind2", signature(x="mcmc.list", y="missing"),
          function(x, y, ...) {
              do.call(rbind, x)
          })
-##' @export
+
+## Coercion
+
 setAs("mcmc.list", "matrix", function(from) rbind2(from))
+
 setAs("mcmc.list", "mcmc", function(from) mcmc(as(from, "matrix")))
 
 

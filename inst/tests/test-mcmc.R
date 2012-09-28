@@ -3,20 +3,29 @@ library(stats)
 
 context("Tests for mcmc class")
 
-test_that("mcmc function works with matrices", {
+test_that("works with matrices", {
     foo <- mcmc(matrix(1:10, ncol=2))
+    expect_is(foo, "mcmc")
     expect_that(foo@.Data, is_identical_to(matrix(1:10, ncol=2)))
     expect_that(foo@mcpar, is_identical_to(c(1, 5, 1)))
+})
 
+test_that("sets mcpar correctly", {
+    foo <- mcmc(matrix(1:10, ncol=2))
     expect_that(mcmc(matrix(1:10, ncol=2), start=6, end=14, thin=2)@mcpar,
                 is_identical_to(c(6, 14, 2)))
-    expect_that(mcmc(matrix(1:10, ncol=2), start=1, thin=1)@mcpar,
-                is_identical_to(c(1, 5, 1)))
-    expect_that(mcmc(matrix(1:10, ncol=2), end=10, thin=1)@mcpar,
-                is_identical_to(c(6, 10, 1)))
-    expect_error(mcmc(matrix(1:10, ncol=2), start=1, end=10, thin=1)@mcpar)
-    expect_error(mcmc(matrix(letters)))
 })
+
+
+test_that("throws error with non-numeric matrices", {
+    expect_error(new("mcmc", matrix(letters), ))
+})
+
+## expect_that(mcmc(matrix(1:10, ncol=2), start=1, thin=1)@mcpar,
+##             is_identical_to(c(1, 5, 1)))
+## expect_that(mcmc(matrix(1:10, ncol=2), end=10, thin=1)@mcpar,
+##             is_identical_to(c(6, 10, 1)))
+## expect_error(mcmc(matrix(1:10, ncol=2), start=1, end=10, thin=1)@mcpar)
 
 test_that("mcmc function works with signature numeric", {
     expect_that(mcmc(1:10)@.Data, is_identical_to(matrix(1:10)))
