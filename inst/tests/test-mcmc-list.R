@@ -3,6 +3,8 @@ library(mcmc4)
 
 context("mcmc.list class and methods")
 
+data(line, package="coda")
+
 test_that("mcmc.list class definition", {
     ## Check that class is exported
     expect_true(isClass("mcmc.list"))
@@ -17,13 +19,22 @@ test_that("mcmc.list class definition", {
     expect_error(new("mcmc.list", list(1, "a", 1:5)))
 })
 
-test_that("mcmc.list methods work", {
-    x <- new("mcmc.list",
-             lapply(seq(20,24,by=2),
-                    function(i) mcmc(matrix(rnorm(i), ncol=2))))
-    expect_that(length(mean(x)), equals(ncol(x[[1]])))
-    expect_that(length(median(x)), equals(ncol(x[[1]])))
-    expect_that(dim(quantile(x)), equals(c(5, ncol(x[[1]]))))
-    expect_that(dim(vcov(x)), equals(rep(ncol(x[[1]]), 2)))
-    expect_that(length(coef(x)), equals(ncol(x[[1]])))
+test_that("method mean for signature mcmc.list works", {
+    expect_that(length(mean(line)), equals(ncol(line[[1]])))
 })
+test_that("method median for signature mcmc.list works", {
+    expect_that(length(median(line)), equals(ncol(line[[1]])))
+})
+test_that("method quantile for signature mcmc.list works", {
+    expect_that(dim(quantile(line)), equals(c(5, ncol(line[[1]]))
+})
+test_that("method vcov for signature mcmc.list works", {
+    expect_that(dim(vcov(line)), equals(rep(ncol(line[[1]]), 2)))
+})
+test_that("method coef for signature mcmc.list works", {
+    expect_that(coef(line), equals(mean(line)))
+    expect_that(coef(line, method="median"), is_equivalent_to(median(line)))
+})
+test_that("as mcmc.list -> mcmc works") {
+
+}

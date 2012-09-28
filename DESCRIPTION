@@ -16,9 +16,10 @@ Suggests:
     roxygen2,
     coda
 Collate:
-    'AllClasses.R'
-    'gelman-diag.R'
     'mcmc.R'
+    'mcmc-list.R'
+    'summary-mcmc.R'
+    'gelman-diag.R'
     'mcmcTable.R'
     'epil.R'
     'mcmc4-package.R'

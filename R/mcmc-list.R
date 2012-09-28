@@ -84,34 +84,39 @@ setMethod("quantile", "mcmc.list",
               mcmc_iter_column(x, quantile, ...)
           })
 
-
 ## mcmc.list methods
 ##' @export
 setMethod("coef", "mcmc.list",
           function(object, FUN="mean", ...) {
-              apply(do.call(rbind, object), 2, FUN)
+              mcmc_iter_column(object, FUN, ...)
           })
 
 ##' @export
 setMethod("vcov", "mcmc.list",
           function(object, ...) {
-              cov(do.call(rbind, object), ...)
+              cov(as(object, "matrix"), ...)
           })
 
 ##' Mcmc.list into a matrix.
 ##'
-##' Binds all \code{mcmc} objects in a \code{mcmc.list} into
-##' a single matrix.
+##' Binds all \code{mcmc} objects in a \code{mcmc.list} into a single
+##' matrix. This returns a \code{matrix} instead of \code{mcmc} since
+##' the start/end/thin values would no longer make sense. However,
+##' \code{as(from, "mcmc")} will transfrom an \code{mcmc.list} object
+##' into a \code{mcmc} object with all the chains stacked on top of
+##' each other.
 ##'
 ##' @return \code{matrix} object with columns equal to the number of
 ##' parameters in the \code{mcmc} objects, and a number of rows equal
 ##' to the sum of the iterations over all chains.
 ##'
 ##' @export
-setMethod(rbind2, signature(x="mcmc.list", y="missing"),
+setMethod("rbind2", signature(x="mcmc.list", y="missing"),
          function(x, y, ...) {
              do.call(rbind, x)
          })
 ##' @export
-setAs("mcmc.list", "matrix", function(from, to) rbind2(from))
+setAs("mcmc.list", "matrix", function(from) rbind2(from))
+setAs("mcmc.list", "mcmc", function(from) mcmc(as(from, "matrix")))
+
 
