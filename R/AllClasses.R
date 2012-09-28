@@ -94,13 +94,6 @@ setValidity("McmcList4", mcmc_list_validity)
 setOldClass("mcmc.list", S4Class="McmcList4")
 removeClass("McmcList4")
 
-setClass("SummaryMcmc4",
-         representation(statistics = "matrix",
-                        quantiles = "matrix",
-                        start = "numeric",
-                        end = "numeric",
-                        thin = "numeric",
-                        nchain = "numeric"))
 
 ##' Summary Markov Chain Monte Carlo Objects
 ##'

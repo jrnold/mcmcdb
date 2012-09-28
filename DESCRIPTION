@@ -13,7 +13,8 @@ Imports:
     data.table,
 Suggests:
     testthat,
-    roxygen2
+    roxygen2,
+    coda
 Collate:
     'AllClasses.R'
     'gelman-diag.R'

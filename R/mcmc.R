@@ -137,12 +137,3 @@ setMethod("vcov", "mcmc.list",
           })
 
 
-## summary.mcmc methods
-##' @export
-setAs("summary.mcmc", "data.frame",
-      function(from) {
-          to <- data.frame(cbind(from@statistics, from@quantiles))
-          to$variable <- rownames(to)
-          to
-      })
-
