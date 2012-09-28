@@ -1,5 +1,5 @@
-\name{summary.mcmc-class}
-\alias{summary.mcmc-class}
+\name{SummaryMcmc4}
+\alias{SummaryMcmc4}
 \title{MCMC summary class}
 \description{
   MCMC summary class
