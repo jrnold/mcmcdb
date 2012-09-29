@@ -133,7 +133,13 @@ setMethod("melt", "mcmc.list",
           })
 
 ## Coercion
+## From mcmc.list
 setAs("mcmc.list", "matrix", function(from) rbind2(from))
-
 setAs("mcmc.list", "mcmc", function(from) mcmc(as(from, "matrix")))
+
+## To mcmc.list
+setAs("mcmc", "mcmc.list",
+      function(from) {
+          new("mcmc.list", list(from))
+      })
 
