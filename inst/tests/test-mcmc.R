@@ -53,3 +53,4 @@ test_that("melt works", {
     expect_equal(colnames(foo), c("iteration", "parameter", "value"))
 })
 
+

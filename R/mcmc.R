@@ -58,38 +58,47 @@ setValidity("Mcmc4", mcmc_validity)
 setOldClass("mcmc", S4Class="Mcmc4")
 removeClass("Mcmc4")
 
-##' Initialize
 initialize_mcmc <- function(.Object, data,
                             start=1,
                             end=start + nrow(data) - 1,
-                            thin=(end - start + 1)/nrow(data))
-{
+                            thin=(end - start + 1)/nrow(data)) {
     .Object@.Data <- data
-    .Object@mcpar <- c(start[1], end[1], thin[1])
+    .Object@mcpar <- sapply(list(start, end, thin), first)
     validObject(.Object)
     .Object
 }
+
 setMethod("initialize", "mcmc", initialize_mcmc)
 
-##' Create mcmc
+##' Create mcmc objects
 ##'
-##' Generic function to create mcmc objects from various types of inputs.
+##' Create an \code{mcmc} object.
 ##'
+##' \describe{
+##' \item{\code{signature(data = "ANY")}}{}
+##' \item{\code{signature(data = "numeric")}}{}
+##' \item{\code{signature(data = "ts")}}{}
+##' }
+##'
+##' @aliases mcmc-methods
+##' @aliases mcmc,ANY-method
+##' @aliases mcmc,numeric-method
+##' @aliases mcmc,ts-method
 ##' @param data Input object
+##' @rdname mcmc
 ##' @export
 setGeneric("mcmc",
            function(data, ...) {
                new("mcmc", data, ...)
            })
 
-##' @param ... passed to next generic
-##' @rdname mcmc
 mcmc_numeric <- function(data, ...) {
     callGeneric(as.matrix(data), ...)
 }
-setMethod("mcmc", "numeric", mcmc_numeric)
 
 ##' @rdname mcmc
+setMethod("mcmc", "numeric", mcmc_numeric)
+
 mcmc_ts <- function(data, ...) {
     start <- start(data)[1]
     end <- end(data)[1]
@@ -101,19 +110,32 @@ mcmc_ts <- function(data, ...) {
     }
     callGeneric(matrix(data), start=start, end=end, thin=thin)
 }
+
+##' @rdname mcmc
 setMethod("mcmc", "ts", mcmc_ts)
 
-## mcmc  methods
+##' Return a coefficient vector for "mcmc" objects.
+##'
+##' This method is meant to be equivalent to the "coef" method for
+##' "mle" objects, in the sense that it returns a vector point
+##' estimate for each parameter. By default, the point estimate
+##' returned is the mean.
+##'
+##' @param FUN Function used to calculate the point estimate.
+##'
 ##' @export
 setMethod("coef", "mcmc",
           function(object, FUN="mean", ...) {
               apply(object, 2, FUN)
           })
+
+##' Calculate variance-covariance matrix of mcmc parameters
+##'
 ##' @export
 setMethod("vcov", "mcmc",
           function(object, ...) cov(object, ...))
 
-##' Mcmc Generic Functions
+##' Calculate the
 ##' @export
 setMethod("mean", "mcmc",
           function(x, ...) {
@@ -130,6 +152,17 @@ setMethod("median", "mcmc",
               apply(x, 2, median, na.rm=na.rm)
           })
 
+##' Melt mcmc objects.
+##'
+##' This melts an \code{mcmc} object into a data frame
+##'
+##' @return \code{data.frame} with columns
+##' \describe{
+##' \item{\code{iteration}}{\code{integer}}
+##' \item{\code{parameter}}{\code{factor}}
+##' \item{\code{value}}{\code{numeric}}
+##' }
+##'
 ##' @export
 setMethod("melt", "mcmc",
     function(data, ...) {

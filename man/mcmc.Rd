@@ -1,20 +1,19 @@
 \name{mcmc}
 \alias{mcmc}
-\alias{mcmc_numeric}
-\alias{mcmc_ts}
-\title{Create mcmc}
-\usage{
-  mcmc_numeric(data, ...)
-
-  mcmc_ts(data, ...)
-}
+\alias{mcmc-methods}
+\alias{mcmc,ANY-method}
+\alias{mcmc,numeric-method}
+\alias{mcmc,ts-method}
+\title{Create mcmc objects}
 \arguments{
   \item{data}{Input object}
-
-  \item{...}{passed to next generic}
 }
 \description{
-  Generic function to create mcmc objects from various
-  types of inputs.
+  Create an \code{mcmc} object.
+}
+\details{
+  \describe{ \item{\code{signature(data = "ANY")}}{}
+  \item{\code{signature(data = "numeric")}}{}
+  \item{\code{signature(data = "ts")}}{} }
 }
 

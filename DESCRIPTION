@@ -12,6 +12,7 @@ Imports:
     stats4,
     data.table,
     reshape2,
+    stringr,
     plyr
 Suggests:
     testthat,
@@ -23,6 +24,8 @@ Collate:
     'mcmc-list.R'
     'summary-mcmc.R'
     'gelman-diag.R'
-    'mcmcTable.R'
     'csv.R'
     'data.R'
+    'parameter-parsers.R'
+    'mcmc2.R'
+    'utilities.R'

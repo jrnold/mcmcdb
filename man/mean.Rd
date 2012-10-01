@@ -1,7 +1,7 @@
 \name{mean}
 \alias{mean}
-\title{Mcmc Generic Functions}
+\title{Calculate the}
 \description{
-  Mcmc Generic Functions
+  Calculate the
 }
 
