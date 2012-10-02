@@ -38,7 +38,6 @@ setValidity("SummaryMcmc4", validity_summary_mcmc)
 setOldClass("summary.mcmc", S4="SummaryMcmc4")
 removeClass("SummaryMcmc4")
 
-##' @export
 setAs("summary.mcmc", "data.frame",
       function(from) {
           to <- data.frame(as(from, "matrix"))
@@ -46,7 +45,6 @@ setAs("summary.mcmc", "data.frame",
           to
       })
 
-##' @export
 setAs("summary.mcmc", "matrix",
       function(from) {
           cbind(from$statistics, from$quantiles)

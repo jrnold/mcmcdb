@@ -9,17 +9,13 @@
 ##'
 ##' @section Extends:
 ##'
-##'
 ##' \describe{
 ##' \item{\code{mcmc.list}}{directly}
 ##' }
 ##'
 ##' @export
 setClass("McmcList2", contains="mcmc.list",
-         representation(parameters="character",
-                        template="list",
-                        indices="list"))
-
+         representation(parameters="McmcParameterMeta"))
 
 mcmc2_default <- function(data, ...,
                           parameter_names=colnames(data[[1]]),
@@ -73,24 +69,4 @@ mcmc_to_iterations <- function(object, data=list(), FUN=identity, ...) {
     names(ret) <- listnames
     ret
 }
-
-## mcmc_to_array <- function(object, ...) {
-##     do_iteration <- function(x, indices, template) {
-##         template[indices] <- x
-##         template
-##     }
-
-##     ## This can be done better
-##     ## I think object may be being moved around each time.
-##     do_parameter <- function(j, object) {
-##         columns <- rownames(object@indices[[j]])
-##         template <- object@template[[j]]
-##         indices <- object@indices[[j]]
-##         aaply(object[ , columns], 1, do_iteration, indices=indices, template=template)
-##     }
-##     llpply(names(object@indices), do_parameter, object=object, ...)
-
-## }
-
-
 

@@ -80,32 +80,26 @@ mcmc_iter_column <- function(x, FUN=identity, ...) {
            })
 }
 
-##' @export
 setMethod("mean", "mcmc.list",
           function(x, ...) {
               mcmc_iter_column(x, mean, ...)
           })
 
-##' @export
 setMethod("median", "mcmc.list",
           function(x, na.rm=FALSE) {
               mcmc_iter_column(x, median, na.rm=na.rm)
           })
 
-##' @export
 setMethod("quantile", "mcmc.list",
           function(x, ...) {
               mcmc_iter_column(x, quantile, ...)
           })
 
-## mcmc.list methods
-##' @export
 setMethod("coef", "mcmc.list",
           function(object, FUN="mean", ...) {
               mcmc_iter_column(object, FUN=FUN, ...)
           })
 
-##' @export
 setMethod("vcov", "mcmc.list",
           function(object, ...) {
               cov(as(object, "matrix"), ...)

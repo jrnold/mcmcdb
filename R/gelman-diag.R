@@ -57,7 +57,6 @@ setGeneric("gelman_diag", gelman_diag)
 ##' @export
 setGeneric("gelman_diag_split", function(x, ...) standardGeneric("gelman_diag_split"))
 
-##' @export
 setMethod("gelman_diag_split", "numeric",
           function(x, ...) {
               n <- length(x)
@@ -66,19 +65,16 @@ setMethod("gelman_diag_split", "numeric",
               gelman_diag(mcmc.list(mcmc(x[i1]), mcmc(x[i2])))
           })
 
-##' @export
 setMethod("gelman_diag_split", "matrix",
           function(x, ...) {
               apply(x, 2, gelman_diag_split)
           })
 
-##' @export
 setMethod("gelman_diag_split", "list",
           function(x, ...) {
               lapply(x, gelman_diag_split, ...)
           })
 
-##' @export
 setMethod("gelman_diag_split", "mcmc",
           function(x, ...) {
               gelman_diag_split(as.matrix(x), ...)

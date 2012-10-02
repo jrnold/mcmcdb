@@ -100,13 +100,6 @@ parsed_parameters_to_indices <- function(x) {
     result
 }
 
-## Convert parsed parameter data frame
-process_parsed_parameters <- function(x) {
-    list(parameters=parsed_parameters_to_parameters(x),
-         template=parsed_parameters_to_template(x),
-         indices=parsed_parameters_to_indices(x))
-}
-
 checkif_bugs_parameters <- function(x) {
     str_all_match(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$")
 }
@@ -115,4 +108,88 @@ checkif_bugs_parameters <- function(x) {
 checkif_stan_parameters <- function(x) {
     str_all_match(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$")
 }
+
+
+##' @export
+setClass("McmcParameterMeta",
+         representation(parameters="character",
+                        template="list",
+                        indices="list"))
+
+validate_mcmc_parameter_meta <- function(object) {
+    par_flat <- names(object@parameters)
+    par_array <- unique(object@parameters)
+    tmpl_dim <- lapply(object@template, dim)
+    indices_max <- lapply(object@indices, function(x) apply(x, 2, max))
+    msg <- c()
+    ## TODO:
+    if (!setequal(par_array, names(object@template))) {
+        msg <- c(msg, "names(object@template) disagree with the names in object@parameters")
+    }
+    if (!setequal(par_array, names(object@indices))) {
+        msg <- c(msg, "names(object@indices) disagree with the names in object@parameters")
+    }
+    if (!setequal(sapply(object@indices, rownames), par_flat)) {
+        msg <- c(msg, "rownames in object@indices disagree with the parameters in object@parameters")
+    }
+    if (any(mapply(function(x, y) any(x > y), indices_max, tmpl_dim))) {
+        msg <- c(msg, "an index in object@indices is out of range of objects@template")
+    }
+    if (any(unlist(sapply(object@indices, `<`, y=1)))) {
+        msg <- c(msg, "values in object@indices cannot be less than 1")
+    }
+    if (length(msg)) {
+        msg
+    } else {
+        TRUE
+    }
+}
+setValidity("McmcParameterMeta", validate_mcmc_parameter_meta)
+
+### Initialize
+##' @export
+setGeneric("McmcParameterMeta", function(x, ...) standardGeneric("McmcParameterMeta"))
+
+mcmc_parameter_meta_data_frame <- function(x, ...) {
+    new("McmcParameterMeta",
+        parameters=parsed_parameters_to_parameters(x),
+        template=parsed_parameters_to_template(x),
+        indices=parsed_parameters_to_indices(x))
+}
+
+setMethod("McmcParameterMeta", "data.frame", mcmc_parameter_meta_data_frame)
+
+setMethod("McmcParameterMeta", "matrix",
+          function(x, ...) {
+              callGeneric(as(x, "data.frame"), ...)
+          })
+
+setMethod("McmcParameterMeta", "character",
+          function(x, fun=parse_parameter_names_default, ...) {
+              callGeneric(fun(x, ...))
+          })
+
+### Array List
+##' @export
+setGeneric("mcmcToArrayList",
+           function(metadata, x, ...) standardGeneric("mcmcToArrayList"))
+
+mcmc_to_array_list <- function(metadata, x, ...) {
+    results <- template
+    for (j in names(template)) {
+        pars <- indices[[j]]
+        results[[j]][pars] <- x[rownames(pars)]
+    }
+    results
+}
+
+setMethod("mcmcToArrayList", c(metadata="McmcParameterMeta", x="ANY"),
+          mcmc_to_array_list)
+
+mcmc_to_array_list_matrix <- function(metadata, x, ...) {
+    alply(x, 1, mcmc_to_array_list, metadata=metadata, ...)
+}
+
+setMethod("mcmcToArrayList", c(metadata="McmcParameterMeta", x="matrix"),
+          mcmc_to_array_list_matrix)
 
