@@ -1,4 +1,9 @@
-##' Mcmc Samples Object with metadata about parameters
+##' Improved mcmc.list class
+##'
+##' This class extends the standard \code{\link[coda]{mcmc.list}}
+##' class with metadata about the shape of the parameters that can be
+##' used to convert them back to their original shapes to make
+##' postprocessing easier.
 ##'
 ##' @section Slots:
 ##'
