@@ -43,7 +43,10 @@ setOldClass("mcmc.list", S4Class="McmcList4")
 removeClass("McmcList4")
 
 mcmc.list <- function (x, ...) {
-    new("mcmc.list", c(x, list(...)))
+    if (!all(sapply(x, is, class2="mcmc"))) {
+        x <- lapply(x, mcmc, ...)
+    }
+    new("mcmc.list", x)
 }
 ##' Create mcmc.list
 ##'
@@ -53,6 +56,15 @@ mcmc.list <- function (x, ...) {
 ##' @param ... \code{mcmc} objects.
 ##' @export
 setGeneric("mcmc.list")
+
+setMethod("mcmc.list", "mcmc",
+          function(x, ...) {
+              callGeneric(list(x), ...)
+          })
+setMethod("mcmc.list", "matrix",
+          function(x, ...) {
+              callGeneric(mcmc(x), ...)
+          })
 
 ## Apply function to parameters concatenated over all chains
 ##
