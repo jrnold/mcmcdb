@@ -15,7 +15,6 @@ data <- mcmc.list(replicate(2, mcmc(matrix(rnorm(5 * 10), ncol=5,
                                            dimnames=list(1:10, COLUMN_STR))),
                             simplify=FALSE))
 
-
 test_that("McmcList2, signature=mcmc.list produces correct mcmc2 objects", {
     newdata <- McmcList2(data, fun=parse_parameter_names_stan)
     expect_is(newdata, "McmcList2")
@@ -30,7 +29,6 @@ test_that("McmcList2, signature=mcmc produces mcmc2 objects", {
     expect_is(newdata, "McmcList2")
 })
 
-
 test_that("mcmc_to_iterations works", {
     newdata <- McmcList2(data, fun=parse_parameter_names_stan)
     datalist <- mcmc_to_iterations(newdata)
@@ -38,15 +36,5 @@ test_that("mcmc_to_iterations works", {
     expect_equal(names(datalist[[1]]), c("alpha", "beta"))
     expect_equal(lapply(datalist[[1]], dim), list(alpha=NULL, beta=c(2, 2)))
 })
-
-test_that("mcmc_to_iterations works", {
-    newdata <- McmcList2(data, fun=parse_parameter_names_stan)
-    datalist <- mcmc_to_iterations(newdata)
-    expect_is(datalist, "list")
-    expect_equal(names(datalist[[1]]), c("alpha", "beta"))
-    expect_equal(lapply(datalist[[1]], dim), list(alpha=NULL, beta=c(2, 2)))
-})
-
-
 
 
