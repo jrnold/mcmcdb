@@ -1,12 +1,12 @@
-##' Epilepsy Data (BUGS Example Vol. 1)
+##' Simple Linear Regression Example
 ##'
-##' Data from OpenBUGS Examples, Volume 1,  "Epilepsy: Repeated measures
-##' on Poisson Counts"
+##' Sample MCMC output from a simple linear regression model given in the BUGS manual.
+##' These data also appear in the \code{coda}, \code{boa} and \code{rjags} packages.
 ##'
-##' @references
-##' \url{http://www.openbugs.info/Examples/Epil.html}
+##' @source Spiegelhalter, D.J., Thomas, A., Best, N.G. and Gilks,
+##' W.R. (1995) BUGS: Bayesian inference using Gibbs Sampling, Version
+##' 0.5, MRC Biostatistics Unit, Cambridge.
 ##'
-##' @docType data
-##' @name epil
+##' @doctype data
+##' @seealso \code{\line[coda]{line}}
 NULL
-
