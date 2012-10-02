@@ -1,9 +1,9 @@
 \name{mcmc}
 \alias{mcmc}
-\alias{mcmc-methods}
 \alias{mcmc,ANY-method}
 \alias{mcmc,numeric-method}
 \alias{mcmc,ts-method}
+\alias{mcmc-methods}
 \title{Create mcmc objects}
 \arguments{
   \item{data}{Input object}

@@ -10,18 +10,14 @@
 
   Create Mcmc2 objects
 }
-\section{Slots
-\describe{
-\item{\code{indices}}{List of matrices which map each flat parameter name to its parameter array.}
-\item{\code{template}}{List of parameter arrays in the same form as they were in the estimation.}
-}}{
-
+\section{Slots}{
+  \describe{ \item{\code{indices}}{List of matrices which
+  map each flat parameter name to its parameter array.}
+  \item{\code{template}}{List of parameter arrays in the
+  same form as they were in the estimation.} }
 }
 
-\section{Extends
-\describe{
-\item{\code{mcmc.list}}{directly}
-}}{
-
+\section{Extends}{
+  \describe{ \item{\code{mcmc.list}}{directly} }
 }
 

@@ -3,14 +3,14 @@ NULL
 
 ##' MCMC summary class
 ##'
-##' @section Slots
+##' @section Slots:
 ##'
 ##' \describe{
 ##' \item{\code{.Data}}{\code{list} with elements
 ##' "statistics", "quantiles", "start", "end", "thin", and "nchain".}
 ##' }
 ##'
-##' @section Extends
+##' @section Extends:
 ##'
 ##' \describe{
 ##' \item{list}{directly}
@@ -20,7 +20,6 @@ NULL
 ##' @name summary.mcmc-class
 ##' @rdname summary.mcmc-class
 NULL
-
 setClass("SummaryMcmc4", "list")
 validity_summary_mcmc <- function(object) {
     msg <- c()
@@ -39,7 +38,6 @@ setValidity("SummaryMcmc4", validity_summary_mcmc)
 setOldClass("summary.mcmc", S4="SummaryMcmc4")
 removeClass("SummaryMcmc4")
 
-## summary.mcmc methods
 ##' @export
 setAs("summary.mcmc", "data.frame",
       function(from) {
@@ -53,6 +51,5 @@ setAs("summary.mcmc", "matrix",
       function(from) {
           cbind(from$statistics, from$quantiles)
       })
-
 
 

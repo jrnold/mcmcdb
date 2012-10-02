@@ -12,11 +12,11 @@ Imports:
     data.table,
     reshape2,
     stringr,
-    plyr
+    plyr,
+    coda
 Suggests:
     testthat,
     roxygen2,
-    coda
 Collate:
     'mcmc4-package.R'
     'mcmc.R'
