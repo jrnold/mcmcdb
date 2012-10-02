@@ -1,6 +1,10 @@
-\name{Mcmc2}
-\alias{Mcmc2}
+\name{McmcList2}
+\alias{McmcList2}
 \title{Mcmc Samples Object with metadata about parameters}
+\arguments{
+  \item{parameter_names}{\code{character} vector of flat
+  parameter names used to get the}
+}
 \description{
   Mcmc Samples Object with metadata about parameters
 
@@ -16,7 +20,7 @@
 
 \section{Extends
 \describe{
-\item{\code{mcmc}}{directly}
+\item{\code{mcmc.list}}{directly}
 }}{
 
 }

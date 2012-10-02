@@ -36,13 +36,12 @@ mcmc2_default <- function(data, ...,
 ##'
 ##' @param parameter_names \code{character} vector of flat parameter names used
 ##' to get the
-##' @
 ##'
 ##' @export
 setGeneric("McmcList2", mcmc2_default)
 
-##' @export
 ## TODO: make generic
+##' @export
 mcmc_to_iterations <- function(object, data=list(), FUN=identity, ...) {
     do_iteration <- function(x, indices, template, innerfun, data, ...) {
         results <- template
