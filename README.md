@@ -6,4 +6,5 @@ simulations from the **coda** package, `mcmc`, `mcmc.list` and
 classes it is easier to inherit from these classes in order to build
 in specific behavior for models.
 
+**WARNING** This is still mostly undocumented and a work in progress.
 
