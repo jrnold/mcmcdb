@@ -28,6 +28,14 @@ str_all_match <- function(string, pattern) {
     !any(is.na(str_match(string, pattern)[ , 1]))
 }
 
+## Strip some attributes added by plyr
+strip_plyr_attr <- function(x) {
+    for (i in c("split_type", "split_labels")) {
+        attr(x, i) <- NULL
+    }
+    x
+}
+
 ## zeros_int <- function(dim) {
 ##     if (length(dim) <= 1) {
 ##         integer(dim)

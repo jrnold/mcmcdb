@@ -55,7 +55,11 @@ parse_parameter_names_bugs <- function(x) {
     result
 }
 
-parsed_parameters_to_template <- function(x) {
+parsed_parameters_to_parameters <- function(x) {
+    structure(x$pararray, names=rownames(x))
+}
+
+parsed_parameters_to_skeleton <- function(x) {
     split_indices <- function(indices, n_dim) {
         str_split_fixed(indices, fixed(","), n_dim)
     }
@@ -72,14 +76,7 @@ parsed_parameters_to_template <- function(x) {
                   zeros(y_dim)
               })
     ## remove unessary attributes created by dlply
-    for (i in c("split_type", "split_labels")) {
-        attr(result, i) <- NULL
-    }
-    result
-}
-
-parsed_parameters_to_parameters <- function(x) {
-    structure(x$pararray, names=rownames(x))
+    strip_plyr_attr(result)
 }
 
 parsed_parameters_to_indices <- function(x) {
@@ -92,48 +89,62 @@ parsed_parameters_to_indices <- function(x) {
         rownames(result) <- rownames(x)
         result
     }
-    result <- dlply(x, "pararray", f)
-    ## remove unessary attributes created by dlply
-    for (i in c("split_type", "split_labels")) {
-        attr(result, i) <- NULL
-    }
-    result
+    strip_plyr_attr(dlply(x, "pararray", f))
 }
 
 checkif_bugs_parameters <- function(x) {
     str_all_match(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$")
 }
 
-## All Stan parameters are technically bugs parameters
+## All Stan parameters are technically BUGS parameters
 checkif_stan_parameters <- function(x) {
     str_all_match(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$")
 }
 
 
+##' MCMC Parameter MetaData
+##'
+##' This class stores the mapping between the names of MCMC parameters
+##' in their flat representation (as returned by samplers like BUGS)
+##' and their array representation in the model. This class
+##' facilitates transforming parameters from their flat to their array
+##' representation.
+##'
+##' @section Slots:
+##'
+##' \describe{
+##' \item{\code{parameters}}{named character vector. Values are the names of the array parameters;
+##' names are the names of the flat parameters.}
+##' \item{\code{skeleton}}{List of arrays. Each element has the name of the array parameter, and an
+##' array value of the proper shape of that parameter.}
+##' \item{\code{indices}}{List of matrices, one for each array parameter. Each row the matrix is a
+##' has a rowname of a flat parameter and values that are the index of flat parameter in the array parameter.}
+##' }
+##'
 ##' @export
 setClass("McmcParameterMeta",
          representation(parameters="character",
-                        template="list",
+                        skeleton="list",
                         indices="list"))
 
 validate_mcmc_parameter_meta <- function(object) {
     par_flat <- names(object@parameters)
     par_array <- unique(object@parameters)
-    tmpl_dim <- lapply(object@template, dim)
+    tmpl_dim <- lapply(object@skeleton, dim)
     indices_max <- lapply(object@indices, function(x) apply(x, 2, max))
     msg <- c()
     ## TODO:
-    if (!setequal(par_array, names(object@template))) {
-        msg <- c(msg, "names(object@template) disagree with the names in object@parameters")
+    if (!setequal(par_array, names(object@skeleton))) {
+        msg <- c(msg, "names(object@skeleton) disagree with the names in object@parameters")
     }
     if (!setequal(par_array, names(object@indices))) {
         msg <- c(msg, "names(object@indices) disagree with the names in object@parameters")
     }
-    if (!setequal(sapply(object@indices, rownames), par_flat)) {
+    if (!setequal(unlist(sapply(object@indices, rownames)), par_flat)) {
         msg <- c(msg, "rownames in object@indices disagree with the parameters in object@parameters")
     }
     if (any(mapply(function(x, y) any(x > y), indices_max, tmpl_dim))) {
-        msg <- c(msg, "an index in object@indices is out of range of objects@template")
+        msg <- c(msg, "an index in object@indices is out of range of objects@skeleton")
     }
     if (any(unlist(sapply(object@indices, `<`, y=1)))) {
         msg <- c(msg, "values in object@indices cannot be less than 1")
@@ -144,16 +155,19 @@ validate_mcmc_parameter_meta <- function(object) {
         TRUE
     }
 }
+
 setValidity("McmcParameterMeta", validate_mcmc_parameter_meta)
 
+
 ### Initialize
+
 ##' @export
 setGeneric("McmcParameterMeta", function(x, ...) standardGeneric("McmcParameterMeta"))
 
 mcmc_parameter_meta_data_frame <- function(x, ...) {
     new("McmcParameterMeta",
         parameters=parsed_parameters_to_parameters(x),
-        template=parsed_parameters_to_template(x),
+        skeleton=parsed_parameters_to_skeleton(x),
         indices=parsed_parameters_to_indices(x))
 }
 
@@ -175,8 +189,8 @@ setGeneric("mcmcToArrayList",
            function(metadata, x, ...) standardGeneric("mcmcToArrayList"))
 
 mcmc_to_array_list <- function(metadata, x, ...) {
-    results <- template
-    for (j in names(template)) {
+    results <- skeleton
+    for (j in names(skeleton)) {
         pars <- indices[[j]]
         results[[j]][pars] <- x[rownames(pars)]
     }
