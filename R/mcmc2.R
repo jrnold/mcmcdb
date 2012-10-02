@@ -13,33 +13,37 @@
 ##' \item{\code{mcmc.list}}{directly}
 ##' }
 ##'
+##' mcmc class with parameter metadata
+##'
+##' @section Extends:
+##'
+##' \describe{
+##' \item{\code{parameters}}{\code{McmcParameterMeta} object}
+##' }
+##'
+##' @rdname McmcList2-class
+##' @aliases McmcList2-class
 ##' @export
 setClass("McmcList2", contains="mcmc.list",
          representation(parameters="McmcParameterMeta"))
 
 mcmc2_default <- function(data, ...,
                           parameter_names=colnames(data[[1]]),
-                          fun=parse_parameter_names_default)
-{
+                          fun=parse_parameter_names_default) {
     ## Put this before parparsed to change data before eval
-    data <- mcmc.list(data)
-    parparsed <- process_parsed_parameters(fun(parameter_names))
-    new("McmcList2", data,
-        parameters=parparsed$parameters,
-        template=parparsed$template,
-        indices=parparsed$indices)
+    new("McmcList2", mcmc.list(data),
+        parameters=McmcParameterMeta(fun(parameter_names)))
 }
 
 
-##' Create Mcmc2 objects
+##' Iterate through mcmc iterations
 ##'
-##' @param parameter_names \code{character} vector of flat parameter names used
-##' to get the
+##' @param object \code{McmcList2} object.
+##' @param data \code{function} Data to combine with parameters on
+##' each iteration.
+##' @param FUN \code{function} Function to apply to each iteration.
+##' @param ... Pass to \code{FUN}.
 ##'
-##' @export
-setGeneric("McmcList2", mcmc2_default)
-
-## TODO: make generic
 ##' @export
 mcmc_to_iterations <- function(object, data=list(), FUN=identity, ...) {
     do_iteration <- function(x, indices, template, innerfun, data, ...) {

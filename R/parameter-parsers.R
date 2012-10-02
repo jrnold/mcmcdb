@@ -9,6 +9,7 @@
 ##' \item{\code{name}}{Name of the array parameter. E.g. If "beta.1.2" is the first column, second row of "beta", then this should be equal to "beta".}
 ##' }
 ##'
+##' @rdname parse_parameter_names
 ##' @export
 parse_parameter_names_default <- function(x) {
     result <- data.frame(pararray=x,
@@ -18,14 +19,7 @@ parse_parameter_names_default <- function(x) {
     result
 }
 
-##' Parse flat parameter names produced by Stan
-##'
-##' Bugs parameter names have the form "{parameter}.{index}", with the
-##' index values separated by periods. E.g. the first row, third
-##' column of a matrix parameter "beta" is named "beta.1.2". Stan parameters
-##' can only use the characters [A-Za-z_].
-##'
-##' @param x \code{character} vector of character names.
+##' @rdname parse_parameter_names
 ##' @export
 parse_parameter_names_stan <- function(x) {
     result <- data.frame(str_split_fixed(x, fixed("."), n=2),
@@ -37,13 +31,7 @@ parse_parameter_names_stan <- function(x) {
     result
 }
 
-##' Parse flat parameter names produced by BUGS
-##'
-##' Bugs parameter names have the form "{parameter}[{index}]". E.g.
-##' the first row, third column of a matrix parameter "beta" is named
-##' "beta[1,2]".
-##'
-##' @param x \code{character} vector of character names.
+##' @rdname parse_parameter_names
 ##' @export
 parse_parameter_names_bugs <- function(x) {
     result <-
@@ -102,7 +90,7 @@ checkif_stan_parameters <- function(x) {
 }
 
 
-##' MCMC Parameter MetaData
+##' MCMC Parameter Metadata
 ##'
 ##' This class stores the mapping between the names of MCMC parameters
 ##' in their flat representation (as returned by samplers like BUGS)
@@ -121,6 +109,8 @@ checkif_stan_parameters <- function(x) {
 ##' has a rowname of a flat parameter and values that are the index of flat parameter in the array parameter.}
 ##' }
 ##'
+##' @rdname McmcParameterMeta-class
+##' @aliases McmcParameterMeta-class
 ##' @export
 setClass("McmcParameterMeta",
          representation(parameters="character",
@@ -161,6 +151,9 @@ setValidity("McmcParameterMeta", validate_mcmc_parameter_meta)
 
 ### Initialize
 
+##' Create McmcParameterMeta objects
+##'
+##' @rdname McmcParameterMeta
 ##' @export
 setGeneric("McmcParameterMeta", function(x, ...) standardGeneric("McmcParameterMeta"))
 
@@ -171,39 +164,52 @@ mcmc_parameter_meta_data_frame <- function(x, ...) {
         indices=parsed_parameters_to_indices(x))
 }
 
+
+##' @rdname McmcParameterMeta
+##' @aliases McmcParameterMeta,data.frame-method
 setMethod("McmcParameterMeta", "data.frame", mcmc_parameter_meta_data_frame)
 
+##' @rdname McmcParameterMeta
+##' @aliases McmcParameterMeta,matrix-method
 setMethod("McmcParameterMeta", "matrix",
           function(x, ...) {
               callGeneric(as(x, "data.frame"), ...)
           })
 
+##' @rdname McmcParameterMeta
+##' @aliases McmcParameterMeta,character-method
 setMethod("McmcParameterMeta", "character",
           function(x, fun=parse_parameter_names_default, ...) {
               callGeneric(fun(x, ...))
           })
 
-### Array List
+##' Unflatten mcmc sample vector
+##'
+##' @rdname mcmcUnflatten
 ##' @export
-setGeneric("mcmcToArrayList",
-           function(metadata, x, ...) standardGeneric("mcmcToArrayList"))
+setGeneric("mcmcUnflatten",
+           function(metadata, x, ...) standardGeneric("mcmcUnflatten"))
 
-mcmc_to_array_list <- function(metadata, x, ...) {
-    results <- skeleton
-    for (j in names(skeleton)) {
-        pars <- indices[[j]]
+mcmc_unflatten <- function(metadata, x, ...) {
+    results <- metadata@skeleton
+    for (j in names(results)) {
+        pars <- metadata@indices[[j]]
         results[[j]][pars] <- x[rownames(pars)]
     }
     results
 }
 
-setMethod("mcmcToArrayList", c(metadata="McmcParameterMeta", x="ANY"),
-          mcmc_to_array_list)
+##' @rdname mcmcUnflatten
+##' @aliases mcmcUnflatten,McmcParameterMeta,ANY-method
+setMethod("mcmcUnflatten", c(metadata="McmcParameterMeta", x="ANY"),
+          mcmc_unflatten)
 
-mcmc_to_array_list_matrix <- function(metadata, x, ...) {
-    alply(x, 1, mcmc_to_array_list, metadata=metadata, ...)
+mcmc_unflatten_matrix <- function(metadata, x, ...) {
+    alply(x, 1, mcmc_unflatten, metadata=metadata, ...)
 }
 
-setMethod("mcmcToArrayList", c(metadata="McmcParameterMeta", x="matrix"),
-          mcmc_to_array_list_matrix)
+##' @rdname mcmcUnflatten
+##' @aliases mcmcUnflatten,McmcParameterMeta,matrix-method
+setMethod("mcmcUnflatten", c(metadata="McmcParameterMeta", x="matrix"),
+          mcmc_unflatten_matrix)
 

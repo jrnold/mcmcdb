@@ -19,6 +19,7 @@ Suggests:
     roxygen2,
 Collate:
     'mcmc4-package.R'
+    'aaa.R'
     'mcmc.R'
     'mcmc-list.R'
     'summary-mcmc.R'

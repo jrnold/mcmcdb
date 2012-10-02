@@ -1,8 +1,14 @@
 \name{parse_parameter_names_default}
+\alias{parse_parameter_names_bugs}
 \alias{parse_parameter_names_default}
+\alias{parse_parameter_names_stan}
 \title{Parse MCMC parameter names}
 \usage{
   parse_parameter_names_default(x)
+
+  parse_parameter_names_stan(x)
+
+  parse_parameter_names_bugs(x)
 }
 \arguments{
   \item{x}{\code{character} vector of character names.}

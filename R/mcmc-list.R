@@ -70,7 +70,6 @@ setMethod("mcmc.list", "matrix",
 ##
 ## This iterates one column at a time to conserve memory (I hope).
 ##
-##
 mcmc_iter_column <- function(x, FUN=identity, ...) {
     n <- ncol(x[[1]])
     .FUN <- match.fun(FUN)
@@ -124,6 +123,17 @@ setMethod("rbind2", signature(x="mcmc.list", y="missing"),
              do.call(rbind, x)
          })
 
+##' melt mcmc objects into a data.frame
+##'
+##' This melts an \code{mcmc} object into a data frame
+##'
+##' @return \code{data.frame} with columns
+##' \describe{
+##' \item{\code{iteration}}{\code{integer}}
+##' \item{\code{parameter}}{\code{factor}}
+##' \item{\code{value}}{\code{numeric}}
+##' }
+##'
 ##' @export
 setMethod("melt", "mcmc.list",
           function(data, ...) {

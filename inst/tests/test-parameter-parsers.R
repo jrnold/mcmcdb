@@ -17,7 +17,7 @@ INDICES <- c(1, 1:2,
              mcmc4:::expand.paste(1:2, 1:3, sep=","),
              mcmc4:::expand.paste(1:2, 1:3, 1:4, sep=","))
 COLNAMES <- c("pararray", "index")
-TEMPLATE <- list(alpha=0, beta=rep(0, 2),
+SKELETON <- list(alpha=0, beta=rep(0, 2),
                  delta=mcmc4:::zeros(c(2, 3, 4)),
                  gamma=mcmc4:::zeros(c(2, 3)))
 
@@ -64,8 +64,9 @@ test_that("Processing parsed parameters works", {
     params <- c("alpha", "beta", "gamma", "delta")
     parsed <- parse_parameter_names_stan(STAN_COLNAMES)
     ret <- McmcParameterMeta(parsed)
-    expect_equal(ret$parameters, structure(PARAMETERS, names=STAN_COLNAMES))
-    expect_equal(ret$indices[params], INDICES2[params])
+    expect_equal(ret@parameters, structure(PARAMETERS, names=STAN_COLNAMES))
+    expect_equal(ret@indices[params], INDICES2[params])
+    expect_equal(ret@skeleton, SKELETON)
 })
 
 

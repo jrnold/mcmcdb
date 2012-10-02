@@ -107,7 +107,7 @@ mcmc_ts <- function(data, ...) {
 ##' @rdname mcmc
 setMethod("mcmc", "ts", mcmc_ts)
 
-##' Return a coefficient vector for "mcmc" objects.
+##' mcmc basic generic functions
 ##'
 ##' This method is meant to be equivalent to the "coef" method for
 ##' "mle" objects, in the sense that it returns a vector point
@@ -116,36 +116,45 @@ setMethod("mcmc", "ts", mcmc_ts)
 ##'
 ##' @param FUN Function used to calculate the point estimate.
 ##'
+##' @rdname mcmc-generics
 ##' @export
+##' @aliases vcov,mcmc-method
 setMethod("coef", "mcmc",
           function(object, FUN="mean", ...) {
               apply(object, 2, FUN)
           })
 
-##' Calculate variance-covariance matrix of mcmc parameters
-##'
+##' @rdname mcmc-generics
 ##' @export
+##' @aliases vcov,mcmc-method
 setMethod("vcov", "mcmc",
           function(object, ...) cov(object, ...))
 
-##' Calculate the
+##' @rdname mcmc-generics
 ##' @export
+##' @aliases mean,mcmc-method
 setMethod("mean", "mcmc",
           function(x, ...) {
               apply(x, 2, mean, ...)
           })
+
+##' @rdname mcmc-generics
 ##' @export
+##' @aliases quantile,mcmc-method
 setMethod("quantile", "mcmc",
           function(x, ...) {
               apply(x, 2, quantile, ...)
           })
+
+##' @rdname mcmc-generics
 ##' @export
+##' @aliases median,mcmc-method
 setMethod("median", "mcmc",
           function(x, na.rm=FALSE) {
               apply(x, 2, median, na.rm=na.rm)
           })
 
-##' Melt mcmc objects.
+##' melt mcmc objects into a data.frame
 ##'
 ##' This melts an \code{mcmc} object into a data frame
 ##'

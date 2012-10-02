@@ -1,14 +1,9 @@
 \name{McmcList2}
 \alias{McmcList2}
+\alias{McmcList2-class}
 \title{Mcmc Samples Object with metadata about parameters}
-\arguments{
-  \item{parameter_names}{\code{character} vector of flat
-  parameter names used to get the}
-}
 \description{
   Mcmc Samples Object with metadata about parameters
-
-  Create Mcmc2 objects
 }
 \section{Slots}{
   \describe{ \item{\code{indices}}{List of matrices which
@@ -19,5 +14,13 @@
 
 \section{Extends}{
   \describe{ \item{\code{mcmc.list}}{directly} }
+
+  mcmc class with parameter metadata
+}
+
+\section{Extends}{
+  \describe{
+  \item{\code{parameters}}{\code{McmcParameterMeta} object}
+  }
 }
 
