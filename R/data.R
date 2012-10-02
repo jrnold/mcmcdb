@@ -7,6 +7,7 @@
 ##' W.R. (1995) BUGS: Bayesian inference using Gibbs Sampling, Version
 ##' 0.5, MRC Biostatistics Unit, Cambridge.
 ##'
-##' @doctype data
-##' @seealso \code{\line[coda]{line}}
+##' @name line
+##' @docType data
+##' @seealso \code{\link[coda]{line}}
 NULL
