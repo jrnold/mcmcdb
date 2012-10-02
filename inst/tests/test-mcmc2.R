@@ -37,4 +37,21 @@ test_that("mcmc_to_iterations works", {
     expect_equal(lapply(datalist[[1]], dim), list(alpha=NULL, beta=c(2, 2)))
 })
 
+test_that("mcmc_to_iterations with a function works", {
+    newdata <- McmcList2(data, fun=parse_parameter_names_stan)
+    datalist <- mcmc_to_iterations(newdata, FUN=function(x) with(x, sum(beta)))
+    expect_is(datalist, "list")
+    expect_true(all(sapply(all(sapply(datalist, is, class2="numeric")))))
+    expect_true(all(sapply(datalist, length) == 1L))
+})
+
+test_that("mcmc_to_iterations with a function and data works", {
+    newdata <- McmcList2(data, fun=parse_parameter_names_stan)
+    datalist <- mcmc_to_iterations(newdata, FUN=function(x) with(x, sum(beta)))
+    expect_is(datalist, "list")
+    expect_true(all(sapply(all(sapply(datalist, is, class2="numeric")))))
+    expect_true(all(sapply(datalist, length) == 1L))
+})
+
+
 
