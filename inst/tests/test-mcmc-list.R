@@ -1,3 +1,4 @@
+library("coda")
 context("mcmc.list class and methods")
 
 data(line, package="coda")

@@ -1,3 +1,4 @@
+library("coda")
 context("Tests for mcmc class")
 
 foo <- matrix(1:10)

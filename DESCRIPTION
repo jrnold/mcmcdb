@@ -12,9 +12,9 @@ Imports:
     data.table,
     reshape2,
     stringr,
-    plyr,
-    coda
+    plyr
 Suggests:
+    coda,
     testthat,
     roxygen2,
 Collate:
