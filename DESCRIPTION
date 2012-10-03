@@ -6,11 +6,11 @@ License: GPL-3
 Title: S4 Mcmc Class
 Description: S4 wrapper for the mcmc classes from the coda package.
 Depends:
-    methods
+    methods,
+    reshape2
 Imports:
     stats4,
     data.table,
-    reshape2,
     stringr,
     plyr
 Suggests:

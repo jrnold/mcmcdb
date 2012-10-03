@@ -63,13 +63,11 @@ initialize_mcmc <- function(.Object, data,
                             start=1,
                             end=start + nrow(data) - 1,
                             thin=(end - start + 1)/nrow(data)) {
-    data <- matrix(data)
     .Object@.Data <- data
     .Object@mcpar <- sapply(list(start, end, thin), first)
     validObject(.Object)
     .Object
 }
-
 setMethod("initialize", "mcmc", initialize_mcmc)
 
 ##' Create mcmc objects
@@ -93,6 +91,9 @@ setGeneric("mcmc",
            function(data, ...) {
                new("mcmc", data, ...)
            })
+
+setMethod("mcmc", "numeric",
+          function(data, ...) callGeneric(as.matrix(numeric)))
 
 mcmc_ts <- function(data, ...) {
     start <- start(data)[1]
