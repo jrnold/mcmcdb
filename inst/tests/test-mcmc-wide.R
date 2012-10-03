@@ -14,14 +14,17 @@ test_that("McmcWide works okay with good data", {
     expect_is(foo, "McmcWide")
     expect_equal(dim(foo), c(20, 4))
 })
+
 test_that("McmcWide throws error with bad columns", {
     colnames(samples)[1] <- "foo"
     expect_error(new("McmcWide", samples, parameters=metadata))
 })
+
 test_that("McmcWide throws error with parameters", {
     colnames(samples)[3] <- "foo"
     expect_error(new("McmcWide", samples, parameters=metadata))
 })
+
 test_that("McmcWide throws error with bad chain values", {
     samples$chains[1] <- 5
     expect_error(new("McmcWide", samples, parameters=metadata))
