@@ -183,6 +183,14 @@ setMethod("McmcParameterMeta", "character",
               callGeneric(fun(x, ...))
           })
 
+##' @rdname McmcParameterMeta
+##' @aliases McmcParameterMeta,character-method
+setMethod("McmcParameterMeta", "factor",
+          function(x, fun=parse_parameter_names_default, ...) {
+              callGeneric(as.character(x), fun=fun, ...)
+          })
+
+
 ##' Unflatten mcmc sample vector
 ##'
 ##' @rdname mcmcUnflatten

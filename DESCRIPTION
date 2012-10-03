@@ -29,3 +29,4 @@ Collate:
     'mcmc2.R'
     'utilities.R'
     'AllGenerics.R'
+    'mcmc-long.R'
