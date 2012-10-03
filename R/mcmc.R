@@ -28,6 +28,7 @@ NULL
 
 setClass("Mcmc4", contains="matrix",
          representation(mcpar="numeric"))
+
 mcmc_validity <- function(object) {
     msg <- c()
     start <- object@mcpar[1]
@@ -62,7 +63,8 @@ initialize_mcmc <- function(.Object, data,
                             start=1,
                             end=start + nrow(data) - 1,
                             thin=(end - start + 1)/nrow(data)) {
-    .Object@.Data <- as(data, "matrix")
+    data <- matrix(data)
+    .Object@.Data <- data
     .Object@mcpar <- sapply(list(start, end, thin), first)
     validObject(.Object)
     .Object

@@ -1,3 +1,7 @@
+##' @exportClass McmcList2
+##' @export McmcList2
+NULL
+
 ##' Improved mcmc.list class
 ##'
 ##' This class extends the standard \code{\link[coda]{mcmc.list}}
@@ -32,6 +36,8 @@
 setClass("McmcList2", contains="mcmc.list",
          representation(parameters="McmcParameterMeta"))
 
+setGeneric("McmcList2", function(data, ...) standardGeneric("McmcList2"))
+
 mcmc2_default <- function(data, ...,
                           parameter_names=colnames(data[[1]]),
                           fun=parse_parameter_names_default) {
@@ -40,17 +46,12 @@ mcmc2_default <- function(data, ...,
         parameters=McmcParameterMeta(fun(parameter_names)))
 }
 
+setMethod("McmcList2", "mcmc.list", mcmc2_default)
 
-##' Iterate through mcmc iterations
-##'
-##' @param object \code{McmcList2} object.
-##' @param data \code{function} Data to combine with parameters on
-##' each iteration.
-##' @param FUN \code{function} Function to apply to each iteration.
-##' @param ... Pass to \code{FUN}.
-##'
-##' @export
-mcmc_to_iterations <- function(object, data=list(), FUN=identity, ...) {
+setMethod("McmcList2", "matrix",
+          function(data, ...) callGeneric(mcmc.list(data), ...))
+
+mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...) {
     do_iteration <- function(x, indices, template, innerfun, data, ...) {
         results <- template
         for (j in names(template)) {
@@ -72,10 +73,22 @@ mcmc_to_iterations <- function(object, data=list(), FUN=identity, ...) {
         unlist(mapply(function(x, y) paste(x, seq_len(y), sep="."),
                       seq_len(n_chains), n_iter, SIMPLIFY=FALSE))
     ret <- do.call(c, llply(object, do_chain,
-                            indices=object@indices,
-                            template=object@template,
+                            indices=object@parameters@indices,
+                            template=object@parameters@skeleton,
                             innerfun=FUN, data=data))
     names(ret) <- listnames
     ret
 }
+
+
+##' Iterate through mcmc iterations
+##'
+##' @param object \code{McmcList2} object.
+##' @param data \code{function} Data to combine with parameters on
+##' each iteration.
+##' @param FUN \code{function} Function to apply to each iteration.
+##' @param ... Pass to \code{FUN}.
+##'
+setMethod("mcmcByIteration", "McmcList2", mcmc_by_iteration_mcmc_list2)
+
 

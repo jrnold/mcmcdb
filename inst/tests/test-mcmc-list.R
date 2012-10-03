@@ -1,7 +1,6 @@
-library("coda")
 context("mcmc.list class and methods")
 
-data(line, package="coda")
+data(line, package="mcmc4")
 
 test_that("mcmc.list class definition", {
     ## Check that class is exported

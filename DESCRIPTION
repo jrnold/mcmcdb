@@ -19,6 +19,7 @@ Suggests:
     roxygen2,
 Collate:
     'mcmc4-package.R'
+    'AllGenerics.R'
     'mcmc.R'
     'mcmc-list.R'
     'summary-mcmc.R'
@@ -28,5 +29,5 @@ Collate:
     'parameter-parsers.R'
     'mcmc2.R'
     'utilities.R'
-    'AllGenerics.R'
     'mcmc-long.R'
+    'mcmc-wide.R'

@@ -11,3 +11,10 @@ setGeneric("melt", reshape2::melt)
 
 ##' @export
 setGeneric("quantile", stats::quantile)
+
+##' @export
+setGeneric("mcmcByIteration",
+           function(object, ...) {
+               standardGeneric("mcmcByIteration")
+           })
+

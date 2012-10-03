@@ -1,2 +1,5 @@
-README.*
-.Rhistory
+README\\..*$
+.Rhistory$
+\\.stanx$
+\\.o$
+\\.cpp$

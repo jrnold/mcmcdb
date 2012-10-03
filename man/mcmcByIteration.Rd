@@ -1,10 +1,6 @@
-\name{mcmc_to_iterations}
-\alias{mcmc_to_iterations}
+\name{mcmcByIteration}
+\alias{mcmcByIteration}
 \title{Iterate through mcmc iterations}
-\usage{
-  mcmc_to_iterations(object, data = list(), FUN = identity,
-    ...)
-}
 \arguments{
   \item{object}{\code{McmcList2} object.}
 
