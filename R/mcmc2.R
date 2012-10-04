@@ -52,18 +52,12 @@ setMethod("McmcList2", "matrix",
           function(data, ...) callGeneric(mcmc.list(data), ...))
 
 mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...) {
-    do_iteration <- function(x, indices, template, innerfun, data, ...) {
-        results <- template
-        for (j in names(template)) {
-            pars <- indices[[j]]
-            results[[j]][pars] <- x[rownames(pars)]
-        }
-        FUN(c(results, data), ...)
+    do_iteration <- function(x, metadata, innerfun, data, ...) {
+        innerfun(c(mcmcUnflatten(metadata, x), data))
     }
     do_chain <- function(x, indices, template, innerfun, data) {
         alply(x, 1, .fun=do_iteration,
-              indices=indices,
-              template=template,
+              metadata=metadata,
               data=data, innerfun=innerfun)
     }
     ## element names = be chain.iteration
@@ -73,8 +67,7 @@ mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...)
         unlist(mapply(function(x, y) paste(x, seq_len(y), sep="."),
                       seq_len(n_chains), n_iter, SIMPLIFY=FALSE))
     ret <- do.call(c, llply(object, do_chain,
-                            indices=object@parameters@indices,
-                            template=object@parameters@skeleton,
+                            metadata=object@parameters,
                             innerfun=FUN, data=data))
     names(ret) <- listnames
     ret

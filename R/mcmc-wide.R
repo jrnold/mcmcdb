@@ -48,3 +48,19 @@ validate_mcmc_wide <- function(object) {
 
 setValidity("McmcWide", validate_mcmc_wide)
 
+mcmc_by_iteration_mcmc_wide <- function(data, data=list(), FUN=identity) {
+    do_iteration <- function(x, metadata, innerfun, data, ...) {
+        innerfun(c(mcmcUnflatten(metadata, x), data))
+    }
+    listnames <- paste(object$chain, object$iteration, sep=".")
+    ret <- dlply(object, c("chain", "iteration"),
+                 .fun=do_iteration,
+                 metadata=object@parameters,
+                 data=data,
+                 innerfun=FUN)
+    names(ret) <- listnames
+    strip_plyr_attr(ret)
+}
+
+setMethod("mcmcByIteration", "McmcWide", mcmc_by_iteration_mcmc_wide)
+
