@@ -79,33 +79,33 @@ mcmc_iter_column <- function(x, FUN=identity, ...) {
            })
 }
 
-setMethod("mean", "mcmc.list",
-          function(x, ...) {
-              mcmc_iter_column(x, mean, ...)
-          })
+## setMethod("mean", "mcmc.list",
+##           function(x, ...) {
+##               mcmc_iter_column(x, mean, ...)
+##           })
 
-setMethod("median", "mcmc.list",
-          function(x, na.rm=FALSE) {
-              mcmc_iter_column(x, median, na.rm=na.rm)
-          })
+## setMethod("median", "mcmc.list",
+##           function(x, na.rm=FALSE) {
+##               mcmc_iter_column(x, median, na.rm=na.rm)
+##           })
 
-##' @export
-setMethod("quantile", "mcmc.list",
-          function(x, ...) {
-              mcmc_iter_column(x, quantile, ...)
-          })
+## ##' @export
+## setMethod("quantile", "mcmc.list",
+##           function(x, ...) {
+##               mcmc_iter_column(x, quantile, ...)
+##           })
 
-##' @export
-setMethod("coef", "mcmc.list",
-          function(object, FUN="mean", ...) {
-              mcmc_iter_column(object, FUN=FUN, ...)
-          })
+## ##' @export
+## setMethod("coef", "mcmc.list",
+##           function(object, FUN="mean", ...) {
+##               mcmc_iter_column(object, FUN=FUN, ...)
+##           })
 
-##' @export
-setMethod("vcov", "mcmc.list",
-          function(object, ...) {
-              cov(as(object, "matrix"), ...)
-          })
+## ##' @export
+## setMethod("vcov", "mcmc.list",
+##           function(object, ...) {
+##               cov(as(object, "matrix"), ...)
+##           })
 
 ##' Mcmc.list into a matrix.
 ##'

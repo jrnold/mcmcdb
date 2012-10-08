@@ -1,7 +1,8 @@
 ## Sum of squared errors
 sumsqe <- function(x)  sum((x - mean(x))^2)
 
-gelman_diag <- function(x, ...) {
+## Matrix version
+gelman_diag_matrix <- function(x) {
     x <- lapply(x, as.matrix)
     m <- length(x)
     iters <- sapply(x, nrow)
@@ -24,16 +25,17 @@ gelman_diag <- function(x, ...) {
     Rhat
 }
 
-## Gelman diag not generalizing for ragged chains
-## gelman_diag <- function(x)  {
-##     m <- length(x)
-##     n <- nrow(x[[1]])
-##     mean_w <- sapply(x, mean)
-##     B <- (n / (m - 1)) * apply(mean_w, 1, sumsqe)
-##     W <- apply(sapply(x, function(y) apply(y, 2, var)), 1, mean)
-##     vartheta <- ((n - 1) / n) * W + (1 / n) * B
-##     pmax(1, sqrt(vartheta / W))
-## }
+## coda::gelman.diag not generalizing for ragged chains
+## this is the vector version
+gelman_diag <- function(x)  {
+    m <- length(x)
+    n <- nrow(x[[1]])
+    mean_w <- sapply(x, mean)
+    B <- (n / (m - 1)) * apply(mean_w, 1, sumsqe)
+    W <- apply(sapply(x, function(y) apply(y, 2, var)), 1, mean)
+    vartheta <- ((n - 1) / n) * W + (1 / n) * B
+    pmax(1, sqrt(vartheta / W))
+}
 
 ##' Gelman-Rubin Criteria
 ##'
@@ -42,7 +44,7 @@ gelman_diag <- function(x, ...) {
 ##' @references Stan Manual, Section 27.2.
 ##'
 ##' @export
-setGeneric("gelman_diag", gelman_diag)
+setGeneric("gelman_diag", gelman_diag_matrix)
 
 
 ##' Gelman-Rubin Diagnostic with a Split Single Chain
