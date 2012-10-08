@@ -3,7 +3,7 @@ NULL
 
 ##' Markov Chain Monte Carlo Objects
 ##'
-##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc}}.
+##' S4 class which wraps the \pkg{coda} S3 class \code{\link[coda]{mcmc}}.
 ##'
 ##' @section Slots:
 ##'
@@ -110,72 +110,4 @@ mcmc_ts <- function(data, ...) {
 ##' @rdname mcmc
 setMethod("mcmc", "ts", mcmc_ts)
 
-## ##' mcmc basic generic functions
-## ##'
-## ##' This method is meant to be equivalent to the "coef" method for
-## ##' "mle" objects, in the sense that it returns a vector point
-## ##' estimate for each parameter. By default, the point estimate
-## ##' returned is the mean.
-## ##'
-## ##' @param FUN Function used to calculate the point estimate.
-## ##'
-## ##' @rdname mcmc-generics
-## ##' @export
-## ##' @aliases vcov,mcmc-method
-## setMethod("coef", "mcmc",
-##           function(object, FUN="mean", ...) {
-##               apply(object, 2, FUN)
-##           })
-
-## ##' @rdname mcmc-generics
-## ##' @export
-## ##' @aliases vcov,mcmc-method
-## setMethod("vcov", "mcmc",
-##           function(object, ...) cov(object, ...))
-
-## ##' @rdname mcmc-generics
-## ##' @export
-## ##' @aliases mean,mcmc-method
-## setMethod("mean", "mcmc",
-##           function(x, ...) {
-##               apply(x, 2, mean, ...)
-##           })
-
-## ##' @rdname mcmc-generics
-## ##' @export
-## ##' @aliases quantile,mcmc-method
-## setMethod("quantile", "mcmc",
-##           function(x, ...) {
-##               apply(x, 2, quantile, ...)
-##           })
-
-## ##' @rdname mcmc-generics
-## ##' @export
-## ##' @aliases median,mcmc-method
-## setMethod("median", "mcmc",
-##           function(x, na.rm=FALSE) {
-##               apply(x, 2, median, na.rm=na.rm)
-##           })
-
-##' melt mcmc objects into a data.frame
-##'
-##' This melts an \code{mcmc} object into a data frame
-##'
-##' @return \code{data.frame} with columns
-##' \describe{
-##' \item{\code{chain}}{\code{integer}}
-##' \item{\code{iteration}}{\code{integer}}
-##' \item{\code{parameter}}{\code{factor}}
-##' \item{\code{value}}{\code{numeric}}
-##' }
-##'
-##' @export
-setMethod("melt", "mcmc",
-    function(data, chain=1, ...) {
-        result <- callGeneric(as(data, "matrix"))
-        colnames(result)[1:2] <- c("iteration", "parameter")
-        rownames(result) <- with(result, paste(parameter, iteration, sep="."))
-        result$chain <- chain
-        result
-    })
 

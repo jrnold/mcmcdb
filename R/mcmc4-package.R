@@ -1,11 +1,10 @@
 #' Some S4 classes for MCMC sample data objects
 #'
-#' S4 wrappers of the classes to store mcmc objects in \code{coda},
+#' S4 wrappers of the classes to store mcmc objects in \pkg{coda},
 #' as well as a few new classes.
 #'
 #' @name mcmc4
 #' @docType package
-#' @import data.table
 #' @import plyr
 #' @import reshape2
 #' @import stringr

@@ -1,10 +1,11 @@
 ##' @exportClass mcmc.list
 NULL
 
-##' Markov Chain Monte Carlo Object List
+##' MCMC object list
 ##'
-##' S4 class which wraps the \bold{coda} S3 class \code{\link[coda]{mcmc.list}}.
-##' This is simply a list of \code{\link{mcmc}} object.
+##' S4 class which wraps the \pkg{coda} S3 class
+##' \code{\link[coda]{mcmc.list}}. This is simply a list of
+##' \code{\link{mcmc}} object.
 ##'
 ##' @section Slots:
 ##'
@@ -42,18 +43,31 @@ setValidity("McmcList4", mcmc_list_validity)
 setOldClass("mcmc.list", S4Class="McmcList4")
 removeClass("McmcList4")
 
+
+##' Create \code{mcmc.list} object
+##'
+##' @section Details:
+##'
+##' Unlike \code{\link[coda]{mcmc.list}} this does
+##' not enforce equal sample sizes.
+##'
+##' @param x Object with MCMC samples.
+##' @param ... Arguments passed to \code{\link{mcmc}}.
+##'
+##' @rdname mcmc.list-methods
+##' @name mcmc.list-methods
+##'
+##' @aliases mcmc.list mcmc.list,ANY-method mcmc.list,mcmc-method mcmc.list,matrix-method
+##' @seealso \code{\link[coda]{mcmc}}
+NULL
+
 mcmc.list <- function (x, ...) {
     if (!all(sapply(x, is, class2="mcmc"))) {
         x <- lapply(x, mcmc, ...)
     }
     new("mcmc.list", x)
 }
-##' Create mcmc.list
-##'
-##' Unlike \code{\link[coda]{mcmc.list}} this does
-##' not enforce equal
-##'
-##' @param ... \code{mcmc} objects.
+
 ##' @export
 setGeneric("mcmc.list")
 
@@ -61,6 +75,7 @@ setMethod("mcmc.list", "mcmc",
           function(x, ...) {
               callGeneric(list(x), ...)
           })
+
 setMethod("mcmc.list", "matrix",
           function(x, ...) {
               callGeneric(mcmc(x), ...)
@@ -78,78 +93,6 @@ mcmc_iter_column <- function(x, FUN=identity, ...) {
                .FUN(unlist(lapply(x, function(j) as.numeric(j[ , i]))), ...)
            })
 }
-
-## setMethod("mean", "mcmc.list",
-##           function(x, ...) {
-##               mcmc_iter_column(x, mean, ...)
-##           })
-
-## setMethod("median", "mcmc.list",
-##           function(x, na.rm=FALSE) {
-##               mcmc_iter_column(x, median, na.rm=na.rm)
-##           })
-
-## ##' @export
-## setMethod("quantile", "mcmc.list",
-##           function(x, ...) {
-##               mcmc_iter_column(x, quantile, ...)
-##           })
-
-## ##' @export
-## setMethod("coef", "mcmc.list",
-##           function(object, FUN="mean", ...) {
-##               mcmc_iter_column(object, FUN=FUN, ...)
-##           })
-
-## ##' @export
-## setMethod("vcov", "mcmc.list",
-##           function(object, ...) {
-##               cov(as(object, "matrix"), ...)
-##           })
-
-##' Mcmc.list into a matrix.
-##'
-##' Binds all \code{mcmc} objects in a \code{mcmc.list} into a single
-##' matrix. This returns a \code{matrix} instead of \code{mcmc} since
-##' the start/end/thin values would no longer make sense. However,
-##' \code{as(from, "mcmc")} will transfrom an \code{mcmc.list} object
-##' into a \code{mcmc} object with all the chains stacked on top of
-##' each other.
-##'
-##' @return \code{matrix} object with columns equal to the number of
-##' parameters in the \code{mcmc} objects, and a number of rows equal
-##' to the sum of the iterations over all chains.
-##'
-##' @export
-setMethod("rbind2", signature(x="mcmc.list", y="missing"),
-         function(x, y, ...) {
-             do.call(rbind, x)
-         })
-
-##' melt mcmc objects into a data.frame
-##'
-##' This melts an \code{mcmc} object into a data frame
-##'
-##' @return \code{data.frame} with columns
-##' \describe{
-##' \item{\code{iteration}}{\code{integer}}
-##' \item{\code{parameter}}{\code{factor}}
-##' \item{\code{value}}{\code{numeric}}
-##' }
-##'
-##' @export
-setMethod("melt", "mcmc.list",
-          function(data, ...) {
-              chains <- length(data)
-              data_len <- laply(data, function(x) prod(dim(x)))
-              result <- do.call(rbind, llply(data, melt))
-              result$chain <-
-                  as.integer((mapply(function(x, y) rep(x, y),
-                                     seq_len(chains), data_len)))
-              rownames(result) <- with(result, paste(parameter,
-                                                     iteration, chain, sep="."))
-              result
-          })
 
 ## Coercion
 ## From mcmc.list

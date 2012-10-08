@@ -3,7 +3,7 @@
 \alias{mcmc-class}
 \title{Markov Chain Monte Carlo Objects}
 \description{
-  S4 class which wraps the \bold{coda} S3 class
+  S4 class which wraps the \pkg{coda} S3 class
   \code{\link[coda]{mcmc}}.
 }
 \section{Slots}{

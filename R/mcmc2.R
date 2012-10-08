@@ -55,7 +55,7 @@ mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...)
     do_iteration <- function(x, metadata, innerfun, data, ...) {
         innerfun(c(mcmcUnflatten(metadata, x), data))
     }
-    do_chain <- function(x, indices, template, innerfun, data) {
+    do_chain <- function(x, metadata, innerfun, data) {
         alply(x, 1, .fun=do_iteration,
               metadata=metadata,
               data=data, innerfun=innerfun)
@@ -74,14 +74,5 @@ mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...)
 }
 
 
-##' Iterate through mcmc iterations
-##'
-##' @param object \code{McmcList2} object.
-##' @param data \code{function} Data to combine with parameters on
-##' each iteration.
-##' @param FUN \code{function} Function to apply to each iteration.
-##' @param ... Pass to \code{FUN}.
-##'
-setMethod("mcmcByIteration", "McmcList2", mcmc_by_iteration_mcmc_list2)
 
 

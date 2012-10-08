@@ -1,7 +1,7 @@
 \name{melt-methods}
-\alias{melt-methods}
 \alias{melt,mcmc-method}
 \alias{melt,mcmc.list-method}
+\alias{melt-methods}
 \title{Methods for function \code{melt}}
 \arguments{
   \item{data}{Object containing the MCMC samples.}
@@ -19,15 +19,13 @@
   Melt MCMC samples objects into a \code{data.frame} with
   columns for the chain, iteration, parameter, and value.
 }
-\details{
-  \S4method{melt}{mcmc}{data, ...}
-
-  \S4method{melt}{mcmc.list}{data, ...}
+\section{Methods}{
+  \describe{ \item{\code{signature(data="mcmc")}}{Method
+  for \code{mcmc}}
+  \item{\code{signature(data="mcmc.list")}}{Method for
+  \code{mcmc.list}} }
 }
 \seealso{
   \code{\link[reshape2]{melt}} for the generic function.
-
-  Other res: \code{\link{mcmc-class}},
-  \code{\link{mcmc.list-class}}
 }
 

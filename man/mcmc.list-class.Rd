@@ -3,7 +3,7 @@
 \alias{mcmc.list-class}
 \title{Markov Chain Monte Carlo Object List}
 \description{
-  S4 class which wraps the \bold{coda} S3 class
+  S4 class which wraps the \pkg{coda} S3 class
   \code{\link[coda]{mcmc.list}}. This is simply a list of
   \code{\link{mcmc}} object.
 }

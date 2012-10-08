@@ -10,7 +10,6 @@ Depends:
     reshape2
 Imports:
     stats4,
-    data.table,
     stringr,
     plyr
 Suggests:
@@ -19,7 +18,6 @@ Suggests:
     roxygen2,
 Collate:
     'mcmc4-package.R'
-    'AllGenerics.R'
     'mcmc.R'
     'mcmc-list.R'
     'summary-mcmc.R'
@@ -31,3 +29,11 @@ Collate:
     'utilities.R'
     'mcmc-long.R'
     'mcmc-wide.R'
+    'methods-mean.R'
+    'methods-melt.R'
+    'methods-mcmcByIteration.R'
+    'methods-median.R'
+    'methods-quantile.R'
+    'methods-coef.R'
+    'methods-vcov.R'
+    'methods-rbind.R'

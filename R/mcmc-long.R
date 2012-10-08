@@ -58,21 +58,3 @@ validate_mcmc_long <- function(object) {
 
 setValidity("McmcLong", validate_mcmc_long)
 
-#####
-
-mcmc_by_iteration_mcmc_long <- function(object, data=list(), FUN=identity) {
-    do_iteration <- function(x, metadata, innerfun, data, ...) {
-        values <- structure(x$value, names=as.character(x$parameter))
-        innerfun(c(mcmcUnflatten(metadata, value), data))
-    }
-    listnames <- paste(object$chain, object$iteration, sep=".")
-    ret <- dlply(object, c("chain", "iteration"),
-                 .fun=do_iteration,
-                 metadata=object@parameters,
-                 data=data,
-                 innerfun=FUN)
-    names(ret) <- listnames
-    strip_plyr_attr(ret)
-}
-
-setMethod("mcmcByIteration", "McmcLong", mcmc_by_iteration_mcmc_long)
