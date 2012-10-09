@@ -20,22 +20,32 @@
 ##' @docType methods
 ##' @keywords methods
 ##' @export
-setGeneric("quantile", stats::quantile)
+setGeneric("quantile",
+           function(x, ...) {
+               stats:::quantile(x, ...)
+           })
 
 setMethod("quantile", "mcmc",
-          function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975), ...) {
-              apply(x, 2, quantile, probs=probs, ...)
+          function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975),
+                   na.rm=FALSE, names=TRUE, type=7, ...) {
+              apply(x, 2, stats::quantile, probs=probs, na.rm=na.rm,
+                    names=names, type=type, ...)
           })
 
 setMethod("quantile", "mcmc.list",
-          function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975), ...) {
-              mcmc_iter_column(x, quantile, probs=probs,  ...)
+          function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975),
+                   na.rm=FALSE, names=TRUE, type=7, ...) {
+              mcmc_iter_column(x, 2, stats::quantile, probs=probs, na.rm=na.rm,
+                               names=names, type=type, ...)
           })
 
 setMethod("quantile", "McmcLong",
-          function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975), na.rm=FALSE, names=TRUE, type=7, ...) {
-              ddply(x, "parameter", summarise,
-                    quantile=quantile(x, probs=probs, na.rm=na.rm, names=names, type=type),
-                    ...)
+          function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975),
+                   na.rm=FALSE, names=TRUE, type=7, ...) {
+              f <- function(x) {
+                  stats::quantile(x$value, probs=probs, na.rm=na.rm,
+                                  names=names, type=type)
+              }
+              ddply(x, "parameter", f)
           })
 

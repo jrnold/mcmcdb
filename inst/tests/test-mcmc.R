@@ -39,12 +39,6 @@ test_that("mcmc function works with signature ts", {
 
 line1 <- line[[1]]
 
-test_that("method quantile works", {
-    expect_equal(dim(quantile(line1)),c(5, ncol(line1)))
-    expect_equal(dim(quantile(line1, probs=c(0.25, 0.5))), c(2, ncol(line1)))
-    expect_equal(dim(quantile(line1, type=1)), c(5, ncol(line1)))
-})
-
 test_that("method coef works", {
     expect_equal(coef(line1), mean(line1))
     expect_equal(coef(line1, FUN=median), median(line1))

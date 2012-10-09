@@ -16,9 +16,6 @@ test_that("mcmc.list class definition", {
     expect_error(new("mcmc.list", list(1, "a", 1:5)))
 })
 
-test_that("method quantile for signature mcmc.list works", {
-    expect_that(dim(quantile(line)), equals(c(5, ncol(line[[1]]))))
-})
 
 test_that("method vcov for signature mcmc.list works", {
     expect_that(dim(vcov(line)), equals(rep(ncol(line[[1]]), 2)))
