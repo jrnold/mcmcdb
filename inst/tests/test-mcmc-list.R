@@ -16,18 +16,18 @@ test_that("mcmc.list class definition", {
     expect_error(new("mcmc.list", list(1, "a", 1:5)))
 })
 
-test_that("method mean for signature mcmc.list works", {
-    expect_that(length(mean(line)), equals(ncol(line[[1]])))
-})
 test_that("method median for signature mcmc.list works", {
     expect_that(length(median(line)), equals(ncol(line[[1]])))
 })
+
 test_that("method quantile for signature mcmc.list works", {
     expect_that(dim(quantile(line)), equals(c(5, ncol(line[[1]]))))
 })
+
 test_that("method vcov for signature mcmc.list works", {
     expect_that(dim(vcov(line)), equals(rep(ncol(line[[1]]), 2)))
 })
+
 test_that("method coef for signature mcmc.list works", {
     expect_that(coef(line), equals(mean(line)))
     expect_that(coef(line, "median"), is_equivalent_to(median(line)))
