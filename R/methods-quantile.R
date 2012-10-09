@@ -23,16 +23,19 @@
 setGeneric("quantile", stats::quantile)
 
 setMethod("quantile", "mcmc",
-          function(x, ...) {
-              apply(x, 2, quantile, ...)
+          function(x, probs=seq(0.025, 0.25, 0.5, 0.75, 0.975), ...) {
+              apply(x, 2, quantile, probs=probs, ...)
           })
 
 setMethod("quantile", "mcmc.list",
-          function(x, ...) {
-              mcmc_iter_column(x, quantile, ...)
+          function(x, probs=seq(0.025, 0.25, 0.5, 0.75, 0.975), ...) {
+              mcmc_iter_column(x, quantile, probs=probs,  ...)
           })
 
 setMethod("quantile", "McmcLong",
-          function(x, ...) {
-              ddply(x, "parameter", summarise, quantile=quantile(x, ...))
+          function(x, probs=seq(0.025, 0.25, 0.5, 0.75, 0.975), na.rm=FALSE, names=TRUE, type=7, ...) {
+              ddply(x, "parameter", summarise,
+                    quantile=quantile(x, probs=probs, na.rm=na.rm, names=names, type=type),
+                    ...)
           })
+
