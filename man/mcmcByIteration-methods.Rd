@@ -5,7 +5,7 @@
 \alias{mcmcByIteration,McmcLong-method}
 \alias{mcmcByIteration,McmcWide-method}
 \alias{mcmcByIteration-methods}
-\title{Iterate through mcmc iterations}
+\title{Iterate over all Mcmc iterations}
 \arguments{
   \item{object}{\code{McmcList2} object.}
 
@@ -18,7 +18,7 @@
   \item{...}{Pass to \code{FUN}.}
 }
 \description{
-  Iterate through mcmc iterations
+  Iterate over all Mcmc iterations
 }
 \section{Methods}{
   \describe{

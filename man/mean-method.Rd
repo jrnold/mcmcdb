@@ -1,4 +1,6 @@
+\docType{methods}
 \name{mean-method}
+\alias{mean,McmcLong-method}
 \alias{mean,mcmc-method}
 \alias{mean,mcmc.list-method}
 \alias{mean-method}
@@ -9,4 +11,5 @@
 \seealso{
   \code{\link[base]{mean}}
 }
+\keyword{methods}
 

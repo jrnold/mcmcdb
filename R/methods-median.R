@@ -11,10 +11,12 @@
 ##'
 ##' @rdname median-methods
 ##' @name median-methods
-##' @aliases median,mcmc-method median,mcmc.list-method
+##' @aliases median,mcmc-method
+##' @aliases median,mcmc.list-method
+##' @aliases median,McmcLong-method
 ##' @seealso \code{\link{median}}
-NULL
-
+##' @docType methods
+##' @keywords methods
 ##' @export
 setGeneric("median", stats::median)
 
@@ -28,4 +30,9 @@ setMethod("median", "mcmc",
 setMethod("median", "mcmc.list",
           function(x, na.rm=FALSE) {
               mcmc_iter_column(x, median, na.rm=na.rm)
+          })
+
+setMethod("median", "McmcLong",
+          function(x, na.rm=FALSE) {
+              ddply(x, "parameter", summarise, median=median(value, na.rm=na.rm))
           })

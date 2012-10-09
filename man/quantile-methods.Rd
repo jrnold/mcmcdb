@@ -1,4 +1,6 @@
+\docType{methods}
 \name{quantile-methods}
+\alias{quantile,McmcLong-method}
 \alias{quantile,mcmc-method}
 \alias{quantile,mcmc.list-method}
 \alias{quantile-methods}
@@ -18,4 +20,5 @@
   \item{\code{signature(x="mcmc.list")}}{Method for class
   \code{mcmc.list}.} }
 }
+\keyword{methods}
 

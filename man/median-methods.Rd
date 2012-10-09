@@ -1,4 +1,6 @@
+\docType{methods}
 \name{median-methods}
+\alias{median,McmcLong-method}
 \alias{median,mcmc-method}
 \alias{median,mcmc.list-method}
 \alias{median-methods}
@@ -16,4 +18,5 @@
 \seealso{
   \code{\link{median}}
 }
+\keyword{methods}
 

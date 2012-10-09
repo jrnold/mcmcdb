@@ -27,3 +27,4 @@ setMethod("coef", "mcmc.list",
           function(object, FUN="mean", ...) {
               mcmc_iter_column(object, FUN=FUN, ...)
           })
+

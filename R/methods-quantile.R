@@ -14,7 +14,11 @@
 ##'
 ##' @rdname quantile-methods
 ##' @name quantile-methods
-##' @aliases quantile,mcmc-method quantile,mcmc.list-method
+##' @aliases quantile,mcmc-method
+##' @aliases quantile,mcmc.list-method
+##' @aliases quantile,McmcLong-method
+##' @docType methods
+##' @keywords methods
 ##' @export
 setGeneric("quantile", stats::quantile)
 
@@ -26,4 +30,9 @@ setMethod("quantile", "mcmc",
 setMethod("quantile", "mcmc.list",
           function(x, ...) {
               mcmc_iter_column(x, quantile, ...)
+          })
+
+setMethod("quantile", "McmcLong",
+          function(x, ...) {
+              ddply(x, "parameter", summarise, quantile=quantile(x, ...))
           })
