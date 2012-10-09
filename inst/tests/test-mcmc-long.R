@@ -1,41 +1,37 @@
 context("Testing McmcLong class")
 
-## .colnames <- c("parameter", "chain", "iteration", "value")
-## samples1 <- replicate(2, matrix(rnorm(20), ncol=2,
-##                                   dimnames=list(NULL, c("alpha", "beta"))),
-##                              simplify=FALSE)))[ , .colnames]
-## samples <-
-##     melt(mcmc.list(
-## metadata <- McmcParameterMeta(unique(as.character(samples$parameter)))
+data(line, package="mcmc4")
 
-## test_that("McmcLong works", {
-##     foo <- new("McmcLong", samples, parameters=metadata)
-##     expect_is(foo, "McmcLong")
-##     expect_equal(dim(foo), c(40, 4))
-## })
+samples <- melt(line)
+metadata <- McmcParameterMeta(unique(as.character(line_long$parameter)))
+foo <- new("McmcLong", samples, parameters=metadata)
 
-## test_that("error if bad colnames", {
-##     colnames(samples)[1] <- "foo"
-##     expect_error(new("McmcLong", samples, parameters=metadata))
-## })
-## test_that("error if bad colnames", {
-##     levels(samples$parameter) <- c("a", "b")
-##     expect_error(new("McmcLong", samples, parameters=metadata))
-## })
-## test_that("error if bad parameters", {
-##     samples$chain[1] <- 5
-##     expect_error(new("McmcLong", samples, parameters=metadata))
-## })
+test_that("McmcLong works", {
+    expect_is(foo, "McmcLong")
+    expect_equivalent(foo@.Data, samples)
+})
 
-## test_that("mcmcByIteration works", {
-##     foo <- new("McmcLong", samples, parameters=metadata)
-##     expect_is(datalist, "list")
-##     expect_equal(names(datalist[[1]]), c("alpha", "beta"))
-##     expect_equal(lapply(datalist[[1]], dim), list(alpha=NULL, beta=c(2, 2)))
+test_that("error if bad colnames", {
+    colnames(samples)[1] <- "foo"
+    expect_error(new("McmcLong", samples, parameters=metadata))
+})
 
-##     mcmcByIteration(foo)
+test_that("error if bad parameter names", {
+    levels(samples$parameter) <- c("a", "b", "c")
+    expect_error(new("McmcLong", samples, parameters=metadata))
+})
 
-## })
+test_that("error if chain doesn't match", {
+    samples$chain[1] <- 5
+    expect_error(new("McmcLong", samples, parameters=metadata))
+})
 
+test_that("coerce from McmcLong to McmcList2 works", {
+    expect_is(as(foo, "McmcList2"), "McmcList2")
+})
+
+test_that("coerce from McmcList2 to McmcLong works", {
+    expect_is(as(McmcList2(foo), "McmcLong"), "McmcLong")
+})
 
 

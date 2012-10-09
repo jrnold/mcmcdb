@@ -31,30 +31,39 @@ setClass("McmcLong", contains="data.frame",
 
 validate_mcmc_long <- function(object) {
     valid_colnames <- c("parameter", "chain", "iteration", "value")
-    msg <- c()
     if (!all(colnames(object) == valid_colnames)) {
-        msg <- c(msg, sprintf("colnames must equal: %s",
-                              paste(sQuote(valid_colnames)), collapse=","))
-    } else {
-        ## Maybe consider loosening this
-        ## Allow for parameters to exist in data but not in metadata?
-        parameters <- as.character(unique(object[["parameter"]]))
-        if (!setequal(names(object@parameters@parameters), parameters)) {
-            msg <- c(msg, sprintf("parameters in object@parameters do not match data"))
-        }
-        ## Chain values
-        chains <- unique(object$chain)
-        n_chain <- length(chains)
-        if (!setequal(chains, seq(1, n_chain))) {
-            msg <- c(msg, "Chains must be numbered 1:n")
-        }
+        return(sprintf("colnames must equal: %s",
+                       paste(sQuote(valid_colnames)), collapse=","))
     }
-    if (length(msg)) {
-        msg
-    } else {
-        TRUE
+    ## Maybe consider loosening this
+    ## Allow for parameters to exist in data but not in metadata?
+    parameters <- as.character(unique(object[["parameter"]]))
+    if (!setequal(names(object@parameters@parameters), parameters)) {
+        return(sprintf("parameters in object@parameters do not match data"))
     }
+    ## Chain values
+    chains <- unique(object$chain)
+    n_chain <- length(chains)
+    if (!setequal(chains, seq(1, n_chain))) {
+        return("Chains must be numbered 1:n")
+    }
+    TRUE
 }
 
 setValidity("McmcLong", validate_mcmc_long)
 
+## Coercion
+## McmcLong -> McmcList2
+setAs("McmcLong", "McmcList2",
+      function(from, to) {
+          ret <- dlply(from, "chain",
+                       function(x) mcmc(acast(x, iteration ~ parameter,
+                                              value.var="value")))
+          strip_plyr_attr(ret)
+      })
+
+## McmcList2 -> McmcLong
+setAs("McmcList2", "McmcLong",
+      function(from, to) {
+          new("McmcLong", melt(from), parameters=from@parameters)
+      })
