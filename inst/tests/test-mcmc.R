@@ -45,11 +45,6 @@ test_that("method quantile works", {
     expect_equal(dim(quantile(line1, type=1)), c(5, ncol(line1)))
 })
 
-test_that("method median works", {
-    expect_equal(length(median(line1)), 3)
-    expect_equal(names(median(line1)), colnames(line1))
-})
-
 test_that("method coef works", {
     expect_equal(coef(line1), mean(line1))
     expect_equal(coef(line1, FUN=median), median(line1))

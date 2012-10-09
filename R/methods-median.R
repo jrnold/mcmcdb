@@ -18,21 +18,26 @@
 ##' @docType methods
 ##' @keywords methods
 ##' @export
-setGeneric("median", stats::median)
+setGeneric("median", function(x, ...) stats::median(x, ...))
 
 ##' @aliases median,mcmc-method
 setMethod("median", "mcmc",
           function(x, na.rm=FALSE) {
-              apply(x, 2, median, na.rm=na.rm)
+              apply(x, 2, stats::median, na.rm=na.rm)
           })
 
 
 setMethod("median", "mcmc.list",
           function(x, na.rm=FALSE) {
-              mcmc_iter_column(x, median, na.rm=na.rm)
+              mcmc_iter_column(x, stats::median, na.rm=na.rm)
           })
 
+## TODO: maybe another median method?
 setMethod("median", "McmcLong",
-          function(x, na.rm=FALSE) {
-              ddply(x, "parameter", summarise, median=median(value, na.rm=na.rm))
+          function(x, na.rm=FALSE, ...) {
+              f <- function(x) {
+                  data.frame(median=stats::median(x$value, na.rm=na.rm))
+              }
+              ddply(x, "parameter", f, ...)
           })
+
