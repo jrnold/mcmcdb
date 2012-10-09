@@ -43,10 +43,10 @@ test_that("method rbind2 for mcmc works", {
 test_that("melt works", {
     foo <- melt(line)
     expect_is(foo, "data.frame")
-    expect_equal(colnames(foo), c("iteration", "parameter", "value", "chain"))
+    expect_equal(colnames(foo), c("parameter", "chain", "iteration", "value"))
     expect_equal(nrow(foo), 1200)
     expect_equal(rownames(foo)[1], "alpha.1.1")
-    expect_equal(rownames(foo)[1200], "sigma.200.2")
+    expect_equal(rownames(foo)[1200], "sigma.2.200")
 })
 
 test_that("as mcmc.list -> matrix works", {
@@ -55,7 +55,5 @@ test_that("as mcmc.list -> matrix works", {
 test_that("as mcmc.list -> mcmc works", {
     linemcmc <- as(line, "mcmc")
 })
-
-
 
 

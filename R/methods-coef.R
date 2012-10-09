@@ -19,7 +19,7 @@
 NULL
 
 setMethod("coef", "mcmc",
-          function(object, FUN="mean", ...) {
+          function(object, FUN=mean, ...) {
               apply(object, 2, FUN)
           })
 
