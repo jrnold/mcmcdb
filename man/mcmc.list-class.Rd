@@ -1,7 +1,7 @@
 \docType{class}
 \name{mcmc.list-class}
 \alias{mcmc.list-class}
-\title{Markov Chain Monte Carlo Object List}
+\title{MCMC object list}
 \description{
   S4 class which wraps the \pkg{coda} S3 class
   \code{\link[coda]{mcmc.list}}. This is simply a list of
@@ -20,4 +20,5 @@
 \seealso{
   \code{\link[coda]{mcmc}}
 }
+\keyword{classes}
 

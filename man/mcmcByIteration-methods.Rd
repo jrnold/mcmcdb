@@ -1,4 +1,9 @@
+\docType{methods}
 \name{mcmcByIteration-methods}
+\alias{mcmcByIteration}
+\alias{mcmcByIteration,McmcList2-method}
+\alias{mcmcByIteration,McmcLong-method}
+\alias{mcmcByIteration,McmcWide-method}
 \alias{mcmcByIteration-methods}
 \title{Iterate through mcmc iterations}
 \arguments{
@@ -24,4 +29,5 @@
   \item{\code{signature(object="mcmcWide"}}{Method for
   class \code{mcmcWide}.} }
 }
+\keyword{methods}
 

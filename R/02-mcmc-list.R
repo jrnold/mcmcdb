@@ -22,6 +22,7 @@ NULL
 ##' @rdname mcmc.list-class
 ##' @aliases mcmc.list-class
 ##' @docType class
+##' @keywords classes
 ##' @seealso \code{\link[coda]{mcmc}}
 NULL
 
@@ -59,6 +60,8 @@ removeClass("McmcList4")
 ##'
 ##' @aliases mcmc.list mcmc.list,ANY-method mcmc.list,mcmc-method mcmc.list,matrix-method
 ##' @seealso \code{\link[coda]{mcmc}}
+##' @docType methods
+##' @keywords methods
 NULL
 
 mcmc.list <- function (x, ...) {

@@ -70,22 +70,28 @@ initialize_mcmc <- function(.Object, data,
 }
 setMethod("initialize", "mcmc", initialize_mcmc)
 
-##' Create mcmc objects
+##' Create \code{mcmc} objects
 ##'
 ##' Create an \code{mcmc} object.
 ##'
+##' @section Methods:
 ##' \describe{
 ##' \item{\code{signature(data = "ANY")}}{}
 ##' \item{\code{signature(data = "numeric")}}{}
 ##' \item{\code{signature(data = "ts")}}{}
 ##' }
 ##'
-##' @aliases mcmc-methods
+##' @aliases mcmc mcmc-method
 ##' @aliases mcmc,ANY-method
 ##' @aliases mcmc,numeric-method
 ##' @aliases mcmc,ts-method
 ##' @param data Input object
-##' @rdname mcmc
+##' @rdname mcmc-methods
+##' @name mcmc-methods
+##' @docType methods
+##' @keywords methods
+NULL
+
 ##' @export
 setGeneric("mcmc",
            function(data, ...) {
@@ -107,7 +113,5 @@ mcmc_ts <- function(data, ...) {
     callGeneric(matrix(data), start=start, end=end, thin=thin)
 }
 
-##' @rdname mcmc
 setMethod("mcmc", "ts", mcmc_ts)
-
 

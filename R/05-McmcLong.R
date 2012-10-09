@@ -1,7 +1,4 @@
-##' @exportClass McmcLong
-NULL
-
-##' New Mcmc Samples class (long-format)
+##' MCMC Samples in long-format
 ##'
 ##' Mcmc samples stored as a table with columns: "parameter", "chain",
 ##' "iteration", "value". Right now the backend is a
@@ -24,8 +21,11 @@ NULL
 ##' \item{\code{data.frame}}{directly}
 ##' }
 ##'
-##' @rdname McmcWide-class
-##' @aliases McmcWide-class
+##' @rdname McmcLong-class
+##' @aliases McmcLong-class
+##' @docType class
+##' @keywords classes
+##' @export
 setClass("McmcLong", contains="data.frame",
          representation(parameters="McmcParameterMeta"))
 

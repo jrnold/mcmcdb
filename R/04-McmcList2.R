@@ -1,8 +1,8 @@
 ##' @exportClass McmcList2
-##' @export McmcList2
+##' @exportMethod McmcList2
 NULL
 
-##' Improved mcmc.list class
+##' List of MCMC chains with parameter metadata
 ##'
 ##' This class extends the standard \code{\link[coda]{mcmc.list}}
 ##' class with metadata about the shape of the parameters that can be
@@ -12,8 +12,7 @@ NULL
 ##' @section Slots:
 ##'
 ##' \describe{
-##' \item{\code{indices}}{List of matrices which map each flat parameter name to its parameter array.}
-##' \item{\code{template}}{List of parameter arrays in the same form as they were in the estimation.}
+##' \item{\code{parameters}}{Class \code{McmcParamterMeta}.}
 ##' }
 ##'
 ##' @section Extends:
@@ -32,11 +31,34 @@ NULL
 ##'
 ##' @rdname McmcList2-class
 ##' @aliases McmcList2-class
-##' @export
+##' @docType class
+##' @keywords classes
 setClass("McmcList2", contains="mcmc.list",
          representation(parameters="McmcParameterMeta"))
 
-setGeneric("McmcList2", function(data, ...) standardGeneric("McmcList2"))
+
+##' Create \code{McmcList2} objects
+##'
+##' @section Methods:
+##' \describe{
+##' \item{\code{signature(data="McmcList2")}}{Create from \code{mcmc.list}.}
+##' \item{\code{signature(data="McmcList2")}}{Create from \code{matrix}.}
+##' }
+##'
+##' @rdname McmcList2-methods
+##' @name McmcList2-methods
+##' @keywords method
+##' @aliases McmcList2-methods
+##' @aliases McmcList2,matrix-method
+##' @aliases McmcList2,mcmc.list-method
+##' @docType methods
+##' @keywords methods
+##' @export
+setGeneric("McmcList2",
+           function(data, ...) {
+               standardGeneric("McmcList2")
+           })
+
 
 mcmc2_default <- function(data, ...,
                           parameter_names=colnames(data[[1]]),
@@ -50,29 +72,4 @@ setMethod("McmcList2", "mcmc.list", mcmc2_default)
 
 setMethod("McmcList2", "matrix",
           function(data, ...) callGeneric(mcmc.list(data), ...))
-
-mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...) {
-    do_iteration <- function(x, metadata, innerfun, data, ...) {
-        innerfun(c(mcmcUnflatten(metadata, x), data))
-    }
-    do_chain <- function(x, metadata, innerfun, data) {
-        alply(x, 1, .fun=do_iteration,
-              metadata=metadata,
-              data=data, innerfun=innerfun)
-    }
-    ## element names = be chain.iteration
-    n_chains <- length(object)
-    n_iter <- sapply(object, nrow)
-    listnames <-
-        unlist(mapply(function(x, y) paste(x, seq_len(y), sep="."),
-                      seq_len(n_chains), n_iter, SIMPLIFY=FALSE))
-    ret <- do.call(c, llply(object, do_chain,
-                            metadata=object@parameters,
-                            innerfun=FUN, data=data))
-    names(ret) <- listnames
-    ret
-}
-
-
-
 

@@ -43,42 +43,10 @@ gelman_diag <- function(x)  {
 ##'
 ##' @references Stan Manual, Section 27.2.
 ##'
+##' @aliases gelmanDiag
+##' @aliases gelmanDiag-method
+##' @keywords methods
+##' @docType methods
 ##' @export
-setGeneric("gelman_diag", gelman_diag_matrix)
-
-
-##' Gelman-Rubin Diagnostic with a Split Single Chain
-##'
-##' @param x Object containing the MCMC samples.
-##'
-##' The single chain is split in half, and then
-##' \code{gelman_diag} is run on the two halves.
-##'
-##' @references Stan Manual, Section 27.2.
-##'
-##' @export
-setGeneric("gelman_diag_split", function(x, ...) standardGeneric("gelman_diag_split"))
-
-setMethod("gelman_diag_split", "numeric",
-          function(x, ...) {
-              n <- length(x)
-              i1 <- 1:floor(n/2)
-              i2 <- ceiling(n/2 + 1):n
-              gelman_diag(mcmc.list(mcmc(x[i1]), mcmc(x[i2])))
-          })
-
-setMethod("gelman_diag_split", "matrix",
-          function(x, ...) {
-              apply(x, 2, gelman_diag_split)
-          })
-
-setMethod("gelman_diag_split", "list",
-          function(x, ...) {
-              lapply(x, gelman_diag_split, ...)
-          })
-
-setMethod("gelman_diag_split", "mcmc",
-          function(x, ...) {
-              gelman_diag_split(as.matrix(x), ...)
-          })
+setGeneric("gelmanDiag", gelman_diag_matrix)
 

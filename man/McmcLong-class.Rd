@@ -1,7 +1,8 @@
-\name{McmcWide}
-\alias{McmcWide}
-\alias{McmcWide-class}
-\title{New Mcmc Samples class (long-format)}
+\docType{class}
+\name{McmcLong}
+\alias{McmcLong}
+\alias{McmcLong-class}
+\title{MCMC Samples in long-format}
 \description{
   Mcmc samples stored as a table with columns: "parameter",
   "chain", "iteration", "value". Right now the backend is a
@@ -21,4 +22,5 @@
 \section{Extends}{
   \describe{ \item{\code{data.frame}}{directly} }
 }
+\keyword{classes}
 

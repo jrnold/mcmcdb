@@ -1,5 +1,7 @@
-\name{gelman_diag}
-\alias{gelman_diag}
+\docType{methods}
+\name{gelmanDiag}
+\alias{gelmanDiag}
+\alias{gelmanDiag-method}
 \title{Gelman-Rubin Criteria}
 \arguments{
   \item{x}{object representing a single chain.}
@@ -10,4 +12,5 @@
 \references{
   Stan Manual, Section 27.2.
 }
+\keyword{methods}
 

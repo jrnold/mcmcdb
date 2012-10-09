@@ -1,7 +1,8 @@
+\docType{class}
 \name{McmcList2}
 \alias{McmcList2}
 \alias{McmcList2-class}
-\title{Improved mcmc.list class}
+\title{List of MCMC chains with parameter metadata}
 \description{
   This class extends the standard
   \code{\link[coda]{mcmc.list}} class with metadata about
@@ -10,10 +11,8 @@
   easier.
 }
 \section{Slots}{
-  \describe{ \item{\code{indices}}{List of matrices which
-  map each flat parameter name to its parameter array.}
-  \item{\code{template}}{List of parameter arrays in the
-  same form as they were in the estimation.} }
+  \describe{ \item{\code{parameters}}{Class
+  \code{McmcParamterMeta}.} }
 }
 
 \section{Extends}{
@@ -27,4 +26,5 @@
   \item{\code{parameters}}{\code{McmcParameterMeta} object}
   }
 }
+\keyword{classes}
 
