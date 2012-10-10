@@ -1,3 +1,9 @@
+.MCMC_LONG_COLUMNS <-
+    c(parameter="factor",
+      chain="integer",
+      iteration="integer",
+      value="numeric")
+
 ##' MCMC Samples in long-format
 ##'
 ##' Mcmc samples stored as a table with columns: "parameter", "chain",
@@ -30,10 +36,14 @@ setClass("McmcLong", contains="data.frame",
          representation(parameters="McmcParameterMeta"))
 
 validate_mcmc_long <- function(object) {
-    valid_colnames <- c("parameter", "chain", "iteration", "value")
-    if (!all(colnames(object) == valid_colnames)) {
+    if (!all(colnames(object) == names(.MCMC_LONG_COLUMNS))) {
         return(sprintf("colnames must equal: %s",
-                       paste(sQuote(valid_colnames)), collapse=","))
+                       paste(sQuote(names(.MCMC_LONG_COLUMNS)),
+                             collapse=",")))
+    }
+    if (!all(sapply(object, class) == .MCMC_LONG_COLUMNS)) {
+        return(sprintf("Classes of columns must equal %s",
+                       deparse(unname(.MCMC_LONG_COLUMNS))))
     }
     ## Maybe consider loosening this
     ## Allow for parameters to exist in data but not in metadata?
@@ -52,7 +62,60 @@ validate_mcmc_long <- function(object) {
 
 setValidity("McmcLong", validate_mcmc_long)
 
+## Creation Methods
+##' Create \code{McmcLong} objects
+##'
+##' @param data Object with MCMC samples
+##' @param parameter_name \code{character} vector of parameter names which will
+##' be parsed by \code{fun}
+##' @param fun \code{function} used to parse \code{parameter_name}.
+##' See \code{\link{parse_parameter_names_default}} for what this
+##' function has to return.
+##'
+##' @section Methods:
+##' \describe{
+##' \item{\code{signature(data="data.frame")}}{\code{data} should have columns
+##' \code{c("parameter", "chain", "iteration", "value")}.}
+##' }
+##'
+##' @docType methods
+##' @keywords methods
+##' @export
+setGeneric("McmcLong",
+           function(data, ...) {
+               standardGeneric("McmcLong")
+           })
+
+mcmc_long_default <-
+    function(data, 
+             parameter_names=NULL,
+             fun=parse_parameter_names_default)
+{
+    ## Put this before parparsed to change data before eval
+    if (is.null(parameter_names)) {
+        parameter_names <- unique(as.character(data$parameter))
+    }
+
+    for (i in seq_along(.MCMC_LONG_COLUMNS)) {
+        variable <- names(.MCMC_LONG_COLUMNS)[i]
+        class <- unname(.MCMC_LONG_COLUMNS)[i]
+        data[[variable]] <- as(data[[variable]], class)
+    }
+    new("McmcLong", data[ , names(.MCMC_LONG_COLUMNS)],
+        parameters=McmcParameterMeta(fun(parameter_names)))
+}
+
+setMethod("McmcLong", "data.frame", mcmc_long_default)
+
+mcmc_long_mcmc_list2 <- function(data) {
+    as(data, "McmcLong")
+}
+
+setMethod("McmcLong", "McmcList2", mcmc_long_mcmc_list2)
+
+
 ## Coercion
+
 ## McmcLong -> McmcList2
 setAs("McmcLong", "McmcList2",
       function(from, to) {

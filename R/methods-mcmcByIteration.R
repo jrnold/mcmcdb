@@ -46,7 +46,7 @@ mcmc_by_iteration_mcmc_list2 <- function(object, data=list(), FUN=identity, ...)
                             metadata=object@parameters,
                             innerfun=FUN, data=data))
     names(ret) <- listnames
-    ret
+    strip_plyr_attr(ret)
 }
 
 setMethod("mcmcByIteration", "McmcList2", mcmc_by_iteration_mcmc_list2)

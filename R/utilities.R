@@ -52,4 +52,5 @@ strip_plyr_attr <- function(x) {
 ##     }
 ## }
 
-
+## Missing Coercions
+setAs("character", "factor", function(from, to) as.factor(from))
