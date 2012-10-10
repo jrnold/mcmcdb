@@ -1,3 +1,4 @@
+## Names and clases of columns in \code{McmcLong} class
 .MCMC_LONG_COLUMNS <-
     c(parameter="factor",
       chain="integer",
@@ -36,14 +37,9 @@ setClass("McmcLong", contains="data.frame",
          representation(parameters="McmcParameterMeta"))
 
 validate_mcmc_long <- function(object) {
-    if (!all(colnames(object) == names(.MCMC_LONG_COLUMNS))) {
-        return(sprintf("colnames must equal: %s",
-                       paste(sQuote(names(.MCMC_LONG_COLUMNS)),
-                             collapse=",")))
-    }
-    if (!all(sapply(object, class) == .MCMC_LONG_COLUMNS)) {
-        return(sprintf("Classes of columns must equal %s",
-                       deparse(unname(.MCMC_LONG_COLUMNS))))
+    check_df <- validate_data_frame(object, .MCMC_LONG_COLUMNS)
+    if (is.charachter(check_df)) {
+        return(check_df)
     }
     ## Maybe consider loosening this
     ## Allow for parameters to exist in data but not in metadata?

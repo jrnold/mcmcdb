@@ -1,3 +1,6 @@
+## Missing Coercions
+setAs("character", "factor", function(from, to) as.factor(from))
+
 ## Select first observation
 first <- function(x) x[1]
 
@@ -52,5 +55,25 @@ strip_plyr_attr <- function(x) {
 ##     }
 ## }
 
-## Missing Coercions
-setAs("character", "factor", function(from, to) as.factor(from))
+## Check column names and classes of a \code{data.frame}
+## 
+## @param columns 
+## @param param
+## @returns If valid, then \code{TRUE}, else \code{character} with
+## an error message.
+validate_data_frame(x, columns) {
+    if (!all(colnames(object) == names(columns))) {
+        return(sprintf("Colnames must equal: %s",
+                       paste(sQuote(names(columns)),
+                             collapse=",")))
+    }
+    if (!all(sapply(object, class) == columns)) {
+        return(sprintf("Classes of columns must equal %s",
+                       deparse(unname(columns))))
+    }
+    TRUE
+}
+
+
+
+
