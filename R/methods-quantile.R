@@ -46,6 +46,6 @@ setMethod("quantile", "McmcLong",
                   stats::quantile(x$value, probs=probs, na.rm=na.rm,
                                   names=names, type=type)
               }
-              ddply(x, "parameter", f)
+              ddply(x@samples, "parameter", f)
           })
 

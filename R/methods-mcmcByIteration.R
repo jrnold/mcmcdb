@@ -56,8 +56,8 @@ mcmc_by_iteration_mcmc_long <- function(object, data=list(), FUN=identity) {
         values <- structure(x$value, names=as.character(x$parameter))
         innerfun(c(mcmcUnflatten(metadata, values), data))
     }
-    listnames <- paste(object$chain, object$iteration, sep=".")
-    ret <- dlply(object, c("chain", "iteration"),
+    listnames <- paste(object@samples$chain, object@samples$iteration, sep=".")
+    ret <- dlply(object@samples, c("chain", "iteration"),
                  .fun=do_iteration,
                  metadata=object@parameters,
                  data=data,

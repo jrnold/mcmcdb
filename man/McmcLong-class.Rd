@@ -1,6 +1,5 @@
 \docType{class}
-\name{McmcLong}
-\alias{McmcLong}
+\name{McmcLong-class}
 \alias{McmcLong-class}
 \title{MCMC Samples in long-format}
 \description{
@@ -13,7 +12,7 @@
   version that uses a SQLite backend.
 }
 \section{Slots}{
-  \describe{ \item{\code{.Data}}{\code{data.frame} with
+  \describe{ \item{\code{samples}}{\code{data.frame} with
   columns "paramter", "chain", "iteration", "value"}
   \item{\code{parameters}}{\code{McmcParaterMeta} object
   with the array sizes of the paramters in the sample.} }

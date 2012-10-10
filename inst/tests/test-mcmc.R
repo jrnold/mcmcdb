@@ -31,7 +31,7 @@ test_that("mcmc function works with signature numeric", {
 test_that("mcmc function works with signature ts", {
     x <- mcmc(ts(foo))
     expect_equivalent(x@.Data, foo)
-    expect_identical(mcpar(x), c(1, 10, 1))
+    expect_identical(x@mcpar, c(1, 10, 1))
 })
 
 

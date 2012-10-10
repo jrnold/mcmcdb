@@ -38,6 +38,6 @@ setMethod("median", "McmcLong",
               f <- function(x) {
                   data.frame(median=stats::median(x$value, na.rm=na.rm))
               }
-              ddply(x, "parameter", f, ...)
+              ddply(x@samples, "parameter", f, ...)
           })
 

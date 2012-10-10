@@ -18,7 +18,7 @@
 ##' @section Slots:
 ##'
 ##' \describe{
-##' \item{\code{.Data}}{\code{data.frame} with columns "paramter", "chain", "iteration", "value"}
+##' \item{\code{samples}}{\code{data.frame} with columns "paramter", "chain", "iteration", "value"}
 ##' \item{\code{parameters}}{\code{McmcParaterMeta} object with the array sizes of the paramters in the sample.}
 ##' }
 ##'
@@ -28,27 +28,29 @@
 ##' \item{\code{data.frame}}{directly}
 ##' }
 ##'
+##' @name McmcLong-class
 ##' @rdname McmcLong-class
 ##' @aliases McmcLong-class
 ##' @docType class
 ##' @keywords classes
 ##' @export
-setClass("McmcLong", contains="data.frame",
-         representation(parameters="McmcParameterMeta"))
+setClass("McmcLong", 
+         representation(samples="data.frame",
+                        parameters="McmcParameterMeta"))
 
 validate_mcmc_long <- function(object) {
-    check_df <- validate_data_frame(object, .MCMC_LONG_COLUMNS)
+    check_df <- validate_data_frame(object@samples, .MCMC_LONG_COLUMNS)
     if (is.character(check_df)) {
         return(check_df)
     }
     ## Maybe consider loosening this
     ## Allow for parameters to exist in data but not in metadata?
-    parameters <- as.character(unique(object[["parameter"]]))
+    parameters <- as.character(unique(object@samples[["parameter"]]))
     if (!setequal(names(object@parameters@parameters), parameters)) {
         return(sprintf("parameters in object@parameters do not match data"))
     }
     ## Chain values
-    chains <- unique(object$chain)
+    chains <- unique(object@samples$chain)
     n_chain <- length(chains)
     if (!setequal(chains, seq(1, n_chain))) {
         return("Chains must be numbered 1:n")
@@ -58,7 +60,6 @@ validate_mcmc_long <- function(object) {
 
 setValidity("McmcLong", validate_mcmc_long)
 
-## Creation Methods
 ##' Create \code{McmcLong} objects
 ##'
 ##' @param data Object with MCMC samples
@@ -74,8 +75,13 @@ setValidity("McmcLong", validate_mcmc_long)
 ##' \code{c("parameter", "chain", "iteration", "value")}.}
 ##' }
 ##'
+##' @rdname McmcLong-methods
+##' @name McmcLong-methods
 ##' @docType methods
 ##' @keywords methods
+##' @aliases McmcLong
+##' @aliases McmcLong,data.frame-method
+##' @aliases McmcLong,McmcList2-method
 ##' @export
 setGeneric("McmcLong",
            function(data, ...) {
@@ -97,7 +103,8 @@ mcmc_long_default <-
         class <- unname(.MCMC_LONG_COLUMNS)[i]
         data[[variable]] <- as(data[[variable]], class)
     }
-    new("McmcLong", data[ , names(.MCMC_LONG_COLUMNS)],
+    new("McmcLong",
+        samples=data[ , names(.MCMC_LONG_COLUMNS)],
         parameters=McmcParameterMeta(fun(parameter_names)))
 }
 
@@ -115,14 +122,20 @@ setMethod("McmcLong", "McmcList2", mcmc_long_mcmc_list2)
 ## McmcLong -> McmcList2
 setAs("McmcLong", "McmcList2",
       function(from, to) {
-          ret <- dlply(from, "chain",
+          to <- dlply(from@samples, "chain",
                        function(x) mcmc(acast(x, iteration ~ parameter,
                                               value.var="value")))
-          strip_plyr_attr(ret)
+          new("McmcList2", mcmc.list(to),
+              parameters=from@parameters)
       })
 
 ## McmcList2 -> McmcLong
 setAs("McmcList2", "McmcLong",
       function(from, to) {
-          new("McmcLong", melt(from), parameters=from@parameters)
+          new("McmcLong", samples=melt(from), parameters=from@parameters)
       })
+
+## McmcLong -> data.frame
+setAs("McmcLong", "data.frame",
+      function(from, to) from@samples)
+

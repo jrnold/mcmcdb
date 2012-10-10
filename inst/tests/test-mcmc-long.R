@@ -4,16 +4,16 @@ data(line, package="mcmc4")
 
 samples <- melt(line)
 metadata <- McmcParameterMeta(unique(as.character(samples$parameter)))
-foo <- new("McmcLong", samples[ , c("parameter", "chain", "iteration", "value")], parameters=metadata)
+foo <- new("McmcLong", samples=samples[ , c("parameter", "chain", "iteration", "value")], parameters=metadata)
 
 test_that("McmcLong works", {
     expect_is(foo, "McmcLong")
-    expect_equivalent(foo@.Data, samples)
+    expect_equivalent(foo@samples, samples)
 })
 
 test_that("error if bad colnames", {
     colnames(samples)[1] <- "foo"
-    expect_error(new("McmcLong", samples, parameters=metadata))
+    expect_error(new("McmcLong", samples=samples, parameters=metadata))
 })
 
 test_that("error if bad parameter names", {
@@ -23,27 +23,27 @@ test_that("error if bad parameter names", {
 
 test_that("error if column classes are incorrect", {
     expect_error(new("McmcLong",
-                     transform(samples, parameter=as.character(parameter)),
+                     samples=transform(samples, parameter=as.character(parameter)),
                      parameters=metadata))
     expect_error(new("McmcLong",
-                     transform(samples, iter=as.numeric(iter + 0.5)),
-                               parameters=metadata))
+                     samples=transform(samples, iter=as.numeric(iter + 0.5)),
+                     parameters=metadata))
     expect_error(new("McmcLong",
-                     transform(samples, chain=as.numeric(chain + 0.5)),
-                               parameters=metadata))
+                     samples=transform(samples, chain=as.numeric(chain + 0.5)),
+                     parameters=metadata))
     expect_error(new("McmcLong",
-                     transform(samples, chain=as.character(value)),
+                     samples=transform(samples, chain=as.character(value)),
                                parameters=metadata))
 })
 
 test_that("error if chain numbers doesn't match", {
     samples$chain[1] <- 5
-    expect_error(new("McmcLong", samples, parameters=metadata))
+    expect_error(new("McmcLong", samples=samples, parameters=metadata))
 })
 
 #############################
 
-context("Testing McmcLong-methods")
+context("McmcLong-methods")
 
 test_that("data=data.frame works", {
     expect_is(McmcLong(samples), "McmcLong")
@@ -66,14 +66,18 @@ test_that("data=mcmc.list works", {
 
 #############################
 
-context("Testing McmcLong coercion methods")
+context("McmcLong coercion methods")
 
-test_that("coerce from McmcLong to McmcList2 works", {
+test_that("coerce from=McmcLong to=McmcList2 works", {
     expect_is(as(foo, "McmcList2"), "McmcList2")
 })
 
-test_that("coerce from McmcList2 to McmcLong works", {
-    expect_is(as(McmcList2(foo), "McmcLong"), "McmcLong")
+test_that("coerce from=McmcList2 to=McmcLong works", {
+    expect_is(as(McmcList2(line), "McmcLong"), "McmcLong")
+})
+
+test_that("coerce from=McmcLong,to=data.frame works", {
+    expect_equal(as(foo, "data.frame"), foo@samples)
 })
 
 

@@ -27,9 +27,10 @@ c_mcmc_list <- function(x, ...) {
 setMethod("c", c(x="McmcList2"), c_mcmc_list)
 
 c_mcmc_long <- function(x, ...) {
-    objects <- .Primitive("c")(list(x), list(...))
+    objects <- .Primitive("c")(list(x@samples),
+                               lapply(list(...), slot, name="samples"))
     new("McmcLong",
-        do.call(base:::rbind.data.frame, objects),
+        samples=do.call(base:::rbind.data.frame, objects),
         parameters=x@parameters)
 }
 

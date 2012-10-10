@@ -13,7 +13,7 @@ test_that("signature x=McmcList2 works", {
 test_that("signature x=McmcLong works", {
     ret <- c(line3, line3)
     expect_is(ret, "McmcLong")
-    expect_equal(nrow(ret), 2*nrow(line3))
+    expect_equal(nrow(ret@samples), 2*nrow(line3@samples))
 })
 
 

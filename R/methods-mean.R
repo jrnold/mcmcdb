@@ -30,7 +30,7 @@ setMethod("mean", "mcmc",
 
 setMethod("mean", "McmcLong",
           function(x, ...) {
-              ddply(x, "parameter", summarise, mean=mean(value, ...))
+              ddply(x@samples, "parameter", summarise, mean=mean(value, ...))
           })
 
 
