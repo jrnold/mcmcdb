@@ -35,7 +35,7 @@ setMethod("quantile", "mcmc",
 setMethod("quantile", "mcmc.list",
           function(x, probs=c(0.025, 0.25, 0.5, 0.75, 0.975),
                    na.rm=FALSE, names=TRUE, type=7, ...) {
-              mcmc_iter_column(x, 2, stats::quantile, probs=probs, na.rm=na.rm,
+              mcmc_iter_column(x, stats::quantile, probs=probs, na.rm=na.rm,
                                names=names, type=type, ...)
           })
 

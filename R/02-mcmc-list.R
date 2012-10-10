@@ -32,7 +32,7 @@ mcmc_list_validity <- function(object) {
     if (length(object@.Data) == 0) {
         TRUE
     } else {
-        allmcmc <- all(sapply(object, is, class2="mcmc"))
+        allmcmc <- all(sapply(object, is, class="mcmc"))
         if (allmcmc) {
             TRUE
         } else {
@@ -65,7 +65,7 @@ removeClass("McmcList4")
 NULL
 
 mcmc.list <- function (x, ...) {
-    if (!all(sapply(x, is, class2="mcmc"))) {
+    if (!all(sapply(x, is, class="mcmc"))) {
         x <- lapply(x, mcmc, ...)
     }
     new("mcmc.list", x)
@@ -90,11 +90,18 @@ setMethod("mcmc.list", "matrix",
 ##
 mcmc_iter_column <- function(x, FUN=identity, ...) {
     n <- ncol(x[[1]])
+    parnames <- colnames(x[[1]])
     .FUN <- match.fun(FUN)
-    sapply(seq_len(n),
-           function(i){
-               .FUN(unlist(lapply(x, function(j) as.numeric(j[ , i]))), ...)
-           })
+    ret <- sapply(seq_len(n),
+                  function(i){
+                      .FUN(unlist(lapply(x, function(j) as.numeric(j[ , i]))), ...)
+                  })
+    if (length(dim(ret)) > 0) {
+        colnames(ret) <- parnames
+    } else {
+        names(ret) <- parnames
+    }
+    ret
 }
 
 ## Coercion

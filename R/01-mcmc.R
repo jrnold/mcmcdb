@@ -99,7 +99,9 @@ setGeneric("mcmc",
            })
 
 setMethod("mcmc", "numeric",
-          function(data, ...) callGeneric(as.matrix(numeric)))
+          function(data, ..., parname="X1") {
+              callGeneric(matrix(data, dimnames=list(NULL, parname)))
+          })
 
 mcmc_ts <- function(data, ...) {
     start <- start(data)[1]

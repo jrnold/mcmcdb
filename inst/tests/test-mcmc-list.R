@@ -16,16 +16,6 @@ test_that("mcmc.list class definition", {
     expect_error(new("mcmc.list", list(1, "a", 1:5)))
 })
 
-
-test_that("method vcov for signature mcmc.list works", {
-    expect_that(dim(vcov(line)), equals(rep(ncol(line[[1]]), 2)))
-})
-
-test_that("method coef for signature mcmc.list works", {
-    expect_that(coef(line), equals(mean(line)))
-    expect_that(coef(line, "median"), is_equivalent_to(median(line)))
-})
-
 test_that("method rbind2 for mcmc works", {
     linematrix <- rbind2(line)
     expect_is(linematrix, "matrix")
@@ -33,14 +23,6 @@ test_that("method rbind2 for mcmc works", {
     expect_equal(nrow(linematrix), sum(sapply(line, nrow)))
 })
 
-test_that("melt works", {
-    foo <- melt(line)
-    expect_is(foo, "data.frame")
-    expect_equal(colnames(foo), c("parameter", "chain", "iteration", "value"))
-    expect_equal(nrow(foo), 1200)
-    expect_equal(rownames(foo)[1], "alpha.1.1")
-    expect_equal(rownames(foo)[1200], "sigma.2.200")
-})
 
 test_that("as mcmc.list -> matrix works", {
     expect_identical(rbind2(line), as(line, "matrix"))

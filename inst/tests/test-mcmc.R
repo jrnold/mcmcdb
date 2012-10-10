@@ -1,8 +1,6 @@
-library("coda")
 context("Tests for mcmc class")
 
 foo <- matrix(1:10)
-data(line, package="mcmc4")
 
 test_that("initialization with no parameters works", {
     x <- new("mcmc", foo)
@@ -36,25 +34,4 @@ test_that("mcmc function works with signature ts", {
     expect_identical(mcpar(x), c(1, 10, 1))
 })
 
-
-line1 <- line[[1]]
-
-test_that("method coef works", {
-    expect_equal(coef(line1), mean(line1))
-    expect_equal(coef(line1, FUN=median), median(line1))
-})
-
-test_that("method vcov works", {
-    expect_equal(dim(vcov(line1)), rep(ncol(line1), 2))
-})
-
-
-test_that("melt works", {
-    foo <- melt(line[[1]])
-    expect_is(foo, "data.frame")
-    expect_equal(nrow(foo), 600)
-    expect_equal(rownames(foo)[1], "alpha.1")
-    expect_equal(rownames(foo)[600], "sigma.200")
-    expect_equal(colnames(foo), c("parameter", "chain", "iteration", "value"))
-})
 

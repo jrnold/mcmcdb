@@ -38,7 +38,7 @@ setClass("McmcLong", contains="data.frame",
 
 validate_mcmc_long <- function(object) {
     check_df <- validate_data_frame(object, .MCMC_LONG_COLUMNS)
-    if (is.charachter(check_df)) {
+    if (is.character(check_df)) {
         return(check_df)
     }
     ## Maybe consider loosening this

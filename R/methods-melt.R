@@ -37,7 +37,7 @@ setMethod("melt", "mcmc",
         result <- callGeneric(as(data, "matrix"))
         colnames(result)[1:2] <- c("iteration", "parameter")
         result$chain <- chain
-        rownames(result) <- with(result, paste(parameter, iteration, chain, sep="."))
+        rownames(result) <- with(result, paste(parameter, chain, iteration, sep="."))
         result[ , c("parameter", "chain", "iteration", "value")]
     })
 

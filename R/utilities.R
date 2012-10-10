@@ -57,11 +57,12 @@ strip_plyr_attr <- function(x) {
 
 ## Check column names and classes of a \code{data.frame}
 ## 
-## @param columns 
-## @param param
+## @param object \code{data.frame} to be validated.
+## @param columns Named \code{character} vector. Names are required
+## columns in \code{x}, values are the classes of those columns.
 ## @returns If valid, then \code{TRUE}, else \code{character} with
 ## an error message.
-validate_data_frame(x, columns) {
+validate_data_frame <- function(object, columns) {
     if (!all(colnames(object) == names(columns))) {
         return(sprintf("Colnames must equal: %s",
                        paste(sQuote(names(columns)),
@@ -73,7 +74,4 @@ validate_data_frame(x, columns) {
     }
     TRUE
 }
-
-
-
 

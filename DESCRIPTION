@@ -39,3 +39,4 @@ Collate:
     'methods-rbind.R'
     'methods-gelmanDiag.R'
     'methods-gelmanDiagSplit.R'
+    'methods-c.R'
