@@ -4,7 +4,7 @@ setGeneric("mcmcGetParnames",
            })
 
 setMethod("mcmcGetParnames", "McmcLong",
-          function(object) unique(object@samples$parnames))
+          function(object) names(foo@parameters@parameters))
 
 setMethod("mcmcGetParnames", "mcmc.list",
           function(object) colnames(object[[1]]))
@@ -17,7 +17,7 @@ setGeneric("mcmcGetChains",
            })
 
 setMethod("mcmcGetChains", "McmcLong",
-          function(object) unique(object@samples$chains))
+          function(object) unique(object@samples$chain))
 
 setMethod("mcmcGetChains", "mcmc.list",
           function(object) length(object))
@@ -26,14 +26,19 @@ setMethod("mcmcGetChains", "mcmc.list",
 
 setGeneric("mcmcGetIters",
            function(object, ...) {
-               standardGeneric("mcmcGetChains")
+               standardGeneric("mcmcGetIters")
            })
 
 setMethod("mcmcGetIters", "McmcLong",
-          function(object) unique(object@samples$iter))
+          function(object) {
+              strip_plyr_attr(dlply(object@samples, "chain",
+                                    function(x) unique(x$iteration)))
+          })
 
 setMethod("mcmcGetIters", "mcmc.list",
-          function(object) seq_len(nrow(object[[1]])))
+          function(object) {
+              lapply(object, function(x) seq_len(nrow(x)))
+          })
 
 # ---------------------------------
 
@@ -42,11 +47,13 @@ setGeneric("mcmcDoParameter",
                standardGeneric("mcmcDoParameter")
            })
 
-mcmc_do_parameter <- function(x, parameter, .fun=identity, ...) {
+mcmc_do_parameter <- function(object, parameter, .fun=identity, ...) {
     .fun(x[x$parameter == parameter, ]$value)
 }
 
-setMethod("mcmcDoParameter", "McmcLong", mcmc_do_parameter)
+setMethod("mcmcDoParameter",
+          signature=c(object="McmcLong", parameter="character"),
+          mcmc_do_parameter)
 
 # --------------------------------
 
@@ -55,14 +62,11 @@ setGeneric("mcmcByParameter",
                standardGeneric("mcmcByParameter")
            })
 
-mcmc_by_parameter <- function(x, .fun=identity, ...) {
-    f <- function(x) .fun(x$value)
-    ddply(x, "parameter", .fun=f, ...)
+mcmc_by_parameter <- function(object, .fun=identity, ...) {
+    f <- function(object) .fun(x$value)
+    ddply(object, "parameter", .fun=f, ...)
 }
 
 setMethod("mcmcByParameter", "McmcLong", mcmc_by_parameter)
-
-
-
 
 

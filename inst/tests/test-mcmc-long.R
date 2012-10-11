@@ -4,7 +4,8 @@ data(line, package="mcmc4")
 
 samples <- melt(line)
 metadata <- McmcParameterMeta(unique(as.character(samples$parameter)))
-foo <- new("McmcLong", samples=samples[ , c("parameter", "chain", "iteration", "value")], parameters=metadata)
+columns <- c("parameter", "chain", "iteration", "value")
+foo <- new("McmcLong", samples=samples[ , columns], parameters=metadata)
 
 test_that("McmcLong works", {
     expect_is(foo, "McmcLong")
