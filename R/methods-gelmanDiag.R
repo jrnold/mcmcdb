@@ -50,3 +50,5 @@ gelman_diag <- function(x)  {
 ##' @export
 setGeneric("gelmanDiag", gelman_diag_matrix)
 
+
+

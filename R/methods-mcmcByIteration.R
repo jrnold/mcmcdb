@@ -56,30 +56,28 @@ mcmc_by_iteration_mcmc_long <- function(object, data=list(), FUN=identity) {
         values <- structure(x$value, names=as.character(x$parameter))
         innerfun(c(mcmcUnflatten(metadata, values), data))
     }
-    listnames <- paste(object@samples$chain, object@samples$iteration, sep=".")
     ret <- dlply(object@samples, c("chain", "iteration"),
                  .fun=do_iteration,
                  metadata=object@parameters,
                  data=data,
                  innerfun=FUN)
-    names(ret) <- listnames
     strip_plyr_attr(ret)
 }
 
 setMethod("mcmcByIteration", "McmcLong", mcmc_by_iteration_mcmc_long)
 
-mcmc_by_iteration_mcmc_wide <- function(object, data=list(), FUN=identity) {
-    do_iteration <- function(x, metadata, innerfun, data, ...) {
-        innerfun(c(mcmcUnflatten(metadata, x), data))
-    }
-    listnames <- paste(object$chain, object$iteration, sep=".")
-    ret <- dlply(object, c("chain", "iteration"),
-                 .fun=do_iteration,
-                 metadata=object@parameters,
-                 data=data,
-                 innerfun=FUN)
-    names(ret) <- listnames
-    strip_plyr_attr(ret)
-}
+## mcmc_by_iteration_mcmc_wide <- function(object, data=list(), FUN=identity) {
+##     do_iteration <- function(x, metadata, innerfun, data, ...) {
+##         innerfun(c(mcmcUnflatten(metadata, x), data))
+##     }
+##     listnames <- paste(object$chain, object$iteration, sep=".")
+##     ret <- dlply(object, c("chain", "iteration"),
+##                  .fun=do_iteration,
+##                  metadata=object@parameters,
+##                  data=data,
+##                  innerfun=FUN)
+##     names(ret) <- listnames
+##     strip_plyr_attr(ret)
+## }
 
-setMethod("mcmcByIteration", "McmcWide", mcmc_by_iteration_mcmc_wide)
+## setMethod("mcmcByIteration", "McmcWide", mcmc_by_iteration_mcmc_wide)

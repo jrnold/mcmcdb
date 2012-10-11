@@ -36,11 +36,6 @@ test_that("error if column classes are incorrect", {
                                parameters=metadata))
 })
 
-test_that("error if chain numbers doesn't match", {
-    samples$chain[1] <- 5
-    expect_error(new("McmcLong", samples=samples, parameters=metadata))
-})
-
 #############################
 
 context("McmcLong-methods")

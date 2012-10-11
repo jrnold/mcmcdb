@@ -15,6 +15,11 @@
 ##' columns, etc. I'll probably write a version that uses a SQLite
 ##' backend.
 ##'
+##' While these objects enforce multiple chains, it doesn not require
+##' that the chains be numbered \code{1:n}. This means it is harder to
+##' iterate over chains, but easier to create distinct chain objects
+##' to combine later.
+##'
 ##' @section Slots:
 ##'
 ##' \describe{
@@ -49,12 +54,12 @@ validate_mcmc_long <- function(object) {
     if (!setequal(names(object@parameters@parameters), parameters)) {
         return(sprintf("parameters in object@parameters do not match data"))
     }
-    ## Chain values
-    chains <- unique(object@samples$chain)
-    n_chain <- length(chains)
-    if (!setequal(chains, seq(1, n_chain))) {
-        return("Chains must be numbered 1:n")
-    }
+    ## ## Chain values
+    ## chains <- unique(object@samples$chain)
+    ## n_chain <- length(chains)
+    ## if (!setequal(chains, seq(1, n_chain))) {
+    ##     return("Chains must be numbered 1:n")
+    ## }
     TRUE
 }
 
