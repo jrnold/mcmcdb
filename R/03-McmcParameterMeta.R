@@ -10,15 +10,15 @@
 ##' @section Slots:
 ##'
 ##' \describe{
-##' 
+##'
 ##' \item{\code{parameters}:}{Object of class \code{"character"}.
 ##' Values are the names of the array parameters; names are the names
 ##' of the flat parameters. }
-##' 
+##'
 ##' \item{\code{skeleton}:}{Object of class \code{"list"} List of
 ##' arrays. Each element has the name of the array parameter, and an
 ##' array value of the proper shape of that parameter.}
-##' 
+##'
 ##' \item{\code{indices}:}{Object of class \code{"list"} List of
 ##' matrices, one for each array parameter. Each row the matrix is a
 ##' has a rowname of a flat parameter and values that are the index of
@@ -91,11 +91,11 @@ setMethod("McmcParameterMeta", "matrix",
           })
 
 setMethod("McmcParameterMeta", "character",
-          function(x, fun=parse_parameter_names_default, ...) {
+          function(x, fun=mcmc_parse_parname_default, ...) {
               callGeneric(fun(x, ...))
           })
 
 setMethod("McmcParameterMeta", "factor",
-          function(x, fun=parse_parameter_names_default, ...) {
+          function(x, fun=mcmc_parse_parname_default, ...) {
               callGeneric(as.character(x), fun=fun, ...)
           })

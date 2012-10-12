@@ -13,9 +13,9 @@
 ##' \item{\code{name}}{Name of the array parameter. E.g. If "beta.1.2" is the first column, second row of "beta", then this should be equal to "beta".}
 ##' }
 ##'
-##' @rdname parse_parameter_names
+##' @rdname mcmc_parse_parname
 ##' @export
-parse_parameter_names_default <- function(x) {
+mcmc_parse_parname_default <- function(x) {
     result <- data.frame(pararray=x,
                          index=rep("1", length(x)),
                          stringsAsFactors=FALSE)
@@ -23,9 +23,9 @@ parse_parameter_names_default <- function(x) {
     result
 }
 
-##' @rdname parse_parameter_names
+##' @rdname mcmc_parse_parname
 ##' @export
-parse_parameter_names_stan <- function(x) {
+mcmc_parse_parname_stan <- function(x) {
     result <- data.frame(str_split_fixed(x, fixed("."), n=2),
                           stringsAsFactors=FALSE)
     colnames(result) <- c("pararray", "index")
@@ -35,9 +35,9 @@ parse_parameter_names_stan <- function(x) {
     result
 }
 
-##' @rdname parse_parameter_names
+##' @rdname mcmc_parse_parname
 ##' @export
-parse_parameter_names_bugs <- function(x) {
+mcmc_parse_parname_bugs <- function(x) {
     result <-
         data.frame(str_match(x, "([^\\[]+)(\\[([0-9,]+)\\])?")[ , c(2, 4)],
                    stringsAsFactors=FALSE)

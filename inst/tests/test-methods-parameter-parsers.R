@@ -34,7 +34,7 @@ colnames(INDICES2$delta) <- NULL
 
 
 test_that("default parameter parser works", {
-    ret <- parse_parameter_names_default(BUGS_COLNAMES)
+    ret <- mcmc_parse_parname_default(BUGS_COLNAMES)
     expect_is(ret, "data.frame")
     expect_equal(colnames(ret), COLNAMES)
     expect_equal(rownames(ret), BUGS_COLNAMES)
@@ -43,7 +43,7 @@ test_that("default parameter parser works", {
 })
 
 test_that("Bugs parameter parser works", {
-    ret <- parse_parameter_names_bugs(BUGS_COLNAMES)
+    ret <- mcmc_parse_parname_bugs(BUGS_COLNAMES)
     expect_is(ret, "data.frame")
     expect_equal(rownames(ret), BUGS_COLNAMES)
     expect_equal(colnames(ret), COLNAMES)
@@ -52,7 +52,7 @@ test_that("Bugs parameter parser works", {
 })
 
 test_that("Stan parameter parser works", {
-    ret <- parse_parameter_names_stan(STAN_COLNAMES)
+    ret <- mcmc_parse_parname_stan(STAN_COLNAMES)
     expect_is(ret, "data.frame")
     expect_equal(rownames(ret), STAN_COLNAMES)
     expect_equal(colnames(ret), COLNAMES)
@@ -62,7 +62,7 @@ test_that("Stan parameter parser works", {
 
 test_that("Processing parsed parameters works", {
     params <- c("alpha", "beta", "gamma", "delta")
-    parsed <- parse_parameter_names_stan(STAN_COLNAMES)
+    parsed <- mcmc_parse_parname_stan(STAN_COLNAMES)
     ret <- McmcParameterMeta(parsed)
     expect_equal(ret@parameters, structure(PARAMETERS, names=STAN_COLNAMES))
     expect_equal(ret@indices[params], INDICES2[params])

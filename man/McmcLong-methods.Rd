@@ -11,7 +11,7 @@
   names which will be parsed by \code{fun}}
 
   \item{fun}{\code{function} used to parse \code{parnames}.
-  See \code{\link{parse_parameter_names_default}} for what
+  See \code{\link{mcmc_parse_parname_default}} for what
   this function has to return.}
 }
 \description{

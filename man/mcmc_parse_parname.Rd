@@ -1,14 +1,14 @@
-\name{parse_parameter_names_default}
-\alias{parse_parameter_names_bugs}
-\alias{parse_parameter_names_default}
-\alias{parse_parameter_names_stan}
+\name{mcmc_parse_parname_default}
+\alias{mcmc_parse_parname_bugs}
+\alias{mcmc_parse_parname_default}
+\alias{mcmc_parse_parname_stan}
 \title{Parse MCMC parameter names}
 \usage{
-  parse_parameter_names_default(x)
+  mcmc_parse_parname_default(x)
 
-  parse_parameter_names_stan(x)
+  mcmc_parse_parname_stan(x)
 
-  parse_parameter_names_bugs(x)
+  mcmc_parse_parname_bugs(x)
 }
 \arguments{
   \item{x}{\code{character} vector of character names.}

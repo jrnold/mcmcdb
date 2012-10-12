@@ -89,7 +89,7 @@ setValidity("McmcLong", validate_mcmc_long)
 ##' @param parnames \code{character} vector of parameter names which will
 ##' be parsed by \code{fun}
 ##' @param fun \code{function} used to parse \code{parnames}.
-##' See \code{\link{parse_parameter_names_default}} for what this
+##' See \code{\link{mcmc_parse_parname_default}} for what this
 ##' function has to return.
 ##'
 ##' @section Methods:
@@ -113,7 +113,7 @@ setGeneric("McmcLong",
 mcmc_long_default <-
     function(data,
              parnames=NULL,
-             fun=parse_parameter_names_default,
+             fun=mcmc_parse_parname_default,
              chains=NULL,
              par_chains=NULL,
              chain_iters=NULL,
