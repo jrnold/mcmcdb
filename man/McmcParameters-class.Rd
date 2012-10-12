@@ -2,7 +2,7 @@
 \name{McmcParameters}
 \alias{McmcParameters}
 \alias{McmcParameters-class}
-\title{MCMC Parameter Metadata}
+\title{MCMC Parameters Metadata}
 \description{
   This class stores the mapping between the names of MCMC
   parameters in their flat representation (as returned by

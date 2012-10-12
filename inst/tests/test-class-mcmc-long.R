@@ -5,8 +5,12 @@ data(line, package="mcmc4")
 
 samples <- melt(line)
 parameters <- McmcParameters(unique(as.character(samples$parname)))
-chains <- ddply(samples, "chainid", summarise, niter=length(iter))
-foo <- new("McmcLong", samples=samples, chains=chains, parameters=parameters)
+chains <- new("McmcChains",
+              ddply(samples, "chainid", summarise,
+                    niter=length(iter),
+                    thin=1L, start=1L, end=length(iter)))
+foo <- new("McmcLong", samples=samples, chains=chains,
+           parameters=parameters)
 
 test_that("McmcLong works", {
     expect_is(foo, "McmcLong")

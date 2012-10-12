@@ -1,5 +1,4 @@
-
-##' MCMC Parameter Metadata
+##' MCMC Parameters Metadata
 ##'
 ##' This class stores the mapping between the names of MCMC parameters
 ##' in their flat representation (as returned by samplers like BUGS)

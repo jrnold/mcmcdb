@@ -1,6 +1,47 @@
 ## Utility classes
 setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
 
+# -----------------------
+##' @export
+setClass("McmcChains", "data.frame")
+
+setValidity("McmcChains",
+            function(object) {
+                columns <- c(chainid="integer",
+                             niter="integer",
+                             thin="integer",
+                             start="integer",
+                             end="integer")
+                validate_data_frame(object, columns, exclusive=FALSE)
+            })
+
+# -----------------------
+##' @export
+setClass("McmcParChains", "data.frame")
+setValidity("McmcParChains",
+            function(object) {
+                columns <- c(parname="factor",
+                             chainid="integer")
+                validate_data_frame(object, columns, exclusive=FALSE)
+            })
+
+
+setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
+
+# -----------------------
+##' @export
+setClass("McmcChainIters", "data.frame")
+setValidity("McmcChainIters",
+            function(object) {
+                columns <- c(chainid="integer",
+                             iter="integer")
+                validate_data_frame(object, columns, exclusive=FALSE)
+            })
+
+setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
+
+# -----------------------
+
 ## Names and clases of columns in \code{McmcLong} class
 .MCMC_LONG_COLUMNS <-
     c(parname="factor",
@@ -51,9 +92,9 @@ setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
 setClass("McmcLong",
          representation(samples="data.frame",
                         parameters="McmcParameters",
-                        chains="data.frame", # chainid
-                        par_chains="DataFrameOrNull", # parname, chainid
-                        chain_iters="DataFrameOrNull", # chainid, iter
+                        chains="McmcChains", # chainid
+                        par_chains="McmcParChainsOrNull", # parname, chainid
+                        chain_iters="McmcChainItersOrNull", # chainid, iter
                         metadata="list"))
 
 validate_mcmc_long <- function(object) {
@@ -118,7 +159,6 @@ mcmc_long_default <-
     if (is.null(parnames)) {
         parnames <- unique(as.character(data$parname))
     }
-
     ## Coerce columns in samples to the correct type
     for (i in seq_along(.MCMC_LONG_COLUMNS)) {
         variable <- names(.MCMC_LONG_COLUMNS)[i]
@@ -129,17 +169,27 @@ mcmc_long_default <-
     if (is.null(chains)) {
         chains <- ddply(data, "chainid",
                         function(x) {
-                            data.frame(niter=nrow(x))
+                            data.frame(niter=nrow(x),
+                                       thin=1L,
+                                       start=1L,
+                                       end=nrow(x))
                         })
+    }
+    ## Put these in classes to check for presence of columns
+    if (!is.null(par_chains)) {
+        par_chains <- new("McmcParChains", par_chains)
+    }
+    if (!is.null(chain_iters)) {
+        chain_iters <- new("McmcChainIters", chain_iters)
     }
 
     new("McmcLong",
         samples=data[ , names(.MCMC_LONG_COLUMNS)],
         parameters=McmcParameters(fun(parnames)),
-        chains=chains,
+        chains=new("McmcChains", chains),
         chain_iters=chain_iters,
         par_chains=par_chains,
-        metadata=metadata)
+        metadata=as.list(metadata))
 }
 
 setMethod("McmcLong", "data.frame", mcmc_long_default)

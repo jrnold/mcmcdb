@@ -56,22 +56,32 @@ strip_plyr_attr <- function(x) {
 ## }
 
 ## Check column names and classes of a \code{data.frame}
-## 
+##
 ## @param object \code{data.frame} to be validated.
 ## @param columns Named \code{character} vector. Names are required
+## @param exclusive \code{logical} If \code{TRUE}, then \code{object}
+## cannot contain any columns other than those in \code{columns}
 ## columns in \code{x}, values are the classes of those columns.
 ## @returns If valid, then \code{TRUE}, else \code{character} with
 ## an error message.
-validate_data_frame <- function(object, columns) {
-    if (!all(colnames(object) == names(columns))) {
-        return(sprintf("Colnames must equal: %s",
-                       paste(sQuote(names(columns)),
-                             collapse=",")))
+validate_data_frame <- function(object, columns, exclusive=FALSE) {
+    for (i in names(columns)) {
+        if (! i %in% colnames(object)) {
+            return(sprintf("column %s not in 'object'", i))
+        }
+        if (!is(object[[i]], columns[[i]])) {
+            return(sprintf("column %s does not have class %s",
+                           i, columns[[i]]))
+        }
     }
-    if (!all(sapply(object, class) == columns)) {
-        return(sprintf("Classes of columns must equal %s",
-                       deparse(unname(columns))))
+    if (exclusive) {
+        othercols <- setdiff(colnames(object), names(columns))
+        if (length(othercols)) {
+            return("invalid columns: %s",
+                   paste(sQuote(othercols), sep=", "))
+        }
     }
     TRUE
 }
+
 

@@ -20,7 +20,7 @@ Collate:
     '00-package.R'
     '01-mcmc.R'
     '02-mcmc-list.R'
-    '03-McmcParameterMeta.R'
+    '03-McmcParameters.R'
     '05-McmcLong.R'
     '07-summary-mcmc.R'
     'parameter-parsers.R'
