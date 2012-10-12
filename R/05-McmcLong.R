@@ -39,8 +39,8 @@ setClass("McmcChainIters", "DataFrameOrNULL")
 ##' \describe{
 ##' \item{\code{samples}}{\code{data.frame} with columns "parname", "chainid", "iter", "val"}
 ##' \item{\code{parameters}}{\code{McmcParaterMeta} object with the array sizes of the paramters in the sample.}
-##' \item{\code{chainids}}{\code{data.frame} with columns "chainid" and other data for each chain.}
-##' \item{\code{par_chainids}}{\code{data.frame} with columns "parname", "chainid" and other data
+##' \item{\code{chains}}{\code{data.frame} with columns "chainid" and other data for each chain.}
+##' \item{\code{par_chains}}{\code{data.frame} with columns "parname", "chainid" and other data
 ##' for each parameter for each chain, e.g. step size multipliers for NUTS.}
 ##' \item{\code{chain_iters}}{\code{data.frame} with columns "chainid", "iter" and other data for
 ##' each iteration of each chain (which are not parameters), e.g. treedepth, stepsize in NUTS.}
@@ -133,8 +133,10 @@ mcmc_long_default <-
     }
     ## Create chains table if none given
     if (is.null(chains)) {
-        chains <- ddply(samples, "chainid",
-                        summarise, niter = length(iter))
+        chains <- ddply(data@samples, "chainid",
+                        function(x) {
+                            data.frame(niter=nrow(x))
+                        })
     }
     
     new("McmcLong",

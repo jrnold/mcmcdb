@@ -28,9 +28,9 @@
   columns "parname", "chainid", "iter", "val"}
   \item{\code{parameters}}{\code{McmcParaterMeta} object
   with the array sizes of the paramters in the sample.}
-  \item{\code{chainids}}{\code{data.frame} with columns
+  \item{\code{chains}}{\code{data.frame} with columns
   "chainid" and other data for each chain.}
-  \item{\code{par_chainids}}{\code{data.frame} with columns
+  \item{\code{par_chains}}{\code{data.frame} with columns
   "parname", "chainid" and other data for each parameter
   for each chain, e.g. step size multipliers for NUTS.}
   \item{\code{chain_iters}}{\code{data.frame} with columns
