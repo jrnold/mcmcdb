@@ -25,13 +25,13 @@ setGeneric("mcmcByIteration",
            })
 
 mcmc_by_iteration_mcmc_long <- function(object, data=list(), FUN=identity) {
-    do_iteration <- function(x, metadata, innerfun, data, ...) {
-        values <- structure(x$value, names=as.character(x$parameter))
-        innerfun(c(mcmcUnflatten(metadata, values), data))
+    do_iteration <- function(x, parameters, innerfun, data, ...) {
+        values <- structure(x$val, names=as.character(x$parname))
+        innerfun(c(mcmcUnflatten(parameters, values), data))
     }
-    ret <- dlply(object@samples, c("chain", "iteration"),
+    ret <- dlply(object@samples, c("chainid", "iter"),
                  .fun=do_iteration,
-                 metadata=object@parameters,
+                 parameters=object@parameters,
                  data=data,
                  innerfun=FUN)
     strip_plyr_attr(ret)

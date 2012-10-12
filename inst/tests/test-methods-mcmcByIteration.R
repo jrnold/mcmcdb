@@ -5,7 +5,7 @@ data(line, package="mcmc4")
 line_long <- McmcLong(line)
 
 test_that("mcmcByIteration,McmcLong works", {
-    x <- mcmcByIteration(linelong)
+    x <- mcmcByIteration(line_long)
     expect_is(x, "list")
     expect_equal(length(x), 400)
     expect_equal(names(x)[1], "1.1")
@@ -14,7 +14,7 @@ test_that("mcmcByIteration,McmcLong works", {
 })
 
 test_that("mcmcByIteration,McmcLong works with function", {
-    x <- mcmcByIteration(linelong, FUN=function(x) list(foo=x$alpha + x$beta))
+    x <- mcmcByIteration(line_long, FUN=function(x) list(foo=x$alpha + x$beta))
     expect_is(x, "list")
     expect_equal(length(x), 400)
     expect_equal(names(x)[1], "1.1")
@@ -23,7 +23,7 @@ test_that("mcmcByIteration,McmcLong works with function", {
 })
 
 test_that("mcmcByIteration,McmcLong works with data", {
-    x <- mcmcByIteration(linelong, data=list(a=100), FUN=function(x) list(foo=x$a + x$alpha))
+    x <- mcmcByIteration(line_long, data=list(a=100), FUN=function(x) list(foo=x$a + x$alpha))
     expect_is(x, "list")
     expect_equal(length(x), 400)
     expect_equal(names(x)[1], "1.1")
