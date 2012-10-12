@@ -1,4 +1,4 @@
-##' Extract Methods for Mcmc Objects
+## Extract Methods for Mcmc Objects
 ## Extract methods
 ## [parameter, chain, iteration, value? ]
 ## [[parameter]], $parameter

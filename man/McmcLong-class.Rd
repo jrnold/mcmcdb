@@ -21,11 +21,17 @@
   \describe{ \item{\code{samples}}{\code{data.frame} with
   columns "paramter", "chain", "iteration", "value"}
   \item{\code{parameters}}{\code{McmcParaterMeta} object
-  with the array sizes of the paramters in the sample.} }
-}
-
-\section{Extends}{
-  \describe{ \item{\code{data.frame}}{directly} }
+  with the array sizes of the paramters in the sample.}
+  \item{\code{chainids}}{\code{data.frame} with columns
+  "chainid" and other data for each chain.}
+  \item{\code{par_chainids}}{\code{data.frame} with columns
+  "parname", "chainid" and other data for each parameter
+  for each chain, e.g. step size multipliers for NUTS.}
+  \item{\code{chain_iters}}{\code{data.frame} with columns
+  "chainid", "iter" and other data for each iteration of
+  each chain (which are not parameters), e.g. treedepth,
+  stepsize in NUTS.} \item{\code{metadata}}{\code{list}
+  with general data about the samples.} }
 }
 \keyword{classes}
 

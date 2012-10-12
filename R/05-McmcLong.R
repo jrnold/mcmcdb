@@ -1,3 +1,6 @@
+## Utility classes
+setClassUnion("DataFrameOrNULL", c("data.frame", "NULL"))
+
 ## Names and clases of columns in \code{McmcLong} class
 .MCMC_LONG_COLUMNS <-
     c(parameter="factor",
@@ -28,15 +31,9 @@
 ##' \item{\code{chainids}}{\code{data.frame} with columns "chainid" and other data for each chain.}
 ##' \item{\code{par_chainids}}{\code{data.frame} with columns "parname", "chainid" and other data
 ##' for each parameter for each chain, e.g. step size multipliers for NUTS.}
-##' \item{\code{chain_iters}{\code{data.frame} with columns "chainid", "iter" and other data for
-##' each iteration of each chain (which are not parameters), e.g. treedepth, stepsize in NUTS.
-##' \item{\code{metadata}{\code{list} with general data about the samples.
-##' }
-##'
-##' @section Extends:
-##'
-##' \describe{
-##' \item{\code{data.frame}}{directly}
+##' \item{\code{chain_iters}}{\code{data.frame} with columns "chainid", "iter" and other data for
+##' each iteration of each chain (which are not parameters), e.g. treedepth, stepsize in NUTS.}
+##' \item{\code{metadata}}{\code{list} with general data about the samples.}
 ##' }
 ##'
 ##' @name McmcLong-class
@@ -49,10 +46,9 @@ setClass("McmcLong",
          representation(samples="data.frame",
                         parameters="McmcParameterMeta",
                         chainids="data.frame", # chainid
-                        par_chainids="data.frame", # parname, chainid
-                        chain_iters="data.frame", # chainid, iter
-                        metadata="list") 
-                        
+                        par_chainids="DataFrameOrNULL", # parname, chainid
+                        chain_iters="DataFrameOrNULL", # chainid, iter
+                        metadata="list"))
 
 validate_mcmc_long <- function(object) {
     check_df <- validate_data_frame(object@samples, .MCMC_LONG_COLUMNS)

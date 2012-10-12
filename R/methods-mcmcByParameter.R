@@ -18,7 +18,7 @@ setGeneric("mcmcByParameter",
            })
 
 mcmc_by_parameter <- function(object, .fun=identity, ...) {
-    f <- function(object) .fun(x$value)
+    f <- function(x) .fun(x$value)
     dlply(object@samples, "parameter", .fun=f, ...)
 }
 
