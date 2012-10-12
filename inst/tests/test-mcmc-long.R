@@ -20,7 +20,7 @@ test_that("error if bad colnames", {
 
 test_that("error if bad chains", {
     samples[1 , "chainid"] <- 5
-    expect_error(new("McmcLong", samples=samples, chains=chains, parameters=metadata))    
+    expect_error(new("McmcLong", samples=samples, chains=chains, parameters=metadata))
 })
 
 test_that("error if bad parameter names", {
@@ -67,20 +67,20 @@ test_that("data=data.frame fixes bad column types", {
 })
 
 test_that("data=mcmc.list works", {
-    expect_is(McmcLong(McmcList2(line)), "McmcLong")
+    expect_is(McmcLong(line), "McmcLong")
 })
 
 #############################
 
 context("McmcLong coercion methods")
 
-test_that("coerce from=McmcLong to=McmcList2 works", {
-    expect_is(as(foo, "McmcList2"), "McmcList2")
-})
+## test_that("coerce from=McmcLong to=McmcList2 works", {
+##     expect_is(as(foo, "McmcList2"), "McmcList2")
+## })
 
-test_that("coerce from=McmcList2 to=McmcLong works", {
-    expect_is(as(McmcList2(line), "McmcLong"), "McmcLong")
-})
+## test_that("coerce from=McmcList2 to=McmcLong works", {
+##     expect_is(as(McmcList2(line), "McmcLong"), "McmcLong")
+## })
 
 test_that("coerce from=McmcLong,to=data.frame works", {
     expect_equal(as(foo, "data.frame"), foo@samples)

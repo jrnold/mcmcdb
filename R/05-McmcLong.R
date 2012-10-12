@@ -4,7 +4,7 @@ setClassUnion("DataFrameOrNULL", c("data.frame", "NULL"))
 setClass("McmcChains", "data.frame")
 setClass("McmcParChains", "DataFrameOrNULL")
 setClass("McmcChainIters", "DataFrameOrNULL")
-         
+
 
 ## Names and clases of columns in \code{McmcLong} class
 .MCMC_LONG_COLUMNS <-
@@ -53,7 +53,7 @@ setClass("McmcChainIters", "DataFrameOrNULL")
 ##' @docType class
 ##' @keywords classes
 ##' @export
-setClass("McmcLong", 
+setClass("McmcLong",
          representation(samples="data.frame",
                         parameters="McmcParameterMeta",
                         chains="data.frame", # chainid
@@ -104,7 +104,6 @@ setValidity("McmcLong", validate_mcmc_long)
 ##' @keywords methods
 ##' @aliases McmcLong
 ##' @aliases McmcLong,data.frame-method
-##' @aliases McmcLong,McmcList2-method
 ##' @export
 setGeneric("McmcLong",
            function(data, ...) {
@@ -112,7 +111,7 @@ setGeneric("McmcLong",
            })
 
 mcmc_long_default <-
-    function(data, 
+    function(data,
              parnames=NULL,
              fun=parse_parameter_names_default,
              chains=NULL,
@@ -138,7 +137,7 @@ mcmc_long_default <-
                             data.frame(niter=nrow(x))
                         })
     }
-    
+
     new("McmcLong",
         samples=data[ , names(.MCMC_LONG_COLUMNS)],
         parameters=McmcParameterMeta(fun(parnames)),
@@ -150,35 +149,28 @@ mcmc_long_default <-
 
 setMethod("McmcLong", "data.frame", mcmc_long_default)
 
-mcmc_long_mcmc_list2 <- function(data) {
-    as(data, "McmcLong")
-}
-
-setMethod("McmcLong", "McmcList2", mcmc_long_mcmc_list2)
-
-
 ## Coercion
 
-## McmcLong -> McmcList2
-setAs("McmcLong", "McmcList2",
-      function(from, to) {
-          to <- dlply(from@samples, "chainid",
-                       function(x) mcmc(acast(x, iter ~ parname,
-                                              value.var="val")))
-          new("McmcList2", mcmc.list(to),
-              parameters=from@parameters)
-      })
+## ## McmcLong -> McmcList2
+## setAs("McmcLong", "McmcList2",
+##       function(from, to) {
+##           to <- dlply(from@samples, "chainid",
+##                        function(x) mcmc(acast(x, iter ~ parname,
+##                                               value.var="val")))
+##           new("McmcList2", mcmc.list(to),
+##               parameters=from@parameters)
+##       })
 
-## McmcList2 -> McmcLong
-setAs("McmcList2", "McmcLong",
-      function(from, to) {
-          samples <- melt(from)
-          chains <- ddply(samples, "chainid",
-                          summarise, niter=length(iter))
-          new("McmcLong",
-              samples=samples, parameters=from@parameters,
-              chains=chains)
-      })
+## ## McmcList2 -> McmcLong
+## setAs("McmcList2", "McmcLong",
+##       function(from, to) {
+##           samples <- melt(from)
+##           chains <- ddply(samples, "chainid",
+##                           summarise, niter=length(iter))
+##           new("McmcLong",
+##               samples=samples, parameters=from@parameters,
+##               chains=chains)
+##       })
 
 ## McmcLong -> data.frame
 setAs("McmcLong", "data.frame",

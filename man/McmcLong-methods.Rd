@@ -1,7 +1,6 @@
 \docType{methods}
 \name{McmcLong-methods}
 \alias{McmcLong}
-\alias{McmcLong,McmcList2-method}
 \alias{McmcLong,data.frame-method}
 \alias{McmcLong-methods}
 \title{Create \code{McmcLong} objects}
