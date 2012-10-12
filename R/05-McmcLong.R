@@ -1,58 +1,57 @@
 ## Names and clases of columns in \code{McmcLong} class
+
+## Utility classes
+setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
+# -----------------------
+
+data_frame_factory <- function(class, columns) {
+    setClass(class, "data.frame")
+
+    setValidity(class,
+                function(object) {
+                    validate_data_frame(object, columns,
+                                        exclusive=FALSE)
+                })
+    class
+}
+setClass("McmcSamples", "data.frame")
+
 .MCMC_LONG_COLUMNS <-
     c(parname="factor",
       chainid="integer",
       iter="integer",
       val="numeric")
 
-## Utility classes
-setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
-# -----------------------
-## setClass("McmcSamples", "data.frame")
-
-## setValidity("McmcSamples",
-##             funtion(object) {
-##                 columns <- .MCMC_LONG_COLUMNS
-##                 validata_data_frame(objects, columns,
-##                                     exclusive=FALSE)
-##             })
+##' @exportClass McmcSamples
+NULL
+data_frame_factory("McmcSamples", .MCMC_LONG_COLUMNS)
 
 # -----------------------
-##' @export
-setClass("McmcChains", "data.frame")
+##' @exportClass McmcChains
+NULL
+data_frame_factory("McmcChains",
+                   c(chainid="integer",
+                     niter="integer",
+                     thin="integer",
+                     start="integer",
+                     end="integer"))
 
-setValidity("McmcChains",
-            function(object) {
-                columns <- c(chainid="integer",
-                             niter="integer",
-                             thin="integer",
-                             start="integer",
-                             end="integer")
-                validate_data_frame(object, columns, exclusive=FALSE)
-            })
 
-# -----------------------
-##' @export
-setClass("McmcParChains", "data.frame")
-setValidity("McmcParChains",
-            function(object) {
-                columns <- c(parname="factor",
-                             chainid="integer")
-                validate_data_frame(object, columns, exclusive=FALSE)
-            })
-
+##' @exportClass McmcParChains
+NULL
+data_frame_factory("McmcParChains",
+                  c(parname="factor",
+                    chainid="integer"))
 
 setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
 
 # -----------------------
-##' @export
-setClass("McmcChainIters", "data.frame")
-setValidity("McmcChainIters",
-            function(object) {
-                columns <- c(chainid="integer",
-                             iter="integer")
-                validate_data_frame(object, columns, exclusive=FALSE)
-            })
+##' @exportClass McmcChainIters
+NULL
+
+data_frame_factory("McmcChainIters",
+                   c(chainid="integer",
+                     iter="integer"))
 
 setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 
@@ -219,9 +218,11 @@ setMethod("McmcLong", "mcmc",
 ## McmcLong -> McmcList2
 setAs("McmcLong", "mcmc.list",
       function(from, to) {
+          thin <- dl
           to <- dlply(from@samples, "chainid",
-                       function(x) mcmc(acast(x, iter ~ parname,
-                                              value.var="val")))
+                       function(x) acast(x, iter ~ parname,
+                                         value.var="val"))
+
           mcmc.list(to)
       })
 
