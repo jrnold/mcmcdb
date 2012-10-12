@@ -1,10 +1,5 @@
 ## Utility classes
-setClassUnion("DataFrameOrNULL", c("data.frame", "NULL"))
-
-setClass("McmcChains", "data.frame")
-setClass("McmcParChains", "DataFrameOrNULL")
-setClass("McmcChainIters", "DataFrameOrNULL")
-
+setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
 
 ## Names and clases of columns in \code{McmcLong} class
 .MCMC_LONG_COLUMNS <-
@@ -57,8 +52,8 @@ setClass("McmcLong",
          representation(samples="data.frame",
                         parameters="McmcParameterMeta",
                         chains="data.frame", # chainid
-                        par_chains="DataFrameOrNULL", # parname, chainid
-                        chain_iters="DataFrameOrNULL", # chainid, iter
+                        par_chains="DataFrameOrNull", # parname, chainid
+                        chain_iters="DataFrameOrNull", # chainid, iter
                         metadata="list"))
 
 validate_mcmc_long <- function(object) {
