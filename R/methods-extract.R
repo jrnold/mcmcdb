@@ -11,8 +11,6 @@ stopifnotbool <- function(x) {
 }
 
 extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, value=TRUE) {
-    # It is easier to do internal dispatch than to write methods for the
-    # 4^3 combinations Parameter
     if (is.character(i)) {
         i <- x[["parameter"]] == i
     } else if (is(i, "function")) { 
