@@ -2,7 +2,7 @@
 ##'
 ##' These functions parse a character vector of parameter names and
 ##' return a \code{data.frame} (described below) that can easily be
-##' turned in a \code{McmcParameterMeta} object.
+##' turned in a \code{McmcParameters} object.
 ##'
 ##' @param x \code{character} vector of character names.
 ##'
@@ -111,8 +111,8 @@ mcmc_unflatten <- function(metadata, x, ...) {
 }
 
 ##' @rdname mcmcUnflatten
-##' @aliases mcmcUnflatten,McmcParameterMeta,ANY-method
-setMethod("mcmcUnflatten", c(metadata="McmcParameterMeta", x="ANY"),
+##' @aliases mcmcUnflatten,McmcParameters,ANY-method
+setMethod("mcmcUnflatten", c(metadata="McmcParameters", x="ANY"),
           mcmc_unflatten)
 
 mcmc_unflatten_matrix <- function(metadata, x, ...) {
@@ -120,7 +120,7 @@ mcmc_unflatten_matrix <- function(metadata, x, ...) {
 }
 
 ##' @rdname mcmcUnflatten
-##' @aliases mcmcUnflatten,McmcParameterMeta,matrix-method
-setMethod("mcmcUnflatten", c(metadata="McmcParameterMeta", x="matrix"),
+##' @aliases mcmcUnflatten,McmcParameters,matrix-method
+setMethod("mcmcUnflatten", c(metadata="McmcParameters", x="matrix"),
           mcmc_unflatten_matrix)
 

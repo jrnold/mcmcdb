@@ -4,7 +4,7 @@ library(plyr)
 data(line, package="mcmc4")
 
 samples <- melt(line)
-parameters <- McmcParameterMeta(unique(as.character(samples$parname)))
+parameters <- McmcParameters(unique(as.character(samples$parname)))
 chains <- ddply(samples, "chainid", summarise, niter=length(iter))
 foo <- new("McmcLong", samples=samples, chains=chains, parameters=parameters)
 

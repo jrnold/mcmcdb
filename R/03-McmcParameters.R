@@ -25,12 +25,12 @@
 ##' flat parameter in the array parameter.}
 ##' }
 ##'
-##' @rdname McmcParameterMeta-class
-##' @aliases McmcParameterMeta-class
+##' @rdname McmcParameters-class
+##' @aliases McmcParameters-class
 ##' @docType class
 ##' @keywords classes
 ##' @export
-setClass("McmcParameterMeta",
+setClass("McmcParameters",
          representation(parameters="character",
                         skeleton="list",
                         indices="list"))
@@ -58,44 +58,44 @@ validate_mcmc_parameter_meta <- function(object) {
     TRUE
 }
 
-setValidity("McmcParameterMeta", validate_mcmc_parameter_meta)
+setValidity("McmcParameters", validate_mcmc_parameter_meta)
 
 
-##' Create \code{McmcParameterMeta} objects
+##' Create \code{McmcParameters} objects
 ##'
-##' @rdname McmcParameterMeta-methods
-##' @name McmcParameterMeta-methods
+##' @rdname McmcParameters-methods
+##' @name McmcParameters-methods
 ##' @keywords methods
-##' @aliases McmcParameterMeta,data.frame-method
-##' @aliases McmcParameterMeta,matrix-method
-##' @aliases McmcParameterMeta,character-method
-##' @aliases McmcParameterMeta,factor-method
+##' @aliases McmcParameters,data.frame-method
+##' @aliases McmcParameters,matrix-method
+##' @aliases McmcParameters,character-method
+##' @aliases McmcParameters,factor-method
 ##' @docType methods
 ##' @keywords methods
 ##' @export
-setGeneric("McmcParameterMeta", function(x, ...) standardGeneric("McmcParameterMeta"))
+setGeneric("McmcParameters", function(x, ...) standardGeneric("McmcParameters"))
 
 mcmc_parameter_meta_data_frame <- function(x, ...) {
-    new("McmcParameterMeta",
+    new("McmcParameters",
         parameters=parsed_parameters_to_parameters(x),
         skeleton=parsed_parameters_to_skeleton(x),
         indices=parsed_parameters_to_indices(x))
 }
 
 
-setMethod("McmcParameterMeta", "data.frame", mcmc_parameter_meta_data_frame)
+setMethod("McmcParameters", "data.frame", mcmc_parameter_meta_data_frame)
 
-setMethod("McmcParameterMeta", "matrix",
+setMethod("McmcParameters", "matrix",
           function(x, ...) {
               callGeneric(as(x, "data.frame"), ...)
           })
 
-setMethod("McmcParameterMeta", "character",
+setMethod("McmcParameters", "character",
           function(x, fun=mcmc_parse_parname_default, ...) {
               callGeneric(fun(x, ...))
           })
 
-setMethod("McmcParameterMeta", "factor",
+setMethod("McmcParameters", "factor",
           function(x, fun=mcmc_parse_parname_default, ...) {
               callGeneric(as.character(x), fun=fun, ...)
           })

@@ -63,7 +63,7 @@ test_that("Stan parameter parser works", {
 test_that("Processing parsed parameters works", {
     params <- c("alpha", "beta", "gamma", "delta")
     parsed <- mcmc_parse_parname_stan(STAN_COLNAMES)
-    ret <- McmcParameterMeta(parsed)
+    ret <- McmcParameters(parsed)
     expect_equal(ret@parameters, structure(PARAMETERS, names=STAN_COLNAMES))
     expect_equal(ret@indices[params], INDICES2[params])
     expect_equal(ret@skeleton, SKELETON)

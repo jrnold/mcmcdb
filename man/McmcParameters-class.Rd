@@ -1,7 +1,7 @@
 \docType{class}
-\name{McmcParameterMeta}
-\alias{McmcParameterMeta}
-\alias{McmcParameterMeta-class}
+\name{McmcParameters}
+\alias{McmcParameters}
+\alias{McmcParameters-class}
 \title{MCMC Parameter Metadata}
 \description{
   This class stores the mapping between the names of MCMC

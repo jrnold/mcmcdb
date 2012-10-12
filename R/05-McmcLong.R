@@ -50,7 +50,7 @@ setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
 ##' @export
 setClass("McmcLong",
          representation(samples="data.frame",
-                        parameters="McmcParameterMeta",
+                        parameters="McmcParameters",
                         chains="data.frame", # chainid
                         par_chains="DataFrameOrNull", # parname, chainid
                         chain_iters="DataFrameOrNull", # chainid, iter
@@ -135,7 +135,7 @@ mcmc_long_default <-
 
     new("McmcLong",
         samples=data[ , names(.MCMC_LONG_COLUMNS)],
-        parameters=McmcParameterMeta(fun(parnames)),
+        parameters=McmcParameters(fun(parnames)),
         chains=chains,
         chain_iters=chain_iters,
         par_chains=par_chains,
