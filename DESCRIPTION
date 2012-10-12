@@ -37,3 +37,4 @@ Collate:
     'methods-c.R'
     'methods-extract.R'
     'methods-mcmcByParameter.R'
+    'methods-get.R'

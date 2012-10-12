@@ -1,0 +1,72 @@
+context("extract-methods")
+
+data("line", package="mcmc4")
+
+line_long <- McmcLong(McmcList2(line))
+
+expect_that("extract,McmcList2,missing,missing-method", {
+    expect_equal(nrow(line_long[]), nrow(line_long@samples))
+})
+
+# ---------------------------------
+
+expect_that("extract,McmcList2,numeric,missing-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long[1]), 400)
+})
+
+expect_that("extract,McmcList2,character,missing-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long["alpha"]), 400)
+})
+
+expect_that("extract,McmcList2,function,missing-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long[function(x) x == "alpha"]), 400)
+})
+
+expect_that("extract,McmcList2,logical,missing-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long[c(rep(TRUE, 400), rep(FALSE, 800))]), 400)
+})
+
+# ---------------------------------
+
+expect_that("extract,McmcList2,missing,numeric-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long[ , 1]), 600)
+})
+
+expect_that("extract,McmcList2,missing,function-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long[ , function(x) x == 1]), 600)
+})
+
+expect_that("extract,McmcList2,missing,logical-method k=Missing, value=Missing", {
+    expect_equal(nrow(line_long[ , c(rep(TRUE, 200), rep(FALSE, 1000))]), 200)
+})
+
+# ---------------------------------
+
+
+expect_that("extract,McmcList2,missing,missing-method k=numeric, value=Missing", {
+    expect_equal(nrow(line_long[ , , 1]), 6)
+})
+
+expect_that("extract,McmcList2,missing,missing-method k=function, value=Missing", {
+    expect_equal(nrow(line_long[ , , function(x) x == 1]), 6)
+})
+
+expect_that("extract,McmcList2,missing,missing-method k=logical, value=Missing", {
+    expect_equal(nrow(line_long[ , , c(rep(TRUE, 200), rep(FALSE, 1000))]), 200)
+})
+
+# ---------------------------------
+
+expect_that("extract,McmcList2,missing,missing-method k=missing, value=function", {
+    expect_equal(nrow(line_long[ , , , function(x) x > 2.5]), 400)
+})
+
+# -----------------------------------
+
+expect_that("[[,McmcList2 works", {
+    expect_equal(nrow(line_long[["alpha"]]), 400)
+})
+
+expect_that("$,McmcList2 works", {
+    expect_equal(nrow(line_long$alpha), 400)
+})
