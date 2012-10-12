@@ -1,0 +1,16 @@
+* Validate constrained data.frame
+
+Right now, I create constrained data.frames as a subclass
+of data.frame with a validation function. However, there
+is no easy way to find out what are the required columns/types
+for that class. 
+
+* McmcLong-class constraints
+
+Enforce the relations between chains, par_chains, and chain_iters.
+
+* Write SQLite backend
+
+New class with SQLite backend
+
+
