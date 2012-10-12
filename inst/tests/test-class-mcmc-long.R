@@ -1,4 +1,5 @@
 context("Testing McmcLong class")
+library(plyr)
 
 data(line, package="mcmc4")
 
@@ -70,17 +71,21 @@ test_that("data=mcmc.list works", {
     expect_is(McmcLong(line), "McmcLong")
 })
 
+test_that("data=mcmc works", {
+    expect_is(McmcLong(line[[1]]), "McmcLong")
+})
+
 #############################
 
 context("McmcLong coercion methods")
 
-## test_that("coerce from=McmcLong to=McmcList2 works", {
-##     expect_is(as(foo, "McmcList2"), "McmcList2")
-## })
+test_that("coerce from=McmcLong to=mcmc.list works", {
+    expect_is(as(foo, "mcmc.list"), "mcmc.list")
+})
 
-## test_that("coerce from=McmcList2 to=McmcLong works", {
-##     expect_is(as(McmcList2(line), "McmcLong"), "McmcLong")
-## })
+test_that("coerce from=McmcList2 to=mcmc.list works", {
+    expect_is(as(line, "McmcLong"), "McmcLong")
+})
 
 test_that("coerce from=McmcLong,to=data.frame works", {
     expect_equal(as(foo, "data.frame"), foo@samples)

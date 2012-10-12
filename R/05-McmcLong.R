@@ -132,7 +132,7 @@ mcmc_long_default <-
     }
     ## Create chains table if none given
     if (is.null(chains)) {
-        chains <- ddply(data@samples, "chainid",
+        chains <- ddply(data, "chainid",
                         function(x) {
                             data.frame(niter=nrow(x))
                         })
@@ -149,28 +149,32 @@ mcmc_long_default <-
 
 setMethod("McmcLong", "data.frame", mcmc_long_default)
 
+setMethod("McmcLong", "mcmc.list",
+          function(data, ...) {
+              callGeneric(melt(data), ...)
+          })
+
+setMethod("McmcLong", "mcmc",
+          function(data, ...) {
+              callGeneric(melt(mcmc.list(data)), ...)
+          })
+
 ## Coercion
 
-## ## McmcLong -> McmcList2
-## setAs("McmcLong", "McmcList2",
-##       function(from, to) {
-##           to <- dlply(from@samples, "chainid",
-##                        function(x) mcmc(acast(x, iter ~ parname,
-##                                               value.var="val")))
-##           new("McmcList2", mcmc.list(to),
-##               parameters=from@parameters)
-##       })
+## McmcLong -> McmcList2
+setAs("McmcLong", "mcmc.list",
+      function(from, to) {
+          to <- dlply(from@samples, "chainid",
+                       function(x) mcmc(acast(x, iter ~ parname,
+                                              value.var="val")))
+          mcmc.list(to)
+      })
 
-## ## McmcList2 -> McmcLong
-## setAs("McmcList2", "McmcLong",
-##       function(from, to) {
-##           samples <- melt(from)
-##           chains <- ddply(samples, "chainid",
-##                           summarise, niter=length(iter))
-##           new("McmcLong",
-##               samples=samples, parameters=from@parameters,
-##               chains=chains)
-##       })
+## McmcList2 -> McmcLong
+setAs("mcmc.list", "McmcLong",
+      function(from, to) {
+          McmcLong(from)
+      })
 
 ## McmcLong -> data.frame
 setAs("McmcLong", "data.frame",
