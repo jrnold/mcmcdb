@@ -12,14 +12,15 @@
 ##' @docType methods
 ##' @keywords methods
 ##' @aliases mcmcByParameter,McmcLong-method
+##' @export
 setGeneric("mcmcByParameter",
            function(object, ...) {
                standardGeneric("mcmcByParameter")
            })
 
 mcmc_by_parameter <- function(object, .fun=identity, ...) {
-    f <- function(x) .fun(x$value)
-    dlply(object@samples, "parameter", .fun=f, ...)
+    f <- function(x) .fun(x$val)
+    strip_plyr_attr(dlply(object@samples, "parname", .fun=f, ...))
 }
 
 setMethod("mcmcByParameter", "McmcLong", mcmc_by_parameter)
