@@ -1,5 +1,21 @@
+## Names and clases of columns in \code{McmcLong} class
+.MCMC_LONG_COLUMNS <-
+    c(parname="factor",
+      chainid="integer",
+      iter="integer",
+      val="numeric")
+
 ## Utility classes
 setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
+# -----------------------
+## setClass("McmcSamples", "data.frame")
+
+## setValidity("McmcSamples",
+##             funtion(object) {
+##                 columns <- .MCMC_LONG_COLUMNS
+##                 validata_data_frame(objects, columns,
+##                                     exclusive=FALSE)
+##             })
 
 # -----------------------
 ##' @export
@@ -42,13 +58,6 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 
 # -----------------------
 
-## Names and clases of columns in \code{McmcLong} class
-.MCMC_LONG_COLUMNS <-
-    c(parname="factor",
-      chainid="integer",
-      iter="integer",
-      val="numeric")
-
 ##' MCMC Samples in long-format
 ##'
 ##' Mcmc samples stored as a table with columns: "parname", "chainid",
@@ -75,7 +84,8 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 ##' \describe{
 ##' \item{\code{samples}}{\code{data.frame} with columns "parname", "chainid", "iter", "val"}
 ##' \item{\code{parameters}}{\code{McmcParaterMeta} object with the array sizes of the paramters in the sample.}
-##' \item{\code{chains}}{\code{data.frame} with columns "chainid" and other data for each chain.}
+##' \item{\code{chains}}{\code{data.frame} with columns "chainid", "niter",
+##' "start", "end", and "thin" and other data for each chain.}
 ##' \item{\code{par_chains}}{\code{data.frame} with columns "parname", "chainid" and other data
 ##' for each parameter for each chain, e.g. step size multipliers for NUTS.}
 ##' \item{\code{chain_iters}}{\code{data.frame} with columns "chainid", "iter" and other data for
