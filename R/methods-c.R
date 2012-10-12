@@ -25,6 +25,7 @@ c_mcmc_long <- function(x, ...) {
     objects <- .Primitive("c")(list(x), list(...))
     new("McmcLong",
         samples=binder(objects, "samples"),
+        parameters=x@parameters,
         chains=binder(objects, "chains"),
         par_chains=binder(objects, "par_chains"),
         chain_iters=binder(objects, "chain_iters"),
