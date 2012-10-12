@@ -1,6 +1,6 @@
 ## Extract Methods for Mcmc Objects
 ## Extract methods
-## [parameter, chain, iteration, value? ]
+## [parname, chainid, iter, value? ]
 ## [[parameter]], $parameter
 
 ## setClassUnion("McmcIndex1", c("character", "missing", "function", "logical"))
@@ -10,15 +10,15 @@ stopifnotbool <- function(x) {
     stopifnot(is(x, "logical"))
 }
 
-extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, value=TRUE) {
+extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, val=TRUE) {
     if (!missing(i)) {
         if (is.character(i)) {
-            i <- x@samples[["parameter"]] == i
+            i <- x@samples[["parname"]] == i
         } else if (is(i, "numeric")) {
-            lvl <- levels(x@samples[["parameter"]])[i]
-            i <- x@samples[["parameter"]] == lvl
-        } else if (is(i, "function")) { 
-            i <- i(x@samples[["parameter"]])
+            lvl <- levels(x@samples[["parname"]])[i]
+            i <- x@samples[["parname"]] == lvl
+        } else if (is(i, "function")) {
+            i <- i(x@samples[["parname"]])
         } else {
             i <- as.logical(i)
         }
@@ -26,12 +26,12 @@ extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, value=TRUE) {
         i <- TRUE
     }
     stopifnotbool(i)
-    # Chain
+    # Chainid
     if (!missing(j)) {
         if (is(j, "numeric")) {
-            j <- x@samples[["chain"]] == as(j, "integer")
+            j <- x@samples[["chainid"]] == as(j, "integer")
         } else if (is(j, "function")) {
-            j <- j(x@samples[["chain"]])
+            j <- j(x@samples[["chainid"]])
         } else {
             j <- as.logical(j)
         }
@@ -40,11 +40,11 @@ extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, value=TRUE) {
     }
     stopifnotbool(j)
     if (!missing(k)) {
-        # Iteration
+        # Iter
         if (is(k, "numeric")) {
-            k <- x@samples[["iteration"]] == as(k, "integer")
-        } else if (is(k, "function")) { 
-            k <- k(x@samples[["iteration"]])
+            k <- x@samples[["iter"]] == as(k, "integer")
+        } else if (is(k, "function")) {
+            k <- k(x@samples[["iter"]])
         } else {
             k <- as.logical(k)
         }
@@ -52,21 +52,21 @@ extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, value=TRUE) {
         k <- TRUE
     }
     stopifnotbool(k)
-    ## Value constraints
-    if (!missing(value)) {
-        if (is(value, "function")) {
-            value <- value(x@samples[["value"]])
-        } else if (is(value, "numeric")) {
-            value <- x@samples[["value"]] == value
+    ## Val constraints
+    if (!missing(val)) {
+        if (is(val, "function")) {
+            val <- val(x@samples[["val"]])
+        } else if (is(val, "numeric")) {
+            val <- x@samples[["val"]] == val
         } else {
-            value <- as.logical(value)
+            val <- as.logical(val)
         }
     } else {
-        value <- TRUE
+        val <- TRUE
     }
-    stopifnotbool(value)
+    stopifnotbool(val)
     # Ex@samplestract
-    x@samples[i & j & k & value, ]
+    x@samples[i & j & k & val, ]
 }
 
 ##' @exportMethod [
@@ -77,7 +77,7 @@ setMethod("[", signature(x="McmcLong",
 
 ##' @exportMethod [[
 setMethod("[[", signature(x="McmcLong", i="character"),
-          function(x, i) x[x@samples[["parameter"]] == i, ])
+          function(x, i) x[x@samples[["parname"]] == i, ])
 
 ##' @exportMethod $
 setMethod("$", signature(x="McmcLong"),
