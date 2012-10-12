@@ -6,7 +6,8 @@
 \arguments{
   \item{data}{Object containing the MCMC samples.}
 
-  \item{chain}{Set chain number; for \code{mcmc} objects.}
+  \item{chainid}{Set chain number; for \code{mcmc}
+  objects.}
 }
 \value{
   \code{data.frame} with columns \describe{

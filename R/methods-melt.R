@@ -5,7 +5,7 @@
 ##'
 ##'
 ##' @param data Object containing the MCMC samples.
-##' @param chain Set chain number; for \code{mcmc} objects.
+##' @param chainid Set chain number; for \code{mcmc} objects.
 ##'
 ##' @section Methods:
 ##'
@@ -33,12 +33,12 @@ setGeneric("melt", reshape2::melt)
 
 ##' @export
 setMethod("melt", "mcmc",
-    function(data, chain=1) {
+    function(data, chainid=1) {
         result <- callGeneric(as(data, "matrix"))
-        colnames(result)[1:2] <- c("iteration", "parameter")
-        result$chain <- chain
-        rownames(result) <- with(result, paste(parameter, chain, iteration, sep="."))
-        result[ , c("parameter", "chain", "iteration", "value")]
+        colnames(result) <- c("iter", "parname", "val")
+        result$chainid <- chainid
+        rownames(result) <- with(result, paste(parname, chainid, iter, sep="."))
+        result[ , c("parname", "chainid", "iter", "val")]
     })
 
 ##' @export
@@ -49,8 +49,8 @@ setMethod("melt", "mcmc.list",
               result <- mapply(function(x, i) melt(x, chain=i),
                                data, seq_along(data), SIMPLIFY=FALSE)
               result <- do.call(rbind, result)
-              rownames(result) <- with(result, paste(parameter, chain, 
-                                                     iteration, sep="."))
-              result[ , c("parameter", "chain", "iteration", "value")]
+              rownames(result) <- with(result, paste(parname, chainid, 
+                                                     iter, sep="."))
+              result[ , c("parname", "chainid", "iter", "val")]
           })
 

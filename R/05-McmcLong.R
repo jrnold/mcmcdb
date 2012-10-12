@@ -1,17 +1,22 @@
 ## Utility classes
 setClassUnion("DataFrameOrNULL", c("data.frame", "NULL"))
 
+setClass("McmcChains", "data.frame")
+setClass("McmcParChains", "DataFrameOrNULL")
+setClass("McmcChainIters", "DataFrameOrNULL")
+         
+
 ## Names and clases of columns in \code{McmcLong} class
 .MCMC_LONG_COLUMNS <-
-    c(parameter="factor",
-      chain="integer",
-      iteration="integer",
-      value="numeric")
+    c(parname="factor",
+      chainid="integer",
+      iter="integer",
+      val="numeric")
 
 ##' MCMC Samples in long-format
 ##'
-##' Mcmc samples stored as a table with columns: "parameter", "chain",
-##' "iteration", "value". Right now the backend is a
+##' Mcmc samples stored as a table with columns: "parname", "chainid",
+##' "iter", "val". Right now the backend is a
 ##' \code{data.frame}, so it is pretty damn slow, but this can be
 ##' changed in the future. However, it seems the most natural for
 ##' storage in a database, with the ability to aggregate rows,
@@ -23,10 +28,16 @@ setClassUnion("DataFrameOrNULL", c("data.frame", "NULL"))
 ##' iterate over chains, but easier to create distinct chain objects
 ##' to combine later.
 ##'
+##' The column names are slightly non-intuitive, but were chosen to
+##' avoid clashes with
+##' \href{http://www.postgresql.org/docs/9.2/static/sql-keywords-appendix.html}{SQL
+##' reserved keywords}, in order to facilitate better integration with
+##' SQL db backends.
+##'
 ##' @section Slots:
 ##'
 ##' \describe{
-##' \item{\code{samples}}{\code{data.frame} with columns "paramter", "chain", "iteration", "value"}
+##' \item{\code{samples}}{\code{data.frame} with columns "parname", "chainid", "iter", "val"}
 ##' \item{\code{parameters}}{\code{McmcParaterMeta} object with the array sizes of the paramters in the sample.}
 ##' \item{\code{chainids}}{\code{data.frame} with columns "chainid" and other data for each chain.}
 ##' \item{\code{par_chainids}}{\code{data.frame} with columns "parname", "chainid" and other data
@@ -45,8 +56,8 @@ setClassUnion("DataFrameOrNULL", c("data.frame", "NULL"))
 setClass("McmcLong", 
          representation(samples="data.frame",
                         parameters="McmcParameterMeta",
-                        chainids="data.frame", # chainid
-                        par_chainids="DataFrameOrNULL", # parname, chainid
+                        chains="data.frame", # chainid
+                        par_chains="DataFrameOrNULL", # parname, chainid
                         chain_iters="DataFrameOrNULL", # chainid, iter
                         metadata="list"))
 
@@ -55,18 +66,18 @@ validate_mcmc_long <- function(object) {
     if (is.character(check_df)) {
         return(check_df)
     }
-    ## Maybe consider loosening this
-    ## Allow for parameters to exist in data but not in parameters
-    parameters <- as.character(unique(object@samples[["parameter"]]))
+    parameters <- as.character(unique(object@samples[["parname"]]))
     if (!setequal(names(object@parameters@parameters), parameters)) {
-        return(sprintf("parameters in object@parameters do not match data"))
+        return(sprintf("parnames in object@parameters do not match samples"))
     }
-    ## ## Chain values
-    ## chains <- unique(object@samples$chain)
-    ## n_chain <- length(chains)
-    ## if (!setequal(chains, seq(1, n_chain))) {
-    ##     return("Chains must be numbered 1:n")
-    ## }
+    ## All chainids in object@samples need to be in object@chains
+    uniq_chainids <- unique(object@samples$chainid)
+    bad_chainids <- uniq_chainids[! uniq_chainids %in% object@chains$chainid]
+    if (length(bad_chainids)) {
+        return(sprintf("Invalid values of object@samples$chainid: %s",
+                       paste(sQuote(bad_chainids), collapse=", ")))
+    }
+    ## TODO: test iterations are valid?
     TRUE
 }
 
@@ -75,16 +86,16 @@ setValidity("McmcLong", validate_mcmc_long)
 ##' Create \code{McmcLong} objects
 ##'
 ##' @param data Object with MCMC samples
-##' @param parameter_name \code{character} vector of parameter names which will
+##' @param parnames \code{character} vector of parameter names which will
 ##' be parsed by \code{fun}
-##' @param fun \code{function} used to parse \code{parameter_name}.
+##' @param fun \code{function} used to parse \code{parnames}.
 ##' See \code{\link{parse_parameter_names_default}} for what this
 ##' function has to return.
 ##'
 ##' @section Methods:
 ##' \describe{
 ##' \item{\code{signature(data="data.frame")}}{\code{data} should have columns
-##' \code{c("parameter", "chain", "iteration", "value")}.}
+##' \code{c("parname", "chainid", "iter", "val")}.}
 ##' }
 ##'
 ##' @rdname McmcLong-methods
@@ -102,22 +113,37 @@ setGeneric("McmcLong",
 
 mcmc_long_default <-
     function(data, 
-             parameter_names=NULL,
-             fun=parse_parameter_names_default)
+             parnames=NULL,
+             fun=parse_parameter_names_default,
+             chains=NULL,
+             par_chains=NULL,
+             chain_iters=NULL,
+             metadata=list())
 {
     ## Put this before parparsed to change data before eval
-    if (is.null(parameter_names)) {
-        parameter_names <- unique(as.character(data$parameter))
+    if (is.null(parnames)) {
+        parnames <- unique(as.character(data$parname))
     }
 
+    ## Coerce columns in samples to the correct type
     for (i in seq_along(.MCMC_LONG_COLUMNS)) {
         variable <- names(.MCMC_LONG_COLUMNS)[i]
         class <- unname(.MCMC_LONG_COLUMNS)[i]
         data[[variable]] <- as(data[[variable]], class)
     }
+    ## Create chains table if none given
+    if (is.null(chains)) {
+        chains <- ddply(samples, "chainid",
+                        summarise, niter = length(iter))
+    }
+    
     new("McmcLong",
         samples=data[ , names(.MCMC_LONG_COLUMNS)],
-        parameters=McmcParameterMeta(fun(parameter_names)))
+        parameters=McmcParameterMeta(fun(parnames)),
+        chains=chains,
+        chain_iters=chain_iters,
+        par_chains=par_chains,
+        metadata=metadata)
 }
 
 setMethod("McmcLong", "data.frame", mcmc_long_default)
@@ -134,9 +160,9 @@ setMethod("McmcLong", "McmcList2", mcmc_long_mcmc_list2)
 ## McmcLong -> McmcList2
 setAs("McmcLong", "McmcList2",
       function(from, to) {
-          to <- dlply(from@samples, "chain",
-                       function(x) mcmc(acast(x, iteration ~ parameter,
-                                              value.var="value")))
+          to <- dlply(from@samples, "chainid",
+                       function(x) mcmc(acast(x, iter ~ parname,
+                                              value.var="val")))
           new("McmcList2", mcmc.list(to),
               parameters=from@parameters)
       })
@@ -144,7 +170,12 @@ setAs("McmcLong", "McmcList2",
 ## McmcList2 -> McmcLong
 setAs("McmcList2", "McmcLong",
       function(from, to) {
-          new("McmcLong", samples=melt(from), parameters=from@parameters)
+          samples <- melt(from)
+          chains <- ddply(samples, "chainid",
+                          summarise, niter=length(iter))
+          new("McmcLong",
+              samples=samples, parameters=from@parameters,
+              chains=chains)
       })
 
 ## McmcLong -> data.frame
