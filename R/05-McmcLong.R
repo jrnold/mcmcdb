@@ -169,6 +169,7 @@ mcmc_long_default <-
         parnames <- unique(as.character(data$parname))
     }
     ## Coerce columns in samples to the correct type
+    data <- data[ , .MCMC_LONG_COLUMNS]
     for (i in seq_along(.MCMC_LONG_COLUMNS)) {
         variable <- names(.MCMC_LONG_COLUMNS)[i]
         class <- unname(.MCMC_LONG_COLUMNS)[i]
@@ -193,7 +194,7 @@ mcmc_long_default <-
     }
 
     new("McmcLong",
-        samples=data[ , names(.MCMC_LONG_COLUMNS)],
+        samples=new("McmcSamples", data),
         parameters=McmcParameters(fun(parnames)),
         chains=new("McmcChains", chains),
         chain_iters=chain_iters,

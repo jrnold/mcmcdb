@@ -9,7 +9,8 @@ chains <- new("McmcChains",
               ddply(samples, "chainid", summarise,
                     niter=length(iter),
                     thin=1L, start=1L, end=length(iter)))
-foo <- new("McmcLong", samples=samples, chains=chains,
+foo <- new("McmcLong", samples=new("McmcSamples", samples),
+           chains=chains,
            parameters=parameters)
 
 test_that("McmcLong works", {

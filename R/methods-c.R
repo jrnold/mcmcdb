@@ -39,7 +39,7 @@ c_mcmc_long <- function(x, ...) {
         chain_iters <- new("McmcChainIters", chain_iters)
     }
     new("McmcLong",
-        samples = binder(objects, "samples"),
+        samples = new("McmcSamples", binder(objects, "samples")),
         parameters = x@parameters,
         chains = new("McmcChains", binder(objects, "chains")),
         par_chains = par_chains,
