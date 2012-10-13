@@ -3,13 +3,14 @@ library(plyr)
 
 data(line, package="mcmc4")
 
-samples <- melt(line)
+samples <- new("McmcSamples", melt(line))
 parameters <- McmcParameters(unique(as.character(samples$parname)))
 chains <- new("McmcChains",
               ddply(samples, "chainid", summarise,
                     niter=length(iter),
                     thin=1L, start=1L, end=length(iter)))
-foo <- new("McmcLong", samples=new("McmcSamples", samples),
+foo <- new("McmcLong",
+           samples=new("McmcSamples", samples),
            chains=chains,
            parameters=parameters)
 
