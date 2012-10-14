@@ -1,8 +1,8 @@
 \docType{methods}
 \name{mcmcGetParname-method}
 \alias{mcmcGetParname-method}
-\alias{mcmcGetParnames,McmcLong-method}
 \alias{mcmcGetParnames,mcmc.list-method}
+\alias{mcmcGetParnames,McmcLong-method}
 \title{Methods to get MCMC object parameter names}
 \arguments{
   \item{object}{MCMC object}

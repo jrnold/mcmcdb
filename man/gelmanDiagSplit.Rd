@@ -1,11 +1,11 @@
 \docType{methods}
 \name{gelmanDiagSplit}
 \alias{gelmanDiagSplit}
+\alias{gelmanDiagSplit-method}
 \alias{gelmanDiagSplit,list-method}
 \alias{gelmanDiagSplit,matrix-method}
 \alias{gelmanDiagSplit,mcmc-method}
 \alias{gelmanDiagSplit,numeric-method}
-\alias{gelmanDiagSplit-method}
 \title{Gelman-Rubin Diagnostic with a Split Single Chain}
 \arguments{
   \item{x}{Object containing the MCMC samples.}
