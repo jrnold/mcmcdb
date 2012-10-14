@@ -207,7 +207,7 @@ setMethod("McmcLong", "mcmc",
 ## McmcLong -> McmcList2
 setAs("McmcLong", "mcmc.list",
       function(from, to) {
-          mcpars <- dlply(foo@chains, "chain_id",
+          mcpars <- dlply(from@chains, "chain_id",
                           function(x) as.integer(x[1 , c("start", "end", "thin")]))
           to <- dlply(from@samples, "chain_id",
                        function(x) acast(x, iter ~ parname,

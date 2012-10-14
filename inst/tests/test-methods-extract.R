@@ -70,3 +70,9 @@ test_that("[[,McmcLong works", {
 test_that("$,McmcLong works", {
     expect_equal(nrow(line_long$alpha), 400)
 })
+
+# -----------------------------------
+
+test_that("[[,McmcParameters works", {
+    expect_equal(line_long@parameters[["beta"]], "beta")
+})

@@ -10,7 +10,7 @@ stopifnotbool <- function(x) {
     stopifnot(is(x, "logical"))
 }
 
-extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, val=TRUE) {
+extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, val=TRUE, pararray=FALSE) {
     if (!missing(i)) {
         if (is.character(i)) {
             i <- x@samples[["parname"]] == i
@@ -83,4 +83,7 @@ setMethod("[[", signature(x="McmcLong", i="character"),
 setMethod("$", signature(x="McmcLong"),
           function(x, name) x[[name]])
 
-
+## Set [[ to extract 
+setMethod("[[", "McmcParameters",
+          function(x, i) rownames(x@indices[[i]]))
+          

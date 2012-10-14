@@ -98,3 +98,4 @@ setMethod("McmcParameters", "factor",
           function(x, fun=mcmc_parse_parname_default, ...) {
               callGeneric(as.character(x), fun=fun, ...)
           })
+
