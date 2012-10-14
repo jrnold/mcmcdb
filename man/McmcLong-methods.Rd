@@ -1,8 +1,8 @@
 \docType{methods}
 \name{McmcLong-methods}
 \alias{McmcLong}
-\alias{McmcLong-methods}
 \alias{McmcLong,data.frame-method}
+\alias{McmcLong-methods}
 \title{Create \code{McmcLong} objects}
 \arguments{
   \item{data}{Object with MCMC samples}
@@ -20,8 +20,8 @@
 \section{Methods}{
   \describe{
   \item{\code{signature(data="data.frame")}}{\code{data}
-  should have columns \code{c("parname", "chainid", "iter",
-  "val")}.} }
+  should have columns \code{c("parname", "chain_id",
+  "iter", "val")}.} }
 }
 \keyword{methods}
 

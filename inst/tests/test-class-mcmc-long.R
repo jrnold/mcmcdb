@@ -5,7 +5,7 @@ data(line, package="mcmc4")
 
 samples <- melt(line)
 parameters <- McmcParameters(unique(as.character(samples$parname)))
-chains <- ddply(samples, "chainid", summarise,
+chains <- ddply(samples, "chain_id", summarise,
                 niter=max(iter),
                 thin=1L, start=1L, end=max(iter))
 foo <- new("McmcLong",
@@ -25,7 +25,7 @@ test_that("error if bad colnames", {
 })
 
 test_that("error if bad chains", {
-    samples[1 , "chainid"] <- 5
+    samples[1 , "chain_id"] <- 5
     expect_error(new("McmcLong", samples=samples, chains=chains, parameters=metadata))
 })
 
@@ -42,10 +42,10 @@ test_that("error if column classes are incorrect", {
                      samples=transform(samples, iter=as.numeric(iter + 0.5)),
                      parameters=metadata))
     expect_error(new("McmcLong",
-                     samples=transform(samples, chainid=as.numeric(chain + 0.5)),
+                     samples=transform(samples, chain_id=as.numeric(chain + 0.5)),
                      parameters=metadata))
     expect_error(new("McmcLong",
-                     samples=transform(samples, chainid=as.character(value)),
+                     samples=transform(samples, chain_id=as.character(value)),
                                parameters=metadata))
 })
 

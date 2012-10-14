@@ -29,9 +29,9 @@ extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, val=TRUE) {
     # Chainid
     if (!missing(j)) {
         if (is(j, "numeric")) {
-            j <- x@samples[["chainid"]] == as(j, "integer")
+            j <- x@samples[["chain_id"]] == as(j, "integer")
         } else if (is(j, "function")) {
-            j <- j(x@samples[["chainid"]])
+            j <- j(x@samples[["chain_id"]])
         } else {
             j <- as.logical(j)
         }

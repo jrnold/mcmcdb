@@ -4,7 +4,7 @@
 \title{MCMC Samples in long-format}
 \description{
   Mcmc samples stored as a table with columns: "parname",
-  "chainid", "iter", "val". Right now the backend is a
+  "chain_id", "iter", "val". Right now the backend is a
   \code{data.frame}, so it is pretty damn slow, but this
   can be changed in the future. However, it seems the most
   natural for storage in a database, with the ability to
@@ -25,17 +25,17 @@
 }
 \section{Slots}{
   \describe{ \item{\code{samples}}{\code{data.frame} with
-  columns "parname", "chainid", "iter", "val"}
+  columns "parname", "chain_id", "iter", "val"}
   \item{\code{parameters}}{\code{McmcParaterMeta} object
   with the array sizes of the paramters in the sample.}
   \item{\code{chains}}{\code{data.frame} with columns
-  "chainid", "niter", "start", "end", and "thin" and other
+  "chain_id", "niter", "start", "end", and "thin" and other
   data for each chain.}
   \item{\code{par_chains}}{\code{data.frame} with columns
-  "parname", "chainid" and other data for each parameter
+  "parname", "chain_id" and other data for each parameter
   for each chain, e.g. step size multipliers for NUTS.}
   \item{\code{chain_iters}}{\code{data.frame} with columns
-  "chainid", "iter" and other data for each iteration of
+  "chain_id", "iter" and other data for each iteration of
   each chain (which are not parameters), e.g. treedepth,
   stepsize in NUTS.} \item{\code{metadata}}{\code{list}
   with general data about the samples.} }

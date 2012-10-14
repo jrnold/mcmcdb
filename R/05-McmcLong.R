@@ -3,29 +3,29 @@
 NULL
 subclass_data_frame_plus("McmcSamples",
                          columns=c(parname="factor",
-                         chainid="integer",
+                         chain_id="integer",
                          iter="integer",
                          val="numeric"),
-                         keys=c("parname", "chainid", "iter"))
+                         keys=c("parname", "chain_id", "iter"))
 
 # -----------------------
 ##' @exportClass McmcChains
 NULL
 subclass_data_frame_plus("McmcChains",
-                         columns = c(chainid="integer",
+                         columns = c(chain_id="integer",
                          niter="integer",
                          thin="integer",
                          start="integer",
                          end="integer"),
-                         keys=c("chainid"))
+                         keys=c("chain_id"))
 
 
 ##' @exportClass McmcParChains
 NULL
 subclass_data_frame_plus("McmcParChains",
                          columns = c(parname="factor",
-                         chainid="integer"),
-                         keys=c("parname", "chainid"))
+                         chain_id="integer"),
+                         keys=c("parname", "chain_id"))
 
 ##' @exportClass McmcParChainsOrNull
 NULL
@@ -35,9 +35,9 @@ setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
 ##' @exportClass McmcChainIters
 NULL
 subclass_data_frame_plus("McmcChainIters",
-                         columns = c(chainid="integer",
+                         columns = c(chain_id="integer",
                          iter="integer"),
-                         keys=c("chainid", "iter"))
+                         keys=c("chain_id", "iter"))
 
 ##' @exportClass McmcChainItersOrNull
 NULL
@@ -47,7 +47,7 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 
 ##' MCMC Samples in long-format
 ##'
-##' Mcmc samples stored as a table with columns: "parname", "chainid",
+##' Mcmc samples stored as a table with columns: "parname", "chain_id",
 ##' "iter", "val". Right now the backend is a
 ##' \code{data.frame}, so it is pretty damn slow, but this can be
 ##' changed in the future. However, it seems the most natural for
@@ -69,13 +69,13 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 ##' @section Slots:
 ##'
 ##' \describe{
-##' \item{\code{samples}}{\code{data.frame} with columns "parname", "chainid", "iter", "val"}
+##' \item{\code{samples}}{\code{data.frame} with columns "parname", "chain_id", "iter", "val"}
 ##' \item{\code{parameters}}{\code{McmcParaterMeta} object with the array sizes of the paramters in the sample.}
-##' \item{\code{chains}}{\code{data.frame} with columns "chainid", "niter",
+##' \item{\code{chains}}{\code{data.frame} with columns "chain_id", "niter",
 ##' "start", "end", and "thin" and other data for each chain.}
-##' \item{\code{par_chains}}{\code{data.frame} with columns "parname", "chainid" and other data
+##' \item{\code{par_chains}}{\code{data.frame} with columns "parname", "chain_id" and other data
 ##' for each parameter for each chain, e.g. step size multipliers for NUTS.}
-##' \item{\code{chain_iters}}{\code{data.frame} with columns "chainid", "iter" and other data for
+##' \item{\code{chain_iters}}{\code{data.frame} with columns "chain_id", "iter" and other data for
 ##' each iteration of each chain (which are not parameters), e.g. treedepth, stepsize in NUTS.}
 ##' \item{\code{metadata}}{\code{list} with general data about the samples.}
 ##' }
@@ -89,9 +89,9 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 setClass("McmcLong",
          representation(samples="McmcSamples",
                         parameters="McmcParameters",
-                        chains="McmcChains", # chainid
-                        par_chains="McmcParChainsOrNull", # parname, chainid
-                        chain_iters="McmcChainItersOrNull", # chainid, iter
+                        chains="McmcChains", # chain_id
+                        par_chains="McmcParChainsOrNull", # parname, chain_id
+                        chain_iters="McmcChainItersOrNull", # chain_id, iter
                         metadata="list"))
 
 validate_mcmc_long <- function(object) {
@@ -100,9 +100,9 @@ validate_mcmc_long <- function(object) {
     if (!setequal(names(object@parameters@parameters), parameters)) {
         return(sprintf("parnames in object@parameters do not match samples"))
     }
-    ## All chainids in object@samples need to be in object@chains
-    uniq_chainids <- unique(object@samples$chainid)
-    bad_chainids <- uniq_chainids[! uniq_chainids %in% object@chains$chainid]
+    ## All chain_ids in object@samples need to be in object@chains
+    uniq_chainids <- unique(object@samples$chain_id)
+    bad_chainids <- uniq_chainids[! uniq_chainids %in% object@chains$chain_id]
     if (length(bad_chainids)) {
         return(sprintf("Invalid values of object@samples$chainid: %s",
                        paste(sQuote(bad_chainids), collapse=", ")))
@@ -125,7 +125,7 @@ setValidity("McmcLong", validate_mcmc_long)
 ##' @section Methods:
 ##' \describe{
 ##' \item{\code{signature(data="data.frame")}}{\code{data} should have columns
-##' \code{c("parname", "chainid", "iter", "val")}.}
+##' \code{c("parname", "chain_id", "iter", "val")}.}
 ##' }
 ##'
 ##' @rdname McmcLong-methods
@@ -157,7 +157,7 @@ mcmc_long_default <-
     data <- new("McmcSamples", data)
     ## Create chains table if none given
     if (is.null(chains)) {
-        chains <- ddply(data, "chainid",
+        chains <- ddply(data, "chain_id",
                         function(x) {
                             maxiter <- max(x$iter)
                             data.frame(niter=maxiter,
@@ -188,9 +188,9 @@ setMethod("McmcLong", "mcmc.list",
           function(data, ...) {
               chains <- ldply(data, function(x) attr(x, "mcpar"))
               names(chains) <- c("start", "end", "thin")
-              chains$chainid <- seq_len(nrow(chains))
+              chains$chain_id <- seq_len(nrow(chains))
               chains <- transform(chains, niter = (end - start + 1) / thin)
-              chains <- chains[ , c("chainid", "niter", "start", "end", "thin")]
+              chains <- chains[ , c("chain_id", "niter", "start", "end", "thin")]
               for (i in c("niter", "start", "end", "thin")) {
                   chains[[i]] <- as.integer(chains[[i]])
               }
@@ -207,9 +207,9 @@ setMethod("McmcLong", "mcmc",
 ## McmcLong -> McmcList2
 setAs("McmcLong", "mcmc.list",
       function(from, to) {
-          mcpars <- dlply(foo@chains, "chainid",
+          mcpars <- dlply(foo@chains, "chain_id",
                           function(x) as.integer(x[1 , c("start", "end", "thin")]))
-          to <- dlply(from@samples, "chainid",
+          to <- dlply(from@samples, "chain_id",
                        function(x) acast(x, iter ~ parname,
                                          value.var="val"))
           to <- mapply(function(x, y) mcmc(x, start=y[1], end=y[2], thin=y[3]),
