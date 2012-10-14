@@ -1,10 +1,10 @@
 \docType{methods}
 \name{mcmc.list-methods}
 \alias{mcmc.list}
+\alias{mcmc.list-methods}
 \alias{mcmc.list,ANY-method}
 \alias{mcmc.list,matrix-method}
 \alias{mcmc.list,mcmc-method}
-\alias{mcmc.list-methods}
 \title{Create \code{mcmc.list} object}
 \arguments{
   \item{x}{Object with MCMC samples.}

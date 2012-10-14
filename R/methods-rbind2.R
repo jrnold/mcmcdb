@@ -12,9 +12,6 @@
 ##' @rdname rbind2-methods
 ##' @name rbind2-methods
 ##' @aliases rbind2,mcmc.list,missing-method
-##'
-NULL
-
 ##' @export
 setMethod("rbind2", signature(x="mcmc.list", y="missing"),
          function(x, y, ...) {

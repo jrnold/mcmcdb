@@ -3,15 +3,14 @@ library(plyr)
 
 data(line, package="mcmc4")
 
-samples <- new("McmcSamples", melt(line))
+samples <- melt(line)
 parameters <- McmcParameters(unique(as.character(samples$parname)))
-chains <- new("McmcChains",
-              ddply(samples, "chainid", summarise,
-                    niter=length(iter),
-                    thin=1L, start=1L, end=length(iter)))
+chains <- ddply(samples, "chainid", summarise,
+                niter=max(iter),
+                thin=1L, start=1L, end=max(iter))
 foo <- new("McmcLong",
            samples=new("McmcSamples", samples),
-           chains=chains,
+           chains=new("McmcChains", chains),
            parameters=parameters)
 
 test_that("McmcLong works", {
@@ -67,10 +66,10 @@ test_that("data=data.frame works with parameter != NULL", {
     expect_is(McmcLong(samples, chains=chains), "McmcLong")
 })
 
-test_that("data=data.frame fixes bad column types", {
-    expect_is(McmcLong(transform(samples, parname=as.character(parname))), "McmcLong")
-    expect_is(McmcLong(transform(samples, iter=as.numeric(iter))), "McmcLong")
-    expect_is(McmcLong(transform(samples, iter=as.character(iter))), "McmcLong")
+test_that("data=data.frame chokes on bad column types", {
+    expect_error(McmcLong(transform(samples, parname=as.character(parname))))
+    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))))
+    expect_error(McmcLong(transform(samples, iter=as.character(iter))))
 })
 
 test_that("data=mcmc.list works", {

@@ -1,31 +1,31 @@
 ## Names and clases of columns in \code{McmcLong} class
 ##' @exportClass McmcSamples
 NULL
-data_frame_factory("McmcSamples",
-                   c(parname="factor",
-                     chainid="integer",
-                     iter="integer",
-                     val="numeric"),
-                   keys=c("parname", "chainid", "iter"))
+subclass_data_frame_plus("McmcSamples",
+                         columns=c(parname="factor",
+                         chainid="integer",
+                         iter="integer",
+                         val="numeric"),
+                         keys=c("parname", "chainid", "iter"))
 
 # -----------------------
 ##' @exportClass McmcChains
 NULL
-data_frame_factory("McmcChains",
-                   c(chainid="integer",
-                     niter="integer",
-                     thin="integer",
-                     start="integer",
-                     end="integer"),
-                   keys=c("chainid"))
+subclass_data_frame_plus("McmcChains",
+                         columns = c(chainid="integer",
+                         niter="integer",
+                         thin="integer",
+                         start="integer",
+                         end="integer"),
+                         keys=c("chainid"))
 
 
 ##' @exportClass McmcParChains
 NULL
-data_frame_factory("McmcParChains",
-                  c(parname="factor",
-                    chainid="integer"),
-                   keys=c("parname", "chainid"))
+subclass_data_frame_plus("McmcParChains",
+                         columns = c(parname="factor",
+                         chainid="integer"),
+                         keys=c("parname", "chainid"))
 
 ##' @exportClass McmcParChainsOrNull
 NULL
@@ -34,10 +34,10 @@ setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
 # -----------------------
 ##' @exportClass McmcChainIters
 NULL
-data_frame_factory("McmcChainIters",
-                   c(chainid="integer",
-                     iter="integer"),
-                   keys=c("chainid", "iter"))
+subclass_data_frame_plus("McmcChainIters",
+                         columns = c(chainid="integer",
+                         iter="integer"),
+                         keys=c("chainid", "iter"))
 
 ##' @exportClass McmcChainItersOrNull
 NULL
@@ -159,10 +159,11 @@ mcmc_long_default <-
     if (is.null(chains)) {
         chains <- ddply(data, "chainid",
                         function(x) {
-                            data.frame(niter=nrow(x),
+                            maxiter <- max(x$iter)
+                            data.frame(niter=maxiter,
                                        thin=1L,
                                        start=1L,
-                                       end=nrow(x))
+                                       end=maxiter)
                         })
     }
     chains <- new("McmcChains", chains)
@@ -185,7 +186,15 @@ setMethod("McmcLong", "data.frame", mcmc_long_default)
 
 setMethod("McmcLong", "mcmc.list",
           function(data, ...) {
-              callGeneric(melt(data), ...)
+              chains <- ldply(data, function(x) attr(x, "mcpar"))
+              names(chains) <- c("start", "end", "thin")
+              chains$chainid <- seq_len(nrow(chains))
+              chains <- transform(chains, niter = (end - start + 1) / thin)
+              chains <- chains[ , c("chainid", "niter", "start", "end", "thin")]
+              for (i in c("niter", "start", "end", "thin")) {
+                  chains[[i]] <- as.integer(chains[[i]])
+              }
+              callGeneric(melt(data), chains=chains, ...)
           })
 
 setMethod("McmcLong", "mcmc",
@@ -198,11 +207,13 @@ setMethod("McmcLong", "mcmc",
 ## McmcLong -> McmcList2
 setAs("McmcLong", "mcmc.list",
       function(from, to) {
-          thin <- dl
+          mcpars <- dlply(foo@chains, "chainid",
+                          function(x) as.integer(x[1 , c("start", "end", "thin")]))
           to <- dlply(from@samples, "chainid",
                        function(x) acast(x, iter ~ parname,
                                          value.var="val"))
-
+          to <- mapply(function(x, y) mcmc(x, start=y[1], end=y[2], thin=y[3]),
+                       to, mcpars)
           mcmc.list(to)
       })
 

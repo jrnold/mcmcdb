@@ -27,8 +27,10 @@ test_that("method rbind2 for mcmc works", {
 test_that("as mcmc.list -> matrix works", {
     expect_identical(rbind2(line), as(line, "matrix"))
 })
+
 test_that("as mcmc.list -> mcmc works", {
     linemcmc <- as(line, "mcmc")
+    expect_is(linemcmc, "mcmc")
 })
 
 

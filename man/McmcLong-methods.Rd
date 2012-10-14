@@ -1,8 +1,8 @@
 \docType{methods}
 \name{McmcLong-methods}
 \alias{McmcLong}
-\alias{McmcLong,data.frame-method}
 \alias{McmcLong-methods}
+\alias{McmcLong,data.frame-method}
 \title{Create \code{McmcLong} objects}
 \arguments{
   \item{data}{Object with MCMC samples}
