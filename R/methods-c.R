@@ -28,24 +28,29 @@ c_mcmc_long <- function(x, ...) {
             NULL
         }
     }
-
-    objects <- .Primitive("c")(list(x), list(...))
-    par_chains <- binder(objects, "par_chains")
-    if (!is.null(par_chains)) {
-        par_chains <- new("McmcParChains", par_chains)
+    
+    args <- list(...)
+    if (length(args)) {
+        objects <- c(list(x), args)
+        par_chains <- binder(objects, "par_chains")
+        if (!is.null(par_chains)) {
+            par_chains <- new("McmcParChains", par_chains)
+        }
+        chain_iters <- binder(objects, "chain_iters")
+        if (!is.null(chain_iters)) {
+            chain_iters <- new("McmcChainIters", chain_iters)
+        }
+        new("McmcLong",
+            samples = new("McmcSamples", binder(objects, "samples")),
+            parnames = new("McmcParnames", binder(objects, "parnames")),
+            pararrays = new("McmcPararrays", binder(objects, "pararrays")),
+            chains = new("McmcChains", binder(objects, "chains")),
+            par_chains = par_chains,
+            chain_iters = chain_iters,
+            metadata = do.call(c, lapply(objects, slot, "metadata")))
+    } else {
+        x
     }
-    chain_iters <- binder(objects, "chain_iters")
-    if (!is.null(chain_iters)) {
-        chain_iters <- new("McmcChainIters", chain_iters)
-    }
-    new("McmcLong",
-        samples = new("McmcSamples", binder(objects, "samples")),
-        parnames = new("McmcParnames", binder(objects, "parnames")),
-        pararrays = new("McmcPararrays", binder(objects, "pararrays")),
-        chains = new("McmcChains", binder(objects, "chains")),
-        par_chains = par_chains,
-        chain_iters = chain_iters,
-        metadata = do.call(c, lapply(objects, slot, "metadata")))
 }
 
 setMethod("c", c(x="McmcLong"), c_mcmc_long)
