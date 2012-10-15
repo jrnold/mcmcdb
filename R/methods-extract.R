@@ -83,7 +83,4 @@ setMethod("[[", signature(x="McmcLong", i="character"),
 setMethod("$", signature(x="McmcLong"),
           function(x, name) x[[name]])
 
-## Set [[ to extract 
-setMethod("[[", "McmcParameters",
-          function(x, i) rownames(x@indices[[i]]))
           

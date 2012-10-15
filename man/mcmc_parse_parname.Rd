@@ -25,8 +25,6 @@
 }
 \description{
   These functions parse a character vector of parameter
-  names and return a \code{data.frame} (described below)
-  that can easily be turned in a \code{McmcParameters}
-  object.
+  names and return a \code{McmcParnames} object.
 }
 

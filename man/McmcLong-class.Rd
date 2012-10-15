@@ -24,21 +24,14 @@
   integration with SQL db backends.
 }
 \section{Slots}{
-  \describe{ \item{\code{samples}}{\code{data.frame} with
-  columns "parname", "chain_id", "iter", "val"}
-  \item{\code{parameters}}{\code{McmcParaterMeta} object
-  with the array sizes of the paramters in the sample.}
-  \item{\code{chains}}{\code{data.frame} with columns
-  "chain_id", "niter", "start", "end", and "thin" and other
-  data for each chain.}
-  \item{\code{par_chains}}{\code{data.frame} with columns
-  "parname", "chain_id" and other data for each parameter
-  for each chain, e.g. step size multipliers for NUTS.}
-  \item{\code{chain_iters}}{\code{data.frame} with columns
-  "chain_id", "iter" and other data for each iteration of
-  each chain (which are not parameters), e.g. treedepth,
-  stepsize in NUTS.} \item{\code{metadata}}{\code{list}
-  with general data about the samples.} }
+  \describe{ \item{\code{samples}}{\code{McmcSamples}.}
+  \item{\code{parnames}}{\code{McmcParnames}.}
+  \item{\code{pararrays}}{\code{McmcPararrays}.}
+  \item{\code{chains}}{\code{McmcChains}.}
+  \item{\code{par_chains}}{\code{McmcParChains}.}
+  \item{\code{chain_iters}}{\code{McmcChainIters}.}
+  \item{\code{metadata}}{\code{list} with general data
+  about the samples.} }
 }
 \keyword{classes}
 

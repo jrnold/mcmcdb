@@ -1,4 +1,41 @@
-## Names and clases of columns in \code{McmcLong} class
+##' Internal classes
+##'
+##' Various classes used internally in \pkg{mcmc4}.
+##' These are all subclasses of \code{DataFramePlus}
+##' with specific constraints.
+##'
+##' @name internal-classes
+##' @rdname internal-classes
+##' @aliases McmcSamples-class
+##' @aliases McmcChains-class
+##' @aliases McmcParChains-class
+##' @aliases McmcParChainsOrNull-class
+##' @aliases McmcChainIters-class
+##' @aliases McmcChainItersOrNull-class
+##' @keywords classes internal
+##' @docType class
+NULL
+
+##' @exportClass McmcParnames
+NULL
+subclass_data_frame_plus("McmcParnames",
+                         columns=c(parname="factor",
+                         pararray="factor",
+                         idx="character"),
+                         keys=c("parname"))
+
+# -----------------------
+
+##' @exportClass McmcPararrays
+NULL
+subclass_data_frame_plus("McmcPararrays",
+                         columns=c(pararray="factor",
+                         dim_n="integer",
+                         dim_sz="character"),
+                         keys=c("pararray"))
+
+# -----------------------
+
 ##' @exportClass McmcSamples
 NULL
 subclass_data_frame_plus("McmcSamples",
@@ -69,14 +106,12 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 ##' @section Slots:
 ##'
 ##' \describe{
-##' \item{\code{samples}}{\code{data.frame} with columns "parname", "chain_id", "iter", "val"}
-##' \item{\code{parameters}}{\code{McmcParaterMeta} object with the array sizes of the paramters in the sample.}
-##' \item{\code{chains}}{\code{data.frame} with columns "chain_id", "niter",
-##' "start", "end", and "thin" and other data for each chain.}
-##' \item{\code{par_chains}}{\code{data.frame} with columns "parname", "chain_id" and other data
-##' for each parameter for each chain, e.g. step size multipliers for NUTS.}
-##' \item{\code{chain_iters}}{\code{data.frame} with columns "chain_id", "iter" and other data for
-##' each iteration of each chain (which are not parameters), e.g. treedepth, stepsize in NUTS.}
+##' \item{\code{samples}}{\code{McmcSamples}.}
+##' \item{\code{parnames}}{\code{McmcParnames}.}
+##' \item{\code{pararrays}}{\code{McmcPararrays}.}
+##' \item{\code{chains}}{\code{McmcChains}.}
+##' \item{\code{par_chains}}{\code{McmcParChains}.}
+##' \item{\code{chain_iters}}{\code{McmcChainIters}.}
 ##' \item{\code{metadata}}{\code{list} with general data about the samples.}
 ##' }
 ##'
@@ -88,7 +123,8 @@ setClassUnion("McmcChainItersOrNull", c("McmcChainIters", "NULL"))
 ##' @export
 setClass("McmcLong",
          representation(samples="McmcSamples",
-                        parameters="McmcParameters",
+                        parnames="McmcParnames",
+                        pararrays="McmcPararrays",
                         chains="McmcChains", # chain_id
                         par_chains="McmcParChainsOrNull", # parname, chain_id
                         chain_iters="McmcChainItersOrNull", # chain_id, iter
@@ -96,17 +132,17 @@ setClass("McmcLong",
 
 validate_mcmc_long <- function(object) {
     ## Parameters
-    parameters <- as.character(unique(object@samples[["parname"]]))
-    if (!setequal(names(object@parameters@parameters), parameters)) {
-        return(sprintf("parnames in object@parameters do not match samples"))
-    }
-    ## All chain_ids in object@samples need to be in object@chains
-    uniq_chainids <- unique(object@samples$chain_id)
-    bad_chainids <- uniq_chainids[! uniq_chainids %in% object@chains$chain_id]
-    if (length(bad_chainids)) {
-        return(sprintf("Invalid values of object@samples$chainid: %s",
-                       paste(sQuote(bad_chainids), collapse=", ")))
-    }
+    ## parameters <- as.character(unique(object@samples[["parname"]]))
+    ## if (!setequal(names(object@parameters@parameters), parameters)) {
+    ##     return(sprintf("parnames in object@parameters do not match samples"))
+    ## }
+    ## ## All chain_ids in object@samples need to be in object@chains
+    ## uniq_chainids <- unique(object@samples$chain_id)
+    ## bad_chainids <- uniq_chainids[! uniq_chainids %in% object@chains$chain_id]
+    ## if (length(bad_chainids)) {
+    ##     return(sprintf("Invalid values of object@samples$chainid: %s",
+    ##                    paste(sQuote(bad_chainids), collapse=", ")))
+    ## }
     ## TODO: test iterations are valid?
     TRUE
 }
@@ -142,7 +178,7 @@ setGeneric("McmcLong",
 
 mcmc_long_default <-
     function(data,
-             parnames=NULL,
+             parameters=NULL,
              fun=mcmc_parse_parname_default,
              chains=NULL,
              par_chains=NULL,
@@ -150,9 +186,12 @@ mcmc_long_default <-
              metadata=list())
 {
     ## Put this before parparsed to change data before eval
-    if (is.null(parnames)) {
-        parnames <- unique(as.character(data$parname))
+    if (is.null(parameters)) {
+        parameters <- unique(as.character(data$parname))
     }
+    parnames <- new("McmcParnames", fun(parnames))
+    pararrays <- new("McmcPararrays",
+                     parnames_to_pararrays(parnames))
     ## Samples
     data <- new("McmcSamples", data)
     ## Create chains table if none given
@@ -175,7 +214,8 @@ mcmc_long_default <-
     }
     new("McmcLong",
         samples=data,
-        parameters=McmcParameters(fun(parnames)),
+        parnames=parnames,
+        pararrays=pararrays,
         chains=chains,
         chain_iters=chain_iters,
         par_chains=par_chains,

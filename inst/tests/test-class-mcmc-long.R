@@ -4,14 +4,20 @@ library(plyr)
 data(line, package="mcmc4")
 
 samples <- melt(line)
-parameters <- McmcParameters(unique(as.character(samples$parname)))
+
+parnames <- new("McmcParnames",
+                mcmc_parse_parname_default(unique(samples$parname)))
+pararrays <- new("McmcPararrays",
+                 mcmc4:::parnames_to_pararrays(parnames))
+
 chains <- ddply(samples, "chain_id", summarise,
                 niter=max(iter),
                 thin=1L, start=1L, end=max(iter))
 foo <- new("McmcLong",
            samples=new("McmcSamples", samples),
            chains=new("McmcChains", chains),
-           parameters=parameters)
+           pararrays=pararrays,
+           parnames=parnames)
 
 test_that("McmcLong works", {
     expect_is(foo, "McmcLong")
@@ -21,32 +27,36 @@ test_that("McmcLong works", {
 
 test_that("error if bad colnames", {
     colnames(samples)[1] <- "foo"
-    expect_error(new("McmcLong", samples=samples, parameters=metadata))
+    expect_error(new("McmcLong", samples=samples, chains=chains,
+                     pararrays=pararrays, parnames=parnames))
 })
 
 test_that("error if bad chains", {
     samples[1 , "chain_id"] <- 5
-    expect_error(new("McmcLong", samples=samples, chains=chains, parameters=metadata))
+    expect_error(new("McmcLong", samples=samples, chains=chains,
+                     pararrays=pararrays, parnames=parnames))
 })
 
 test_that("error if bad parameter names", {
     levels(samples$parname) <- c("a", "b", "c")
-    expect_error(new("McmcLong", samples, parameters=metadata))
+    expect_error(new("McmcLong", samples,
+                     pararrays=pararrays, parnames=parnames))
 })
 
 test_that("error if column classes are incorrect", {
     expect_error(new("McmcLong",
                      samples=transform(samples, parname=as.character(parameter)),
-                     parameters=metadata))
+                     pararrays=pararrays, parnames=parnames))
     expect_error(new("McmcLong",
                      samples=transform(samples, iter=as.numeric(iter + 0.5)),
-                     parameters=metadata))
+                     pararrays=pararrays, parnames=parnames))
     expect_error(new("McmcLong",
                      samples=transform(samples, chain_id=as.numeric(chain + 0.5)),
-                     parameters=metadata))
+                     pararrays=pararrays, parnames=parnames))
     expect_error(new("McmcLong",
                      samples=transform(samples, chain_id=as.character(value)),
-                               parameters=metadata))
+                     pararrays=pararrays, parnames=parnames))
+
 })
 
 #############################
@@ -95,5 +105,3 @@ test_that("coerce from=McmcList2 to=mcmc.list works", {
 test_that("coerce from=McmcLong,to=data.frame works", {
     expect_equal(as(foo, "data.frame"), foo@samples)
 })
-
-

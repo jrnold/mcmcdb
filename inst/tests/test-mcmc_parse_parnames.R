@@ -1,5 +1,6 @@
 context("parameter name parsers")
 
+COLNAMES <- c("parname", "pararray", "index")
 BUGS_COLNAMES <- c("alpha",
                    paste0("beta[", 1:2, "]"),
                    paste0("gamma[", mcmc4:::expand.paste(1:2, 1:3, sep=","), "]"),
@@ -16,7 +17,7 @@ PARAMETERS <- c("alpha", rep("beta", 2),
 INDICES <- c(1, 1:2,
              mcmc4:::expand.paste(1:2, 1:3, sep=","),
              mcmc4:::expand.paste(1:2, 1:3, 1:4, sep=","))
-COLNAMES <- c("pararray", "index")
+
 SKELETON <- list(alpha=0, beta=rep(0, 2),
                  delta=mcmc4:::zeros(c(2, 3, 4)),
                  gamma=mcmc4:::zeros(c(2, 3)))
@@ -45,8 +46,8 @@ test_that("default parameter parser works", {
 test_that("Bugs parameter parser works", {
     ret <- mcmc_parse_parname_bugs(BUGS_COLNAMES)
     expect_is(ret, "data.frame")
-    expect_equal(rownames(ret), BUGS_COLNAMES)
     expect_equal(colnames(ret), COLNAMES)
+    expect_equal(rownames(ret), BUGS_COLNAMES)
     expect_equal(ret$index, INDICES)
     expect_equal(ret$pararray, PARAMETERS)
 })
@@ -59,17 +60,5 @@ test_that("Stan parameter parser works", {
     expect_equal(ret$index, INDICES)
     expect_equal(ret$pararray, PARAMETERS)
 })
-
-test_that("Processing parsed parameters works", {
-    params <- c("alpha", "beta", "gamma", "delta")
-    parsed <- mcmc_parse_parname_stan(STAN_COLNAMES)
-    ret <- McmcParameters(parsed)
-    expect_equal(ret@parameters, structure(PARAMETERS, names=STAN_COLNAMES))
-    expect_equal(ret@indices[params], INDICES2[params])
-    expect_equal(ret@skeleton, SKELETON)
-})
-
-
-
 
 
