@@ -68,8 +68,8 @@ test_that("data=data.frame works without arguments", {
 })
 
 test_that("data=data.frame works with parameters != NULL", {
-    expect_is(McmcLong(samples, parameters=unique(as.character(samples$parname))),
-              "McmcLong")
+    parnames <- mcmc_parse_parname_default(unique(as.character(samples$parname)))
+    expect_is(McmcLong(samples, parnames=parnames), "McmcLong")
 })
 
 test_that("data=data.frame works with parameter != NULL", {
@@ -77,9 +77,12 @@ test_that("data=data.frame works with parameter != NULL", {
 })
 
 test_that("data=data.frame chokes on bad column types", {
-    expect_error(McmcLong(transform(samples, parname=as.character(parname))))
-    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))))
-    expect_error(McmcLong(transform(samples, iter=as.character(iter))))
+    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))),
+                 "invalid class “McmcSamples” object")
+    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))),
+                 "invalid class “McmcSamples” object")
+    expect_error(McmcLong(transform(samples, iter=as.character(iter))),
+                 "invalid class “McmcSamples” object")
 })
 
 test_that("data=mcmc.list works", {

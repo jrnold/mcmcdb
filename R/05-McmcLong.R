@@ -179,7 +179,7 @@ setGeneric("McmcLong",
 
 mcmc_long_default <-
     function(data,
-             parameters=NULL,
+             parnames=NULL,
              fun=mcmc_parse_parname_default,
              chains=NULL,
              par_chains=NULL,
@@ -187,15 +187,10 @@ mcmc_long_default <-
              metadata=list())
 {
     ## Put this before parparsed to change data before eval
-    if (is.null(parameters)) {
-        parameters <- unique(as.character(data$parname))
+    if (is.null(parnames)) {
+        parnames <- fun(unique(as.character(data$parname)))
     }
-    parnames <- fun(parameters)
-    parnames$parname <- factor(parnames$parname)
-    parnames$pararray <- factor(parnames$pararray)
-    parnames <- new("McmcParnames", parnames)
-    pararrays <- new("McmcPararrays",
-                     parnames_to_pararrays(parnames))
+    pararrays <- parnames_to_pararrays(parnames)
     ## Samples
     data <- new("McmcSamples", data)
     ## Create chains table if none given
