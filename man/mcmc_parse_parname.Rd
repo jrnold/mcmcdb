@@ -14,14 +14,7 @@
   \item{x}{\code{character} vector of character names.}
 }
 \value{
-  \code{data.frame} with rownames equal to \code{x} and two
-  columns \describe{ \item{\code{index}}{Comma seperated
-  string of the index of the flat parameter in the array
-  parameter. E.g. If "beta.1.2" is the first column, second
-  row of "beta", then this should be equal to "1,2".}
-  \item{\code{name}}{Name of the array parameter. E.g. If
-  "beta.1.2" is the first column, second row of "beta",
-  then this should be equal to "beta".} }
+  \code{McmcParnames} data.frame.
 }
 \description{
   These functions parse a character vector of parameter
