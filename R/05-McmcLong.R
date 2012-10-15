@@ -56,6 +56,7 @@ subclass_data_frame_plus("McmcChains",
                          end="integer"),
                          keys=c("chain_id"))
 
+# ----------------------
 
 ##' @exportClass McmcParChains
 NULL
@@ -189,7 +190,10 @@ mcmc_long_default <-
     if (is.null(parameters)) {
         parameters <- unique(as.character(data$parname))
     }
-    parnames <- new("McmcParnames", fun(parnames))
+    parnames <- fun(parameters)
+    parnames$parname <- factor(parnames$parname)
+    parnames$pararray <- factor(parnames$pararray)
+    parnames <- new("McmcParnames", parnames)
     pararrays <- new("McmcPararrays",
                      parnames_to_pararrays(parnames))
     ## Samples

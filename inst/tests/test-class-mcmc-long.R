@@ -67,8 +67,8 @@ test_that("data=data.frame works without arguments", {
     expect_is(McmcLong(samples), "McmcLong")
 })
 
-test_that("data=data.frame works with parameter != NULL", {
-    expect_is(McmcLong(samples, parnames=unique(as.character(samples$parname))),
+test_that("data=data.frame works with parameters != NULL", {
+    expect_is(McmcLong(samples, parameters=unique(as.character(samples$parname))),
               "McmcLong")
 })
 
