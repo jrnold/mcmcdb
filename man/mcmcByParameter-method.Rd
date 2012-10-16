@@ -1,7 +1,7 @@
 \docType{methods}
 \name{mcmcByParameter-method}
-\alias{mcmcByParameter-method}
 \alias{mcmcByParameter,McmcLong-method}
+\alias{mcmcByParameter-method}
 \title{Apply function to the MCMC samples of each parameter}
 \arguments{
   \item{object}{MCMC object}

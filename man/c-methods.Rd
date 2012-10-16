@@ -1,7 +1,7 @@
 \docType{methods}
 \name{c-methods}
-\alias{c-methods}
 \alias{c,McmcLong-method}
+\alias{c-methods}
 \title{Methods for function \code{c} for MCMC objects}
 \arguments{
   \item{x}{Object to be concatenated}
