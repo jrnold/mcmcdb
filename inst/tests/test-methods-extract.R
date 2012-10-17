@@ -10,8 +10,26 @@ test_that("extract,McmcLong,missing,missing-method", {
 
 # ---------------------------------
 
+test_that("extract,McmcLong,numeric,missing-method k=Missing, value=Missing, pararray=TRUE", {
+    expect_equal(nrow(line_long[1, pararray=TRUE]), 400)
+})
+
+test_that("extract,McmcLong,character,missing-method k=Missing, value=Missing, pararray=TRUE", {
+    expect_equal(nrow(line_long["alpha", pararray=TRUE]), 400)
+})
+
+test_that("extract,McmcLong,function,missing-method k=Missing, value=Missing, pararray=TRUE", {
+    expect_equal(nrow(line_long[function(x) x == "alpha", pararray=TRUE]), 400)
+})
+
+test_that("extract,McmcLong,logical,missing-method k=Missing, value=Missing, pararray=TRUE", {
+    expect_equal(nrow(line_long[c(TRUE, rep(FALSE, 2)), pararray=TRUE]), 400)
+})
+
+# ------------------------
+
 test_that("extract,McmcLong,numeric,missing-method k=Missing, value=Missing", {
-    expect_equal(nrow(line_long[1]), 400)
+    expect_equal(nrow(linehulu_long[1]), 400)
 })
 
 test_that("extract,McmcLong,character,missing-method k=Missing, value=Missing", {
@@ -25,6 +43,7 @@ test_that("extract,McmcLong,function,missing-method k=Missing, value=Missing", {
 test_that("extract,McmcLong,logical,missing-method k=Missing, value=Missing", {
     expect_equal(nrow(line_long[c(rep(TRUE, 400), rep(FALSE, 800))]), 400)
 })
+
 
 # ---------------------------------
 

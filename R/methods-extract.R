@@ -12,6 +12,21 @@ stopifnotbool <- function(x) {
 
 extract1_mcmc_long <- function(x, i=TRUE, j=TRUE, k=TRUE, val=TRUE, pararray=FALSE) {
     if (!missing(i)) {
+        if (pararray) {
+            # print("using pararray")
+            if (is.character(i)) {
+                ii <- x@parnames[["pararray"]] == i
+            } else if (is(i, "numeric")) {
+                lvl <- levels(x@parnames[["pararray"]])[i]
+                ii <- x@parnames[["pararray"]] == lvl
+            } else if (is(i, "function")) {
+                ii <- i(x@parnames[["pararray"]])
+            } else {
+                ii <- as.logical(i)
+            }
+            i <- as.character(x@parnames[ii, "parname"])
+            # print(i)
+        }
         if (is.character(i)) {
             i <- x@samples[["parname"]] == i
         } else if (is(i, "numeric")) {

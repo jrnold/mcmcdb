@@ -1,8 +1,8 @@
 \docType{methods}
 \name{mcmcByIteration-methods}
 \alias{mcmcByIteration}
-\alias{mcmcByIteration,McmcLong-method}
 \alias{mcmcByIteration-methods}
+\alias{mcmcByIteration,McmcLong-method}
 \title{Iterate over all Mcmc iterations}
 \arguments{
   \item{data}{\code{function} Data to combine with

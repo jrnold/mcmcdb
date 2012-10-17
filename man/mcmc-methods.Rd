@@ -1,9 +1,9 @@
 \docType{methods}
 \name{mcmc-methods}
 \alias{mcmc}
-\alias{mcmc,ANY-method}
 \alias{mcmc-method}
 \alias{mcmc-methods}
+\alias{mcmc,ANY-method}
 \alias{mcmc,numeric-method}
 \alias{mcmc,ts-method}
 \title{Create \code{mcmc} objects}

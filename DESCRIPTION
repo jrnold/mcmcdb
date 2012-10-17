@@ -36,3 +36,4 @@ Collate:
     'methods-mcmcByParameter.R'
     'methods-get.R'
     'methods-rbind2.R'
+    'methods-print.R'

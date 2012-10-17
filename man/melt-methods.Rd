@@ -1,7 +1,7 @@
 \name{melt-methods}
-\alias{melt,mcmc.list-method}
-\alias{melt,mcmc-method}
 \alias{melt-methods}
+\alias{melt,mcmc-method}
+\alias{melt,mcmc.list-method}
 \title{Methods for function \code{melt}}
 \arguments{
   \item{data}{Object containing the MCMC samples.}
