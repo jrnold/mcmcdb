@@ -23,10 +23,10 @@ setGeneric("gelmanDiagSplit",
            })
 
 setMethod("gelmanDiagSplit", "numeric",
-          function(x, ...) {
+          function(x, frac1=0.5, frac2=0.5) {
               n <- length(x)
-              i1 <- 1:floor(n/2)
-              i2 <- ceiling(n/2 + 1):n
+              i1 <- 1:floor(frac1 * n)
+              i2 <- ceiling((1 - frac2) * n):n
               gelman_diag(mcmc.list(mcmc(x[i1]), mcmc(x[i2])))
           })
 
