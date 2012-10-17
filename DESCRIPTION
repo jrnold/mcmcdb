@@ -29,8 +29,6 @@ Collate:
     'utilities.R'
     'methods-melt.R'
     'methods-mcmcByIteration.R'
-    'methods-gelmanDiag.R'
-    'methods-gelmanDiagSplit.R'
     'methods-c.R'
     'methods-extract.R'
     'methods-mcmcByParameter.R'
