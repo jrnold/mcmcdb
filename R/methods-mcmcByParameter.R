@@ -3,7 +3,7 @@
 ##' @param object MCMC object
 ##' @param .fun Function to apply to the vector of parameter values
 ##' from all iterations.
-##' @param .subset \code{list} passed to \code{[} to subset the
+##' @param .extract \code{list} passed to \code{[} to subset the
 ##' dataset first.
 ##' @return \code{list} of length equal to the number of parameter.
 ##' Each element contains the results of \code{.fun} for that
