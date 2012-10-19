@@ -1,9 +1,11 @@
 ##' Iterate over all Mcmc iterations
 ##'
-##' @param data \code{function} Data to combine with parameters on
+##' @param data \code{list} Data to combine with parameters on
 ##' each iteration.
-##' @param FUN \code{function} Function to apply to each iteration.
-##' @param ... Pass to \code{FUN}.
+##' @param .fun \code{function} Function to apply to each iteration.
+##' This should take one argument,  a \code{list} that includes the
+##' parameters in array form and the values from \code{data}.
+##' @param ... Options passed to \code{.fun} and \code{\link{dlply}}.
 ##'
 ##' @section Methods:
 ##' \describe{
@@ -24,7 +26,7 @@ setGeneric("mcmcByIteration",
                standardGeneric("mcmcByIteration")
            })
 
-mcmc_by_iteration_mcmc_long <- function(object, data=list(), FUN=identity) {
+mcmc_by_iteration_mcmc_long <- function(object, .fun=identity, data=list(),  ...) {
     do_iteration <- function(x, skeleton, indices, innerfun, data, ...) {
         values <- structure(x$val, names=as.character(x$parname))
         innerfun(c(mcmc_relist_0(skeleton, indices, values), data))
@@ -36,7 +38,7 @@ mcmc_by_iteration_mcmc_long <- function(object, data=list(), FUN=identity) {
                  skeleton=skeleton,
                  indices=indices,
                  data=data,
-                 innerfun=FUN)
+                 innerfun=.fun, ...)
     strip_plyr_attr(ret)
 }
 

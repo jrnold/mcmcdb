@@ -42,8 +42,8 @@ c_mcmc_long <- function(x, ...) {
         }
         new("McmcLong",
             samples = new("McmcSamples", binder(objects, "samples")),
-            parnames = new("McmcParnames", binder(objects, "parnames")),
-            pararrays = new("McmcPararrays", binder(objects, "pararrays")),
+            parnames = x@parnames,
+            pararrays = x@pararrays,
             chains = new("McmcChains", binder(objects, "chains")),
             par_chains = par_chains,
             chain_iters = chain_iters,
