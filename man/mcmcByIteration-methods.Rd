@@ -5,13 +5,16 @@
 \alias{mcmcByIteration,McmcLong-method}
 \title{Iterate over all Mcmc iterations}
 \arguments{
-  \item{data}{\code{function} Data to combine with
-  parameters on each iteration.}
+  \item{data}{\code{list} Data to combine with parameters
+  on each iteration.}
 
-  \item{FUN}{\code{function} Function to apply to each
-  iteration.}
+  \item{.fun}{\code{function} Function to apply to each
+  iteration. This should take one argument, a \code{list}
+  that includes the parameters in array form and the values
+  from \code{data}.}
 
-  \item{...}{Pass to \code{FUN}.}
+  \item{...}{Options passed to \code{.fun} and
+  \code{\link{dlply}}.}
 }
 \description{
   Iterate over all Mcmc iterations

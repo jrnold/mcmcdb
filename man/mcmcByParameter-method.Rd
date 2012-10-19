@@ -8,6 +8,9 @@
 
   \item{.fun}{Function to apply to the vector of parameter
   values from all iterations.}
+
+  \item{.extract}{\code{list} passed to \code{[} to subset
+  the dataset first.}
 }
 \value{
   \code{list} of length equal to the number of parameter.
