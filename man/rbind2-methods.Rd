@@ -1,6 +1,6 @@
 \name{rbind2-methods}
-\alias{rbind2-methods}
 \alias{rbind2,mcmc.list,missing-method}
+\alias{rbind2-methods}
 \title{Methods for function \code{rbind2} for MCMC samples}
 \description{
   Methods for function \code{rbind2} for MCMC samples
