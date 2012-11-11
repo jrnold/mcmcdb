@@ -2,22 +2,24 @@
 \alias{mcmc_relist}
 \title{Relist MCMC samples}
 \usage{
-  mcmc_relist(parnames, pararrays, flesh)
+  mcmc_relist(flesh, skeleton, indices)
 }
 \arguments{
-  \item{param}{parnames \code{McmcParnames} object.}
+  \item{flesh}{\code{numeric}}
 
-  \item{param}{pararrays \code{McmcPararrays} object.}
+  \item{skeleton}{Named \code{list} of arrays of zeros in
+  the shape of each parameter array.}
 
-  \item{param}{flesh Named \code{numeric} vector with names
-  corresponding to the parameters.}
+  \item{indices}{Named \code{list} of matrices with the
+  indices}
+}
+\value{
+  \code{list} of arrays in the same shape as
+  \code{skeleton} filled in with the parameter values.
 }
 \description{
-  Convert a \code{numeric} vector with MCMC samples, into a
-  list of arrays with the original dimensions of those
-  parameters.
-}
-\seealso{
-  \code{\link{relist}}
+  Relist MCMC parameters from their unlisted form into a
+  list of arrays in the origin See \code{\link{mcmcRelist}}
+  for a method.
 }
 

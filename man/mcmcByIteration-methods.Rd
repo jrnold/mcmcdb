@@ -19,14 +19,5 @@
 \description{
   Iterate over all Mcmc iterations
 }
-\section{Methods}{
-  \describe{
-  \item{\code{signature(object="mcmcList2")}}{Method for
-  class \code{mcmcList}.}
-  \item{\code{signature(object="mcmcLong"}}{Method for
-  class \code{mcmcLong}.}
-  \item{\code{signature(object="mcmcWide"}}{Method for
-  class \code{mcmcWide}.} }
-}
 \keyword{methods}
 

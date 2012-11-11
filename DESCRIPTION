@@ -38,3 +38,5 @@ Collate:
     'methods-str.R'
     'mcmc_relist.R'
     'methods-mcmcUnlist.R'
+    'methods-mcmcIndices.R'
+    'methods-mcmcSkeleton.R'

@@ -22,10 +22,10 @@ setGeneric("mcmcByIteration",
 mcmc_by_iteration_mcmc_long <- function(object, .fun=identity, data=list(),  ...) {
     do_iteration <- function(x, skeleton, indices, innerfun, data, ...) {
         values <- structure(x$val, names=as.character(x$parname))
-        innerfun(c(mcmc_relist_0(skeleton, indices, values), data))
+        innerfun(c(mcmc_relist(skeleton, indices, values), data))
     }
-    skeleton <- mcmc_pararrays_to_skeleton(object@pararrays)
-    indices <- mcmc_parnames_to_indices(object@parnames)
+    skeleton <- mcmcSkeleton(object)
+    indices <- mcmcIndices(object)
     ret <- dlply(object@samples, c("chain_id", "iter"),
                  .fun=do_iteration,
                  skeleton=skeleton,
