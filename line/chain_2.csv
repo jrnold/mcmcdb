@@ -20,7 +20,7 @@
 # delta=0.5
 # gamma=0.05
 #
-lp__,treedepth__,stepsize__,alpha,beta,sigma
+lp__,treedepth__,stepsize__,beta.1,beta.2,sigma
 # (mcmc::nuts_diag) adaptation finished
 # step size=0.0260123
 # parameter step size multipliers:
