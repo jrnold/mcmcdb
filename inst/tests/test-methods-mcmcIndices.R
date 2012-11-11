@@ -1,0 +1,3 @@
+context("mcmcIndices method")
+
+

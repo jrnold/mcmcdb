@@ -29,7 +29,7 @@ mcmc_parnames_to_indices <- function(x) {
     strip_plyr_attr(result)
 }
 
-setMethod("mcmcSkeleton", "McmcParnames", mcmc_parnames_to_indices)
+setMethod("mcmcIndices", "McmcParnames", mcmc_parnames_to_indices)
 
 setMethod("mcmcIndices", "data.frame",
           function(x) callGeneric(McmcParnames(x)))
