@@ -1,6 +1,17 @@
+##' @exportMethod mcmcSkeleton
+##' @exportMethod mcmcIndices
+##' @exportMethod mcmcRelist
+NULL
+
+setGeneric("mcmcSkeleton",
+           function(x, ...) standardGeneric("mcmcSkeleton"))
+
+setGeneric("mcmcIndices",
+           function(x, ...) standardGeneric("mcmcIndices"))
+
 ## Create skeleton for relisting MCMC samples
 ##
-## @param x McmcArrays object
+## @param x McmcPararrays object
 ## @return \code{list} of numeric \code{array} objects, one for
 ## each value of \code{pararray}, and in the dimension
 ## of that \code{parrray}, but with all entries set to 0.
@@ -13,6 +24,11 @@ mcmc_pararrays_to_skeleton <- function(x) {
               })
     strip_plyr_attr(result)
 }
+
+setGeneric("mcmcSkeleton", "McmcPararray", mcmc_pararrays_to_skeleton)
+
+setGeneric("mcmcSkeleton", "data.frame",
+           function(x) callGeneric(McmcPararray(x)))
 
 ## @param x McmcParnames object
 mcmc_parnames_to_indices <- function(x) {
@@ -30,7 +46,13 @@ mcmc_parnames_to_indices <- function(x) {
     strip_plyr_attr(result)
 }
 
-mcmc_relist_0 <- function(skeleton, indices, flesh) {
+setGeneric("mcmcSkeleton", "McmcParnames", mcmc_parnames_to_indices)
+
+setGeneric("mcmcIndices", "data.frame",
+           function(x) callGeneric(McmcParnames(x)))
+
+
+mcmc_relist <- function(flesh, skeleton, indices) {
     results <- skeleton
     for (j in names(results)) {
         pars <- indices[[j]]
@@ -40,10 +62,10 @@ mcmc_relist_0 <- function(skeleton, indices, flesh) {
 }
 
 
-##' Relist MCMC samples
+##' Relist MCMC samples method.
 ##'
 ##' Convert a \code{numeric} vector with MCMC samples, into a list of
-##' arrays with the original dimensions of those parameters.
+##' arrays with the original dimensions of those parameters. The
 ##'
 ##' @param param parnames \code{McmcParnames} object.
 ##' @param param pararrays \code{McmcPararrays} object.
@@ -51,9 +73,16 @@ mcmc_relist_0 <- function(skeleton, indices, flesh) {
 ##' corresponding to the parameters.
 ##' @seealso \code{\link{relist}}
 ##' @export
-mcmc_relist <- function(parnames, pararrays, flesh) {
-    skeleton <- mcmc_pararrays_to_skeleton(pararrays)
-    indices <- mcmc_parnames_to_indices(parnames)
-    mcmc_relist_0(skeleton, indices, flesh)
-}
+NULL
 
+setGeneric("mcmcRelist",
+           function(flesh, skeleton, ...) standardGeneric("mcmcRelist"))
+
+mcmc_relist_numeric_mcmcpararrays <-
+    function(flesh, skeleton, parnames) {
+        mcmc_relist(flesh, mcmcSkeleton(skeleton),
+                    mcmcIndices(indices))
+    }
+
+setMethod("mcmcRelist", c("numeric", "mcmcPararrays"),
+          mcmc_relist_numeric_pararrays)
