@@ -7,13 +7,6 @@
 ##' parameters in array form and the values from \code{data}.
 ##' @param ... Options passed to \code{.fun} and \code{\link{dlply}}.
 ##'
-##' @section Methods:
-##' \describe{
-##' \item{\code{signature(object="mcmcList2")}}{Method for class \code{mcmcList}.}
-##' \item{\code{signature(object="mcmcLong"}}{Method for class \code{mcmcLong}.}
-##' \item{\code{signature(object="mcmcWide"}}{Method for class \code{mcmcWide}.}
-##' }
-##'
 ##' @name mcmcByIteration-methods
 ##' @rdname mcmcByIteration-methods
 ##' @aliases mcmcByIteration,McmcLong-method
