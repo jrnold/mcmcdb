@@ -5,3 +5,4 @@ README\\..*$
 \\.cpp$
 \\.gitignore$
 .*\\.org$
+line$
