@@ -19,7 +19,6 @@
 }
 \description{
   Relist MCMC parameters from their unlisted form into a
-  list of arrays in the origin See \code{\link{mcmcRelist}}
-  for a method.
+  list of arrays.
 }
 

@@ -15,6 +15,8 @@ NULL
 ##' @aliases mcmcUnlist,list-method
 NULL
 
+setGeneric("mcmcUnlist", function(x, ...) standardGeneric("mcmcUnlist"))
+
 arr_ind <- function(dim, i=1) {
     ndim <- length(dim)
     if (i == 1) {
@@ -59,20 +61,17 @@ flatten <- function(x, na.rm=TRUE) {
     ret
 }
 
-
 mcmc_unlist_array <- function(x, name, fun=mcmc_create_parnames_stan) {
      y <- flatten(x)
      structure(y$v, names=mcmc_create_parnames_stan(name, y$i))
 }
-
-setGeneric("mcmcUnlist", function(x, ...) standardGeneric("mcmcUnlist"))
 
 setMethod("mcmcUnlist", "array", mcmc_unlist_array)
 
 setMethod("mcmcUnlist", "numeric", mcmc_unlist_array)
 
 mcmc_unlist_list <- function(x, fun=mcmc_create_parnames_stan) {
-    do.call(c, mapply(function(x, name) mcmc_unlist(x, name, fun=fun),
+    do.call(c, mapply(function(x, name) mcmc_unlist_array(x, name, fun=fun),
                       x, names(x), USE.NAMES=FALSE, SIMPLIFY=FALSE))
 }
 

@@ -1,6 +1,6 @@
 \name{melt-methods}
-\alias{melt,mcmc.list-method}
 \alias{melt,mcmc-method}
+\alias{melt,mcmc.list-method}
 \alias{melt-methods}
 \title{Methods for function \code{melt}}
 \arguments{

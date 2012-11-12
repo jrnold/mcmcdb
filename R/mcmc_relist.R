@@ -1,7 +1,7 @@
 ##' Relist MCMC samples
 ##'
 ##' Relist MCMC parameters from their unlisted form into a list of
-##' arrays in the origin See \code{\link{mcmcRelist}} for a method.
+##' arrays.
 ##'
 ##' @param flesh \code{numeric}
 ##' @param skeleton Named \code{list} of arrays of zeros in the

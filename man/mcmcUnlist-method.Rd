@@ -1,9 +1,9 @@
 \name{mcmcUnlist-method}
 \alias{mcmcUnlist,array-method}
 \alias{mcmcUnlist,list-method}
+\alias{mcmcUnlist,numeric-method}
 \alias{mcmcUnlist-method}
 \alias{mcmcUnlist-methods}
-\alias{mcmcUnlist,numeric-method}
 \title{Methods for function \code{mcmcUnlist}}
 \arguments{
   \item{x}{Object}
