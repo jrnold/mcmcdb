@@ -9,6 +9,12 @@ NULL
 ##' @return \code{list} of numeric \code{array} objects, one for
 ##' each value of \code{pararray}, and in the dimension
 ##' of that \code{parrray}, but with all entries set to 0.
+##' @docType methods
+##' @keywords methods
+##' @aliases mcmcSkeleton-methods
+##' @aliases mcmcSkeleton,McmcPararrays-method
+##' @aliases mcmcSkeleton,data.frame-method
+##' @aliases mcmcSkeleton,McmcLong-method
 NULL
 
 setGeneric("mcmcSkeleton",

@@ -8,7 +8,12 @@ NULL
 ##' @param x object
 ##' @return Named \code{list} of matrices. Each element is the indices
 ##' of the unlisted parameters in the parameter arrays.
-##' 
+##' @docType methods
+##' @keywords methods
+##' @aliases mcmcIndices-methods
+##' @aliases mcmcIndices,data.frame-method
+##' @aliases mcmcIndices,McmcParnames-method
+##' @aliases mcmcIndices,McmcLong-method
 NULL
 
 setGeneric("mcmcIndices",

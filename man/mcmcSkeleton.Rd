@@ -1,5 +1,14 @@
+\docType{methods}
 \name{mcmcSkeleton}
+\alias{mcmcIndices,McmcLong-method}
+\alias{mcmcIndices,McmcParnames-method}
+\alias{mcmcIndices,data.frame-method}
+\alias{mcmcIndices-methods}
 \alias{mcmcSkeleton}
+\alias{mcmcSkeleton,McmcLong-method}
+\alias{mcmcSkeleton,McmcPararrays-method}
+\alias{mcmcSkeleton,data.frame-method}
+\alias{mcmcSkeleton-methods}
 \title{Create Indices for MCMC Sample parameters}
 \arguments{
   \item{x}{object}
@@ -20,4 +29,5 @@
 
   Create skeleton for relisting MCMC samples
 }
+\keyword{methods}
 

@@ -2,6 +2,8 @@
 \name{McmcLong-methods}
 \alias{McmcLong}
 \alias{McmcLong,data.frame-method}
+\alias{McmcLong,mcmc-method}
+\alias{McmcLong,mcmc.list-method}
 \alias{McmcLong-methods}
 \title{Create \code{McmcLong} objects}
 \arguments{

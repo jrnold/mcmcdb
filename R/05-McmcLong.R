@@ -171,6 +171,8 @@ setValidity("McmcLong", validate_mcmc_long)
 ##' @keywords methods
 ##' @aliases McmcLong
 ##' @aliases McmcLong,data.frame-method
+##' @aliases McmcLong,mcmc-method
+##' @aliases McmcLong,mcmc.list-method
 ##' @export
 setGeneric("McmcLong",
            function(data, ...) {

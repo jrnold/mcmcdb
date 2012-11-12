@@ -77,12 +77,9 @@ test_that("data=data.frame works with parameter != NULL", {
 })
 
 test_that("data=data.frame chokes on bad column types", {
-    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))),
-                 "invalid class “McmcSamples” object")
-    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))),
-                 "invalid class “McmcSamples” object")
-    expect_error(McmcLong(transform(samples, iter=as.character(iter))),
-                 "invalid class “McmcSamples” object")
+    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))))
+    expect_error(McmcLong(transform(samples, iter=as.numeric(iter))))
+    expect_error(McmcLong(transform(samples, iter=as.character(iter))))
 })
 
 test_that("data=mcmc.list works", {
