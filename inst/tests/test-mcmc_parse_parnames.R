@@ -78,7 +78,7 @@ test_that("mcmc_relist works", {
                     mcmc_parse_parname_stan(STAN_COLNAMES))
     pararrays <- new("McmcPararrays",
                      mcmc4:::parnames_to_pararrays(parnames))
-    x <- mcmc_relist(parnames, pararrays, flesh)
+    x <- mcmc_relist(flesh, parnames, pararrays)
     expect_is(x, "list")
     expect_equal(names(x), sort(unique(PARAMETERS)))
     expect_equal(sapply(x, dim), sapply(SKELETON, dim))
