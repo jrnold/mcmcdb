@@ -33,7 +33,7 @@ mcmc_pararrays_to_skeleton <- function(x) {
 setMethod("mcmcSkeleton", "McmcPararrays", mcmc_pararrays_to_skeleton)
 
 setMethod("mcmcSkeleton", "data.frame",
-          function(x) callGeneric(new("McmcPararray", x))
+          function(x) callGeneric(new("McmcPararray", x)))
 
 setMethod("mcmcSkeleton", "McmcLong",
           function(x) callGeneric(x@pararrays))
