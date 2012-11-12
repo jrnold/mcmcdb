@@ -25,6 +25,6 @@ test_that("summary.mcmc coerces to data.frame", {
     expect_is(x, "data.frame")
     expect_equal(dim(x), c(3, 10))
     expect_equal(colnames(x), xcolnames)
-    expect_equal(x$variable, c("alpha", "beta", "sigma"))
+    expect_equal(x$variable, c("beta.1", "beta.2", "sigma"))
 })
 

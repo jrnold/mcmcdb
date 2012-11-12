@@ -10,7 +10,7 @@ test_that("mcmcByIteration,McmcLong works", {
     expect_equal(length(x), 400)
     expect_equal(names(x)[1], "1.1")
     expect_equal(names(x)[400], "2.200")
-    expect_true(all(sapply(x, function(y) all(names(y) == c("alpha", "beta", "sigma")))))
+    expect_true(all(sapply(x, function(y) all(names(y) == c("beta.1", "beta.2", "sigma")))))
 })
 
 test_that("mcmcByIteration,McmcLong works with function", {
