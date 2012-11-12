@@ -37,7 +37,7 @@ mcmc_parnames_to_indices <- function(x) {
 setMethod("mcmcIndices", "McmcParnames", mcmc_parnames_to_indices)
 
 setMethod("mcmcIndices", "data.frame",
-          function(x) callGeneric(McmcParnames(x)))
+          function(x) callGeneric(new("McmcParnames", x)))
 
 setMethod("mcmcIndices", "McmcLong",
           function(x) callGeneric(x@parnames))
