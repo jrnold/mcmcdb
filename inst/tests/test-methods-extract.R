@@ -2,7 +2,7 @@ context("extract-methods")
 
 data("line", package="mcmc4")
 
-line_long <- McmcLong(line)
+line_long <- McmcLong(line, fun=mcmc_parse_parname_stan)
 
 test_that("extract,McmcLong,missing,missing-method", {
     expect_equal(nrow(line_long[]), nrow(line_long@samples))
@@ -12,15 +12,15 @@ test_that("extract,McmcLong,missing,missing-method", {
 # ------------------------
 
 test_that("extract,McmcLong,numeric,missing-method k=Missing, value=Missing", {
-    expect_equal(nrow(linehulu_long[1]), 400)
+    expect_equal(nrow(line_long[1]), 400)
 })
 
 test_that("extract,McmcLong,character,missing-method k=Missing, value=Missing", {
-    expect_equal(nrow(line_long["alpha"]), 400)
+    expect_equal(nrow(line_long["beta.1"]), 400)
 })
 
 test_that("extract,McmcLong,function,missing-method k=Missing, value=Missing", {
-    expect_equal(nrow(line_long[function(x) x == "alpha"]), 400)
+    expect_equal(nrow(line_long[function(x) x == "beta.1"]), 400)
 })
 
 test_that("extract,McmcLong,logical,missing-method k=Missing, value=Missing", {
@@ -34,11 +34,11 @@ test_that("extract,McmcLong,numeric,missing-method k=Missing, value=Missing, par
 })
 
 test_that("extract,McmcLong,character,missing-method k=Missing, value=Missing, pararray=TRUE", {
-    expect_equal(nrow(line_long["alpha", pararray=TRUE]), 400)
+    expect_equal(nrow(line_long["beta", pararray=TRUE]), 400)
 })
 
 test_that("extract,McmcLong,function,missing-method k=Missing, value=Missing, pararray=TRUE", {
-    expect_equal(nrow(line_long[function(x) x == "alpha", pararray=TRUE]), 400)
+    expect_equal(nrow(line_long[function(x) x == "beta", pararray=TRUE]), 400)
 })
 
 test_that("extract,McmcLong,logical,missing-method k=Missing, value=Missing, pararray=TRUE", {
@@ -83,15 +83,9 @@ test_that("extract,McmcLong,missing,missing-method k=missing, value=function", {
 # -----------------------------------
 
 test_that("[[,McmcLong works", {
-    expect_equal(nrow(line_long[["alpha"]]), 400)
+    expect_equal(nrow(line_long[["beta.1"]]), 400)
 })
 
 test_that("$,McmcLong works", {
-    expect_equal(nrow(line_long$alpha), 400)
-})
-
-# -----------------------------------
-
-test_that("[[,McmcParameters works", {
-    expect_equal(line_long@parameters[["beta"]], "beta")
+    expect_equal(nrow(line_long$beta.1), 400)
 })

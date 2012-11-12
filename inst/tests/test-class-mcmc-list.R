@@ -32,5 +32,3 @@ test_that("as mcmc.list -> mcmc works", {
     linemcmc <- as(line, "mcmc")
     expect_is(linemcmc, "mcmc")
 })
-
-

@@ -97,5 +97,3 @@ setMethod("[[", signature(x="McmcLong", i="character"),
 ##' @exportMethod $
 setMethod("$", signature(x="McmcLong"),
           function(x, name) x[[name]])
-
-          
