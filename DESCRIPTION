@@ -25,6 +25,5 @@ Collate:
     'data.R'
     'utilities.R'
     'methods-melt.R'
-    'methods-get.R'
     'methods-rbind2.R'
     '03-summary-mcmc.R'
