@@ -12,9 +12,6 @@
 ##' @importMethodsFrom stats4 coef vcov
 NULL
 
-## Classes
-## setClassUnion("DataFrameOrNull", c("data.frame", "NULL"))
-
 ## Missing Coercions
 setAs("character", "factor", function(from, to) as.factor(from))
 

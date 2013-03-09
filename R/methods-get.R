@@ -15,9 +15,6 @@ setGeneric("mcmcGetParnames",
                standardGeneric("mcmcGetParnames")
            })
 
-setMethod("mcmcGetParnames", "McmcLong",
-          function(object) names(foo@parameters@parameters))
-
 setMethod("mcmcGetParnames", "mcmc.list",
           function(object) colnames(object[[1]]))
 
@@ -36,9 +33,6 @@ setGeneric("mcmcGetChains",
            function(object, ...) {
                standardGeneric("mcmcGetChains")
            })
-
-setMethod("mcmcGetChains", "McmcLong",
-          function(object) unique(object@samples$chain))
 
 setMethod("mcmcGetChains", "mcmc.list",
           function(object) length(object))
@@ -60,12 +54,6 @@ setGeneric("mcmcGetIters",
            function(object, ...) {
                standardGeneric("mcmcGetIters")
            })
-
-setMethod("mcmcGetIters", "McmcLong",
-          function(object) {
-              strip_plyr_attr(dlply(object@samples, "chain",
-                                    function(x) unique(x$iteration)))
-          })
 
 setMethod("mcmcGetIters", "mcmc.list",
           function(object) {
