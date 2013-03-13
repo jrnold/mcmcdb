@@ -12,7 +12,7 @@ Imports:
     stats4,
     stringr,
     plyr,
-    DataFramePlus
+    DataFrameConstr
 Suggests:
     coda,
     testthat,
