@@ -8,7 +8,6 @@
 ##' @docType methods
 ##' @keywords methods
 ##' @aliases mcmcGetParnames,McmcLong-method
-##' @aliases mcmcGetParnames,mcmc.list-method
 ##' @export
 setGeneric("mcmcGetParnames",
            function(object, ...) {
@@ -17,9 +16,6 @@ setGeneric("mcmcGetParnames",
 
 setMethod("mcmcGetParnames", "McmcLong",
           function(object) names(foo@parameters@parameters))
-
-setMethod("mcmcGetParnames", "mcmc.list",
-          function(object) colnames(object[[1]]))
 
 # ----------------------------------
 
@@ -40,9 +36,6 @@ setGeneric("mcmcGetChains",
 setMethod("mcmcGetChains", "McmcLong",
           function(object) unique(object@samples$chain))
 
-setMethod("mcmcGetChains", "mcmc.list",
-          function(object) length(object))
-
 # ---------------------------------
 
 ##' Methods to get MCMC object chain names
@@ -53,7 +46,6 @@ setMethod("mcmcGetChains", "mcmc.list",
 ##' @name mcmcGetIters-method
 ##' @docType methods
 ##' @keywords methods
-##' @aliases mcmcGetIters,mcmc.list-method
 ##' @aliases mcmcGetIters,McmcLong-method
 ##' @export
 setGeneric("mcmcGetIters",
@@ -65,9 +57,4 @@ setMethod("mcmcGetIters", "McmcLong",
           function(object) {
               strip_plyr_attr(dlply(object@samples, "chain",
                                     function(x) unique(x$iteration)))
-          })
-
-setMethod("mcmcGetIters", "mcmc.list",
-          function(object) {
-              lapply(object, function(x) seq_len(nrow(x)))
           })
