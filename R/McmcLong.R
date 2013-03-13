@@ -17,46 +17,51 @@
 NULL
 
 ##' @exportClass McmcParnames
-constrained_data_frame("McmcParnames",
+McmcParnames <-
+  constrained_data_frame("McmcParnames",
                          columns=c(parname="factor",
-                         pararray="factor",
-                         idx="character"))
+                           pararray="factor",
+                           idx="character"))
 # -----------------------
 
 ##' @exportClass McmcPararrays
 NULL
-constrained_data_frame("McmcPararrays",
-                       columns=c(pararray="factor",
-                         dim_n="integer",
-                         dim_sz="character"))
+McmcPararrays <- 
+  constrained_data_frame("McmcPararrays",
+                         columns=c(pararray="factor",
+                           dim_n="integer",
+                           dim_sz="character"))
 
 # -----------------------
 
 ##' @exportClass McmcSamples
 NULL
-constrained_data_frame("McmcSamples",
+McmcSamples <- 
+  constrained_data_frame("McmcSamples",
                          columns=c(parname="factor",
-                         chain_id="integer",
-                         iter="integer",
-                         val="numeric"))
+                           chain_id="integer",
+                           iter="integer",
+                           val="numeric"))
 
 # -----------------------
 ##' @exportClass McmcChains
 NULL
-constrained_data_frame("McmcChains",
-                       columns = c(chain_id="integer",
-                         niter="integer",
-                         thin="integer",
-                         start="integer",
-                         end="integer"))
+McmcChains <- 
+  constrained_data_frame("McmcChains",
+                         columns = c(chain_id="integer",
+                           niter="integer",
+                           thin="integer",
+                           start="integer",
+                           end="integer"))
 
 # ----------------------
 
 ##' @exportClass McmcParChains
 NULL
-constrained_data_frame("McmcParChains",
+McmcParChains <- 
+  constrained_data_frame("McmcParChains",
                          columns = c(parname="factor",
-                         chain_id="integer"))
+                           chain_id="integer"))
 
 ##' @exportClass McmcParChainsOrNull
 NULL
@@ -65,9 +70,10 @@ setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
 # -----------------------
 ##' @exportClass McmcChainIters
 NULL
-constrained_data_frame("McmcChainIters",
-                       columns = c(chain_id="integer",
-                         iter="integer"))
+McmcChainIters <- 
+  constrained_data_frame("McmcChainIters",
+                         columns = c(chain_id="integer",
+                           iter="integer"))
 
 ##' @exportClass McmcChainItersOrNull
 NULL
