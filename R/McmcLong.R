@@ -17,53 +17,46 @@
 NULL
 
 ##' @exportClass McmcParnames
-NULL
-subclass_data_frame_plus("McmcParnames",
+constrained_data_frame("McmcParnames",
                          columns=c(parname="factor",
                          pararray="factor",
-                         idx="character"),
-                         keys=c("parname"))
-
+                         idx="character"))
 # -----------------------
 
 ##' @exportClass McmcPararrays
 NULL
-subclass_data_frame_plus("McmcPararrays",
-                         columns=c(pararray="factor",
+constrained_data_frame("McmcPararrays",
+                       columns=c(pararray="factor",
                          dim_n="integer",
-                         dim_sz="character"),
-                         keys=c("pararray"))
+                         dim_sz="character"))
 
 # -----------------------
 
 ##' @exportClass McmcSamples
 NULL
-subclass_data_frame_plus("McmcSamples",
+constrained_data_frame("McmcSamples",
                          columns=c(parname="factor",
                          chain_id="integer",
                          iter="integer",
-                         val="numeric"),
-                         keys=c("parname", "chain_id", "iter"))
+                         val="numeric"))
 
 # -----------------------
 ##' @exportClass McmcChains
 NULL
-subclass_data_frame_plus("McmcChains",
-                         columns = c(chain_id="integer",
+constrained_data_frame("McmcChains",
+                       columns = c(chain_id="integer",
                          niter="integer",
                          thin="integer",
                          start="integer",
-                         end="integer"),
-                         keys=c("chain_id"))
+                         end="integer"))
 
 # ----------------------
 
 ##' @exportClass McmcParChains
 NULL
-subclass_data_frame_plus("McmcParChains",
+constrained_data_frame("McmcParChains",
                          columns = c(parname="factor",
-                         chain_id="integer"),
-                         keys=c("parname", "chain_id"))
+                         chain_id="integer"))
 
 ##' @exportClass McmcParChainsOrNull
 NULL
@@ -72,10 +65,9 @@ setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
 # -----------------------
 ##' @exportClass McmcChainIters
 NULL
-subclass_data_frame_plus("McmcChainIters",
-                         columns = c(chain_id="integer",
-                         iter="integer"),
-                         keys=c("chain_id", "iter"))
+constrained_data_frame("McmcChainIters",
+                       columns = c(chain_id="integer",
+                         iter="integer"))
 
 ##' @exportClass McmcChainItersOrNull
 NULL

@@ -1,3 +1,6 @@
+#' @include McmcLong.R
+NULL
+
 ## Methods to get chains / iterations etc
 
 ##' Methods to get MCMC object parameter names
