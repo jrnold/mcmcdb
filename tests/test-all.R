@@ -1,4 +1,4 @@
 library(testthat)
-library(mcmc4)
+library(mcmcdb)
 
-test_package("mcmc4")
+test_package("mcmcdb")
