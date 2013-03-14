@@ -1,0 +1,10 @@
+model {
+  tau ~ dgamma(0.001, 0.001) 
+  for(i in 1:N) {
+    y[i] ~ dnorm(beta[1] + beta[2] * x[i], tau)
+  }
+  for (i in 1:2) {
+    beta[i] ~ dnorm(0.0,1.0)
+  }
+}
+

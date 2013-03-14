@@ -1,30 +1,18 @@
 data {
-     int<lower=1> N;
-     real y[N];
-     real x[N];
-}
-transformed data {
-     real x_mean;
-     real x_center[N];
-     x_mean <- mean(x);
-     for (n in 1:N) {
-         x_center[n] <- x[n] - x_mean;
-     }
+  int<lower=1> N;
+  real y[N];
+  real x[N];
 }
 parameters {
-     real alpha;
-     real beta;
-     real <lower=0> sigma;
+  real beta[2];
+  real <lower=0> sigma;
 }
 model {
-     real mu[N];
-     for (n in 1:N) {
-         mu[n] <- alpha + beta * x_center[n];
-     }
-     y ~ normal(mu, sigma);
-     alpha ~ cauchy(0, 2.5);
-     beta ~ cauchy(0, 2.5);
-     sigma ~ cauchy(0, 2.5) T[0,];
+  real mu[N];
+  for (n in 1:N) {
+    mu[n] <- beta[1] + beta[2] * x[n];
+  }
+  y ~ normal(mu, sigma);
 }
 
 
