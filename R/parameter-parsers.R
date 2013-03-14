@@ -1,71 +1,137 @@
-##' Parse MCMC parameter names
-##'
-##' These functions parse a character vector of parameter names and
-##' return a \code{McmcParnames} object.
-##'
-##' @param x \code{character} vector of character names.
-##'
-##' @return \code{McmcParnames} data.frame.
-##'
-##' @rdname mcmc_parse_parname
+McmcFlatpar <-
+  setClass("McmcFlatpar",
+           representation(pararray = "character",
+                          index = "integer"))
+
+McmcFlatparList <-
+  subclass_homog_list("McmcFlatparList", "McmcFlatpar")
+
+McmcPararray <-
+  setClass("McmcPararray",
+           representation(flatpars = "character",
+                          dim = "integer"))
+
+mcmc_pararray_validity <- function(object) {
+  if (length(object@flatpars) != prod(object@dims)) {
+    return("length(object@flatpars) != prod(object@dims)")
+  }
+  TRUE
+}
+
+setValidity("McmcPararray", mcmc_pararray_validity)
+
+McmcPararrayList <-
+  subclass_homog_list("McmcPararrayList", "McmcPararray")
+
+McmcParameters <-
+  setClass("McmcParameters",
+           representation(flatpars = "McmcFlatparList",
+                          pararrays = "McmcPararrayList"))
+                          
+setMethod("dimnames", "McmcParameters",
+          function(x) {
+            list(flatpars = names(x@flatpars),
+                 pararrays = names(x@pararrays))
+          })
+
+setMethod("dim", "McmcParameters",
+          function(x) {
+            c(flatpars = length(x@flatpars),
+              pararrays = length(x@pararrays))
+          })
+
+#' Parse MCMC parameter names
+#'
+#' @param x \code{character} vector with of flat parameter names.
+#' @value Object of class \code{McmcFlatparList}
+#'
+#' @rdname mcmc_parparsers
+#' @export
+mcmc_parparser_default <- function(x) {
+  ret <- mapply(function(pararray, index)
+                McmcFlatpar(pararray=pararray, index=index),
+         x, 1, SIMPLIFY=FALSE)
+  names(ret) <- x
+  McmcFlatparList(ret)
+}
+
+##' @rdname mcmc_parparsers
 ##' @export
-mcmc_parse_parname_default <- function(x) {
-    result <- data.frame(parname=as.factor(x),
-                         pararray=as.factor(x),
-                         idx=rep("1", length(x)),
-                         stringsAsFactors=FALSE)
-    rownames(result) <- x
-    new("McmcParnames", result)
+mcmc_parparser_stan <- function(x) {
+  x2 <- str_split_fixed(x, fixed("."), 2)
+  indices <- llply(str_split(x2[ , 2], fixed(".")),
+                   function(x) ifelse(x == "", 1, as.integer(x)))
+  ret <- mapply(function(pararray, index)
+                McmcFlatpar(pararray=pararray, index=index),
+                x2[ , 1], indices, SIMPLIFY=FALSE)
+  names(ret) <- x
+  McmcFlatparList(ret)
 }
 
-##' @rdname mcmc_parse_parname
+##' @rdname mcmc_parparsers
 ##' @export
-mcmc_parse_parname_stan <- function(x) {
-    result <- data.frame(str_split_fixed(x, fixed("."), n=2))
-    colnames(result) <- c("pararray", "idx")
-    result$parname <- as.factor(x)
-    rownames(result) <- x
-    result$idx <- str_replace_all(result[ , 2], fixed("."), fixed(","))
-    result$idx[result$idx == ""] <- "1"
-    new("McmcParnames", result[ , c("parname", "pararray", "idx")])
+mcmc_parparser_bugs <- function(x) {
+  x2 <- str_match(x, "([^\\[]+)(\\[([0-9,]+)\\])?")[ , c(2, 4)]
+  indices <- llply(str_split(x2[ , 2], fixed(",")),
+                   function(x) ifelse(x == "", 1, as.integer(x)))
+  ret <- mapply(function(pararray, index)
+                McmcFlatpar(pararray=pararray, index=index),
+                x2[ , 1], indices, SIMPLIFY=FALSE)
+  names(ret) <- x
+  McmcFlatparList(ret)
 }
 
-##' @rdname mcmc_parse_parname
-##' @export
-mcmc_parse_parname_bugs <- function(x) {
-    result <-
-        data.frame(str_match(x, "([^\\[]+)(\\[([0-9,]+)\\])?")[ , c(2, 4)])
-    colnames(result) <- c("pararray", "idx")
-    result$idx <- as.character(result$idx)
-    result$parname <- as.factor(x)
-    rownames(result) <- x
-    result$idx[result$idx == ""] <- "1"
-    new("McmcParnames", result[ , c("parname", "pararray", "idx")])
+# @param x \code{McmcFlatparList}
+create_pararrays <- function(x) {
+  xpars <- sapply(x, slot, "pararray")
+  pararrays <- unique(xpars)
+  pardims <-
+    lapply(pararrays,
+           function(i) {
+             apply(do.call(rbind, lapply(x[xpars == i], slot, "index")),
+                   2, max)
+           })
+  flatpars <- lapply(pararrays, function(i) names(xpars)[xpars == i])
+  ret <- McmcPararrayList(mapply(function(x, y) {
+    McmcPararray(dim = x, flatpars = y)
+  }, pardims,  flatpars))
+  names(ret) <- pararrays
+  ret
 }
 
-## @param x McmcParnames objects
-parnames_to_pararrays <- function(x) {
-    f <- function(x) {
-        indices <- x$idx
-        dim_n <- str_count(indices[1], fixed(",")) + 1L
-        dims <- matrix(as.integer(str_split_fixed(indices, fixed(","), dim_n)),
-                       nrow(x), dim_n)
-        dim_sz <- paste(apply(dims, 2, max), collapse=",")
-        data.frame(dim_n = dim_n, dim_sz = dim_sz,
-                   stringsAsFactors=FALSE)
-    }
-    new("McmcPararrays", strip_plyr_attr(ddply(x, "pararray", f)))
+#' Create McmcParameter object from MCMC parameter names
+#'
+#' @param x \code{character} vector of parameter names
+#' @param parser \code{function} parse \code{x} into \code{McmcFlatparList}.
+#' @value Object of class \code{McmcParameters}
+mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
+  flatpars <- parser(x)
+  pararrays <- create_pararrays(flatpars)
+  McmcParameters(flatpars = flatpars, pararrays = pararrays)
 }
 
-# Check if parameter names are consistent with those generated by BUGS
-checkif_bugs_parameters <- function(x) {
+#' Check MCMC parameter names
+#'
+#' Check flat parameter names to see if they are consistent
+#' with the parameter names generated by BUGS or Stan.
+#'
+#' @param x \code{character} vector of flat parameter names
+#' @param style Eiter \code{"bugs"} or \code{"stan"}, to check
+#' if the parameters are valid BUGS/JAGS or Stan names, respectively.
+#' @value \code{logical}. 
+#' @rename checkif
+#' @export
+valid_mcmc_parnames_bugs <- function(x, style="bugs") {
+  if (! style %in% c("bugs", "stan")) {
+  }
+  if (style == "bugs") {
     str_all_match(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$")
-}
-
-# Check if parameter names are consistent with those generated by Stan
-# All Stan parameters are technically BUGS parameters
-checkif_stan_parameters <- function(x) {
+  } else if (style == "stan") {
     str_all_match(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$")
+  } else {
+    stop("Option %s must be either %s or %s",
+         sQuote("style"), dQuote("bugs"), dQuote("stan"))
+  }
 }
 
 ##' Create Unlisted Parameter Names
@@ -78,23 +144,62 @@ checkif_stan_parameters <- function(x) {
 ##'
 ##' @rdname mcmc_create_parnames
 ##' @export
-mcmc_create_parnames_stan <- function(x, idx) {
-    if (length(idx) == 1) {
-        x
-    } else {
-        idxstr <- apply(idx, 1, paste, collapse=".")
-        paste(x, idxstr, sep=".")
-    }
+mcmc_create_parnames_stan <- function(x, dim) {
+  if (length(idx) == 1) {
+    x
+  } else {
+    idxstr <- apply(expand_grid_dim(dim), 1, paste, collapse=".")
+    paste(x, idxstr, sep=".")
+  }
 }
 
-##' @rdname mcmc_create_parnames
-##' @export
-mcmc_create_parnames_bugs <- function(x, idx) {
-    if (length(idx) == 1) {
-        x
-    } else {
-        idx <- as.matrix(idx)
-        idxstr <- apply(idx, 1, paste, collapse=",")
-        paste0(x, "[", idxstr, "]")
-    }
+mcmc_create_parnames_stan_idx <- function(x, idx, dim) {
+  if (length(idx) == 1) {
+    x
+  } else {
+    paste(x, paste(idx, collapse="."), sep=".")
+  }
 }
+
+#' Create MCMC parnames
+#'
+#' @param dim
+#' @rdname mcmc_create_parnames
+#' @export
+mcmc_create_parnames_bugs <- function(x, dim) {
+  if equal(as.integer(dim), 1L) {
+    x
+  } else {
+    idxstr <- apply(expand_grid_dim(dim), 1, paste, collapse=",")
+    paste0(x, "[", idxstr, "]")
+  }
+}
+
+mcmc_create_parnames_bugs_idx <- function(x, idx) {
+  if equal(as.integer(dim), 1L) {
+    x
+  } else {
+    paste0(x, "[", paste(idx, collapse=","), "]")
+  }
+}
+
+#' Generate indices for all dimensions
+#'
+#' Create matrix if all indices for a given
+#' dimension vector.
+#'
+#' @param dim
+#' @keywords internal
+expand_grid_dim <- function(dim) {
+  as.matrix(expand.grid(lapply(1:3, seq_len)))
+}
+
+## bugs_to_stan_parnames <- function(x) {
+##   gsub("]", "", gsub("[\\[,]", ".", x))
+## }
+
+## stan_to_bugs_parnames <- function(x) {
+##   y <- str_split_fixed(x, fixed("."), 2)
+##   paste0(y[ ,1], "[", gsub("\\.", ",", y[ , 2]), "]")
+## }
+
