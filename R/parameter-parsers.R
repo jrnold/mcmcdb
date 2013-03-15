@@ -202,4 +202,3 @@ expand_grid_dim <- function(dim) {
 ##   y <- str_split_fixed(x, fixed("."), 2)
 ##   paste0(y[ ,1], "[", gsub("\\.", ",", y[ , 2]), "]")
 ## }
-
