@@ -57,7 +57,7 @@ validate_McmcdbWide <- function(object) {
 setValidity("McmcdbWide", validate_McmcdbWide)
 
 show_McmcdbWide <- function(object) {
-  cat(sprintf("Object of class %s\n", dQuote("McmcdbWide")))
+  cat(sprintf("An object of class %s\n", dQuote("McmcdbWide")))
   nsamples <- nrow(object@samples)
   nchains <- nrow(object@chains)
   cat(sprintf("%d total observations from %d chains\n",
