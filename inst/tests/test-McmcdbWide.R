@@ -18,8 +18,8 @@ par_chains <- McmcParChains(expand.grid(parname = names(parameters@flatpars),
                                         chain_id = 1:2))
 metadata <- list()
 
-test_that("McmcWide works", {
-  foo <-new("McmcWide",
+test_that("McmcdbWide initialize works", {
+  foo <-new("McmcdbWide",
             samples = samples, parameters = parameters,
             chains = chains, iters = iters,
             par_chains = par_chains)

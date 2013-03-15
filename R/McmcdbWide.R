@@ -85,7 +85,7 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 #' @return An object of class \linkS4class{McmcdbWide}.
 #' @seealso \linkS4class{McmcdbWide}
 #' @export 
-function <- McmcdbWide(x, parameters, chains=NULL, iters=NULL, parchains=NULL) {
+McmcdbWide <- function(x, parameters, chains=NULL, iters=NULL, parchains=NULL) {
   if (is.null(chains)) {
     chains <- McmcChains(data.frame(chain_id = 1L,
                                     start = 1L,

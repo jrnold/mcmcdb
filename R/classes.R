@@ -42,8 +42,7 @@ McmcSamples <-
 NULL
 McmcChains <- 
   constrained_data_frame("McmcChains",
-                         columns = c(chain_id="integer"),
-                         constraints = list(constraint_check_niter))
+                         columns = c(chain_id="integer"))
 
 # -----------------------
 #' @exportClass McmcIters
