@@ -33,7 +33,7 @@ setClass("McmcdbWide",
                         chains="McmcChains", # chain_id
                         iters="McmcIters", # chain_id, iter
                         par_chains="McmcParChainsOrNull", # parname, chain_id
-                        metadata="namedList",
+                        metadata="list",
                         version="character"),
          prototype(samples = matrix(),
                    parameters = McmcParameters(),
