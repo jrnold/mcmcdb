@@ -33,7 +33,7 @@ setClass("McmcdbWide",
                         chains="McmcChains", # chain_id
                         iters="McmcIters", # chain_id, iter
                         par_chains="McmcParChainsOrNull", # parname, chain_id
-                        metadata="list",
+                        metadata="namedList",
                         version="character"),
          prototype(samples = matrix(),
                    parameters = McmcParameters(),
@@ -86,7 +86,8 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 #' @return An object of class \linkS4class{McmcdbWide}.
 #' @seealso \linkS4class{McmcdbWide}
 #' @export 
-McmcdbWide <- function(x, parameters, chains=NULL, iters=NULL, parchains=NULL,
+McmcdbWide <- function(x, parameters=mcmc_parparser_guess,
+                       chains=NULL, iters=NULL, parchains=NULL,
                        metadata = list()) {
   if (is.null(chains)) {
     chains <- McmcChains(data.frame(chain_id = 1L,
