@@ -37,24 +37,12 @@ McmcSamples <-
 
 # -----------------------
 
-constraint_check_niter <- function(object) {
-  if (nrow(object)) {
-    all(object[["niter"]] == (object[["end"]] - object[["start"]] + 1) / object[["thin"]])
-  } else {
-    TRUE
-  }
-}
-
 #' @exportClass McmcChains
 #' @export McmcChains
 NULL
 McmcChains <- 
   constrained_data_frame("McmcChains",
-                         columns = c(chain_id="integer",
-                           niter="integer",
-                           thin="integer",
-                           start="integer",
-                           end="integer"),
+                         columns = c(chain_id="integer"),
                          constraints = list(constraint_check_niter))
 
 # -----------------------
