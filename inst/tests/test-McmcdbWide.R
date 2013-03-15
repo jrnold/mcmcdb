@@ -64,6 +64,7 @@ test_that("McmcdbWide error if colnames don't match parameters", {
 context("Function McmcdbWide")
 
 test_that("McmcdbWide works with only required options", {
+  McmcdbWide(samples)
 })
 
 
