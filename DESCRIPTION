@@ -18,7 +18,6 @@ Suggests:
 Collate:
     'utilities.R'
     'parameter-parsers.R'
-    'McmcLong.R'
     'package.R'
     'classes.R'
     'McmcWide.R'

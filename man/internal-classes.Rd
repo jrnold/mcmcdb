@@ -1,9 +1,13 @@
 \docType{class}
 \name{internal-classes}
+\alias{McmcChains}
 \alias{McmcChains-class}
+\alias{McmcIters}
 \alias{McmcIters-class}
+\alias{McmcParChains}
 \alias{McmcParChains-class}
 \alias{McmcParChainsOrNull-class}
+\alias{McmcSamples}
 \alias{McmcSamples-class}
 \alias{internal-classes}
 \title{Internal classes}

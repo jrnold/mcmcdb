@@ -8,9 +8,13 @@
 #' @name internal-classes
 #' @rdname internal-classes
 #' @aliases McmcSamples-class
+#' @aliases McmcSamples
 #' @aliases McmcChains-class
+#' @aliases McmcChains
 #' @aliases McmcIters-class
+#' @aliases McmcIters
 #' @aliases McmcParChains-class
+#' @aliases McmcParChains
 #' @aliases McmcParChainsOrNull-class
 #' @keywords classes
 #' @docType class
@@ -55,7 +59,7 @@ McmcIters <-
 # ----------------------
 
 #' @exportClass McmcParChains
-#' @export McmcChainIters
+#' @export McmcParChains
 NULL
 McmcParChains <- 
   constrained_data_frame("McmcParChains",

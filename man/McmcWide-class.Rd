@@ -9,10 +9,10 @@
 }
 \section{Slots}{
   \describe{ \item{\code{samples}}{\code{matrix}.}
-  \item{\code{parameters}}{\code{McmcParameters}.}
-  \item{\code{chains}}{\code{McmcChains}.}
-  \item{\code{par_chains}}{\code{McmcParChains}.}
-  \item{\code{chain_iters}}{\code{McmcChainIters}.}
+  \item{\code{parameters}}{\linkS4class{McmcParameters}.}
+  \item{\code{chains}}{\linkS4class{McmcChains}.}
+  \item{\code{iters}}{\linkS4class{McmcIters}.}
+  \item{\code{par_chains}}{\linkS4class{McmcParChains}.}
   \item{\code{metadata}}{\code{list} with general data
   about the samples.}
   \item{\code{version}}{\code{character} version of
