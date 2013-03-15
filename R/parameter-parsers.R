@@ -329,12 +329,11 @@ mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
 #' valid_mcmc_parnames("beta[1]", "stan")
 #' valid_mcmc_parnames("beta.1", "stan")
 valid_mcmc_parnames <- function(x, style="bugs") {
-  if (! style %in% c("bugs", "stan")) {
-  }
   if (style == "bugs") {
-    str_match_all(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$")
+    all(sapply(str_match_all(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$"),
+               length))
   } else if (style == "stan") {
-    str_match_all(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$")
+    all(sapply(str_match_all(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$"), length))
   } else {
     stop("Option %s must be either %s or %s",
          sQuote("style"), dQuote("bugs"), dQuote("stan"))
@@ -351,54 +350,50 @@ valid_mcmc_parnames <- function(x, style="bugs") {
 #'
 #' @rdname mcmc_create_parnames
 #' @aliases mcmc_create_parnames_stan
-#' 
-#' @export
-mcmc_create_parnames_stan <- function(x, dim) {
-  if (identical(as.integer(dim), 1L)) {
-    x
-  } else {
-    idxstr <- apply(expand_grid_dim(dim), 1, paste, collapse=".")
-    paste(x, idxstr, sep=".")
-  }
-}
-
-mcmc_create_parnames_stan_idx <- function(x, idx, dim) {
-  if (identical(as.integer(dim), 1L)) {
-    x
-  } else {
-    paste(x, paste(idx, collapse="."), sep=".")
-  }
-}
-
-#' Create MCMC parnames
-#'
-#' @rdname mcmc_create_parnames
-#' @aliases mcmc_create_parnames_bugs
-#' @export
-mcmc_create_parnames_bugs <- function(x, dim) {
-  if (identical(as.integer(dim), 1L)) {
-    x
-  } else {
-    idxstr <- apply(expand_grid_dim(dim), 1, paste, collapse=",")
-    paste0(x, "[", idxstr, "]")
-  }
-}
-
-mcmc_create_parnames_bugs_idx <- function(x, idx) {
-  if (identical(as.integer(dim), 1L)) {
-    x
-  } else {
-    paste0(x, "[", paste(idx, collapse=","), "]")
-  }
-}
-
-
-## bugs_to_stan_parnames <- function(x) {
-##   gsub("]", "", gsub("[\\[,]", ".", x))
+## mcmc_create_parnames_stan <- function(x, dim) {
+##   if (identical(as.integer(dim), 1L)) {
+##     x
+##   } else {
+##     idxstr <- apply(expand_grid_dim(dim), 1, paste, collapse=".")
+##     paste(x, idxstr, sep=".")
+##   }
 ## }
 
-## stan_to_bugs_parnames <- function(x) {
-##   y <- str_split_fixed(x, fixed("."), 2)
-##   paste0(y[ ,1], "[", gsub("\\.", ",", y[ , 2]), "]")
+## mcmc_create_parnames_stan_idx <- function(x, idx, dim) {
+##   if (identical(as.integer(dim), 1L)) {
+##     x
+##   } else {
+##     paste(x, paste(idx, collapse="."), sep=".")
+##   }
 ## }
 
+## #' Create MCMC parnames
+## #'
+## #' @rdname mcmc_create_parnames
+## #' @aliases mcmc_create_parnames_bugs
+## mcmc_create_parnames_bugs <- function(x, dim) {
+##   if (identical(as.integer(dim), 1L)) {
+##     x
+##   } else {
+##     idxstr <- apply(expand_grid_dim(dim), 1, paste, collapse=",")
+##     paste0(x, "[", idxstr, "]")
+##   }
+## }
+
+## mcmc_create_parnames_bugs_idx <- function(x, idx) {
+##   if (identical(as.integer(dim), 1L)) {
+##     x
+##   } else {
+##     paste0(x, "[", paste(idx, collapse=","), "]")
+##   }
+## }
+
+
+## ## bugs_to_stan_parnames <- function(x) {
+## ##   gsub("]", "", gsub("[\\[,]", ".", x))
+## ## }
+
+## ## stan_to_bugs_parnames <- function(x) {
+## ##   y <- str_split_fixed(x, fixed("."), 2)
+## ##   paste0(y[ ,1], "[", gsub("\\.", ",", y[ , 2]), "]")
+## ## }
