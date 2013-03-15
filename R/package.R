@@ -10,6 +10,4 @@
 ##' @import DataFrameConstr
 NULL
 
-## Missing Coercions
-setAs("character", "factor", function(from, to) as.factor(from))
-
+VERSION <- "0.3-0"

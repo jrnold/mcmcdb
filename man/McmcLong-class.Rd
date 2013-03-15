@@ -24,11 +24,12 @@
   integration with SQL db backends.
 }
 \section{Slots}{
-  \describe{ \item{\code{samples}}{\code{McmcSamples}.}
-  \item{\code{parameters}}{\code{McmcParameters}.}
-  \item{\code{chains}}{\code{McmcChains}.}
-  \item{\code{par_chains}}{\code{McmcParChains}.}
-  \item{\code{chain_iters}}{\code{McmcChainIters}.}
+  \describe{
+  \item{\code{samples}}{\linkS4class{McmcSamples}.}
+  \item{\code{parameters}}{\linkS4class{McmcParameters}.}
+  \item{\code{chains}}{\linkS4class{McmcChains}.}
+  \item{\code{par_chains}}{\linkS4class{McmcParChains}.}
+  \item{\code{chain_iters}}{\linkS4class{McmcIters}.}
   \item{\code{metadata}}{\code{list} with general data
   about the samples.}
   \item{\code{version}}{\code{character} version of

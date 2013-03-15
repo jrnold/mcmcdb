@@ -7,6 +7,9 @@
 \arguments{
   \item{x}{\code{vector}}
 }
+\value{
+  Returns the first element of \code{x}.
+}
 \description{
   Select first observation
 }

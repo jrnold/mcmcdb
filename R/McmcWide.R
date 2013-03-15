@@ -1,3 +1,8 @@
+#' @include classes.R
+#' @include utilities.R
+#' @include package.R
+NULL
+
 #' MCMC Samples in long-format
 #'
 #' Mcmc samples stored as a matrix with (number of chains x number of
@@ -27,7 +32,13 @@ setClass("McmcWide",
                         chain_iters="McmcChainIters", # chain_id, iter
                         par_chains="McmcParChainsOrNull", # parname, chain_id
                         metadata="list",
-                        version="character"))
+                        version="character"),
+         prototype(samples = matrix(),
+                   parameters = McmcParameters(),
+                   chains = McmcChains(),
+                   chain_iters = McmcChainIters(),
+                   metadata = list(),
+                   version =""))
 
 validate_mcmc_wide <- function(object) {
   nsamples <- nrow(object@samples)

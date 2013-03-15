@@ -1,7 +1,7 @@
 #' Select first observation
 #'
 #' @param x \code{vector}
-#' @value Returns the first element of \code{x}.
+#' @return Returns the first element of \code{x}.
 #' @keywords internal
 first <- function(x) x[1]
 
@@ -11,7 +11,7 @@ first <- function(x) x[1]
 #' dimension vector.
 #'
 #' @param dim Array dimensions
-#' @returns \code{matrix} with dimensions \code{c(prod(dim), dim)}.
+#' @return \code{matrix} with dimensions \code{c(prod(dim), dim)}.
 #' @keywords internal
 expand_grid_dim <- function(dim) {
   as.matrix(expand.grid(lapply(as.integer(dim), seq_len)))

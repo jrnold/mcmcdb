@@ -1,4 +1,7 @@
- #' McmcFlatpar class
+#' @include utilities.R
+NULL
+
+#' McmcFlatpar class
 #'
 #' Class representing attributes of a flattened MCMC parameter: the
 #' name of its parameter array and its index in that array. 

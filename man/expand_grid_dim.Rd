@@ -7,6 +7,9 @@
 \arguments{
   \item{dim}{Array dimensions}
 }
+\value{
+  \code{matrix} with dimensions \code{c(prod(dim), dim)}.
+}
 \description{
   Create matrix if all indices for a given dimension
   vector.
