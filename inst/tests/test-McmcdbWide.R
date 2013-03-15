@@ -1,5 +1,8 @@
 context("test McmcdbWide")
 
+##########
+# Data
+
 parnames <- paste("beta", 1:2, sep=".")
 mcmc_parse_parnames(parnames)
 
@@ -17,6 +20,8 @@ iters <- McmcIters(data.frame(chain_id = rep(1:2, each=4),
 par_chains <- McmcParChains(expand.grid(parname = names(parameters@flatpars),
                                         chain_id = 1:2))
 metadata <- list()
+
+###########
 
 test_that("McmcdbWide initialize works", {
   foo <-new("McmcdbWide",
@@ -51,6 +56,14 @@ test_that("McmcdbWide error if colnames don't match parameters", {
                    samples = samples, parameters = parameters,
                    chains = chains, iters = iters),
                regexp="invalid class")
+})
+
+
+############
+
+context("Function McmcdbWide")
+
+test_that("McmcdbWide works with only required options", {
 })
 
 

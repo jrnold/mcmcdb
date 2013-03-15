@@ -83,3 +83,6 @@ iterations).
 - `get_metadata`: `list`
 
 
+# Notes
+
+Relevant SQL reserved keywords, `iterate`, `chain`, `parameter`, `parameters`.

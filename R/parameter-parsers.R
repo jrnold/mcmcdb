@@ -230,6 +230,7 @@ setMethod("show", "McmcParameters", show_McmcParameters)
 #' size 1.}
 #' \item{\code{mcmc_parparser_stan}}{Parses parameter names
 #' in the Stan style, e.g. \code{"beta.1.1"}}
+#' \item{\code{mcmc_parparser_guess}}{Tries to guess the format of the parameters}
 #' }
 #'
 #' @param x \code{character} vector with flat parameter names.
@@ -278,6 +279,20 @@ mcmc_parparser_bugs <- function(x) {
   names(ret) <- x
   McmcFlatparList(ret)
 }
+
+#' @rdname mcmc_parparsers
+#' @aliases mcmc_parparsers_guess
+#' @export
+mcmc_parparser_guess <- function(x) {
+  if (valid_mcmc_parnames(x, "stan")) {
+    mcmc_parparser_stan(x)
+  } else if (valid_mcmc_parnames(x, "bugs")) {
+    mcmc_parparser_bugs(x)
+  } else {
+    mcmc_parparser_scalar(x)
+  }
+}
+
 
 #' Create McmcPararrayList from McmcFlatparList
 #'

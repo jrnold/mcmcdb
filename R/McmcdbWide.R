@@ -73,19 +73,21 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 
 #' McmcdbWide
 #'
-#' Function to create \linkS4code{McmcdbWide} objects.
+#' Function to create \linkS4class{McmcdbWide} objects.
 #'
 #' @param x Numeric \code{matrix} with parameter sample values. Columns
 #' be named with the parameter names.
 #' @param parameters \linkS4class{McmcParameters} object or a \code{function} that returns
 #' a \linkS4class{McmcParameters} given \code{colnames(x)}.
-#' @param chains \linkS4class{McmcChain} object or \code{NULL}.
+#' @param chains \linkS4class{McmcChains} object or \code{NULL}.
 #' @param iters \linkS4class{McmcIters} object or \code{NULL}.
 #' @param parchains \linkS4class{McmcParChains} object or \code{NULL}.
+#' @param metadata \code{list} with additional data about the MCMC samples.
 #' @return An object of class \linkS4class{McmcdbWide}.
 #' @seealso \linkS4class{McmcdbWide}
 #' @export 
-McmcdbWide <- function(x, parameters, chains=NULL, iters=NULL, parchains=NULL) {
+McmcdbWide <- function(x, parameters, chains=NULL, iters=NULL, parchains=NULL,
+                       metadata = list()) {
   if (is.null(chains)) {
     chains <- McmcChains(data.frame(chain_id = 1L,
                                     start = 1L,
@@ -107,11 +109,12 @@ McmcdbWide <- function(x, parameters, chains=NULL, iters=NULL, parchains=NULL) {
   }
 
   if (!is.null(parchains) & !is(parchains, "McmcParChains")) {
-    parchains <- McmcParchains(parchains)
+    parchains <- McmcParChains(parchains)
   }
 
   new("McmcdbWide",
       samples = as.matrix(x),
       parameters = parameters, chains = chains,
-      iters = iters, parchains = parchains)
+      iters = iters, parchains = parchains,
+      metadata = list)
 }
