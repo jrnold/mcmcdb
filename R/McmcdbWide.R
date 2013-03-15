@@ -15,7 +15,7 @@ NULL
 #' \item{\code{parameters}}{\linkS4class{McmcParameters}.}
 #' \item{\code{chains}}{\linkS4class{McmcChains}.}
 #' \item{\code{iters}}{\linkS4class{McmcIters}.}
-#' \item{\code{par_chains}}{\linkS4class{McmcParChains}.}
+#' \item{\code{parchains}}{\linkS4class{McmcParChains}.}
 #' \item{\code{metadata}}{\code{list} with general data about the samples.}
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
@@ -32,7 +32,7 @@ setClass("McmcdbWide",
                         parameters="McmcParameters",
                         chains="McmcChains", # chain_id
                         iters="McmcIters", # chain_id, iter
-                        par_chains="McmcParChainsOrNull", # parname, chain_id
+                        parchains="McmcParChainsOrNull", # parname, chain_id
                         metadata="list",
                         version="character"),
          prototype(samples = matrix(),
@@ -64,8 +64,8 @@ show_McmcdbWide <- function(object) {
               nsamples, nchains))
   cat(sprintf("Parameter arrays:\n"))
   for (i in names(object@parameters@pararrays)) {
-    cat("$ %s (%s)\n", i, 
-        paste(object@parameters@pararrays[[i]]@dim, collapse=","))
+    cat(sprintf("$ %s (%s)\n", i, 
+                paste(object@parameters@pararrays[[i]]@dim, collapse=",")))
   }
 }
 
@@ -117,5 +117,5 @@ McmcdbWide <- function(x, parameters=mcmc_parparser_guess,
       samples = as.matrix(x),
       parameters = parameters, chains = chains,
       iters = iters, parchains = parchains,
-      metadata = list)
+      metadata = metadata)
 }
