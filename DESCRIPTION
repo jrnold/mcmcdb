@@ -10,9 +10,8 @@ Depends:
 Imports:
     stringr,
     plyr,
-    DataFrameConstr
+    DataFrameConstr (>= 0.3.0)
 Suggests:
-    coda,
     testthat,
     roxygen2,
 Collate:
