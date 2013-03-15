@@ -36,10 +36,11 @@ McmcSamples <-
                            val="numeric"))
 
 # -----------------------
-check_niter <- function(x) {
-  if (x$niter != (x$start - x$end + 1) / x$thin) {
-    return("niter not compatible with start, end, and thin values")
-  }
+
+constraint_check_niter <- function(object) {
+  ## if (object[["niter"]] < 1) {
+  ##   return("niter not compatible with start, end, and thin values")
+  ## }
   TRUE
 }
 
@@ -53,7 +54,7 @@ McmcChains <-
                            thin="integer",
                            start="integer",
                            end="integer"),
-                         constraints = check_niter)
+                         constraints = list(constraint_check_niter))
 
 # -----------------------
 #' @exportClass McmcIters

@@ -1,6 +1,6 @@
 \docType{class}
-\name{McmcWide-class}
-\alias{McmcWide-class}
+\name{McmcdbWide-class}
+\alias{McmcdbWide-class}
 \title{MCMC Samples in long-format}
 \description{
   Mcmc samples stored as a matrix with (number of chains x
@@ -22,6 +22,6 @@
   \pkg{mcmcdb} with which the object was created} }
 }
 \examples{
-showClass("McmcWide")
+showClass("McmcdbWide")
 }
 

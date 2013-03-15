@@ -20,9 +20,9 @@ NULL
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
 #' 
-#' @name McmcWide-class
-#' @rdname McmcWide-class
-#' @aliases McmcWide-class
+#' @name McmcdbWide-class
+#' @rdname McmcdbWide-class
+#' @aliases McmcdbWide-class
 #' @docType class
 #' @export
 #' @examples
@@ -42,7 +42,7 @@ setClass("McmcdbWide",
                    metadata = list(),
                    version = VERSION))
 
-validate_mcmc_wide <- function(object) {
+validate_McmcdbWide <- function(object) {
   nsamples <- nrow(object@samples)
   if (nsamples != nrow(object@iters)) {
     return("nrow(object@iters) != nrow(object@samples))")
@@ -54,4 +54,20 @@ validate_mcmc_wide <- function(object) {
   TRUE
 }
 
-setValidity("McmcdbWide", validate_mcmc_wide)
+setValidity("McmcdbWide", validate_McmcdbWide)
+
+show_McmcdbWide <- function(object) {
+  cat(sprintf("Object of class %s\n", dQuote("McmcdbWide")))
+  nsamples <- nrow(object@samples)
+  nchains <- nrow(object@chains)
+  cat(sprintf("%d total observations from %d chains\n",
+              nsamples, nchains))
+  cat(sprintf("Parameter arrays:\n"))
+  for (i in names(object@parameters@pararrays)) {
+    cat("$ %s (%s)\n", i, 
+        paste(object@parameters@pararrays[[i]]@dim, collapse=","))
+  }
+}
+
+setMethod("show", "McmcdbWide", show_McmcdbWide)
+

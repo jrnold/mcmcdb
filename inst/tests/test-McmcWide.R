@@ -31,23 +31,23 @@ test_that("McmcWide works", {
   expect_equal(foo@version, mcmcdb:::VERSION)
 })
 
-test_that("McmcWide works with par_chains = NULL", {
-  foo <-new("McmcWide",
+test_that("McmcdbWide works with par_chains = NULL", {
+  foo <-new("McmcdbWide",
             samples = samples, parameters = parameters,
             chains = chains, iters = iters)
   expect_equal(foo@par_chains, NULL)
 })
 
-test_that("McmcWide error if nrow(iters) != nrow(samples)", {
-  expect_error(new("McmcWide",
+test_that("McmcdbWide error if nrow(iters) != nrow(samples)", {
+  expect_error(new("McmcdbWide",
                    samples = samples, parameters = parameters,
                    chains = chains, iters = McmcIters(iters[1:2, ])),
                regexp="invalid class")
 })
 
-test_that("McmcWide error if colnames don't match parameters", {
+test_that("McmcdbWide error if colnames don't match parameters", {
   colnames(samples) <- c("alpha", "beta")
-  expect_error(new("McmcWide",
+  expect_error(new("McmcdbWide",
                    samples = samples, parameters = parameters,
                    chains = chains, iters = iters),
                regexp="invalid class")
