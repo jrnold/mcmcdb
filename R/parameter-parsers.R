@@ -202,7 +202,7 @@ setMethod("dim", "McmcParameters",
           })
 
 show_McmcParameters <- function(object) {
-  cat("Object of class %s\n", dQuote("McmcParameters"))
+  cat(sprintf("Object of class %s\n", dQuote("McmcParameters")))
   cat("Parameters:\n")
   for (i in seq_along(object@pararrays)) {
     parname <- names(object@pararrays)[i]
