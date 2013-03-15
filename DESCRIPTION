@@ -6,10 +6,8 @@ License: GPL-3
 Title: MCMC sample database classes
 Description: Classes for storing and accessing MCMC samples
 Depends:
-    methods,
-    reshape2
+    methods
 Imports:
-    stats4,
     stringr,
     plyr,
     DataFrameConstr
@@ -18,8 +16,8 @@ Suggests:
     testthat,
     roxygen2,
 Collate:
-    'package.R'
+    'parameter-parsers.R'
     'McmcLong.R'
+    'McmcWide.R'
+    'package.R'
     'utilities.R'
-    'methods-get.R'
-    'data.R'

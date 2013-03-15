@@ -6,10 +6,8 @@
 ##' @name mcmcdb
 ##' @docType package
 ##' @import plyr
-##' @import reshape2
 ##' @import stringr
 ##' @import DataFrameConstr
-##' @importMethodsFrom stats4 coef vcov
 NULL
 
 ## Missing Coercions
