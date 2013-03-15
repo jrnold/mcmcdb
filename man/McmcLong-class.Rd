@@ -25,13 +25,14 @@
 }
 \section{Slots}{
   \describe{ \item{\code{samples}}{\code{McmcSamples}.}
-  \item{\code{parnames}}{\code{McmcParnames}.}
-  \item{\code{pararrays}}{\code{McmcPararrays}.}
+  \item{\code{parameters}}{\code{McmcParameters}.}
   \item{\code{chains}}{\code{McmcChains}.}
   \item{\code{par_chains}}{\code{McmcParChains}.}
   \item{\code{chain_iters}}{\code{McmcChainIters}.}
   \item{\code{metadata}}{\code{list} with general data
-  about the samples.} }
+  about the samples.}
+  \item{\code{version}}{\code{character} version of
+  \pkg{mcmcdb} with which the object was created} }
 }
 \keyword{classes}
 

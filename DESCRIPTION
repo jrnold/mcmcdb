@@ -18,8 +18,8 @@ Suggests:
     testthat,
     roxygen2,
 Collate:
-    'package.R'
+    'parameter-parsers.R'
     'McmcLong.R'
+    'McmcWide.R'
+    'package.R'
     'utilities.R'
-    'methods-get.R'
-    'data.R'
