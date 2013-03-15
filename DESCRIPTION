@@ -19,4 +19,4 @@ Collate:
     'parameter-parsers.R'
     'package.R'
     'classes.R'
-    'McmcWide.R'
+    'McmcdbWide.R'
