@@ -38,13 +38,11 @@ McmcSamples <-
 # -----------------------
 
 constraint_check_niter <- function(object) {
-  if (nrow(object) > 1) {
-    if (any(object[["niter"]]
-            != (object[["end"]] - object[["start"]] + 1) / object[["thin"]])) {
-      return("niter not compatible with start, end, and thin values")
-    }
+  if (nrow(object)) {
+    all(object[["niter"]] == (object[["end"]] - object[["start"]] + 1) / object[["thin"]])
+  } else {
+    TRUE
   }
-  TRUE
 }
 
 #' @exportClass McmcChains
