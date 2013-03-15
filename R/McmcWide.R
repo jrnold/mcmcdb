@@ -42,11 +42,8 @@ setClass("McmcWide",
 
 validate_mcmc_wide <- function(object) {
   nsamples <- nrow(object@samples)
-  if (nsamples != length(object@iterations)) {
-    return("length(object@iterations) != nrow(object@samples))")
-  }
-  if (nsamples != length(object@chains)) {
-    return("length(object@chains) != nrow(object@samples))")
+  if (nsamples != nrow(object@iters))
+    return("nrow(object@iters) != nrow(object@samples))")
   }
   ## Additional tests
   TRUE
