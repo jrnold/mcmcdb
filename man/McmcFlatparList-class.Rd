@@ -9,6 +9,15 @@
 \section{Extends}{
   \describe{ \item{\code{namedList}}{directly} }
 }
+\examples{
+showClass("McmcFlatparList")
+flatpars <-
+  structure(mapply(function(x, y) {
+   McmcFlatpar(pararray=x, index=y)
+  }, "beta", 1:2, SIMPLIFY=FALSE),
+           .Names = paste0("beta[", 1:2, "]"))
+McmcFlatparList(flatpars)
+}
 \seealso{
   \linkS4class{McmcFlatpar}
 }

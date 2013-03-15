@@ -2,7 +2,7 @@
 \name{McmcPararrayList-class}
 \alias{McmcPararrayList}
 \alias{McmcPararrayList-class}
-\title{McmcPararray Class}
+\title{McmcPararrayList Class}
 \usage{
   McmcPararrayList(...)
 }
@@ -11,6 +11,13 @@
 }
 \section{Extends}{
   \describe{ \item{\code{namedList}}{directly.} }
+}
+\examples{
+showClass("McmcPararrayList")
+mcmcpararrays <-
+ list(beta = McmcPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L),
+      alpha = McmcPararray(flatpars="alpha", dim=1L))
+McmcPararrayList(mcmcpararrays)
 }
 \seealso{
   \code{\link{McmcPararray}}

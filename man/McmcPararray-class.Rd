@@ -17,5 +17,9 @@
   \item{\code{dim}}{\code{"integer"}. Dimension of the
   array} }
 }
+\examples{
+showClass("McmcPararray")
+McmcPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L)
+}
 \keyword{internal}
 

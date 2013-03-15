@@ -1,7 +1,6 @@
 \docType{class}
 \name{McmcParameters-class}
-\alias{MamcParameters}
-\alias{MamcParameters-class}
+\alias{McmcParameters}
 \alias{McmcParameters-class}
 \alias{dim,McmcParameters-method}
 \alias{dimnames,McmcParameters-method}
@@ -14,6 +13,10 @@
   flattened parameters, mapping between flattened parameter
   names and parameter array names, and the dimenions of
   parameter arrays.
+}
+\details{
+  Objects of this class are usually created by
+  \code{\link{mcmc_parse_parnames}}.
 }
 \section{Slots}{
   \describe{ \item{\code{flatpars}}{An object of
@@ -30,6 +33,12 @@
   \item{dimnames}{\code{signature(x = "McmcParameters")}:
   Returns a \code{list} with names of the flat parameters
   and parameter arrays.} }
+}
+\examples{
+showClass("McmcParameters")
+}
+\seealso{
+  \code{\link{mcmc_parse_parnames}}
 }
 \keyword{internal}
 

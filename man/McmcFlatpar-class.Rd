@@ -13,6 +13,11 @@
   Name of parameter array}
   \item{\code{index}}{\code{"index"}. Index of parameter} }
 }
+\examples{
+# beta[1,1]
+showClass("McmcFlatpar")
+McmcFlatpar(pararray="beta", index=c(1L, 1L))
+}
 \seealso{
   \linkS4class{McmcFlatparList} for a list of
   \code{McmcFlatpar} objects.

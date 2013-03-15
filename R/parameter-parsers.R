@@ -1,4 +1,4 @@
-#' McmcFlatpar class
+ #' McmcFlatpar class
 #'
 #' Class representing attributes of a flattened MCMC parameter: the
 #' name of its parameter array and its index in that array. 
@@ -14,11 +14,31 @@
 #' @aliases McmcFlatpar-class
 #' @seealso \linkS4class{McmcFlatparList} for a list of \code{McmcFlatpar} objects.
 #' @exportClass McmcFlatpar
+#' @export McmcFlatpar
+#' @examples
+#' # beta[1,1]
+#' showClass("McmcFlatpar")
+#' McmcFlatpar(pararray="beta", index=c(1L, 1L))
 NULL
 McmcFlatpar <-
   setClass("McmcFlatpar",
            representation(pararray = "character",
                           index = "integer"))
+
+setMethod("show", "McmcFlatpar",
+          function(object) {
+            cat(sprintf("%s: %s[%s]\n", dQuote("McmcFlatpar"),
+                    object@pararray,
+                        paste(object@index, collapse=",")))
+          })
+
+setMethod("initialize", "McmcFlatpar",
+          function(.Object, pararray, index) {
+            .Object@pararray <- as.character(pararray)
+            .Object@index <- as.integer(index)
+            validObject(.Object)
+            .Object
+          })
 
 #' McmcFlatparList class
 #'
@@ -35,10 +55,18 @@ McmcFlatpar <-
 #' @docType class
 #' @keywords internal
 #' @exportClass McmcFlatparList
+#' @export McmcFlatparList
+#' @examples
+#' showClass("McmcFlatparList")
+#' flatpars <-
+#'   structure(mapply(function(x, y) {
+#'    McmcFlatpar(pararray=x, index=y)
+#'   }, "beta", 1:2, SIMPLIFY=FALSE),
+#'            .Names = paste0("beta[", 1:2, "]"))
+#' McmcFlatparList(flatpars)                         
 NULL
 McmcFlatparList <-
   subclass_homog_list("McmcFlatparList", "McmcFlatpar")
-
 
 #' McmcPararray Class
 #'
@@ -56,13 +84,16 @@ McmcFlatparList <-
 #' @aliases McmcPararray
 #' @keywords internal
 #' @exportClass McmcPararray
+#' @export McmcPararray
+#' @examples
+#' showClass("McmcPararray")
+#' McmcPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L)
 McmcPararray <-
   setClass("McmcPararray",
-           representation(flatpars = "character",
-                          dim = "integer"))
+           representation(dim = "integer", flatpars = "character"))
 
 mcmc_pararray_validity <- function(object) {
-  if (length(object@flatpars) != prod(object@dims)) {
+  if (length(object@flatpars) != prod(object@dim)) {
     return("length(object@flatpars) != prod(object@dims)")
   }
   TRUE
@@ -70,7 +101,25 @@ mcmc_pararray_validity <- function(object) {
 
 setValidity("McmcPararray", mcmc_pararray_validity)
 
-#' McmcPararray Class
+setMethod("show", "McmcPararray",
+          function(object) {
+            cat(sprintf("%s of dimension (%s): %s",
+                        dQuote("McmcPararray"),
+                        paste(object@dim, collapse=","),
+                        ifelse(length(object@flatpars) == 1,
+                               object@flatpars[1],
+                               paste(object@flatpars[1], "..."))), "\n")
+          })
+
+setMethod("initialize", "McmcPararray",
+          function(.Object, dim, flatpars) {
+            .Object@dim <- as.integer(dim)
+            .Object@flatpars <- as.character(flatpars)
+            validObject(.Object)
+            .Object
+          })
+
+#' McmcPararrayList Class
 #'
 #' A list of \linkS4class{McmcPararray} objects.
 #'
@@ -85,6 +134,13 @@ setValidity("McmcPararray", mcmc_pararray_validity)
 #' @keywords internal
 #' @seealso \code{\link{McmcPararray}}
 #' @exportClass McmcPararrayList
+#' @export McmcPararrayList
+#' @examples
+#' showClass("McmcPararrayList")
+#' mcmcpararrays <-
+#'  list(beta = McmcPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L),
+#'       alpha = McmcPararray(flatpars="alpha", dim=1L))
+#' McmcPararrayList(mcmcpararrays)
 McmcPararrayList <-
   subclass_homog_list("McmcPararrayList", "McmcPararray")
 
@@ -94,6 +150,8 @@ McmcPararrayList <-
 #' of flattened parameters, mapping between flattened parameter
 #' names and parameter array names, and the dimenions of
 #' parameter arrays.
+#'
+#' Objects of this class are usually created by \code{\link{mcmc_parse_parnames}}.
 #'
 #' @section Slots:
 #' \describe{
@@ -113,12 +171,16 @@ McmcPararrayList <-
 #' 
 #' @docType class
 #' @name McmcParameters-class
-#' @aliases MamcParameters
-#' @aliases MamcParameters-class
+#' @aliases McmcParameters
+#' @aliases McmcParameters-class
 #' @aliases dim,McmcParameters-method
 #' @aliases dimnames,McmcParameters-method
 #' @keywords internal
+#' @seealso \code{\link{mcmc_parse_parnames}}
 #' @exportClass McmcParameters
+#' @export McmcParameters
+#' @examples
+#' showClass("McmcParameters")
 McmcParameters <-
   setClass("McmcParameters",
            representation(flatpars = "McmcFlatparList",
@@ -136,13 +198,48 @@ setMethod("dim", "McmcParameters",
               pararrays = length(x@pararrays))
           })
 
+show_McmcParameters <- function(object) {
+  cat("Object of class %s\n", dQuote("McmcParameters"))
+  cat("Parameters:\n")
+  for (i in seq_along(object@pararrays)) {
+    parname <- names(object@pararrays)[i]
+    pardim <- dim(object@pararrays[[i]])
+    cat(sprintf("$ %s: (%s)\n",
+                parname, paste(pardim, collapse=",")))
+  }
+}
+
+setMethod("show", "McmcParameters", show_McmcParameters)
+
 #' Parse MCMC parameter names
+#'
+#' Functions that parse a vector of flat parameter names
+#' and return an object of
+#'
+#' These functions are provided as an argument to \code{\link{mcmc_parse_parnames}}.
+#' 
+#' \describe{
+#' \item{\code{mcmc_parparser_bugs}}{Parses parameter names
+#' in the Stan style, e.g. \code{"beta[1,1]"}}
+#' \item{\code{mcmc_parparser_stan}}{Parses parameter names
+#' treating each parameter as a scalar. E.g. \code{"beta.1"}
+#' and \code{"beta.2"} will be treated two parameter arrays of
+#' size 1.}
+#' \item{\code{mcmc_parparser_stan}}{Parses parameter names
+#' in the Stan style, e.g. \code{"beta.1.1"}}
+#' }
 #'
 #' @param x \code{character} vector with flat parameter names.
 #' @return Object of class \code{McmcFlatparList}
 #'
 #' @rdname mcmc_parparsers
+#' @aliases mcmc_parparsers_scalar
+#' @seealso \code{\link{mcmc_parse_parnames}} which takes these functions an argument.
 #' @export
+#' @examples
+#' mcmc_parparser_bugs(c("beta[1]", "beta[2]"))
+#' mcmc_parparser_stan(c("beta.1", "beta.2"))
+#' mcmc_parparser_scalar(c("beta[1]", "beta[2]"))
 mcmc_parparser_scalar <- function(x) {
   ret <- mapply(function(pararray, index)
                 McmcFlatpar(pararray=pararray, index=index),
@@ -151,8 +248,9 @@ mcmc_parparser_scalar <- function(x) {
   McmcFlatparList(ret)
 }
 
-##' @rdname mcmc_parparsers
-##' @export
+#' @rdname mcmc_parparsers
+#' @aliases mcmc_parparsers_stan
+#' @export
 mcmc_parparser_stan <- function(x) {
   x2 <- str_split_fixed(x, fixed("."), 2)
   indices <- llply(str_split(x2[ , 2], fixed(".")),
@@ -164,8 +262,9 @@ mcmc_parparser_stan <- function(x) {
   McmcFlatparList(ret)
 }
 
-##' @rdname mcmc_parparsers
-##' @export
+#' @rdname mcmc_parparsers
+#' @aliases mcmc_parparsers_bugs
+#' @export
 mcmc_parparser_bugs <- function(x) {
   x2 <- str_match(x, "([^\\[]+)(\\[([0-9,]+)\\])?")[ , c(2, 4)]
   indices <- llply(str_split(x2[ , 2], fixed(",")),
@@ -177,7 +276,11 @@ mcmc_parparser_bugs <- function(x) {
   McmcFlatparList(ret)
 }
 
-# @param x \code{McmcFlatparList}
+#' Create McmcPararrayList from McmcFlatparList
+#'
+#' @param x \linkS4class{McmcFlatparList}
+#' @return Object of class \linkS4class{McmcPararrayList}
+#' @keywords internal
 create_pararrays <- function(x) {
   xpars <- sapply(x, slot, "pararray")
   pararrays <- unique(xpars)
@@ -198,8 +301,12 @@ create_pararrays <- function(x) {
 #' Create McmcParameter object from MCMC parameter names
 #'
 #' @param x \code{character} vector of parameter names
-#' @param parser \code{function} parse \code{x} into \code{McmcFlatparList}.
-#' @return Object of class \code{McmcParameters}
+#' @param parser \code{function} parse \code{x} into \linkS4class{McmcFlatparList}.
+#' @return Object of class \linkS4class{McmcParameters}
+#' @examples
+#' mcmc_parse_parnames(c("beta[1]", "beta[2]"))
+#' mcmc_parse_parnames(c("beta.1", "beta.2"), mcmc_parparser_stan)
+#' @export
 mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
   flatpars <- parser(x)
   pararrays <- create_pararrays(flatpars)
@@ -217,6 +324,10 @@ mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
 #' @return \code{logical}. 
 #' @rdname valid_mcmc_parnames
 #' @export
+#' @examples
+#' valid_mcmc_parnames("beta[1]")
+#' valid_mcmc_parnames("beta[1]", "stan")
+#' valid_mcmc_parnames("beta.1", "stan")
 valid_mcmc_parnames <- function(x, style="bugs") {
   if (! style %in% c("bugs", "stan")) {
   }

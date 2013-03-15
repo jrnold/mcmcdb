@@ -8,12 +8,16 @@
   \item{x}{\code{character} vector of parameter names}
 
   \item{parser}{\code{function} parse \code{x} into
-  \code{McmcFlatparList}.}
+  \linkS4class{McmcFlatparList}.}
 }
 \value{
-  Object of class \code{McmcParameters}
+  Object of class \linkS4class{McmcParameters}
 }
 \description{
   Create McmcParameter object from MCMC parameter names
+}
+\examples{
+mcmc_parse_parnames(c("beta[1]", "beta[2]"))
+mcmc_parse_parnames(c("beta.1", "beta.2"), mcmc_parparser_stan)
 }
 
