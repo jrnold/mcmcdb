@@ -339,7 +339,8 @@ mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
 #' @param x \code{character} vector of flat parameter names
 #' @param style Eiter \code{"bugs"} or \code{"stan"}, to check
 #' if the parameters are valid BUGS/JAGS or Stan names, respectively.
-#' @return \code{logical}. 
+#' @return \code{logical} vector of same length as \code{x} with the validity of each
+#' flat parameter name.
 #' @rdname valid_mcmc_parnames
 #' @export
 #' @examples
@@ -348,10 +349,9 @@ mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
 #' valid_mcmc_parnames("beta.1", "stan")
 valid_mcmc_parnames <- function(x, style="bugs") {
   if (style == "bugs") {
-    all(sapply(str_match_all(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$"),
-               length))
+    as.logical(sapply(str_match_all(x, "^[A-Za-z.][A-Za-z.0-9]*(\\[\\d(,\\d)*\\])?$"), length))
   } else if (style == "stan") {
-    all(sapply(str_match_all(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$"), length))
+    as.logical(sapply(str_match_all(x, "^[A-Za-z][A-Za-z0-9_]*(\\.\\d)*$"), length))
   } else {
     stop("Option %s must be either %s or %s",
          sQuote("style"), dQuote("bugs"), dQuote("stan"))
