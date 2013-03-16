@@ -30,7 +30,7 @@ McmcFlatpar <-
 
 setMethod("show", "McmcFlatpar",
           function(object) {
-            cat(sprintf("%s: %s[%s]\n", dQuote("McmcFlatpar"),
+            cat(sprintf("An object of class %s: %s[%s]\n", dQuote("McmcFlatpar"),
                     object@pararray,
                         paste(object@index, collapse=",")))
           })
@@ -106,7 +106,7 @@ setValidity("McmcPararray", mcmc_pararray_validity)
 
 setMethod("show", "McmcPararray",
           function(object) {
-            cat(sprintf("%s of dimension (%s): %s",
+            cat(sprintf("An object of class %s\nDim (%s): %s",
                         dQuote("McmcPararray"),
                         paste(object@dim, collapse=","),
                         ifelse(length(object@flatpars) == 1,
@@ -202,7 +202,7 @@ setMethod("dim", "McmcParameters",
           })
 
 show_McmcParameters <- function(object) {
-  cat(sprintf("Object of class %s\n", dQuote("McmcParameters")))
+  cat(sprintf("An object of class %s\n", dQuote("McmcParameters")))
   cat("Parameters:\n")
   for (i in seq_along(object@pararrays)) {
     parname <- names(object@pararrays)[i]
