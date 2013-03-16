@@ -207,7 +207,7 @@ show_McmcParameters <- function(object) {
   for (i in seq_along(object@pararrays)) {
     parname <- names(object@pararrays)[i]
     pardim <- dim(object@pararrays[[i]])
-    cat(sprintf("$ %s: (%s)\n",
+    cat(sprintf("$ %s [%s]\n",
                 parname, paste(pardim, collapse=",")))
   }
 }
