@@ -218,16 +218,16 @@ setMethod("show", "McmcParameters", show_McmcParameters)
 #' Get parameter indices
 #'
 #' @param object Object
-#' @rdname mcmcdb_par_indices-method
-#' @name mcmcdb_par_indices-method
 #' @return \code{list} of integer matrices. Each element of the
 #' list is a parameter array. Each matrix has a number of rows equal to the
 #' total number of flat parameters, and a number of columns equal
 #' to the number of dimensions of the parameter array. The rownames of
 #' each matrix are the flat parameter names.
 #'
+#' @rdname mcmcdb_par_indices-methods
+#' @name mcmcdb_par_indices-methods
 #' @aliases mcmcdb_par_indices
-#' @aliases mcmcdb_par_indices-method
+#' @aliases mcmcdb_par_indices-methods
 #' @export
 setGeneric("mcmcdb_par_indices",
            function(object, ...) standardGeneric("mcmcdb_par_indices"))
@@ -242,7 +242,7 @@ mcmcdb_par_indices.McmcParameters <- function(object) {
         }, flatpars = object@flatpars)
 }
 
-#' @rdname mcmcdb_par_indices-method
+#' @rdname mcmcdb_par_indices-methods
 #' @aliases mcmcdb_par_indices,McmcParameters-method
 setMethod("mcmcdb_par_indices", "McmcParameters",
           mcmcdb_par_indices.McmcParameters)
@@ -250,11 +250,11 @@ setMethod("mcmcdb_par_indices", "McmcParameters",
 #' Get flat parameter names
 #'
 #' @param object Object
-#' @rdname mcmcdb_flatpars-method
-#' @name mcmcdb_flatpars-method
 #' @return Named \code{character} vector. Names are the flat parameter names;
 #' values are the associated parameter arrays.
 #'
+#' @name mcmcdb_flatpars-methods
+#' @rdname mcmcdb_flatpars-methods
 #' @aliases mcmcdb_flatpars
 #' @aliases mcmcdb_flatpars-method
 #' @export
@@ -262,8 +262,33 @@ setGeneric("mcmcdb_flatpars",
            function(object, ...) standardGeneric("mcmcdb_flatpars"))
 
 mcmcdb_flatpars.McmcParameters <- function(object) {
-  laply(object@flatpars, slot, name = "pararray")
+  unlist(llply(object@flatpars, slot, name = "pararray"))
 }
 
-setMethod("mcmcdb_par_indices", "McmcParameters",
-          mcmcdb_par_indices.McmcParameters)
+#' @rdname mcmcdb_flatpars-methods
+#' @aliases mcmcdb_flatpars,McmcParameters-method
+setMethod("mcmcdb_flatpars", "McmcParameters",
+          mcmcdb_flatpars.McmcParameters)
+
+#' Get parameter array names
+#'
+#' @param object Object
+#' @rdname mcmcdb_pararrays-methods
+#' @name mcmcdb_pararrays-methods
+#' @return Named \code{list} of \code{character} . Names are the parameter
+#' array names; element values are the associates flat parameter names.
+#'
+#' @aliases mcmcdb_pararrays
+#' @aliases mcmcdb_pararrays-methods
+#' @export
+setGeneric("mcmcdb_pararrays",
+           function(object, ...) standardGeneric("mcmcdb_pararrays"))
+
+mcmcdb_pararrays.McmcParameters <- function(object) {
+  llply(object@pararrays, slot, name = "flatpars")
+}
+
+#' @rdname mcmcdb_pararrays-methods
+#' @aliases mcmcdb_pararrays,McmcParameters-method
+setMethod("mcmcdb_pararrays", "McmcParameters",
+          mcmcdb_pararrays.McmcParameters)

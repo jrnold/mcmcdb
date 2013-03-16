@@ -1,7 +1,7 @@
-\name{mcmcdb_par_indices-method}
+\name{mcmcdb_par_indices-methods}
 \alias{mcmcdb_par_indices}
 \alias{mcmcdb_par_indices,McmcParameters-method}
-\alias{mcmcdb_par_indices-method}
+\alias{mcmcdb_par_indices-methods}
 \title{Get parameter indices}
 \arguments{
   \item{object}{Object}
