@@ -13,16 +13,16 @@
 #' @aliases McmcChains
 #' @aliases McmcIters-class
 #' @aliases McmcIters
-#' @aliases McmcParChains-class
-#' @aliases McmcParChains
-#' @aliases McmcParChainsOrNull-class
+#' @aliases McmcFlatparChains-class
+#' @aliases McmcFlatparChains
+#' @aliases McmcFlatparChainsOrNull-class
 #' @keywords classes
 #' @docType class
 #' @examples
 #' showClass("McmcSamples")
 #' showClass("McmcChains")
 #' showClass("McmcIters")
-#' showClass("McmcParChains")
+#' showClass("McmcFlatparChains")
 NULL
 
 #' @exportClass McmcSamples
@@ -30,7 +30,7 @@ NULL
 NULL
 McmcSamples <- 
   constrained_data_frame("McmcSamples",
-                         columns=c(parname="factor",
+                         columns=c(flatpar="factor",
                            chain_id="integer",
                            iter="integer",
                            val="numeric"))
@@ -55,17 +55,17 @@ McmcIters <-
 
 # ----------------------
 
-#' @exportClass McmcParChains
-#' @export McmcParChains
+#' @exportClass McmcFlatparChains
+#' @export McmcFlatparChains
 NULL
-McmcParChains <- 
-  constrained_data_frame("McmcParChains",
-                         columns = c(parname="factor",
+McmcFlatparChains <- 
+  constrained_data_frame("McmcFlatparChains",
+                         columns = c(flatpar="factor",
                            chain_id="integer"))
 
-#' @exportClass McmcParChainsOrNull
+#' @exportClass McmcFlatparChainsOrNull
 NULL
-setClassUnion("McmcParChainsOrNull", c("McmcParChains", "NULL"))
+setClassUnion("McmcFlatparChainsOrNull", c("McmcFlatparChains", "NULL"))
 
 ## subclasses of matrix that restrict to a given type
 

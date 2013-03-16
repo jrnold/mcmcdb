@@ -17,8 +17,8 @@ parameters <- mcmc_parse_parnames(parnames)
 iters <- McmcIters(data.frame(chain_id = rep(1:2, each=4),
                               iter = rep(1:4, 2)))
 
-parchains <- McmcParChains(expand.grid(parname = names(parameters@flatpars),
-                                        chain_id = 1:2))
+parchains <- McmcFlatparChains(expand.grid(flatpar = names(parameters@flatpars),
+                                       chain_id = 1:2))
 metadata <- list()
 
 ###########
@@ -96,8 +96,8 @@ chains <- McmcChains(data.frame(chain_id = 1:2))
 parameters <- mcmc_parse_parnames(parnames)
 iters <- McmcIters(data.frame(chain_id = rep(1:2, each=2^4),
                               iter = rep(1:2^4, 2)))
-parchains <- McmcParChains(expand.grid(parname = names(parameters@flatpars),
-                                       chain_id = 1:2))
+parchains <- McmcFlatparChains(expand.grid(flatpar = names(parameters@flatpars),
+                                           chain_id = 1:2))
 metadata <- list()
 
 

@@ -7,6 +7,7 @@
 ##' @docType package
 ##' @import plyr
 ##' @import stringr
+##' @import reshape2
 ##' @import DataFrameConstr
 NULL
 

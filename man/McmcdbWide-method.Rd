@@ -19,8 +19,8 @@
   \item{iters}{\linkS4class{McmcIters} object or
   \code{NULL}.}
 
-  \item{parchains}{\linkS4class{McmcParChains} object or
-  \code{NULL}.}
+  \item{parchains}{\linkS4class{McmcFlatparChains} object
+  or \code{NULL}.}
 
   \item{metadata}{\code{list} with additional data about
   the MCMC samples.}

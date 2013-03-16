@@ -15,7 +15,7 @@
   \item{\code{parameters}}{\linkS4class{McmcParameters}.}
   \item{\code{chains}}{\linkS4class{McmcChains}.}
   \item{\code{iters}}{\linkS4class{McmcIters}.}
-  \item{\code{parchains}}{\linkS4class{McmcParChains}.}
+  \item{\code{parchains}}{\linkS4class{McmcFlatparChains}.}
   \item{\code{metadata}}{\code{list} with general data
   about the samples.}
   \item{\code{version}}{\code{character} version of
@@ -28,7 +28,7 @@ showClass("McmcdbWide")
 data("line_mcmcdbwide")
 print(line_mcmcdbwide)
 
-# get parts
+# access data
 mcmcdb_get_chains(line_mcmcdbwide)
 mcmcdb_get_chains(line_mcmcdbwide, drop=TRUE)
 mcmcdb_get_parameters(line_mcmcdbwide)

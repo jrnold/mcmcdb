@@ -90,11 +90,11 @@ setMethod("mcmcdb_get_parchains", "McmcdbWide",
           function(object, drop=TRUE) {
             if (is.null(object@parchains)) {
               parameters <- names(object@parameters@flatpars)
-              McmcParChains(expand.grid(parname = parameters,
+              McmcFlatparChains(expand.grid(flatpar = parameters,
                                         chain_id=object@chains[ , c("chain_id")]))
             } else {
               if (drop) {
-                object@parchains[ , c("parname", "chain_id")]
+                object@parchains[ , c("flatpar", "chain_id")]
               } else {
                 object@parchains
               }

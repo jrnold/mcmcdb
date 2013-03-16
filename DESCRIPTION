@@ -10,6 +10,7 @@ Depends:
 Imports:
     stringr,
     plyr,
+    reshape2,
     DataFrameConstr (>= 0.3.0)
 Suggests:
     testthat,
@@ -22,3 +23,5 @@ Collate:
     'McmcdbWide.R'
     'get.R'
     'data.R'
+    'extract.R'
+    'flatten.R'

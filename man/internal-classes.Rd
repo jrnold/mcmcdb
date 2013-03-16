@@ -2,11 +2,11 @@
 \name{internal-classes}
 \alias{McmcChains}
 \alias{McmcChains-class}
+\alias{McmcFlatparChains}
+\alias{McmcFlatparChains-class}
+\alias{McmcFlatparChainsOrNull-class}
 \alias{McmcIters}
 \alias{McmcIters-class}
-\alias{McmcParChains}
-\alias{McmcParChains-class}
-\alias{McmcParChainsOrNull-class}
 \alias{McmcSamples}
 \alias{McmcSamples-class}
 \alias{internal-classes}
@@ -20,7 +20,7 @@
 showClass("McmcSamples")
 showClass("McmcChains")
 showClass("McmcIters")
-showClass("McmcParChains")
+showClass("McmcFlatparChains")
 }
 \keyword{classes}
 

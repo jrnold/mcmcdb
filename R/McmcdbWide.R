@@ -15,7 +15,7 @@ NULL
 #' \item{\code{parameters}}{\linkS4class{McmcParameters}.}
 #' \item{\code{chains}}{\linkS4class{McmcChains}.}
 #' \item{\code{iters}}{\linkS4class{McmcIters}.}
-#' \item{\code{parchains}}{\linkS4class{McmcParChains}.}
+#' \item{\code{parchains}}{\linkS4class{McmcFlatparChains}.}
 #' \item{\code{metadata}}{\code{list} with general data about the samples.}
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
@@ -44,7 +44,7 @@ setClass("McmcdbWide",
                         parameters="McmcParameters",
                         chains="McmcChains", # chain_id
                         iters="McmcIters", # chain_id, iter
-                        parchains="McmcParChainsOrNull", # parname, chain_id
+                        parchains="McmcFlatparChainsOrNull", # parname, chain_id
                         metadata="list",
                         version="character"),
          prototype(samples = matrix(),
@@ -94,7 +94,7 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 #' a \linkS4class{McmcParameters} given \code{colnames(x)}.
 #' @param chains \linkS4class{McmcChains} object or \code{NULL}.
 #' @param iters \linkS4class{McmcIters} object or \code{NULL}.
-#' @param parchains \linkS4class{McmcParChains} object or \code{NULL}.
+#' @param parchains \linkS4class{McmcFlatparChains} object or \code{NULL}.
 #' @param metadata \code{list} with additional data about the MCMC samples.
 #' @return An object of class \linkS4class{McmcdbWide}.
 #' @seealso \linkS4class{McmcdbWide} for a definition of the class
@@ -130,8 +130,8 @@ McmcdbWide_matrix <- function(x, parameters=mcmc_parparser_guess,
     parameters <- mcmc_parse_parnames(colnames(x), parameters)
   }
 
-  if (!is.null(parchains) & !is(parchains, "McmcParChains")) {
-    parchains <- McmcParChains(parchains)
+  if (!is.null(parchains) & !is(parchains, "McmcFlatparChains")) {
+    parchains <- McmcFlatparChains(parchains)
   }
 
   new("McmcdbWide",
