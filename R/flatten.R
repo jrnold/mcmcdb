@@ -13,9 +13,11 @@ NULL
 #'
 #' @param x \code{character} Parameter name.
 #' @param dim \code{integer} Dimension of the array.
+#' @return \code{character} vector of flat parameter names.
 #'
 #' @rdname mcmc_create_parnames
 #' @aliases mcmc_create_parnames_stan
+#' @export
 #' @examples
 #' mcmc_parnames_bugs("alpha", c(1, 2))
 #' mcmc_parnames_stan("alpha", c(1, 2))
@@ -33,6 +35,7 @@ mcmc_parnames_stan_idx <- function(x, idx, dim) {
 
 #' @rdname mcmc_create_parnames
 #' @aliases mcmc_create_parnames_bugs
+#' @export
 mcmc_parnames_bugs <- function(x, dim) {
   apply(expand_grid_dim(dim), 1, function(i) mcmc_parnames_bugs_idx(x, i, dim))
 }
@@ -47,14 +50,10 @@ mcmc_parnames_bugs_idx <- function(x, idx, dim) {
 
 #' Convert between BUGS/JAGS and Stan style flat parameter names
 #'
-#' \describe{
-#' \item{\code{bugs_to_stan_parnames}}{Convert from BUGS style to Stan style flat parameter names,
-#' e.g. \code{"alpha[1,2]"} to \code{"alpha.1.2"}.
-#' \item{\code{stan_to_bugs_parnames}}{Convert from Stan style to BUGS style flat parameter names,
-#' e.g. \code{"alpha.1.2"} to \code{"alpha[1,2]"}.
-#' }
+#' Utility functions to convert flat parameter names between the BUGS (\code{"alpha[1,1]"}) and
+#' Stan style (\code{"alpha.1.1"}).
 #'
-#' @param x
+#' @param x \code{character} vector of flat parameter names.
 #' @return \code{character} vector of the converted flat parameter names.
 #' @export
 #' @examples
