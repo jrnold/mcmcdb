@@ -20,3 +20,4 @@ Collate:
     'package.R'
     'classes.R'
     'McmcdbWide.R'
+    'get.R'

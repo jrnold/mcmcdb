@@ -11,3 +11,6 @@
 NULL
 
 VERSION <- "0.3-0"
+
+setOldClass("mcmc")
+setOldClass("mcmc.list")

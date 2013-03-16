@@ -64,16 +64,17 @@ show_McmcdbWide <- function(object) {
               nsamples, nchains))
   cat(sprintf("Parameter arrays:\n"))
   for (i in names(object@parameters@pararrays)) {
-    cat(sprintf("$ %s (%s)\n", i, 
+    cat(sprintf("$ %s [%s]\n", i, 
                 paste(object@parameters@pararrays[[i]]@dim, collapse=",")))
   }
 }
 
 setMethod("show", "McmcdbWide", show_McmcdbWide)
 
-#' McmcdbWide
+
+#' Create McmcdbWide objects
 #'
-#' Function to create \linkS4class{McmcdbWide} objects.
+#' Methods to create \linkS4class{McmcdbWide} objects.
 #'
 #' @param x Numeric \code{matrix} with parameter sample values. Columns
 #' be named with the parameter names.
@@ -84,11 +85,27 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 #' @param parchains \linkS4class{McmcParChains} object or \code{NULL}.
 #' @param metadata \code{list} with additional data about the MCMC samples.
 #' @return An object of class \linkS4class{McmcdbWide}.
-#' @seealso \linkS4class{McmcdbWide}
-#' @export 
-McmcdbWide <- function(x, parameters=mcmc_parparser_guess,
-                       chains=NULL, iters=NULL, parchains=NULL,
-                       metadata = list()) {
+#' @seealso \linkS4class{McmcdbWide} for a definition of the class
+#' @name McmcdbWide-method
+#' @aliases McmcdbWide,matrix-method
+#' @aliases McmcdbWide,mcmc-method
+#' @aliases McmcdbWide,mcmc.list-method
+#' @export
+setGeneric("McmcdbWide",
+           function(x, ...) {
+             standardGeneric("McmcdbWide")
+           })
+
+McmcdbWide_matrix <- function(x, parameters=mcmc_parparser_guess,
+                              chains=NULL, iters=NULL, parchains=NULL,
+                              metadata = list()) {
+  if (is.null(iters)) {
+    iters <- McmcIters(data.frame(chain_id = 1L,
+                                  iter = seq_len(nrow(x))))
+  } else if (!is(iters, "McmcIters")) {
+    iters <- McmcIters(iters)
+  }
+
   if (is.null(chains)) {
     chains <- McmcChains(data.frame(chain_id = 1L,
                                     start = 1L,
@@ -96,13 +113,6 @@ McmcdbWide <- function(x, parameters=mcmc_parparser_guess,
                                     thin = 1L))
   } else if (!is(chains, "McmcChains")) {
     chains <- McmcChains(chains)
-  }
-  
-  if (is.null(iters)) {
-    iters <- McmcIters(data.frame(chain_id = 1L,
-                                  iter = seq_len(nrow(x))))
-  } else if (!is(iters, "McmcIters")) {
-    iters <- McmcIters(iters)
   }
   
   if (is(parameters, "function")) {
@@ -119,3 +129,43 @@ McmcdbWide <- function(x, parameters=mcmc_parparser_guess,
       iters = iters, parchains = parchains,
       metadata = metadata)
 }
+
+
+setMethod("McmcdbWide", "matrix", McmcdbWide_matrix)
+
+McmcdbWide_mcmc <- function(x, parameters = mcmc_parsepars_guess, ...) {
+  mcpar <- attr(x, "mcpar")
+  chains <- data.frame(chain_id = 1L,
+                       n_iter = nrow(x),
+                       iter_start = mcpar[1],
+                       iter_end = mcpar[2],
+                       iter_thin = mcpar[3])
+  iters <- data.frame(chain_id = 1L,
+                      iter = seq_len(nrow(x)))
+  McmcdbWide(do.call(rbind, x), parameters = parameters,
+             chains = chains, iters = iters)
+                       
+}
+
+
+#' @rdname McmcdbWide
+setMethod("McmcdbWide", "mcmc", McmcdbWide_mcmc)
+
+McmcdbWide_mcmc_list <- function(x, parameters = mcmc_parsepars_guess, ...) {
+  chains <- ldply(seq_along(x), 
+                  function(i) {
+                    mcpar <- attr(x[[i]], "mcpar")
+                    data.frame(chain_id = i,
+                               n_iter = nrow(x[[i]]),
+                               iter_start = mcpar[1],
+                               iter_end = mcpar[2],
+                               iter_thin = mcpar[3])
+                  })
+  iters <- ddply(chains, "chain_id",
+                 function(x) data.frame(iter = seq_len(x[["n_iter"]])))
+  McmcdbWide(as.matrix(do.call(rbind, x)), parameters = parameters,
+             chains = chains, iters = iters)
+}
+
+#' @rdname McmcdbWide
+setMethod("McmcdbWide", "mcmc.list", McmcdbWide_mcmc_list)
