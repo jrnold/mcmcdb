@@ -17,11 +17,12 @@ Suggests:
     roxygen2,
 Collate:
     'utilities.R'
-    'parameter-parsers.R'
+    'McmcParameters.R'
     'package.R'
     'classes.R'
     'McmcdbWide.R'
-    'get.R'
     'data.R'
     'extract.R'
+    'parameter-parsers.R'
     'flatten.R'
+    'get.R'

@@ -69,11 +69,11 @@ bugs_to_stan_parnames <- function(x) {
 #' @aliases stan_to_bugs_parnamse
 #' @export
 stan_to_bugs_parnames <- function(x) {
-y <- str_split_fixed(x, fixed("."), 2)
-apply(y, 1, function(yi) {
-      paste0(yi[1],
+  y <- str_split_fixed(x, fixed("."), 2)
+  apply(y, 1, function(yi) {
+    paste0(yi[1],
            ifelse(yi[2] == "", "", paste0("[", gsub("\\.", ",", yi[2]), "]")))
-      })
+  })
 }
 
 

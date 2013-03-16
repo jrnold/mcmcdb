@@ -69,11 +69,22 @@ iterations).
 
 ### ply functions
 
-- `mcmciply`: apply to iterations
-- `mcmcfply`: apply to flat parameters
-- `mcmcaply`: apply to parameter arrays
-- `mcmccply`: apply to chains
+#### mcmc_iply
 
+Apply a function to each iteration. 
+The iteration is in the same shape as the original data.
+
+#### mcmc_fply
+
+Apply a function to flat parameters. 
+
+#### mcmc_aply
+
+Apply a function to parameter arrays  ?? What shape
+
+#### mcmc_cply
+
+Apply a function to chains
 
 ### Accessors
 
