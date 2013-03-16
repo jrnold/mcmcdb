@@ -275,8 +275,8 @@ setMethod("mcmcdb_flatpars", "McmcParameters",
 #' @param object Object
 #' @rdname mcmcdb_pararrays-methods
 #' @name mcmcdb_pararrays-methods
-#' @return Named \code{list} of \code{character} . Names are the parameter
-#' array names; element values are the associates flat parameter names.
+#' @return Named \code{list} of \code{character} vectors. Names are the parameter
+#' array names; element values are the associated flat parameter names.
 #'
 #' @aliases mcmcdb_pararrays
 #' @aliases mcmcdb_pararrays-methods
@@ -292,3 +292,27 @@ mcmcdb_pararrays.McmcParameters <- function(object) {
 #' @aliases mcmcdb_pararrays,McmcParameters-method
 setMethod("mcmcdb_pararrays", "McmcParameters",
           mcmcdb_pararrays.McmcParameters)
+
+
+#' Get parameter array dimensions
+#'
+#' @param object Object
+#' @rdname mcmcdb_pardims-methods
+#' @name mcmcdb_pardims-methods
+#' @return Named \code{list} of \code{integer} vectors. Names are the parameter
+#' array names; element values are the associated dimensions of the arrays.
+#'
+#' @aliases mcmcdb_pardims
+#' @aliases mcmcdb_pardims-methods
+#' @export
+setGeneric("mcmcdb_pardims",
+           function(object, ...) standardGeneric("mcmcdb_pardims"))
+
+mcmcdb_pardims.McmcParameters <- function(object) {
+  llply(object@pararrays, slot, name = "dim")
+}
+
+#' @rdname mcmcdb_pardims-methods
+#' @aliases mcmcdb_pardims,McmcParameters-method
+setMethod("mcmcdb_pardims", "McmcParameters",
+          mcmcdb_pardims.McmcParameters)

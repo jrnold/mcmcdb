@@ -38,5 +38,14 @@ test_that("mcmcdb_par_indices,McmcParameters-method works as expected", {
 })
 
 test_that("mcmcdb_pararrays,McmcParameters-method works as expected", {
-  indices <- mcmcdb_par_indices(object)  
+  pararrays <- mcmcdb_pararrays(object)
+  expected <- list(alpha = "alpha",
+                   beta = c("beta.1", "beta.2"))
+  expect_equal(pararrays, expected)
+})
+
+test_that("mcmcdb_pardims,McmcParameters-method works as expected", {
+  pardims <- mcmcdb_pardims(object)
+  expected <- list(alpha = 1L, beta = 2L)
+  expect_equal(pardims, expected)
 })

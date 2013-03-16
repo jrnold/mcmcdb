@@ -7,9 +7,9 @@
   \item{object}{Object}
 }
 \value{
-  Named \code{list} of \code{character} . Names are the
-  parameter array names; element values are the associates
-  flat parameter names.
+  Named \code{list} of \code{character} vectors. Names are
+  the parameter array names; element values are the
+  associated flat parameter names.
 }
 \description{
   Get parameter array names
