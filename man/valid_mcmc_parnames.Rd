@@ -12,7 +12,8 @@
   names, respectively.}
 }
 \value{
-  \code{logical}.
+  \code{logical} vector of same length as \code{x} with the
+  validity of each flat parameter name.
 }
 \description{
   Check flat parameter names to see if they are consistent

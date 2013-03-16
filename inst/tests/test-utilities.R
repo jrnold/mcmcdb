@@ -7,9 +7,3 @@ test_that("expand_grid_dim works", {
                          .Dim = c(6L, 2L),
                          .Dimnames = list(NULL, c("Var1", "Var2"))))
 })
-
-context("first")
-
-test_that("first works", {
-  expect_equal(mcmcdb:::first(2:10), 2L)
-})

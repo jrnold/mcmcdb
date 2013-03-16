@@ -1,10 +1,3 @@
-#' Select first observation
-#'
-#' @param x \code{vector}
-#' @return Returns the first element of \code{x}.
-#' @keywords internal
-first <- function(x) x[1]
-
 #' Generate indices for all dimensions
 #'
 #' Create matrix if all indices for a given
