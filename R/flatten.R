@@ -83,17 +83,17 @@ stan_to_bugs_parnames <- function(x) {
 #' @param parameters Object mapping flattened parameters to parameter arrays
 #' @return Named \code{list} of parameter arrays
 #'
-#' @name mcmc_unflatten-method
-#' @rdname mcmc_unflatten-method
-#' @aliases mcmc_unflatten
+#' @name mcmcdb_unflatten-method
+#' @rdname mcmcdb_unflatten-method
+#' @aliases mcmcdb_unflatten
 #' @export
-setGeneric("mcmc_unflatten",
+setGeneric("mcmcdb_unflatten",
            function(x, parameters, ...) {
-           standardGeneric("mcmc_unflatten")
+           standardGeneric("mcmcdb_unflatten")
          })
 
 
-mcmc_unflatten.numeric.McmcParameters <- function(x, parameters) {
+mcmcdb_unflatten.numeric.McmcParameters <- function(x, parameters) {
 llply(parameters@pararrays,
       function(pa, x) {
         tmpl <- array(0, pa@dim)
@@ -104,13 +104,13 @@ llply(parameters@pararrays,
       }, x = x)
 }
 
-#' @rdname mcmc_unflatten-method
-#' @aliases mcmc_unflatten,numeric,McmcParameters-method
-setMethod("mcmc_unflatten", c(x = "numeric", parameters = "McmcParameters"),
-          mcmc_unflatten.numeric.McmcParameters)
+#' @rdname mcmcdb_unflatten-method
+#' @aliases mcmcdb_unflatten,numeric,McmcParameters-method
+setMethod("mcmcdb_unflatten", c(x = "numeric", parameters = "McmcParameters"),
+          mcmcdb_unflatten.numeric.McmcParameters)
 
 ## Figure this out! 
-mcmc_unflatten.matrix.McmcParameters <- function(x, parameters) {
+mcmcdb_unflatten.matrix.McmcParameters <- function(x, parameters) {
   llply(parameters@pararrays,
         function(pa, x, flatpars) {
           n <- nrow(x)
@@ -124,9 +124,9 @@ mcmc_unflatten.matrix.McmcParameters <- function(x, parameters) {
         }, x = x, flatpars = parameters@flatpars)
 }
 
-#' @rdname mcmc_unflatten-method
-#' @aliases mcmc_unflatten,matrix,McmcParameters-method
-setMethod("mcmc_unflatten", c(x = "matrix", parameters = "McmcParameters"),
-          mcmc_unflatten.matrix.McmcParameters)
+#' @rdname mcmcdb_unflatten-method
+#' @aliases mcmcdb_unflatten,matrix,McmcParameters-method
+setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "McmcParameters"),
+          mcmcdb_unflatten.matrix.McmcParameters)
 
 

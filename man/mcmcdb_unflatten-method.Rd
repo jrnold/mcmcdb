@@ -1,8 +1,8 @@
-\name{mcmc_unflatten-method}
-\alias{mcmc_unflatten}
-\alias{mcmc_unflatten,matrix,McmcParameters-method}
-\alias{mcmc_unflatten,numeric,McmcParameters-method}
-\alias{mcmc_unflatten-method}
+\name{mcmcdb_unflatten-method}
+\alias{mcmcdb_unflatten}
+\alias{mcmcdb_unflatten,matrix,McmcParameters-method}
+\alias{mcmcdb_unflatten,numeric,McmcParameters-method}
+\alias{mcmcdb_unflatten-method}
 \title{Unflatten MCMC parameters}
 \arguments{
   \item{x}{Flattened parameter values}

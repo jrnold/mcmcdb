@@ -33,12 +33,12 @@ NULL
 #' print(line_mcmcdbwide)
 #' 
 #' # access data
-#' mcmcdb_get_chains(line_mcmcdbwide)
-#' mcmcdb_get_chains(line_mcmcdbwide, drop=TRUE)
-#' mcmcdb_get_parameters(line_mcmcdbwide)
-#' mcmcdb_get_iters(line_mcmcdbwide)
-#' mcmcdb_get_parchains(line_mcmcdbwide)
-#' mcmcdb_get_metadata(line_mcmcdbwide)
+#' mcmcdb_chains(line_mcmcdbwide)
+#' mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
+#' mcmcdb_parameters(line_mcmcdbwide)
+#' mcmcdb_iters(line_mcmcdbwide)
+#' mcmcdb_parchains(line_mcmcdbwide)
+#' mcmcdb_metadata(line_mcmcdbwide)
 setClass("McmcdbWide",
          representation(samples="matrix",
                         parameters="McmcParameters",

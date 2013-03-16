@@ -218,7 +218,7 @@ setMethod("show", "McmcParameters", show_McmcParameters)
 #' Get parameter indices
 #'
 #' @param object Object
-#' @rdname mcmc_par_indices-method
+#' @rdname mcmcdb_par_indices-method
 #' @name mcmcdb_par_indices-method
 #' @return \code{list} of integer matrices. Each element of the
 #' list is a parameter array. Each matrix has a number of rows equal to the
@@ -242,7 +242,28 @@ mcmcdb_par_indices.McmcParameters <- function(object) {
         }, flatpars = object@flatpars)
 }
 
-#' @rdname mcmc_par_indices-method
-#' @aliases mcmc_par_indices,McmcParameters-method
+#' @rdname mcmcdb_par_indices-method
+#' @aliases mcmcdb_par_indices,McmcParameters-method
+setMethod("mcmcdb_par_indices", "McmcParameters",
+          mcmcdb_par_indices.McmcParameters)
+
+#' Get flat parameter names
+#'
+#' @param object Object
+#' @rdname mcmcdb_flatpars-method
+#' @name mcmcdb_flatpars-method
+#' @return Named \code{character} vector. Names are the flat parameter names;
+#' values are the associated parameter arrays.
+#'
+#' @aliases mcmcdb_flatpars
+#' @aliases mcmcdb_flatpars-method
+#' @export
+setGeneric("mcmcdb_flatpars",
+           function(object, ...) standardGeneric("mcmcdb_flatpars"))
+
+mcmcdb_flatpars.McmcParameters <- function(object) {
+  laply(object@flatpars, slot, name = "pararray")
+}
+
 setMethod("mcmcdb_par_indices", "McmcParameters",
           mcmcdb_par_indices.McmcParameters)

@@ -1,6 +1,6 @@
-\name{mcmcdb_get_iters}
-\alias{mcmcdb_get_iters}
-\alias{mcmcdb_get_iters,McmcdbWide-method}
+\name{mcmcdb_iters}
+\alias{mcmcdb_iters}
+\alias{mcmcdb_iters,McmcdbWide-method}
 \title{Get iteration data from Mcmcdb object}
 \arguments{
   \item{object}{object}
@@ -19,8 +19,8 @@
 \seealso{
   \code{\linkS4class{McmcdbWide}}
 
-  Other get.methods: \code{\link{mcmcdb_get_chains}},
-  \code{\link{mcmcdb_get_parameters}},
-  \code{\link{mcmcdb_get_parchains}}
+  Other get.methods: \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_parchains}}
 }
 

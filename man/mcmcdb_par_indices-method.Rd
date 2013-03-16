@@ -1,6 +1,6 @@
 \name{mcmcdb_par_indices-method}
-\alias{mcmc_par_indices,McmcParameters-method}
 \alias{mcmcdb_par_indices}
+\alias{mcmcdb_par_indices,McmcParameters-method}
 \alias{mcmcdb_par_indices-method}
 \title{Get parameter indices}
 \arguments{

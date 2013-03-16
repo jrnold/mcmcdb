@@ -1,6 +1,6 @@
-\name{mcmcdb_get_chains}
-\alias{mcmcdb_get_chains}
-\alias{mcmcdb_get_chains,McmcdbWide-method}
+\name{mcmcdb_chains}
+\alias{mcmcdb_chains}
+\alias{mcmcdb_chains,McmcdbWide-method}
 \title{Get Chains data from Mcmcdb object}
 \arguments{
   \item{object}{object}
@@ -18,8 +18,8 @@
 \seealso{
   \code{\linkS4class{McmcdbWide}}
 
-  Other get.methods: \code{\link{mcmcdb_get_iters}},
-  \code{\link{mcmcdb_get_parameters}},
-  \code{\link{mcmcdb_get_parchains}}
+  Other get.methods: \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_parchains}}
 }
 
