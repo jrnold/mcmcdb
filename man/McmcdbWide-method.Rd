@@ -1,4 +1,5 @@
 \name{McmcdbWide-method}
+\alias{McmcdbWide}
 \alias{McmcdbWide,matrix-method}
 \alias{McmcdbWide,mcmc-method}
 \alias{McmcdbWide,mcmc.list-method}

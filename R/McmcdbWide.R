@@ -87,9 +87,8 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 #' @return An object of class \linkS4class{McmcdbWide}.
 #' @seealso \linkS4class{McmcdbWide} for a definition of the class
 #' @name McmcdbWide-method
-#' @aliases McmcdbWide,matrix-method
-#' @aliases McmcdbWide,mcmc-method
-#' @aliases McmcdbWide,mcmc.list-method
+#' @rdname McmcdbWide-method
+#' @aliases McmcdbWide-method
 #' @export
 setGeneric("McmcdbWide",
            function(x, ...) {
@@ -131,9 +130,11 @@ McmcdbWide_matrix <- function(x, parameters=mcmc_parparser_guess,
 }
 
 
+#' @rdname McmcdbWide-method
+#' @aliases McmcdbWide,matrix-method
 setMethod("McmcdbWide", "matrix", McmcdbWide_matrix)
 
-McmcdbWide_mcmc <- function(x, parameters = mcmc_parsepars_guess, ...) {
+McmcdbWide_mcmc <- function(x, parameters = mcmc_parparser_guess, ...) {
   mcpar <- attr(x, "mcpar")
   chains <- data.frame(chain_id = 1L,
                        n_iter = nrow(x),
@@ -148,10 +149,11 @@ McmcdbWide_mcmc <- function(x, parameters = mcmc_parsepars_guess, ...) {
 }
 
 
-#' @rdname McmcdbWide
+#' @rdname McmcdbWide-method
+#' @aliases McmcdbWide,mcmc-method
 setMethod("McmcdbWide", "mcmc", McmcdbWide_mcmc)
 
-McmcdbWide_mcmc_list <- function(x, parameters = mcmc_parsepars_guess, ...) {
+McmcdbWide_mcmc_list <- function(x, parameters = mcmc_parparser_guess, ...) {
   chains <- ldply(seq_along(x), 
                   function(i) {
                     mcpar <- attr(x[[i]], "mcpar")
@@ -167,5 +169,6 @@ McmcdbWide_mcmc_list <- function(x, parameters = mcmc_parsepars_guess, ...) {
              chains = chains, iters = iters)
 }
 
-#' @rdname McmcdbWide
+#' @rdname McmcdbWide-method
+#' @aliases McmcdbWide,mcmc.list-method
 setMethod("McmcdbWide", "mcmc.list", McmcdbWide_mcmc_list)

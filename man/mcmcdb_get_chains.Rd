@@ -10,7 +10,7 @@
 }
 \value{
   If \code{drop=TRUE} then \code{integer}, if
-  \code{drop=FALSE}, then \linkS4class{McmcChains}.
+  \code{drop=FALSE}, then \code{\linkS4class{McmcChains}}.
 }
 \description{
   Get Chains data from Mcmcdb object
