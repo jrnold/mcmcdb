@@ -43,5 +43,3 @@ test_that("bugs_to_stan_parnames works as expected", {
 test_that("stan_to_bugs_parnames works as expected", {
   expect_equal(stan_to_bugs_parnames(stan_parnames), bugs_parnames)
 })
-
-

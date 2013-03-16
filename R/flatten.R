@@ -69,10 +69,64 @@ bugs_to_stan_parnames <- function(x) {
 #' @aliases stan_to_bugs_parnamse
 #' @export
 stan_to_bugs_parnames <- function(x) {
-  y <- str_split_fixed(x, fixed("."), 2)
-  apply(y, 1, function(yi) {
-    paste0(yi[1],
+y <- str_split_fixed(x, fixed("."), 2)
+apply(y, 1, function(yi) {
+      paste0(yi[1],
            ifelse(yi[2] == "", "", paste0("[", gsub("\\.", ",", yi[2]), "]")))
-  })
+      })
 }
+
+
+#' Unflatten MCMC parameters
+#'
+#' @param x Flattened parameter values
+#' @param parameters Object mapping flattened parameters to parameter arrays
+#' @return Named \code{list} of parameter arrays
+#'
+#' @name mcmc_unflatten-method
+#' @rdname mcmc_unflatten-method
+#' @aliases mcmc_unflatten
+#' @export
+setGeneric("mcmc_unflatten",
+           function(x, parameters, ...) {
+           standardGeneric("mcmc_unflatten")
+         })
+
+
+mcmc_unflatten.numeric.McmcParameters <- function(x, parameters) {
+llply(parameters@pararrays,
+      function(pa, x) {
+        tmpl <- array(0, pa@dim)
+        flatpars <- pa@flatpars
+        indices <- t(sapply(flatpars, function(i) parameters@flatpars[[i]]@index))
+        tmpl[indices] <- x[flatpars]
+        tmpl
+      }, x = x)
+}
+
+#' @rdname mcmc_unflatten-method
+#' @aliases mcmc_unflatten,numeric,McmcParameters-method
+setMethod("mcmc_unflatten", c(x = "numeric", parameters = "McmcParameters"),
+          mcmc_unflatten.numeric.McmcParameters)
+
+## Figure this out! 
+mcmc_unflatten.matrix.McmcParameters <- function(x, parameters) {
+  llply(parameters@pararrays,
+        function(pa, x, flatpars) {
+          n <- nrow(x)
+          tmpl <- array(0, c(pa@dim, n))
+          ## TODO. Expand indices
+          indices <- laply(pa@flatpars, function(i) flatpars[[i]]@index, .drop = FALSE)
+          for (i in seq_len(n)) {
+            tmpl[cbind(indices, i)] <- x[i, pa@flatpars, drop=FALSE]
+          }
+          tmpl
+        }, x = x, flatpars = parameters@flatpars)
+}
+
+#' @rdname mcmc_unflatten-method
+#' @aliases mcmc_unflatten,matrix,McmcParameters-method
+setMethod("mcmc_unflatten", c(x = "matrix", parameters = "McmcParameters"),
+          mcmc_unflatten.matrix.McmcParameters)
+
 
