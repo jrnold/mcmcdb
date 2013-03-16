@@ -27,6 +27,14 @@ NULL
 #' @export
 #' @examples
 #' showClass("McmcdbWide")
+#' data(line_mcmcdbwide)
+#' print(line_mcmcdbwide)
+#' # get parts
+#' mcmcdb_get_chains(mcmcdbwide)
+#' mcmcdb_get_chains(mcmcdbwide, drop=TRUE)
+#' mcmcdb_get_parameters(mcmcdbwide)
+#' mcmcdb_get_iters(mcmcdbwide)
+#' mcmcdb_get_parchains(mcmcdbwide)
 setClass("McmcdbWide",
          representation(samples="matrix",
                         parameters="McmcParameters",

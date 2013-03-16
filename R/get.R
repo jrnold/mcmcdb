@@ -14,6 +14,7 @@ setGeneric("mcmcdb_get_chains",
 #' @family get-methods
 #' @return If \code{drop=TRUE} then \code{integer}, if \code{drop=FALSE},
 #' then \code{\linkS4class{McmcChains}}.
+#' @seealso \code{\linkS4class{McmcdbWide}}
 #' @aliases mcmcdb_get_chains,McmcdbWide-method
 setMethod("mcmcdb_get_chains", "McmcdbWide",
             function(object, drop=TRUE) {
@@ -35,6 +36,7 @@ setGeneric("mcmcdb_get_parameters",
 #' @param object object
 #' @return \linkS4class{McmcParameters}
 #' @family get-methods
+#' @seealso \code{\linkS4class{McmcdbWide}}
 #' @aliases mcmcdb_get_parameters,McmcdbWide-method
 setMethod("mcmcdb_get_parameters", "McmcdbWide",
             function(object) {
@@ -57,10 +59,11 @@ setGeneric("mcmcdb_get_iters",
 #' @return \linkS4class{McmcIters}
 #' @family get-methods
 #' @aliases mcmcdb_get_iters,McmcdbWide-method
+#' @seealso \code{\linkS4class{McmcdbWide}}
 setMethod("mcmcdb_get_iters", "McmcdbWide",
           function(object, drop=TRUE) {
             if (drop) {
-              objec@iters[ , c("chain_id", "iter")]
+              object@iters[ , c("chain_id", "iter")]
             } else {
               object@iters
             }
@@ -82,21 +85,19 @@ setGeneric("mcmcdb_get_parchains",
 #' @return \linkS4class{McmcIters}
 #' @family get-methods
 #' @aliases mcmcdb_get_parchains,McmcdbWide-method
+#' @seealso \code{\linkS4class{McmcdbWide}}
 setMethod("mcmcdb_get_parchains", "McmcdbWide",
           function(object, drop=TRUE) {
             if (is.null(object@parchains)) {
-              parameters <- names(foo@parameters@flatpars)
-              McmcIters(expand.grid(objectparameters,
-                                    object@chains[ , c("chain_id", "iter")]))
+              parameters <- names(object@parameters@flatpars)
+              McmcParChains(expand.grid(parname = parameters,
+                                        chain_id=object@chains[ , c("chain_id")]))
             } else {
               if (drop) {
-                objec@iters[ , c("flatpar", "chain_id", "iter")]
+                object@parchains[ , c("parname", "chain_id")]
+              } else {
+                object@parchains
               }
-            }
-            if (drop) {
-              
-            } else {
-              object@iters
             }
           })
 
@@ -112,6 +113,7 @@ setGeneric("mcmcdb_get_metadata",
 #' @param object object
 #' @return \code{list}
 #' @aliases mcmcdb_get_metadata,McmcdbWide-method
+#' @seealso \code{\linkS4class{McmcdbWide}}
 setMethod("mcmcdb_get_metadata", "McmcdbWide",
           function(object) object@metadata)
 

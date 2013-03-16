@@ -16,6 +16,8 @@
   Get Chains data from Mcmcdb object
 }
 \seealso{
+  \code{\linkS4class{McmcdbWide}}
+
   Other get.methods: \code{\link{mcmcdb_get_iters}},
   \code{\link{mcmcdb_get_parameters}},
   \code{\link{mcmcdb_get_parchains}}

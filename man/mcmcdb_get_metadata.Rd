@@ -11,4 +11,7 @@
 \description{
   Get metadata from an Mcmcdb object
 }
+\seealso{
+  \code{\linkS4class{McmcdbWide}}
+}
 

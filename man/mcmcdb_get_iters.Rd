@@ -17,6 +17,8 @@
   Get iteration data from Mcmcdb object
 }
 \seealso{
+  \code{\linkS4class{McmcdbWide}}
+
   Other get.methods: \code{\link{mcmcdb_get_chains}},
   \code{\link{mcmcdb_get_parameters}},
   \code{\link{mcmcdb_get_parchains}}
