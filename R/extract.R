@@ -28,6 +28,7 @@
     xsub[["val"]]
   } else {
     chain_iters <- as(x@iters, "data.frame")[jj & kk, , drop=FALSE]
+    ## Recycles over parameters
     xsub[["iter"]] <- chain_iters[["iter"]]
     xsub[["chain_id"]] <- chain_iters[["chain_id"]]
     McmcSamples(xsub[ , c("flatpar", "chain_id", "iter", "val")])
@@ -37,3 +38,9 @@
 #' @export
 setMethod("[", c(x = "McmcdbWide"), `[.McmcdbWide`)
 
+`[[.McmcdbWide` <- function(x, i, j, k, drop=TRUE) {
+  ## Restrict to 1 parameter for now
+  i <- i[1]
+  
+  
+}

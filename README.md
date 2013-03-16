@@ -22,10 +22,10 @@ Returns
 
 If `drop=FALSE`, `data.frame` with columns
 
-- `parname` : flat parameter name
+- `flatpar` : flat parameter name
 - `chain_id` : chain 
 - `iteration` : iteration
-- `value` : parameter value
+- `val` : parameter value
 
 If `drop=TRUE`, `numeric` vector with the parameter values.
 
@@ -44,7 +44,8 @@ Returns
 
 If `drop=FALSE`, `data.frame` with columns
 
-- `parname` : flat parameter name
+- `flatpar` : flat parameter name
+- `pararray`: parameter array name
 - `chain_id` : chain 
 - `iteration` : iteration
 - `value` : parameter value
@@ -76,13 +77,14 @@ iterations).
 
 ### Accessors
 
-- `get_chains`: `data.frame`
-- `get_parameters`: `McmcParameters`
-- `get_chain_iters`: `data.frame`
-- `get_par_chains`: `data.frame`
-- `get_metadata`: `list`
-
+- `mcmc_get_chains`: `data.frame`
+- `mcmc_get_parameters`: `McmcParameters`
+- `mcmc_get_chain_iters`: `data.frame`
+- `mcmc_get_flatpar_chains`: `data.frame`
+- `mcmc_get_metadata`: `list`
 
 # Notes
 
-Relevant SQL reserved keywords, `iterate`, `chain`, `parameter`, `parameters`.
+Relevant SQL reserved keywords, `iterate`, `chain`, `parameter`,
+`parameters`, `value`.
+
