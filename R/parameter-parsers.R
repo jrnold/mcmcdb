@@ -284,9 +284,9 @@ mcmc_parparser_bugs <- function(x) {
 #' @aliases mcmc_parparsers_guess
 #' @export
 mcmc_parparser_guess <- function(x) {
-  if (valid_mcmc_parnames(x, "stan")) {
+  if (all(valid_mcmc_parnames(x, "stan"))) {
     mcmc_parparser_stan(x)
-  } else if (valid_mcmc_parnames(x, "bugs")) {
+  } else if (all(valid_mcmc_parnames(x, "bugs"))) {
     mcmc_parparser_bugs(x)
   } else {
     mcmc_parparser_scalar(x)
