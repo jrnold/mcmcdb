@@ -1,6 +1,7 @@
 \name{mcmcdb_pardims-methods}
 \alias{mcmcdb_pardims}
-\alias{mcmcdb_pardims,McmcParameters-method}
+\alias{mcmcdb_pardims,McmcdbParameters-method}
+\alias{mcmcdb_pardims,McmcdbWide-method}
 \alias{mcmcdb_pardims-methods}
 \title{Get parameter array dimensions}
 \arguments{
@@ -13,5 +14,32 @@
 }
 \description{
   Get parameter array dimensions
+}
+\seealso{
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices-methods}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays-methods}}
+
+  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices-methods}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays-methods}}
 }
 

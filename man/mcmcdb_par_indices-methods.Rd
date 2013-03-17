@@ -1,6 +1,6 @@
 \name{mcmcdb_par_indices-methods}
 \alias{mcmcdb_par_indices}
-\alias{mcmcdb_par_indices,McmcParameters-method}
+\alias{mcmcdb_par_indices,McmcdbParameters-method}
 \alias{mcmcdb_par_indices-methods}
 \title{Get parameter indices}
 \arguments{
@@ -16,5 +16,32 @@
 }
 \description{
   Get parameter indices
+}
+\seealso{
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}}
+
+  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}}
 }
 

@@ -1,8 +1,8 @@
 \docType{class}
-\name{McmcFlatpar-class}
-\alias{McmcFlatpar}
-\alias{McmcFlatpar-class}
-\title{McmcFlatpar class}
+\name{McmcdbFlatpar-class}
+\alias{McmcdbFlatpar}
+\alias{McmcdbFlatpar-class}
+\title{McmcdbFlatpar class}
 \description{
   Class representing attributes of a flattened MCMC
   parameter: the name of its parameter array and its index
@@ -15,11 +15,11 @@
 }
 \examples{
 # beta[1,1]
-showClass("McmcFlatpar")
-McmcFlatpar(pararray="beta", index=c(1L, 1L))
+showClass("McmcdbFlatpar")
+McmcdbFlatpar(pararray="beta", index=c(1L, 1L))
 }
 \seealso{
-  \linkS4class{McmcFlatparList} for a list of
-  \code{McmcFlatpar} objects.
+  \linkS4class{McmcdbFlatparList} for a list of
+  \code{McmcdbFlatpar} objects.
 }
 

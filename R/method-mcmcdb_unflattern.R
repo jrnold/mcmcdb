@@ -1,4 +1,4 @@
-#' @include package
+#' @include package.R
 #' @include class-McmcdbParameters.R
 #' @include class-McmcdbWide.R
 NULL

@@ -1,10 +1,10 @@
 \docType{class}
-\name{McmcPararray-class}
-\alias{McmcPararray}
-\alias{McmcPararray-class}
-\title{McmcPararray Class}
+\name{McmcdbPararray-class}
+\alias{McmcdbPararray}
+\alias{McmcdbPararray-class}
+\title{McmcdbPararray Class}
 \usage{
-  McmcPararray(...)
+  McmcdbPararray(...)
 }
 \description{
   An S4 class containing metadata for an MCMC parameter
@@ -18,8 +18,8 @@
   array} }
 }
 \examples{
-showClass("McmcPararray")
-McmcPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L)
+showClass("McmcdbPararray")
+McmcdbPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L)
 }
 \keyword{internal}
 

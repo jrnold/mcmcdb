@@ -104,7 +104,7 @@ create_pararrays <- function(x) {
   ret
 }
 
-#' Create McmcParameter object from MCMC parameter names
+#' Create McmcdbParameter object from MCMC parameter names
 #'
 #' @param x \code{character} vector of parameter names
 #' @param parser \code{function} parse \code{x} into \linkS4class{McmcdbFlatparList}.

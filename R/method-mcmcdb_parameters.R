@@ -16,6 +16,7 @@ setGeneric("mcmcdb_parameters",
 #' @family get-methods
 #' @seealso \code{\linkS4class{McmcdbWide}}
 #' @aliases mcmcdb_parameters,McmcdbWide-method
+#' @family McmcdbWide methods
 setMethod("mcmcdb_parameters", "McmcdbWide",
             function(object) {
               object@parameters

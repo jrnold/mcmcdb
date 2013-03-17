@@ -1,5 +1,5 @@
-#' @include pacakge.R
-#' @include McmcParameters.R
+#' @include package.R
+#' @include class-McmcdbParameters.R
 NULL
 
 #' Get parameter array dimensions
@@ -22,5 +22,12 @@ mcmcdb_pardims.McmcdbParameters <- function(object) {
 
 #' @rdname mcmcdb_pardims-methods
 #' @aliases mcmcdb_pardims,McmcdbParameters-method
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_pardims", "McmcdbParameters",
           mcmcdb_pardims.McmcdbParameters)
+
+#' @rdname mcmcdb_pardims-methods
+#' @aliases mcmcdb_pardims,McmcdbWide-method
+#' @family McmcdbWide methods
+setMethod("mcmcdb_pardims", "McmcdbWide",
+          function(object) callGeneric(object@parameters))

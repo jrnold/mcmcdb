@@ -22,7 +22,7 @@
   names.}
 }
 \value{
-  Object of class \code{McmcFlatparList}
+  Object of class \code{McmcdbFlatparList}
 }
 \description{
   Functions that parse a vector of flat parameter names and

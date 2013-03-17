@@ -13,6 +13,7 @@ setGeneric("mcmcdb_metadata",
 #' @return \code{list}
 #' @aliases mcmcdb_metadata,McmcdbWide-method
 #' @seealso \code{\linkS4class{McmcdbWide}}
+#' @family McmcdbWide methods
 setMethod("mcmcdb_metadata", "McmcdbWide",
           function(object) object@metadata)
 

@@ -31,7 +31,7 @@
     ## Recycles over parameters
     xsub[["iter"]] <- chain_iters[["iter"]]
     xsub[["chain_id"]] <- chain_iters[["chain_id"]]
-    McmcSamples(xsub[ , c("flatpar", "chain_id", "iter", "val")])
+    McmcdbSamples(xsub[ , c("flatpar", "chain_id", "iter", "val")])
   }
 }
 

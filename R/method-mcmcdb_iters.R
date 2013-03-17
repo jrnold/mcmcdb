@@ -13,10 +13,11 @@ setGeneric("mcmcdb_iters",
 #' @param drop \code{logical}. If \code{TRUE}, only return
 #' \code{chain_id} and \code{iter} columns. If \code{FALSE}, then
 #' return all data related to the iterations (other than their values).
-#' @return \linkS4class{McmcIters}
+#' @return \linkS4class{McmcdbIters}
 #' @family get-methods
 #' @aliases mcmcdb_iters,McmcdbWide-method
 #' @seealso \code{\linkS4class{McmcdbWide}}
+#' @family McmcdbWide methods
 setMethod("mcmcdb_iters", "McmcdbWide",
           function(object, drop=TRUE) {
             if (drop) {

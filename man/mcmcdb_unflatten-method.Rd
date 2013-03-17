@@ -1,7 +1,7 @@
 \name{mcmcdb_unflatten-method}
 \alias{mcmcdb_unflatten}
-\alias{mcmcdb_unflatten,matrix,McmcParameters-method}
-\alias{mcmcdb_unflatten,numeric,McmcParameters-method}
+\alias{mcmcdb_unflatten,matrix,McmcdbParameters-method}
+\alias{mcmcdb_unflatten,numeric,McmcdbParameters-method}
 \alias{mcmcdb_unflatten-method}
 \title{Unflatten MCMC parameters}
 \arguments{

@@ -14,9 +14,10 @@ setGeneric("mcmcdb_chains",
 #' or just
 #' @family get-methods
 #' @return If \code{drop=TRUE} then \code{integer}, if \code{drop=FALSE},
-#' then \code{\linkS4class{McmcChains}}.
+#' then \code{\linkS4class{McmcdbChains}}.
 #' @seealso \code{\linkS4class{McmcdbWide}}
 #' @aliases mcmcdb_chains,McmcdbWide-method
+#' @family McmcdbWide-methods
 setMethod("mcmcdb_chains", "McmcdbWide",
             function(object, drop=TRUE) {
               if (drop) {

@@ -1,17 +1,17 @@
 \name{create_pararrays}
 \alias{create_pararrays}
-\title{Create McmcPararrayList from McmcFlatparList}
+\title{Create McmcdbPararrayList from McmcdbFlatparList}
 \usage{
   create_pararrays(x)
 }
 \arguments{
-  \item{x}{\linkS4class{McmcFlatparList}}
+  \item{x}{\linkS4class{McmcdbFlatparList}}
 }
 \value{
-  Object of class \linkS4class{McmcPararrayList}
+  Object of class \linkS4class{McmcdbPararrayList}
 }
 \description{
-  Create McmcPararrayList from McmcFlatparList
+  Create McmcdbPararrayList from McmcdbFlatparList
 }
 \keyword{internal}
 

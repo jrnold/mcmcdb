@@ -1,4 +1,4 @@
-context("expand_grid_dim")
+context("utilities")
 
 test_that("expand_grid_dim works", {
   x <- mcmcdb:::expand_grid_dim(c(2, 3))

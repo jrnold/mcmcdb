@@ -88,14 +88,28 @@ Apply a function to chains
 
 ### Accessors
 
-- `mcmc_get_chains`: `data.frame`
-- `mcmc_get_parameters`: `McmcParameters`
-- `mcmc_get_chain_iters`: `data.frame`
-- `mcmc_get_flatpar_chains`: `data.frame`
-- `mcmc_get_metadata`: `list`
+- `mcmcdb_chains`: `data.frame`
+- `mcmcdb_parameters`: `McmcParameters`
+- `mcmcdb_pararrays`: `list`
+- `mcmcdb_pardims`: `list`
+- `mcmcdb_par_indices`: `list`
+- `mcmcdb_flatpars`: `character`
+- `mcmcdb_iters`: `data.frame`
+- `mcmcdb_flatpar_chains`: `data.frame`
+- `mcmcdb_metadata`: `list`
+
+- `mcmcdb_data`:
+- `mcmcdb_init`: 
+
 
 # Notes
 
 Relevant SQL reserved keywords, `iterate`, `chain`, `parameter`,
 `parameters`, `value`.
+
+- Classes are capitalized, and CamelCase
+- Functions and methods are all lower and "_", and not "."
+- Internal functions which will be used as an S4 method are named
+  as if they were S3 methods.
+- External classes and methods use "mcmcdb_" prefix.
 

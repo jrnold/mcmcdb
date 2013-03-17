@@ -10,7 +10,8 @@
 }
 \value{
   If \code{drop=TRUE} then \code{integer}, if
-  \code{drop=FALSE}, then \code{\linkS4class{McmcChains}}.
+  \code{drop=FALSE}, then
+  \code{\linkS4class{McmcdbChains}}.
 }
 \description{
   Get Chains data from Mcmcdb object
@@ -18,8 +19,11 @@
 \seealso{
   \code{\linkS4class{McmcdbWide}}
 
-  Other get.methods: \code{\link{mcmcdb_iters}},
-  \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parchains}}
+  Other McmcdbWide-methods:
+  \code{\link{mcmcdb_flatpar_chains}}
+
+  Other get-methods: \code{\link{mcmcdb_flatpar_chains}},
+  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_parameters}}
 }
 

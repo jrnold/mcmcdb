@@ -2,9 +2,9 @@
 NULL
 
 #' @export
-setGeneric("mcmcdb_parchains",
+setGeneric("mcmcdb_flatpar_chains",
            function(object, ...) {
-             standardGeneric("mcmcdb_parchains")
+             standardGeneric("mcmcdb_flatpar_chains")
            })
 
 #' Get parameter-chain data from an Mcmcdb object
@@ -13,21 +13,22 @@ setGeneric("mcmcdb_parchains",
 #' @param drop \code{logical}. If \code{TRUE}, only return
 #' \code{flatpar} and \code{} columns. If \code{FALSE}, then
 #' return all data related to the iterations (other than their values).
-#' @return \linkS4class{McmcIters}
+#' @return \linkS4class{McmcdbIters}
 #' @family get-methods
-#' @aliases mcmcdb_parchains,McmcdbWide-method
+#' @aliases mcmcdb_flatpar_chains,McmcdbWide-method
 #' @seealso \code{\linkS4class{McmcdbWide}}
-setMethod("mcmcdb_parchains", "McmcdbWide",
+#' @family McmcdbWide-methods
+setMethod("mcmcdb_flatpar_chains", "McmcdbWide",
           function(object, drop=TRUE) {
-            if (is.null(object@parchains)) {
+            if (is.null(object@flatpar_chains)) {
               parameters <- names(object@parameters@flatpars)
               McmcdbFlatparChains(expand.grid(flatpar = parameters,
-                                        chain_id=object@chains[ , c("chain_id")]))
+                                              chain_id=object@chains[ , c("chain_id")]))
             } else {
               if (drop) {
-                object@parchains[ , c("flatpar", "chain_id")]
+                object@flatpar_chains[ , c("flatpar", "chain_id")]
               } else {
-                object@parchains
+                object@flatpar_chains
               }
             }
           })

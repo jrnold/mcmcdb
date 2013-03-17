@@ -22,5 +22,12 @@ mcmcdb_flatpars.McmcdbParameters <- function(object) {
 
 #' @rdname mcmcdb_flatpars-methods
 #' @aliases mcmcdb_flatpars,McmcdbParameters-method
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_flatpars", "McmcdbParameters",
           mcmcdb_flatpars.McmcdbParameters)
+
+#' @rdname mcmcdb_flatpars-methods
+#' @aliases mcmcdb_flatpars,McmcdbWide-method
+#' @family McmcdbWide methods
+setMethod("mcmcdb_flatpars", "McmcdbWide",
+          function(object) callGeneric(object@parameters))

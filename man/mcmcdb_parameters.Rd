@@ -6,7 +6,7 @@
   \item{object}{object}
 }
 \value{
-  \linkS4class{McmcParameters}
+  \linkS4class{McmcdbParameters}
 }
 \description{
   Get parameters data from Mcmcdb object
@@ -14,8 +14,24 @@
 \seealso{
   \code{\linkS4class{McmcdbWide}}
 
-  Other get.methods: \code{\link{mcmcdb_chains}},
+  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_iters}},
-  \code{\link{mcmcdb_parchains}}
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices-methods}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}}
+
+  Other get-methods: \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_flatpar_chains}},
+  \code{\link{mcmcdb_iters}}
 }
 

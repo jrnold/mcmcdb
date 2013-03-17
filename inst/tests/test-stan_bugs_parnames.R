@@ -1,4 +1,4 @@
-context("(stan|bugs)_to_(stan|bugs)_parnames")
+context("stan_bugs_parnames")
 
 stan_parnames <- c("alpha", "beta.1", "gamma.1.1")
 bugs_parnames <- c("alpha", "beta[1]", "gamma[1,1]")

@@ -1,4 +1,4 @@
-#' @include package.r
+#' @include package.R
 #' @include class-McmcdbParameters.R
 NULL
 
@@ -31,5 +31,12 @@ mcmcdb_par_indices.McmcdbParameters <- function(object) {
 
 #' @rdname mcmcdb_par_indices-methods
 #' @aliases mcmcdb_par_indices,McmcdbParameters-method
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_par_indices", "McmcdbParameters",
           mcmcdb_par_indices.McmcdbParameters)
+
+#' @rdname mcmcdb_par_indices-methods
+#' @aliases mcmcdb_par_indices,McmcdbParameters-method
+#' @family McmcdbWide methods
+setMethod("mcmcdb_par_indices", "McmcdbWide",
+          function(object) callGeneric(object@parameters))

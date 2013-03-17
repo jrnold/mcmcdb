@@ -1,6 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbPararray.R
-#' @include class-McmcdbFlatpars.R
+#' @include class-McmcdbFlatpar.R
 #' @include class-misc.R
 NULL
 
@@ -39,6 +39,7 @@ NULL
 #' @seealso \code{\link{mcmc_parse_parnames}}
 #' @exportClass McmcdbParameters
 #' @export McmcdbParameters
+#' @family McmcdbParameters methods
 #' @examples
 #' showClass("McmcdbParameters")
 McmcdbParameters <-
@@ -46,7 +47,7 @@ McmcdbParameters <-
            representation(flatpars = "McmcdbFlatparList",
                           pararrays = "McmcdbPararrayList"))
                           
-show_McmcdbParameters <- function(object) {
+show.McmcdbParameters <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbParameters")))
   cat("Parameters:\n")
   for (i in seq_along(object@pararrays)) {
@@ -57,7 +58,7 @@ show_McmcdbParameters <- function(object) {
   }
 }
 
-setMethod("show", "McmcdbParameters", show_McmcdbParameters)
+setMethod("show", "McmcdbParameters", show.McmcdbParameters)
 
 setMethod("dimnames", "McmcdbParameters",
           function(x) {

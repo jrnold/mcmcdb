@@ -70,5 +70,4 @@ setMethod("initialize", "McmcdbFlatpar",
 #' McmcdbFlatparList(flatpars)                         
 NULL
 McmcdbFlatparList <-
-  subclass_homog_list("McmcdbFlatparList", "Mcmcdb
-Flatpar")
+  subclass_homog_list("McmcdbFlatparList", "McmcdbFlatpar")

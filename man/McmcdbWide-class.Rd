@@ -1,7 +1,7 @@
 \docType{class}
 \name{McmcdbWide-class}
 \alias{McmcdbWide-class}
-\title{MCMC Samples in long-format}
+\title{MCMC Samples in wide-format}
 \description{
   Mcmc samples stored as a matrix with (number of chains x
   number of iterations) rows and (number of flat
@@ -12,10 +12,10 @@
   the sample parameter values. This matrix has (number of
   chains * iterations) rows, and )number of flat
   parameters) columns.}
-  \item{\code{parameters}}{\linkS4class{McmcParameters}.}
-  \item{\code{chains}}{\linkS4class{McmcChains}.}
-  \item{\code{iters}}{\linkS4class{McmcIters}.}
-  \item{\code{parchains}}{\linkS4class{McmcFlatparChains}.}
+  \item{\code{parameters}}{\linkS4class{McmcdbParameters}.}
+  \item{\code{chains}}{\linkS4class{McmcdbChains}.}
+  \item{\code{iters}}{\linkS4class{McmcdbIters}.}
+  \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
   \item{\code{metadata}}{\code{list} with general data
   about the samples.}
   \item{\code{version}}{\code{character} version of
@@ -31,9 +31,35 @@ print(line_mcmcdbwide)
 # access data
 mcmcdb_chains(line_mcmcdbwide)
 mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
+
 mcmcdb_parameters(line_mcmcdbwide)
+mcmcdb_pardims(line_mcmcdbwide)
+mcmcdb_pararrays(line_mcmcdbwide)
+mcmcdb_flatpars(line_mcmcdbwide)
+mcmcdb_par_indices(line_mcmcdbwide)
+
 mcmcdb_iters(line_mcmcdbwide)
-mcmcdb_parchains(line_mcmcdbwide)
+mcmcdb_flatpar_chains(line_mcmcdbwide)
 mcmcdb_metadata(line_mcmcdbwide)
+}
+\seealso{
+  \code{\link{McmcdbWide}} for the method usually used to
+  create these objects.
+
+  Other McmcdbWide methods: \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices}},
+  \code{\link{mcmcdb_par_indices-methods}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays}},
+  \code{\link{mcmcdb_pararrays-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}}
 }
 

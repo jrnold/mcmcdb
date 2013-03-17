@@ -1,35 +1,35 @@
-#' Internal classes
+#' Miscellaneous classes
 #'
 #' Various classes used internally in this package.
 #' These are all subclasses of \linkS4class{DataFrameConstr},
 #' i.e. \code{data.frame} objects with required
 #' columns.
 #'
-#' @name internal-classes
-#' @rdname internal-classes
-#' @aliases McmcSamples-class
-#' @aliases McmcSamples
-#' @aliases McmcChains-class
-#' @aliases McmcChains
-#' @aliases McmcIters-class
-#' @aliases McmcIters
+#' @name misc-classes
+#' @rdname misc-classes
+#' @aliases McmcdbSamples-class
+#' @aliases McmcdbSamples
+#' @aliases McmcdbChains-class
+#' @aliases McmcdbChains
+#' @aliases McmcdbIters-class
+#' @aliases McmcdbIters
 #' @aliases McmcdbFlatparChains-class
 #' @aliases McmcdbFlatparChains
 #' @aliases McmcdbFlatparChainsOrNull-class
 #' @keywords classes
 #' @docType class
 #' @examples
-#' showClass("McmcSamples")
-#' showClass("McmcChains")
-#' showClass("McmcIters")
+#' showClass("McmcdbSamples")
+#' showClass("McmcdbChains")
+#' showClass("McmcdbIters")
 #' showClass("McmcdbFlatparChains")
 NULL
 
-#' @exportClass McmcSamples
-#' @export McmcSamples
+#' @exportClass McmcdbSamples
+#' @export McmcdbSamples
 NULL
-McmcSamples <- 
-  constrained_data_frame("McmcSamples",
+McmcdbSamples <- 
+  constrained_data_frame("McmcdbSamples",
                          columns=c(flatpar="factor",
                            chain_id="integer",
                            iter="integer",
@@ -37,19 +37,19 @@ McmcSamples <-
 
 # -----------------------
 
-#' @exportClass McmcChains
-#' @export McmcChains
+#' @exportClass McmcdbChains
+#' @export McmcdbChains
 NULL
-McmcChains <- 
-  constrained_data_frame("McmcChains",
+McmcdbChains <- 
+  constrained_data_frame("McmcdbChains",
                          columns = c(chain_id="integer"))
 
 # -----------------------
-#' @exportClass McmcIters
-#' @export McmcIters
+#' @exportClass McmcdbIters
+#' @export McmcdbIters
 NULL
-McmcIters <- 
-  constrained_data_frame("McmcIters",
+McmcdbIters <- 
+  constrained_data_frame("McmcdbIters",
                          columns = c(chain_id="integer",
                            iter="integer"))
 
