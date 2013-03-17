@@ -1,4 +1,4 @@
-## Example data used in creating McmcdbWide stuff
+## Example data used in tesing McmcdbWide data
 
 parnames <- paste("beta", 1:2, sep=".")
 samples <- matrix(rnorm(16), ncol=2)
