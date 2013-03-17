@@ -13,16 +13,16 @@
 #' @aliases McmcChains
 #' @aliases McmcIters-class
 #' @aliases McmcIters
-#' @aliases McmcFlatparChains-class
-#' @aliases McmcFlatparChains
-#' @aliases McmcFlatparChainsOrNull-class
+#' @aliases McmcdbFlatparChains-class
+#' @aliases McmcdbFlatparChains
+#' @aliases McmcdbFlatparChainsOrNull-class
 #' @keywords classes
 #' @docType class
 #' @examples
 #' showClass("McmcSamples")
 #' showClass("McmcChains")
 #' showClass("McmcIters")
-#' showClass("McmcFlatparChains")
+#' showClass("McmcdbFlatparChains")
 NULL
 
 #' @exportClass McmcSamples
@@ -55,40 +55,15 @@ McmcIters <-
 
 # ----------------------
 
-#' @exportClass McmcFlatparChains
-#' @export McmcFlatparChains
+#' @exportClass McmcdbFlatparChains
+#' @export McmcdbFlatparChains
 NULL
-McmcFlatparChains <- 
-  constrained_data_frame("McmcFlatparChains",
+McmcdbFlatparChains <- 
+  constrained_data_frame("McmcdbFlatparChains",
                          columns = c(flatpar="factor",
                            chain_id="integer"))
 
-#' @exportClass McmcFlatparChainsOrNull
+#' @exportClass McmcdbFlatparChainsOrNull
 NULL
-setClassUnion("McmcFlatparChainsOrNull", c("McmcFlatparChains", "NULL"))
-
-## subclasses of matrix that restrict to a given type
-
-NumericMatrix <- setClass("NumericMatrix", "matrix")
-
-setValidity("NumericMatrix",
-            function(object) {
-              if (!is.numeric(object)) {
-                return("Object is not numeric.")
-              }
-              TRUE
-            })
-
-IntegerMatrix <- setClass("IntegerMatrix", "matrix")
-
-setValidity("IntegerMatrix",
-            function(object) {
-              if (!is.integer(object)) {
-                return("Object is not integer.")
-              }
-              TRUE
-            })
-
-## Missing Coercions
-setAs("character", "factor", function(from, to) as.factor(from))
+setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
 

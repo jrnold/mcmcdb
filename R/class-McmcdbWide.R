@@ -1,6 +1,8 @@
-#' @include classes.R
-#' @include utilities.R
 #' @include package.R
+#' @include utilities.R
+#' @include class-misc.R
+#' @include class-matrix.R
+#' @include class-McmcdbParameters.R
 NULL
 
 #' MCMC Samples in long-format
@@ -12,10 +14,10 @@ NULL
 #'
 #' \describe{
 #' \item{\code{samples}}{\code{matrix} containing the sample parameter values. This matrix has (number of chains * iterations) rows, and )number of flat parameters) columns.}
-#' \item{\code{parameters}}{\linkS4class{McmcParameters}.}
+#' \item{\code{parameters}}{\linkS4class{McmcdbParameters}.}
 #' \item{\code{chains}}{\linkS4class{McmcChains}.}
 #' \item{\code{iters}}{\linkS4class{McmcIters}.}
-#' \item{\code{parchains}}{\linkS4class{McmcFlatparChains}.}
+#' \item{\code{parchains}}{\linkS4class{McmcdbFlatparChains}.}
 #' \item{\code{metadata}}{\code{list} with general data about the samples.}
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
@@ -41,14 +43,14 @@ NULL
 #' mcmcdb_metadata(line_mcmcdbwide)
 setClass("McmcdbWide",
          representation(samples="matrix",
-                        parameters="McmcParameters",
+                        parameters="McmcdbParameters",
                         chains="McmcChains", # chain_id
                         iters="McmcIters", # chain_id, iter
-                        parchains="McmcFlatparChainsOrNull", # parname, chain_id
+                        parchains="McmcdbFlatparChainsOrNull", # parname, chain_id
                         metadata="list",
                         version="character"),
          prototype(samples = matrix(),
-                   parameters = McmcParameters(),
+                   parameters = McmcdbParameters(),
                    chains = McmcChains(),
                    iters = McmcIters(),
                    metadata = list(),
@@ -90,11 +92,11 @@ setMethod("show", "McmcdbWide", show_McmcdbWide)
 #'
 #' @param x Numeric \code{matrix} with parameter sample values. Columns
 #' be named with the parameter names.
-#' @param parameters \linkS4class{McmcParameters} object or a \code{function} that returns
-#' a \linkS4class{McmcParameters} given \code{colnames(x)}.
+#' @param parameters \linkS4class{McmcdbParameters} object or a \code{function} that returns
+#' a \linkS4class{McmcdbParameters} given \code{colnames(x)}.
 #' @param chains \linkS4class{McmcChains} object or \code{NULL}.
 #' @param iters \linkS4class{McmcIters} object or \code{NULL}.
-#' @param parchains \linkS4class{McmcFlatparChains} object or \code{NULL}.
+#' @param parchains \linkS4class{McmcdbFlatparChains} object or \code{NULL}.
 #' @param metadata \code{list} with additional data about the MCMC samples.
 #' @return An object of class \linkS4class{McmcdbWide}.
 #' @seealso \linkS4class{McmcdbWide} for a definition of the class
@@ -130,8 +132,8 @@ McmcdbWide_matrix <- function(x, parameters=mcmc_parparser_guess,
     parameters <- mcmc_parse_parnames(colnames(x), parameters)
   }
 
-  if (!is.null(parchains) & !is(parchains, "McmcFlatparChains")) {
-    parchains <- McmcFlatparChains(parchains)
+  if (!is.null(parchains) & !is(parchains, "McmcdbFlatparChains")) {
+    parchains <- McmcdbFlatparChains(parchains)
   }
 
   new("McmcdbWide",
