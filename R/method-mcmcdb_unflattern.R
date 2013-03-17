@@ -30,12 +30,13 @@ llply(parameters@pararrays,
       }, x = x)
 }
 
+
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,numeric,McmcdbParameters-method
 setMethod("mcmcdb_unflatten", c(x = "numeric", parameters = "McmcdbParameters"),
           mcmcdb_unflatten.numeric.McmcdbParameters)
 
-## Figure this out! 
+## TODO: how to treat parameters without rows in x
 mcmcdb_unflatten.matrix.McmcdbParameters <- function(x, parameters) {
   llply(parameters@pararrays,
         function(pa, x, flatpars) {

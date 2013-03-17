@@ -1,3 +1,26 @@
+#' @include package.R
+#' @include class-McmcdbWide.R
+#' @exportMethod [
+NULL
+
+#' @rdname extract-methods
+#' @name extract-methods
+#' @title Extract
+#'
+#' @description The methods \code{[}, \code{[[} and \code{$} are
+#' defined for \code{\linkS4class{McmcdbWide}} objects
+#' to be able to select sample values by parameter (both
+#' flat parameters and parameter arrays), chain, and iteration.
+#'
+#' @param i \code{character} Parameter name. For \code{[}, the flattened parameter name. For \code{[[}
+#' and \code{$}, the parameter array name.
+#' @param j \code{integer}. Chain number.
+#' @param k \code{integer}. Iteration number.
+#' @param drop \code{logical}. Determines the object returned. In general, if
+#' \code{drop=TRUE}, then a vector or array is returned, otherwise a \code{data.frame} is returned.
+#' @return TODO
+NULL
+
 `[.McmcdbWide` <- function(x, i, j, k, drop=TRUE) {
   ## flatpar indices
   if (missing(i)) {
@@ -35,12 +58,19 @@
   }
 }
 
-#' @export
+#' @rdname extract-methods
+#' @aliases [,McmcdbWide-method
 setMethod("[", c(x = "McmcdbWide"), `[.McmcdbWide`)
+
+###########################################################################
 
 `[[.McmcdbWide` <- function(x, i, j, k, drop=TRUE) {
   ## Restrict to 1 parameter for now
   i <- i[1]
-  
-  
+}
+
+##########################################################################
+
+`$.McmcdbWide` <- function(x, name) {
+  x@samples
 }

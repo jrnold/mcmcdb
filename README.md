@@ -24,7 +24,7 @@ If `drop=FALSE`, `data.frame` with columns
 
 - `flatpar` : flat parameter name
 - `chain_id` : chain 
-- `iteration` : iteration
+- `iter` : iteration
 - `val` : parameter value
 
 If `drop=TRUE`, `numeric` vector with the parameter values.
@@ -47,7 +47,7 @@ If `drop=FALSE`, `data.frame` with columns
 - `flatpar` : flat parameter name
 - `pararray`: parameter array name
 - `chain_id` : chain 
-- `iteration` : iteration
+- `iter` : iteration
 - `value` : parameter value
 
 If `drop=TRUE`, named `list` of `array` objects for each parameter
@@ -99,7 +99,8 @@ Apply a function to chains
 - `mcmcdb_metadata`: `list`
 
 - `mcmcdb_data`:
-- `mcmcdb_init`: 
+- `mcmcdb_init`: If `flatted=TRUE`, then named numeric. Else, `list`
+  of arrays.
 
 
 # Notes
