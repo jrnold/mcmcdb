@@ -15,7 +15,7 @@
   Get parameter array dimensions
 }
 \seealso{
-  Other McmcdbParameters.methods:
+  Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},

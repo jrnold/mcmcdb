@@ -23,7 +23,7 @@ setClassUnion("numericOrNULL", c("numeric", "NULL"))
 #' \item{\code{iters}}{\linkS4class{McmcdbIters}.}
 #' \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
 #' \item{\code{metadata}}{\code{list} with metadata about the samples.}
-#' \item{\code{model_data}}{\code{listOrNULL}. A \code{list} with the data used in the model. If the data is not included, then \code{NULL}.}
+#' \item{\code{model_data}}{\code{listOrNULL}. A \code{namedList} with the data used in the model. If the data is not included, then \code{NULL}.}
 #' \item{\code{parinit}}{\code{numericOrNULL}. A named \code{numeric} vector of the parameter starting values in the model.}
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
@@ -71,6 +71,7 @@ setClass("McmcdbWide",
                    metadata = list(),
                    version = VERSION,
                    parinit = NULL,
+                   flatpar_chains = NULL,
                    model_data = NULL))
 
 validate.McmcdbWide <- function(object) {
@@ -84,13 +85,13 @@ validate.McmcdbWide <- function(object) {
   if (!setequal(parameters, names(mcmcdb_flatpars(object@parameters)))) {
     return("colnames of samples do not match paramters")
   }
-  if (!setequal(chain_ids, unique(iters$chain_id))) {
+  if (!setequal(chain_ids, unique(object@iters$chain_id))) {
     return("iters$chain_id does not match chains$chain_id values")
   }
-  if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
-    return("flatpar_chains$chain_id does not match chains$chain_id values")
-  }
   if (!is.null(object@flatpar_chains)) {
+    if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
+      return("flatpar_chains$chain_id does not match chains$chain_id values")
+    }
     if (!setequal(unique(object@flatpar_chains$flatpar), parameters)) {
       return("flatpar_chains$flatpar does not match parameters")
     }

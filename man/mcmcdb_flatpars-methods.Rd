@@ -16,7 +16,7 @@
   Get flat parameter names
 }
 \seealso{
-  Other McmcdbParameters.methods:
+  Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}},

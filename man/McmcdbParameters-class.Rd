@@ -34,7 +34,7 @@ showClass("McmcdbParameters")
 \seealso{
   \code{\link{McmcdbParameters}}
 
-  Other McmcdbParameters.methods:
+  Other McmcdbParameters methods:
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_pardims}},
