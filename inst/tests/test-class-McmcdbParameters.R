@@ -29,6 +29,11 @@ test_that("McmcdbParameters thows error if missing names", {
   expect_error(validObject(foo), "invalid class")
 })
 
+test_that("McmcdbParameters thows error if missing names", {
+  expect_error(McmcdbParameters(list(alpha=c("alpha.1", NA))),
+               "invalid class")
+})
+
 ######## methods
 
 foo <- McmcdbParameters(list(alpha=array(

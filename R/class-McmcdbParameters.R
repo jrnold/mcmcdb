@@ -67,7 +67,10 @@ setValidity("McmcdbParameters",
               if (length(object)) {
                 if (any(sapply(object@names, is.na)) ||
                     any(sapply(object@names, `==`, ""))) {
-                  return("No object names can be missing")
+                  return("No names can be missing")
+                }
+                if (any(sapply(object, is.na))) {
+                  return("No array elements can be missing")
                 }
               }
               TRUE
