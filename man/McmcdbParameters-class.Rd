@@ -36,7 +36,11 @@ showClass("McmcdbParameters")
 
   Other McmcdbParameters.methods:
   \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}}
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}}
 }
 \keyword{internal}
 

@@ -30,3 +30,5 @@ Collate:
     'gen_mcmcdb_parameters.R'
     'method-mcmcdb_flatten.R'
     'method-mcmcdb_flatpars.R'
+    'method-mcmcdb_par_indices.R'
+    'method-mcmcdb_pardims.R'
