@@ -19,13 +19,10 @@ NULL
 #' gen_mcmcdb_parameters(mcmcpars)
 #' gen_mcmcdb_parameters(mcmcpars, style=mcmc_parnames_bugs)
 gen_mcmcdb_parameters <- function(x, style=mcmc_parnames_stan) {
-  if (length(style) > 1) {
-    warning("length 'style' > 1; only first element used.")
-    style <- style[1]
-  }
+  style <- match.fun(style)
   y <- llply(seq_along(x),
              function(i) {
-               array(parnamer(names(x)[i], x[[i]]),
+               array(style(names(x)[i], x[[i]]),
                      x[[i]])
              })
   names(y) <- names(x)

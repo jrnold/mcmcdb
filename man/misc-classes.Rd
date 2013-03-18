@@ -5,6 +5,8 @@
 \alias{McmcdbFlatparChains}
 \alias{McmcdbFlatparChains-class}
 \alias{McmcdbFlatparChainsOrNull-class}
+\alias{McmcdbFlatpars}
+\alias{McmcdbFlatpars-class}
 \alias{McmcdbIters}
 \alias{McmcdbIters-class}
 \alias{McmcdbSamples}
@@ -21,6 +23,7 @@ showClass("McmcdbSamples")
 showClass("McmcdbChains")
 showClass("McmcdbIters")
 showClass("McmcdbFlatparChains")
+showClass("McmcdbFlatpars")
 }
 \keyword{classes}
 

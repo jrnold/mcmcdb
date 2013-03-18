@@ -44,7 +44,7 @@ setMethod("mcmcdb_flatten", "numeric",
           })
 
 #' @rdname mcmcdb_flatten-methods
-#' @aliases mcmcdb_flatten,numeric-method
+#' @aliases mcmcdb_flatten,list-method
 setMethod("mcmcdb_flatten", "list",
           function(x, FUN=mcmc_parnames_stan, ...) {
             if(is.null(names(x))) {

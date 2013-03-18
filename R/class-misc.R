@@ -30,6 +30,8 @@ NULL
 #' @aliases McmcdbFlatparChains-class
 #' @aliases McmcdbFlatparChains
 #' @aliases McmcdbFlatparChainsOrNull-class
+#' @aliases McmcdbFlatpars-class
+#' @aliases McmcdbFlatpars
 #' @keywords classes
 #' @docType class
 #' @examples
@@ -37,6 +39,7 @@ NULL
 #' showClass("McmcdbChains")
 #' showClass("McmcdbIters")
 #' showClass("McmcdbFlatparChains")
+#' showClass("McmcdbFlatpars")
 NULL
 
 McmcdbSamples <- 

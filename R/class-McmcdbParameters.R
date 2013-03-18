@@ -35,7 +35,7 @@ ListOfCharArrays <- function(x) {
 #' This class and its methods are used for converting between parameter
 #' arrays and flattened arrays.
 #'
-#' Objects of this class are usually created by \code{\link{mcmc_parse_parnames}}.
+#' Objects of this class are usually created by the  \code{\link{McmcdbParameters}} function.
 #'
 #" @section Extends:
 #' \describe{
@@ -53,7 +53,7 @@ ListOfCharArrays <- function(x) {
 #' }
 #' 
 #' @keywords internal
-#' @seealso \code{\link{mcmc_parse_parnames}}
+#' @seealso \code{\link{McmcdbParameters}}
 #' @family McmcdbParameters methods
 #' @examples
 #' showClass("McmcdbParameters")

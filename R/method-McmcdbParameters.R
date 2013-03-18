@@ -26,8 +26,8 @@ pararrays_from_df <- function(x) {
 #' @param x object
 #' @param parser A function that returns an object of \code{\linkS4class{McmcdbFlatpars}}. For example, \code{\link{mcmc_parparser_stan}} or \code{\link{mcmc_parparser_guess}}.
 #' @examples
-#' McmdbParameters(c("alpha", "beta.1", "beta.2"))
-#' McmdbParameters(c("alpha", "beta[1]", "beta[2]"),
+#' McmcdbParameters(c("alpha", "beta.1", "beta.2"))
+#' McmcdbParameters(c("alpha", "beta[1]", "beta[2]"),
 #'                 parser = mcmc_parparser_bugs)
 NULL
 setGeneric("McmcdbParameters",
@@ -62,14 +62,14 @@ setMethod("McmcdbParameters", "list",
           })
 
 #' @rdname McmcdbParameters-methods
-#' @rdname McmcdbParameters,ListOfCharArrays-method
+#' @aliases McmcdbParameters,ListOfCharArrays-method
 setMethod("McmcdbParameters", "ListOfCharArrays",
           function(x) {
             new("McmcdbParameters", x)
           })
 
 #' @rdname McmcdbParameters-methods
-#' @rdname McmcdbParameters,missing-method
+#' @aliases McmcdbParameters,missing-method
 setMethod("McmcdbParameters", "missing",
           function(x) {
             new("McmcdbParameters")

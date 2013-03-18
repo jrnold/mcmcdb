@@ -21,7 +21,6 @@ Collate:
     'class-misc.R'
     'utilities.R'
     'class-McmcdbParameters.R'
-    'data.R'
     'mcmc_parnames.R'
     'mcmc_parparser.R'
     'method-McmcdbParameters.R'

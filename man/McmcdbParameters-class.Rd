@@ -11,8 +11,8 @@
   for converting between parameter arrays and flattened
   arrays.
 
-  Objects of this class are usually created by
-  \code{\link{mcmc_parse_parnames}}.
+  Objects of this class are usually created by the
+  \code{\link{McmcdbParameters}} function.
 
   \describe{ \item{\code{ListOfCharArrays}}{directly. A
   \code{list} in which all elements must be arrays
@@ -32,7 +32,7 @@
 showClass("McmcdbParameters")
 }
 \seealso{
-  \code{\link{mcmc_parse_parnames}}
+  \code{\link{McmcdbParameters}}
 
   Other McmcdbParameters.methods:
   \code{\link{mcmcdb_flatpars}},
