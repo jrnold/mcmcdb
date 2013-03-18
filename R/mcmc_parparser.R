@@ -27,7 +27,7 @@ NULL
 #' }
 #'
 #' @param x \code{character} vector with flat parameter names.
-#' @return Object of class \code{McmcdbFlatparList}
+#' @return Object of class \code{McmcdbParameters}
 #'
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_scalar

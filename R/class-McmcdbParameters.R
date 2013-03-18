@@ -18,23 +18,33 @@ setValidity("CharacterArray",
               TRUE
             })
 
-ListOfCharArrays <- subclass_homog_list("ListOfCharArrays", "CharacterArray")
+subclass_homog_list("ListOfCharArrays", "CharacterArray")
 
-#' McmcdbParameters Class
+ListOfCharArrays <- function(x) {
+  new("ListOfCharArrays", llply(x, CharacterArray))
+}
+
+#' @name McmcdbParameters-class
+#' @rdname McmcdbParameters-class
+#' @docType class
+#' @aliases McmcdbParameters
+#' @aliases McmcdbParameters-class
+#' @aliases dim,McmcdbParameters-method
+#' @aliases dimnames,McmcdbParameters-method
+#' @title McmcdbParameters Class
 #'
-#' Metadata about MCMC parameters, including the names
-#' of flattened parameters, mapping between flattened parameter
-#' names and parameter array names, and the dimenions of
-#' parameter arrays.
+#' @description Metadata about MCMC parameters, providing information about
+#' their dimension and the names of the associated flattened parameters.
+#' This class and its methods are used for converting between parameter
+#' arrays and flattened arrays.
 #'
 #' Objects of this class are usually created by \code{\link{mcmc_parse_parnames}}.
 #'
-#' @section Slots:
+#" @section Extends:
 #' \describe{
-#' \item{\code{flatpars}}{An object of \code{\link{McmcdbFlatparList}}.
-#' Names and information on the flattened parameters.}
-#' \item{\code{pararrays}}{An object of \code{\link{McmcdbPararrayList}}.
-#' Names and information on the parameter arrays.}
+#'   \item{\code{ListOfCharArrays}}{directly. A \code{list} in which all
+#'   elements must be arrays containing \code{character} data.}
+#'   \item{\code{namedList}}{By \code{ListOfCharArrays}}
 #' }
 #' 
 #' @section Methods:
@@ -45,44 +55,53 @@ ListOfCharArrays <- subclass_homog_list("ListOfCharArrays", "CharacterArray")
 #'  Returns a \code{list} with names of the flat parameters and parameter arrays.}
 #' }
 #' 
-#' @docType class
-#' @name McmcdbParameters-class
-#' @aliases McmcdbParameters
-#' @aliases McmcdbParameters-class
-#' @aliases dim,McmcdbParameters-method
-#' @aliases dimnames,McmcdbParameters-method
 #' @keywords internal
 #' @seealso \code{\link{mcmc_parse_parnames}}
 #' @family McmcdbParameters methods
 #' @examples
 #' showClass("McmcdbParameters")
-McmcdbParameters <-
-  setClass("McmcdbParameters", 
-           representation(pararrays = "ListOfCharArrays"))
-                          
-                          
+NULL
+setClass("McmcdbParameters", "ListOfCharArrays")
+
+#' @rdname McmcdbParameters-class
+McmcdbParameters <- function(x) {
+  new("McmcdbParameters", ListOfCharArrays(x))
+}
+
+setValidity("McmcdbParameters",
+            function(object) {
+              if (length(object)) {
+                if (any(sapply(object@names, is.na)) ||
+                    any(sapply(object@names, `==`, ""))) {
+                  return("No object names can be missing")
+                }
+              }
+              TRUE
+            })
+
 show.McmcdbParameters <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbParameters")))
   cat("Parameters:\n")
-  for (i in seq_along(object@pararrays)) {
-    parname <- names(object@pararrays)[i]
-    pardim <- dim(object@pararrays[[i]])
+  for (i in seq_along(object)) {
     cat(sprintf("$ %s [%s]\n",
-                parname, paste(pardim, collapse=",")))
+                names(object)[i], paste(dim(object[[i]]), collapse=",")))
   }
 }
 
 setMethod("show", "McmcdbParameters", show.McmcdbParameters)
 
-setMethod("dimnames", "McmcdbParameters",
-          function(x) {
-            list(flatpars = names(x@flatpars),
-                 pararrays = names(x@pararrays))
-          })
-
 setMethod("dim", "McmcdbParameters",
           function(x) {
-            c(flatpars = length(x@flatpars),
-              pararrays = length(x@pararrays))
+            ret <- llply(seq_along(x), function(i) dim(x[[i]]))
+            names(ret) <- names(x)
+            ret
           })
+
+setMethod("dimnames", "McmcdbParameters",
+          function(x) {
+            ret <- llply(seq_along(x), function(i) as.character(x[[i]]))
+            names(ret) <- names(x)
+            ret
+          })
+
 
