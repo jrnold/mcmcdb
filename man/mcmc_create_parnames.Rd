@@ -5,14 +5,14 @@
 \alias{mcmc_parnames_stan}
 \title{Create BUGS/Stan parameter names}
 \usage{
-  mcmc_parnames_stan(x, dim)
+  mcmc_parnames_stan(x, d)
 
-  mcmc_parnames_bugs(x, dim)
+  mcmc_parnames_bugs(x, d)
 }
 \arguments{
   \item{x}{\code{character} Parameter name.}
 
-  \item{dim}{\code{integer} Dimension of the array.}
+  \item{d}{\code{integer} Dimension of the array.}
 }
 \value{
   \code{character} vector of flat parameter names.

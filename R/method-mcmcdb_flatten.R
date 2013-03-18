@@ -20,7 +20,7 @@ setGeneric("mcmcdb_flatten",
 
 
 # setMethod("mcmcdb_flatten", "array")
-mcmcdb_flatten.array <- function(x, parname="a", FUN=mcmc_parnames_stan) {
+mcmcdb_flatten.array <- function(x, parname="x", FUN=mcmc_parnames_stan) {
   xparnames <- FUN(dim(x))
   dim(x) <- NULL
   names(x) <- xparnames
@@ -28,7 +28,7 @@ mcmcdb_flatten.array <- function(x, parname="a", FUN=mcmc_parnames_stan) {
 }
 
 # setMethod("mcmcdb_flatten", "array")
-mcmcdb_flatten.array <- function(x, parname="a", FUN=mcmc_parnames_stan) {
+mcmcdb_flatten.array <- function(x, parname="x", FUN=mcmc_parnames_stan) {
   xparnames <- FUN(dim(x))
   dim(x) <- NULL
   names(x) <- xparnames

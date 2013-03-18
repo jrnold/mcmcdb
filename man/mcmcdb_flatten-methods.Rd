@@ -1,0 +1,17 @@
+\name{mcmcdb_flatten-methods}
+\alias{mcmcdb_flatten-methods}
+\title{Flatten Array of MCMC samples to a vector}
+\arguments{
+  \item{x}{object}
+
+  \item{parname}{\code{character} Parameter array name.}
+
+  \item{FUN}{\code{function} Function with arguments
+  \code{name} and \code{dim} and returns a vector of names
+  to use.}
+}
+\description{
+  Flatten an array of MCMC samples to a numeric vector. As
+  with R, the samples are flattened in column-major order.
+}
+

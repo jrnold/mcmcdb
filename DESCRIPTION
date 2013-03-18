@@ -31,7 +31,6 @@ Collate:
     'method-mcmcdb_iters.R'
     'method-mcmcdb_metadata.R'
     'method-mcmcdb_parameters.R'
-    'method-mcmcdb_unflattern.R'
     'stan_bugs_parnames.R'
     'valid_mcmc_parnames.R'
     'method-mcmcdb_flatpars.R'
@@ -41,3 +40,5 @@ Collate:
     'method-mcmcdb_flatpar_chains.R'
     'method-McmcdbWide.R'
     'method-extract.R'
+    'method-mcmcdb_flatten.R'
+    'method-mcmcdb_unflatten.R'
