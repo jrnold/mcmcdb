@@ -27,7 +27,6 @@ ListOfCharArrays <- function(x) {
 #' @name McmcdbParameters-class
 #' @rdname McmcdbParameters-class
 #' @docType class
-#' @aliases McmcdbParameters
 #' @aliases McmcdbParameters-class
 #' @aliases dim,McmcdbParameters-method
 #' @aliases dimnames,McmcdbParameters-method
@@ -50,9 +49,9 @@ ListOfCharArrays <- function(x) {
 #' @section Methods:
 #' \describe{
 #'  \item{dim}{\code{signature(x = "McmcdbParameters")}:
-#'  Returns a named \code{integer} vector with the number of flat parameters and parameter arrays.}    
+#'  Returns a named \code{list} of \code{integer} vectors with the dimensions of each parameter array.}
 #'  \item{dimnames}{\code{signature(x = "McmcdbParameters")}:
-#'  Returns a \code{list} with names of the flat parameters and parameter arrays.}
+#'  Returns a named \code{list} of \code{character} vectors with names of the flat parameters in each array.}
 #' }
 #' 
 #' @keywords internal
@@ -62,11 +61,6 @@ ListOfCharArrays <- function(x) {
 #' showClass("McmcdbParameters")
 NULL
 setClass("McmcdbParameters", "ListOfCharArrays")
-
-#' @rdname McmcdbParameters-class
-McmcdbParameters <- function(x) {
-  new("McmcdbParameters", ListOfCharArrays(x))
-}
 
 setValidity("McmcdbParameters",
             function(object) {

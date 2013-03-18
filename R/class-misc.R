@@ -4,10 +4,12 @@
 #' @exportClass McmcdbIters
 #' @exportClass McmcdbFlatparChains
 #' @exportClass McmcdbFlatparChainsOrNull
+#' @exportClass McmcdbFlatpars
 #' @export McmcdbSamples
 #' @export McmcdbChains
 #' @export McmcdbIters
 #' @export McmcdbFlatparChains
+#' @export McmcdbFlatpars
 NULL
 
 #' Miscellaneous classes
@@ -60,3 +62,17 @@ McmcdbFlatparChains <-
                            chain_id="integer"))
 
 setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
+
+McmcdbFlatpars <-
+  constrained_data_frame("McmcdbFlatpars",
+                         columns
+                         = c(idx = "character",
+                           flatpar = "character",
+                           pararray = "character"),
+                         constraints =
+                         list(function(x) {
+                           if (nrow(x)) {
+                             all(str_matchl(x$idx, "^\\d+(,\\d)*$"))
+                           }
+                         }))
+                         

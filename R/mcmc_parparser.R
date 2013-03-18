@@ -27,47 +27,45 @@ NULL
 #' }
 #'
 #' @param x \code{character} vector with flat parameter names.
-#' @return Object of class \code{McmcdbParameters}
+#' @return Object of class \code{McmcdbFlatpars}
 #'
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_scalar
-#' @seealso \code{\link{mcmc_parse_parnames}} which takes these functions an argument.
 #' @examples
-#' mcmc_parparser_bugs(c("beta[1]", "beta[2]"))
-#' mcmc_parparser_stan(c("beta.1", "beta.2"))
-#' mcmc_parparser_scalar(c("beta[1]", "beta[2]"))
+#' mcmc_parparser_bugs(c("beta[1,1]", "beta[1,2]"))
+#' mcmc_parparser_stan(c("beta.1.1", "beta.1.2"))
+#' mcmc_parparser_guess(c("beta[1,1]", "beta[1,2]"))
+#' mcmc_parparser_guess(c("beta.1.1", "beta.1.2"))
+#' mcmc_parparser_scalar(c("beta[1,1]", "beta[1,2]"))
 mcmc_parparser_scalar <- function(x) {
-  ret <- mapply(function(pararray, index)
-                McmcdbFlatpar(pararray=pararray, index=index),
-         x, 1, SIMPLIFY=FALSE)
-  names(ret) <- x
-  McmcdbFlatparList(ret)
+  McmcdbFlatpars(data.frame(flatpar = x,
+                            pararray = x,
+                            idx = as.character("1"),
+                            stringsAsFactors = FALSE))
 }
+
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_stan
 mcmc_parparser_stan <- function(x) {
-  x2 <- str_split_fixed(x, fixed("."), 2)
-  indices <- llply(str_split(x2[ , 2], fixed(".")),
-                   function(x) ifelse(x == "", 1, as.integer(x)))
-  ret <- mapply(function(pararray, index)
-                McmcdbFlatpar(pararray=pararray, index=index),
-                x2[ , 1], indices, SIMPLIFY=FALSE)
-  names(ret) <- x
-  McmcdbFlatparList(ret)
+  x_split <- data.frame(str_split_fixed(x, fixed("."), 2),
+                        stringsAsFactors = FALSE)
+  names(x_split) <- c("pararray", "idx")
+  x_split$idx[x_split$idx == ""] <- "1"
+  x_split$idx <- gsub("\\.", ",", x_split$idx)
+  x_split$flatpar <- x
+  McmcdbFlatpars(x_split[ , c("flatpar", "pararray", "idx")])
 }
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_bugs
 mcmc_parparser_bugs <- function(x) {
-  x2 <- str_match(x, "([^\\[]+)(\\[([0-9,]+)\\])?")[ , c(2, 4)]
-  indices <- llply(str_split(x2[ , 2], fixed(",")),
-                   function(x) ifelse(x == "", 1, as.integer(x)))
-  ret <- mapply(function(pararray, index)
-                McmcdbFlatpar(pararray=pararray, index=index),
-                x2[ , 1], indices, SIMPLIFY=FALSE)
-  names(ret) <- x
-  McmcdbFlatparList(ret)
+  regexp <- "([^\\[]+)(\\[([0-9,]+)\\])?"
+  x_split <- data.frame(str_match(x, regexp)[ , c(1, 2, 4)],
+                        stringsAsFactors = FALSE)
+  names(x_split) <- c("flatpar", "pararray", "idx")
+  x_split$idx[x_split$idx == ""] <- "1"
+  McmcdbFlatpars(x_split)
 }
 
 #' @rdname mcmc_parparsers
@@ -80,41 +78,4 @@ mcmc_parparser_guess <- function(x) {
   } else {
     mcmc_parparser_scalar(x)
   }
-}
-
-
-#' Create McmcdbPararrayList from McmcdbFlatparList
-#'
-#' @param x \linkS4class{McmcdbFlatparList}
-#' @return Object of class \linkS4class{McmcdbPararrayList}
-#' @keywords internal
-create_pararrays <- function(x) {
-  xpars <- sapply(x, slot, "pararray")
-  pararrays <- unique(xpars)
-  pardims <-
-    lapply(pararrays,
-           function(i) {
-             apply(do.call(rbind, lapply(x[xpars == i], slot, "index")),
-                   2, max)
-           })
-  flatpars <- lapply(pararrays, function(i) names(xpars)[xpars == i])
-  ret <- McmcdbPararrayList(mapply(function(x, y) {
-    McmcdbPararray(dim = x, flatpars = y)
-  }, pardims,  flatpars))
-  names(ret) <- pararrays
-  ret
-}
-
-#' Create McmcdbParameter object from MCMC parameter names
-#'
-#' @param x \code{character} vector of parameter names
-#' @param parser \code{function} parse \code{x} into \linkS4class{McmcdbFlatparList}.
-#' @return Object of class \linkS4class{McmcdbParameters}
-#' @examples
-#' mcmc_parse_parnames(c("beta[1]", "beta[2]"))
-#' mcmc_parse_parnames(c("beta.1", "beta.2"), mcmc_parparser_stan)
-mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
-  flatpars <- parser(x)
-  pararrays <- create_pararrays(flatpars)
-  McmcdbParameters(flatpars = flatpars, pararrays = pararrays)
 }

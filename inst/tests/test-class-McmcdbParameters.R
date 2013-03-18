@@ -29,13 +29,14 @@ test_that("McmcdbParameters thows error if missing names", {
   expect_error(validObject(foo), "invalid class")
 })
 
-########3
+######## methods
 
 foo <- McmcdbParameters(list(alpha=array(
                                c("alpha.1.1", "alpha.2.1",
                                  "alpha.1.2", "alpha.2.2"),
                                c(2L, 2L)),
                              beta = "beta"))
+
 test_that("dim,McmcdbParameters works as expected", {
   expect_equal(dim(foo),
                list(alpha = c(2L, 2L), beta = 1L))
