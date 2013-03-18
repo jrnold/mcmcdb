@@ -1,10 +1,9 @@
 #' @include utilities.R
-#' @include class-McmcdbParameters.R
+#' @include class-misc.R
 #' @export mcmc_parparser_bugs
 #' @export mcmc_parparser_stan
 #' @export mcmc_parparser_scalar
 #' @export mcmc_parparser_guess
-#' @export mcmc_parse_parnames
 NULL
 
 #' Parse MCMC parameter names

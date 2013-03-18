@@ -1,6 +1,4 @@
 #' @include package.R
-#' @include class-McmcdbPararray.R
-#' @include class-McmcdbFlatpar.R
 #' @include class-misc.R
 #' @exportClass McmcdbParameters
 #' @export McmcdbParameters
@@ -69,7 +67,7 @@ setValidity("McmcdbParameters",
                     any(sapply(object@names, `==`, ""))) {
                   return("No names can be missing")
                 }
-                if (any(sapply(object, is.na))) {
+                if (any(unlist(lapply(object, is.na)))) {
                   return("No array elements can be missing")
                 }
               }

@@ -22,7 +22,7 @@
   names.}
 }
 \value{
-  Object of class \code{McmcdbFlatparList}
+  Object of class \code{McmcdbFlatpars}
 }
 \description{
   Functions that parse a vector of flat parameter names and
@@ -45,12 +45,10 @@
   format of the parameters} }
 }
 \examples{
-mcmc_parparser_bugs(c("beta[1]", "beta[2]"))
-mcmc_parparser_stan(c("beta.1", "beta.2"))
-mcmc_parparser_scalar(c("beta[1]", "beta[2]"))
-}
-\seealso{
-  \code{\link{mcmc_parse_parnames}} which takes these
-  functions an argument.
+mcmc_parparser_bugs(c("beta[1,1]", "beta[1,2]"))
+mcmc_parparser_stan(c("beta.1.1", "beta.1.2"))
+mcmc_parparser_guess(c("beta[1,1]", "beta[1,2]"))
+mcmc_parparser_guess(c("beta.1.1", "beta.1.2"))
+mcmc_parparser_scalar(c("beta[1,1]", "beta[1,2]"))
 }
 

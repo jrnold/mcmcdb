@@ -1,8 +1,5 @@
 context("mcmc_parnames")
 
-parameters <- mcmc_parse_parnames(c("alpha", "beta.1", "beta.2"),
-                                    mcmc_parparser_stan)
-
 test_that("mcmc_parnames_stan_idx works as expected", {
   expect_equal(mcmc_parnames_stan_idx("alpha", 1L, 1L), "alpha")
   expect_equal(mcmc_parnames_stan_idx("alpha", 1L, 2L), "alpha.1")

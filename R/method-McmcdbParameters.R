@@ -1,11 +1,11 @@
-#' @include class-McmcdbParameters
-#' @include mcmc_parparsers
+#' @include class-McmcdbParameters.R
+#' @include mcmc_parparser.R
 #' @exportMethod McmcdbParameters
 NULL
 
 # Data frame should have columns idx, flatpar
 # x$idx should be comma separated indices
-pararray_from_df <- function(x) {
+pararrays_from_df <- function(x) {
   idx <- do.call(rbind,
                  llply(str_split(x$idx, fixed(",")),
                        as.integer))
@@ -23,15 +23,15 @@ pararray_from_df <- function(x) {
 #' @description Functions to create \code{\linkS4class{McmcdbParameters}}
 #' objects.
 #'
-#' @param data
-#' @parser A function that returns an object of \code{\linkS4class{McmcdbFlatpars}}. For example, \code{\link{mcmc_parparser_stan}} or \code{\link{mcmc_parparser_guess}}.
+#' @param x object
+#' @param parser A function that returns an object of \code{\linkS4class{McmcdbFlatpars}}. For example, \code{\link{mcmc_parparser_stan}} or \code{\link{mcmc_parparser_guess}}.
 #' @examples
 #' McmdbParameters(c("alpha", "beta.1", "beta.2"))
 #' McmdbParameters(c("alpha", "beta[1]", "beta[2]"),
 #'                 parser = mcmc_parparser_bugs)
 NULL
 setGeneric("McmcdbParameters",
-           function(x, ....) {
+           function(x, ...) {
              standardGeneric("McmcdbParameters")
            })
 
@@ -62,8 +62,15 @@ setMethod("McmcdbParameters", "list",
           })
 
 #' @rdname McmcdbParameters-methods
-#' @rdname McmcdbParameters-
+#' @rdname McmcdbParameters,ListOfCharArrays-method
 setMethod("McmcdbParameters", "ListOfCharArrays",
           function(x) {
             new("McmcdbParameters", x)
+          })
+
+#' @rdname McmcdbParameters-methods
+#' @rdname McmcdbParameters,missing-method
+setMethod("McmcdbParameters", "missing",
+          function(x) {
+            new("McmcdbParameters")
           })

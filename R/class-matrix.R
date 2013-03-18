@@ -1,3 +1,6 @@
+#' @include package.R
+NULL
+
 ## subclasses of matrix that restrict to a given type
 NumericMatrix <- setClass("NumericMatrix", "matrix")
 
