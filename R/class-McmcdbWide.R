@@ -106,18 +106,19 @@ validate.McmcdbWide <- function(object) {
 
 setValidity("McmcdbWide", validate.McmcdbWide)
 
-## show.McmcdbWide <- function(object) {
-##   cat(sprintf("An object of class %s\n", dQuote("McmcdbWide")))
-##   nsamples <- nrow(object@samples)
-##   nchains <- nrow(object@chains)
-##   cat(sprintf("%d total observations from %d chains\n",
-##               nsamples, nchains))
-##   cat(sprintf("Parameter arrays:\n"))
-##   for (i in names(object@parameters@pararrays)) {
-##     cat(sprintf("$ %s [%s]\n", i, 
-##                 paste(object@parameters@pararrays[[i]]@dim, collapse=",")))
-##   }
-## }
+show.McmcdbWide <- function(object) {
+  cat(sprintf("An object of class %s\n", dQuote("McmcdbWide")))
+  nsamples <- nrow(object@samples)
+  nchains <- nrow(object@chains)
+  cat(sprintf("%d total observations from %d chain%s\n",
+              nsamples, nchains,
+              if (nchains > 1) "s" else ""))
+  cat("Parameters:\n")
+  parameters <- object@parameters
+  for (i in seq_along(parameters)) {
+    cat(sprintf("$ %s [%s]\n",
+                names(parameters)[i], paste(dim(parameters[[i]]), collapse=",")))
+  }
+}
 
-## setMethod("show", "McmcdbWide", show.McmcdbWide)
-
+setMethod("show", "McmcdbWide", show.McmcdbWide)
