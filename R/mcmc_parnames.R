@@ -1,4 +1,6 @@
 #' @include package.R
+#' @export mcmc_parnames_stan
+#' @export mcmc_parnames_bugs
 NULL
 
 #' Create BUGS/Stan parameter names
@@ -12,21 +14,20 @@ NULL
 #' }
 #'
 #' @param x \code{character} Parameter name.
-#' @param dim \code{integer} Dimension of the array.
+#' @param d \code{integer} Dimension of the array.
 #' @return \code{character} vector of flat parameter names.
 #'
 #' @rdname mcmc_create_parnames
 #' @aliases mcmc_create_parnames_stan
-#' @export
 #' @examples
 #' mcmc_parnames_bugs("alpha", c(1, 2))
 #' mcmc_parnames_stan("alpha", c(1, 2))
-mcmc_parnames_stan <- function(x, dim) {
-  apply(expand_grid_dim(dim), 1, function(i) mcmc_parnames_stan_idx(x, i, dim))
+mcmc_parnames_stan <- function(x, d) {
+  apply(expand_grid_dim(d), 1, function(i) mcmc_parnames_stan_idx(x, i, d))
 }
 
-mcmc_parnames_stan_idx <- function(x, idx, dim) {
-  if (identical(as.integer(dim), 1L)) {
+mcmc_parnames_stan_idx <- function(x, idx, d) {
+  if (identical(as.integer(d), 1L)) {
     x
   } else {
     paste(x, paste(idx, collapse="."), sep=".")
@@ -35,13 +36,12 @@ mcmc_parnames_stan_idx <- function(x, idx, dim) {
 
 #' @rdname mcmc_create_parnames
 #' @aliases mcmc_create_parnames_bugs
-#' @export
-mcmc_parnames_bugs <- function(x, dim) {
-  apply(expand_grid_dim(dim), 1, function(i) mcmc_parnames_bugs_idx(x, i, dim))
+mcmc_parnames_bugs <- function(x, d) {
+  apply(expand_grid_dim(d), 1, function(i) mcmc_parnames_bugs_idx(x, i, d))
 }
 
-mcmc_parnames_bugs_idx <- function(x, idx, dim) {
-  if (identical(as.integer(dim), 1L)) {
+mcmc_parnames_bugs_idx <- function(x, idx, d) {
+  if (identical(as.integer(d), 1L)) {
     x
   } else {
     paste0(x, "[", paste(idx, collapse=","), "]")

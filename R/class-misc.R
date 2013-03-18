@@ -1,3 +1,15 @@
+#' @include package.R
+#' @exportClass McmcdbSamples
+#' @exportClass McmcdbChains
+#' @exportClass McmcdbIters
+#' @exportClass McmcdbFlatparChains
+#' @exportClass McmcdbFlatparChainsOrNull
+#' @export McmcdbSamples
+#' @export McmcdbChains
+#' @export McmcdbIters
+#' @export McmcdbFlatparChains
+NULL
+
 #' Miscellaneous classes
 #'
 #' Various classes used internally in this package.
@@ -25,9 +37,6 @@
 #' showClass("McmcdbFlatparChains")
 NULL
 
-#' @exportClass McmcdbSamples
-#' @export McmcdbSamples
-NULL
 McmcdbSamples <- 
   constrained_data_frame("McmcdbSamples",
                          columns=c(flatpar="factor",
@@ -35,35 +44,19 @@ McmcdbSamples <-
                            iter="integer",
                            val="numeric"))
 
-# -----------------------
-
-#' @exportClass McmcdbChains
-#' @export McmcdbChains
-NULL
 McmcdbChains <- 
   constrained_data_frame("McmcdbChains",
                          columns = c(chain_id="integer"))
 
-# -----------------------
-#' @exportClass McmcdbIters
-#' @export McmcdbIters
-NULL
+
 McmcdbIters <- 
   constrained_data_frame("McmcdbIters",
                          columns = c(chain_id="integer",
                            iter="integer"))
 
-# ----------------------
-
-#' @exportClass McmcdbFlatparChains
-#' @export McmcdbFlatparChains
-NULL
 McmcdbFlatparChains <- 
   constrained_data_frame("McmcdbFlatparChains",
                          columns = c(flatpar="factor",
                            chain_id="integer"))
 
-#' @exportClass McmcdbFlatparChainsOrNull
-NULL
 setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
-

@@ -25,7 +25,6 @@ Collate:
     'class-McmcdbParameters.R'
     'class-McmcdbWide.R'
     'data.R'
-    'extract.R'
     'mcmc_parnames.R'
     'mcmc_parparser.R'
     'method-mcmcdb_chains.R'
@@ -41,3 +40,4 @@ Collate:
     'method-mcmcdb_pardims.R'
     'method-mcmcdb_flatpar_chains.R'
     'method-McmcdbWide.R'
+    'method-extract.R'

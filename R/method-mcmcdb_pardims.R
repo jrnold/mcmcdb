@@ -1,5 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
+#' @exportMethod mcmcdb_pardims
 NULL
 
 #' Get parameter array dimensions
@@ -12,7 +13,7 @@ NULL
 #'
 #' @aliases mcmcdb_pardims
 #' @aliases mcmcdb_pardims-methods
-#' @export
+NULL
 setGeneric("mcmcdb_pardims",
            function(object, ...) standardGeneric("mcmcdb_pardims"))
 

@@ -1,7 +1,7 @@
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_iters
 NULL
 
-#' @export
 setGeneric("mcmcdb_iters",
            function(object, ...) {
              standardGeneric("mcmcdb_iters")

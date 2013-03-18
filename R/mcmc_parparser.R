@@ -1,5 +1,10 @@
 #' @include utilities.R
 #' @include class-McmcdbParameters.R
+#' @export mcmc_parparser_bugs
+#' @export mcmc_parparser_stan
+#' @export mcmc_parparser_scalar
+#' @export mcmc_parparser_guess
+#' @export mcmc_parse_parnames
 NULL
 
 #' Parse MCMC parameter names
@@ -27,7 +32,6 @@ NULL
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_scalar
 #' @seealso \code{\link{mcmc_parse_parnames}} which takes these functions an argument.
-#' @export
 #' @examples
 #' mcmc_parparser_bugs(c("beta[1]", "beta[2]"))
 #' mcmc_parparser_stan(c("beta.1", "beta.2"))
@@ -42,7 +46,6 @@ mcmc_parparser_scalar <- function(x) {
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_stan
-#' @export
 mcmc_parparser_stan <- function(x) {
   x2 <- str_split_fixed(x, fixed("."), 2)
   indices <- llply(str_split(x2[ , 2], fixed(".")),
@@ -56,7 +59,6 @@ mcmc_parparser_stan <- function(x) {
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_bugs
-#' @export
 mcmc_parparser_bugs <- function(x) {
   x2 <- str_match(x, "([^\\[]+)(\\[([0-9,]+)\\])?")[ , c(2, 4)]
   indices <- llply(str_split(x2[ , 2], fixed(",")),
@@ -70,7 +72,6 @@ mcmc_parparser_bugs <- function(x) {
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_guess
-#' @export
 mcmc_parparser_guess <- function(x) {
   if (all(valid_mcmc_parnames(x, "stan"))) {
     mcmc_parparser_stan(x)
@@ -112,10 +113,8 @@ create_pararrays <- function(x) {
 #' @examples
 #' mcmc_parse_parnames(c("beta[1]", "beta[2]"))
 #' mcmc_parse_parnames(c("beta.1", "beta.2"), mcmc_parparser_stan)
-#' @export
 mcmc_parse_parnames <- function(x, parser = mcmc_parparser_bugs) {
   flatpars <- parser(x)
   pararrays <- create_pararrays(flatpars)
   McmcdbParameters(flatpars = flatpars, pararrays = pararrays)
 }
-

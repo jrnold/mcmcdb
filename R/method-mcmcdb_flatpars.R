@@ -1,5 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
+#' @exportMethod mcmcdb_flatpars
 NULL
 
 #' Get flat parameter names
@@ -12,7 +13,6 @@ NULL
 #' @rdname mcmcdb_flatpars-methods
 #' @aliases mcmcdb_flatpars
 #' @aliases mcmcdb_flatpars-method
-#' @export
 setGeneric("mcmcdb_flatpars",
            function(object, ...) standardGeneric("mcmcdb_flatpars"))
 

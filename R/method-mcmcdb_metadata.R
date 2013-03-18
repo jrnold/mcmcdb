@@ -1,7 +1,7 @@
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_metadata
 NULL
 
-#' @export
 setGeneric("mcmcdb_metadata",
            function(object, ...) {
              standardGeneric("mcmcdb_metadata")

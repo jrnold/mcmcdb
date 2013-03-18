@@ -1,5 +1,9 @@
 #' @include package.R
 #' @include utilities.R
+#' @exportClass McmcdbFlatpar
+#' @exportClass McmcdbFlatparList
+#' @export McmcdbFlatpar
+#' @export McmcdbFlatparList
 NULL
 
 #' McmcdbFlatpar class
@@ -17,13 +21,11 @@ NULL
 #' @aliases McmcdbFlatpar
 #' @aliases McmcdbFlatpar-class
 #' @seealso \linkS4class{McmcdbFlatparList} for a list of \code{McmcdbFlatpar} objects.
-#' @exportClass McmcdbFlatpar
-#' @export McmcdbFlatpar
 #' @examples
 #' # beta[1,1]
 #' showClass("McmcdbFlatpar")
 #' McmcdbFlatpar(pararray="beta", index=c(1L, 1L))
-NULL
+
 McmcdbFlatpar <-
   setClass("McmcdbFlatpar",
            representation(pararray = "character",
@@ -58,8 +60,6 @@ setMethod("initialize", "McmcdbFlatpar",
 #' @aliases McmcdbFlatparList
 #' @docType class
 #' @keywords internal
-#' @exportClass McmcdbFlatparList
-#' @export McmcdbFlatparList
 #' @examples
 #' showClass("McmcdbFlatparList")
 #' flatpars <-
@@ -68,6 +68,5 @@ setMethod("initialize", "McmcdbFlatpar",
 #'   }, "beta", 1:2, SIMPLIFY=FALSE),
 #'            .Names = paste0("beta[", 1:2, "]"))
 #' McmcdbFlatparList(flatpars)                         
-NULL
 McmcdbFlatparList <-
   subclass_homog_list("McmcdbFlatparList", "McmcdbFlatpar")

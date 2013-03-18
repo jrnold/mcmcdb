@@ -1,7 +1,7 @@
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_flatpar_chains
 NULL
 
-#' @export
 setGeneric("mcmcdb_flatpar_chains",
            function(object, ...) {
              standardGeneric("mcmcdb_flatpar_chains")

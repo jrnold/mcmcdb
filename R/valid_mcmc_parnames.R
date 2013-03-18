@@ -1,4 +1,5 @@
 #' @include package.R
+#' @export valid_mcmc_parnames
 NULL
 
 #' Check MCMC parameter names
@@ -12,7 +13,6 @@ NULL
 #' @return \code{logical} vector of same length as \code{x} with the validity of each
 #' flat parameter name.
 #' @rdname valid_mcmc_parnames
-#' @export
 #' @examples
 #' valid_mcmc_parnames("beta[1]")
 #' valid_mcmc_parnames("beta[1]", "stan")

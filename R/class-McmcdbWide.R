@@ -3,6 +3,7 @@
 #' @include class-misc.R
 #' @include class-matrix.R
 #' @include class-McmcdbParameters.R
+#' @exportClass McmcdbWide
 NULL
 
 #' MCMC Samples in wide-format
@@ -24,7 +25,6 @@ NULL
 #' 
 #' @name McmcdbWide-class
 #' @rdname McmcdbWide-class
-#' @export
 #' @aliases McmcdbWide-class
 #' @docType class
 #' @family McmcdbWide methods

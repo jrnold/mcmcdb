@@ -1,5 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
+#' @exportMethod mcmcdb_pararrays
 NULL
 
 #' Get parameter array names
@@ -12,7 +13,7 @@ NULL
 #'
 #' @aliases mcmcdb_pararrays
 #' @aliases mcmcdb_pararrays-methods
-#' @export
+NULL
 setGeneric("mcmcdb_pararrays",
            function(object, ...) standardGeneric("mcmcdb_pararrays"))
 

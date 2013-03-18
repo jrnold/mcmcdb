@@ -1,9 +1,9 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_parameters
 NULL
 
-#' @export
 setGeneric("mcmcdb_parameters",
           function(object, ...) {
             standardGeneric("mcmcdb_parameters")

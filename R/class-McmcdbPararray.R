@@ -1,3 +1,11 @@
+#' @include package.R
+#' @exportClass McmcdbPararray
+#' @exportClass McmcdbPararrayList
+#' @export McmcdbPararray
+#' @export McmcdbPararrayList
+NULL
+
+
 #' McmcdbPararray Class
 #'
 #' An S4 class containing metadata for an MCMC parameter array:
@@ -13,8 +21,6 @@
 #' @aliases McmcdbPararray-class
 #' @aliases McmcdbPararray
 #' @keywords internal
-#' @exportClass McmcdbPararray
-#' @export McmcdbPararray
 #' @examples
 #' showClass("McmcdbPararray")
 #' McmcdbPararray(flatpars=paste0("beta[", 1:2L, "]"), dim=2L)
@@ -63,8 +69,6 @@ setMethod("initialize", "McmcdbPararray",
 #' @aliases McmcdbPararrayList
 #' @keywords internal
 #' @seealso \code{\link{McmcdbPararray}}
-#' @exportClass McmcdbPararrayList
-#' @export McmcdbPararrayList
 #' @examples
 #' showClass("McmcdbPararrayList")
 #' mcmcpararrays <-

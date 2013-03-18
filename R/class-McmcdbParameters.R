@@ -2,6 +2,10 @@
 #' @include class-McmcdbPararray.R
 #' @include class-McmcdbFlatpar.R
 #' @include class-misc.R
+#' @exportClass McmcdbParameters
+#' @export McmcdbParameters
+#' @exportMethod dim
+#' @exportMethod dimnames
 NULL
 
 #' McmcdbParameters Class
@@ -37,8 +41,6 @@ NULL
 #' @aliases dimnames,McmcdbParameters-method
 #' @keywords internal
 #' @seealso \code{\link{mcmc_parse_parnames}}
-#' @exportClass McmcdbParameters
-#' @export McmcdbParameters
 #' @family McmcdbParameters methods
 #' @examples
 #' showClass("McmcdbParameters")

@@ -3,6 +3,9 @@
 \alias{McmcdbFlatparList}
 \alias{McmcdbFlatparList-class}
 \title{McmcdbFlatparList class}
+\usage{
+  McmcdbFlatparList(...)
+}
 \description{
   A list of \linkS4class{McmcdbFlatpar} objects.
 }

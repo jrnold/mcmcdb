@@ -1,6 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_unflatten
 NULL
 
 #' Unflatten MCMC parameters
@@ -16,7 +17,6 @@ NULL
 #' @name mcmcdb_unflatten-method
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten
-#' @export
 setGeneric("mcmcdb_unflatten",
            function(x, parameters, ...) {
            standardGeneric("mcmcdb_unflatten")
@@ -26,10 +26,10 @@ setGeneric("mcmcdb_unflatten",
 mcmcdb_unflatten.numeric.McmcdbParameters <- function(x, parameters, pararrays=NULL) {
   if (is.null(pararrays)) {
     flatpars <- mcmcdb_flatpars(parameters)
-    if (any(! colnames(x)  %in% names(flatpars))) {
+    if (any(!names(x)  %in% names(flatpars))) {
       warning("Some columns of x not it parameters")
     }
-    pararrays <- unname(unique(flatpars[intersect(names(flatpars), colnames(x))]))
+    pararrays <- unname(unique(flatpars[intersect(names(flatpars), names(x))]))
   }
   llply(parameters@pararrays[pararrays],
         function(pa, x) {

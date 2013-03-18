@@ -1,3 +1,8 @@
+#' @include package.R
+#' @include class-McmcdbWide.R
+#' @exportMethod McmcdbWide
+NULL
+
 #' Create McmcdbWide objects
 #'
 #' Methods to create \linkS4class{McmcdbWide} objects.
@@ -15,7 +20,7 @@
 #' @name McmcdbWide-method
 #' @rdname McmcdbWide-method
 #' @aliases McmcdbWide-method
-#' @export
+NULL
 setGeneric("McmcdbWide",
            function(x, ...) {
              standardGeneric("McmcdbWide")

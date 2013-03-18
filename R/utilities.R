@@ -1,3 +1,6 @@
+#' @include package.R
+NULL
+
 #' Generate indices for all dimensions
 #'
 #' Create matrix if all indices for a given

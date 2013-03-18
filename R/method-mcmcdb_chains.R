@@ -1,7 +1,7 @@
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_chains
 NULL
 
-#' @export
 setGeneric("mcmcdb_chains",
            function(object, ...) {
              standardGeneric("mcmcdb_chains")

@@ -1,5 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
+#' @exportMethod mcmcdb_par_indices
 NULL
 
 #' Get parameter indices
@@ -15,7 +16,7 @@ NULL
 #' @name mcmcdb_par_indices-methods
 #' @aliases mcmcdb_par_indices
 #' @aliases mcmcdb_par_indices-methods
-#' @export
+NULL
 setGeneric("mcmcdb_par_indices",
            function(object, ...) standardGeneric("mcmcdb_par_indices"))
 
