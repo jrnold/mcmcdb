@@ -6,11 +6,11 @@ colnames(samples) <- parnames
 chains <- McmcdbChains(data.frame(chain_id = 1:2,
                                 niter = 4L,
                                 thin=1L, start=1L, end=4L))
-parameters <- mcmc_parse_parnames(parnames)
 iters <- McmcdbIters(data.frame(chain_id = rep(1:2, each=4),
                               iter = rep(1:4, 2)))
-
-flatpar_chains <- McmcdbFlatparChains(expand.grid(flatpar = names(parameters@flatpars),
-                                       chain_id = 1:2))
+parameters <- McmcdbParameters(parnames)
+flatpar_chains <-
+  McmcdbFlatparChains(expand.grid(flatpar = names(mcmcdb_flatpars(parameters)),
+                                  chain_id = 1:2))
 metadata <- list()
 

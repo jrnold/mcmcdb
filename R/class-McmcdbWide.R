@@ -1,0 +1,122 @@
+#' @include package.R
+#' @include utilities.R
+#' @include class-misc.R
+#' @include class-matrix.R
+#' @include class-McmcdbParameters.R
+#' @exportClass McmcdbWide
+NULL
+
+setClassUnion("listOrNULL", c("namedList", "NULL"))
+setClassUnion("numericOrNULL", c("numeric", "NULL"))
+
+#' MCMC Samples in wide-format
+#'
+#' Mcmc samples stored as a matrix with (number of chains x number of
+#' iterations) rows and (number of flat parameters) columns.
+#' 
+#' @section Slots:
+#'
+#' \describe{
+#' \item{\code{samples}}{\code{matrix} containing the sample parameter values. This matrix has (number of chains * iterations) rows, and )number of flat parameters) columns.}
+#' \item{\code{parameters}}{\linkS4class{McmcdbParameters}.}
+#' \item{\code{chains}}{\linkS4class{McmcdbChains}.}
+#' \item{\code{iters}}{\linkS4class{McmcdbIters}.}
+#' \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
+#' \item{\code{metadata}}{\code{list} with metadata about the samples.}
+#' \item{\code{model_data}}{\code{listOrNULL}. A \code{list} with the data used in the model. If the data is not included, then \code{NULL}.}
+#' \item{\code{parinit}}{\code{numericOrNULL}. A named \code{numeric} vector of the parameter starting values in the model.}
+#' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
+#' }
+#' 
+#' @name McmcdbWide-class
+#' @rdname McmcdbWide-class
+#' @aliases McmcdbWide-class
+#' @docType class
+#' @family McmcdbWide methods
+#' @seealso \code{\link{McmcdbWide}} for the method usually used to create these objects.
+#' @examples
+#' showClass("McmcdbWide")
+#' 
+#' # Example included in the package
+#' data("line_mcmcdbwide")
+#' print(line_mcmcdbwide)
+#' 
+#' # access data
+#' mcmcdb_chains(line_mcmcdbwide)
+#' mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
+#'
+#' mcmcdb_parameters(line_mcmcdbwide)
+#' mcmcdb_pardims(line_mcmcdbwide)
+#' mcmcdb_pararrays(line_mcmcdbwide)
+#' mcmcdb_flatpars(line_mcmcdbwide)
+#' mcmcdb_par_indices(line_mcmcdbwide)
+#' 
+#' mcmcdb_iters(line_mcmcdbwide)
+#' mcmcdb_flatpar_chains(line_mcmcdbwide)
+#' mcmcdb_metadata(line_mcmcdbwide)
+setClass("McmcdbWide",
+         representation(samples="matrix",
+                        parameters="McmcdbParameters",
+                        chains="McmcdbChains", # chain_id
+                        iters="McmcdbIters", # chain_id, iter
+                        flatpar_chains="McmcdbFlatparChainsOrNull", # parname, chain_id
+                        metadata="list",
+                        version="character",
+                        parinit="numericOrNULL",
+                        model_data="listOrNULL"),
+         prototype(samples = matrix(),
+                   parameters = McmcdbParameters(),
+                   chains = McmcdbChains(),
+                   iters = McmcdbIters(),
+                   metadata = list(),
+                   version = VERSION,
+                   parinit = NULL,
+                   model_data = NULL))
+
+validate.McmcdbWide <- function(object) {
+  nsamples <- nrow(object@samples)
+  parameters <- colnames(samples)
+  chain_ids <- unique(object@chains$chain_id)
+  
+  if (nsamples != nrow(object@iters)) {
+    return("nrow(object@iters) != nrow(object@samples))")
+  }
+  if (!setequal(parameters, names(mcmcdb_flatpars(object@parameters)))) {
+    return("colnames of samples do not match paramters")
+  }
+  if (!setequal(chain_ids, unique(iters$chain_id))) {
+    return("iters$chain_id does not match chains$chain_id values")
+  }
+  if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
+    return("flatpar_chains$chain_id does not match chains$chain_id values")
+  }
+  if (!is.null(object@flatpar_chains)) {
+    if (!setequal(unique(object@flatpar_chains$flatpar), parameters)) {
+      return("flatpar_chains$flatpar does not match parameters")
+    }
+  }
+  if (!is.null(object@parinit)) {
+    if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
+      return("parinit names do not match parameters")
+    }
+  }
+  TRUE
+}
+
+setValidity("McmcdbWide", validate.McmcdbWide)
+
+## show.McmcdbWide <- function(object) {
+##   cat(sprintf("An object of class %s\n", dQuote("McmcdbWide")))
+##   nsamples <- nrow(object@samples)
+##   nchains <- nrow(object@chains)
+##   cat(sprintf("%d total observations from %d chains\n",
+##               nsamples, nchains))
+##   cat(sprintf("Parameter arrays:\n"))
+##   for (i in names(object@parameters@pararrays)) {
+##     cat(sprintf("$ %s [%s]\n", i, 
+##                 paste(object@parameters@pararrays[[i]]@dim, collapse=",")))
+##   }
+## }
+
+## setMethod("show", "McmcdbWide", show.McmcdbWide)
+
