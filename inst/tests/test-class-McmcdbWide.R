@@ -64,7 +64,22 @@ test_that("McmcdbWide error if flatpar_chains has bad chain_id values", {
 })
 
 test_that("McmcdbWide works with non-NULL parinit", {
-  
+  parinit <- c(beta.1 = 0, beta.2 = 0)
+  expect_is(new("McmcdbWide",
+                samples = samples, parameters = parameters,
+                chains = chains, iters = iters,
+                parinit = parinit),
+            "McmcdbWide")
 })
+
+test_that("McmcdbWide throws error if bad parinit names", {
+  parinit <- c(alpha = 0, beta.2 = 0)
+  expect_error(new("McmcdbWide",
+                   samples = samples, parameters = parameters,
+                   chains = chains, iters = iters,
+                   parinit = parinit),
+               "invalid class")
+})
+
 
 

@@ -97,7 +97,7 @@ validate.McmcdbWide <- function(object) {
     }
   }
   if (!is.null(object@parinit)) {
-    if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
+    if (!setequal(names(object@parinit), parameters)) {
       return("parinit names do not match parameters")
     }
   }
