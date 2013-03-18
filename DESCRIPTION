@@ -11,7 +11,7 @@ Imports:
     stringr,
     plyr,
     reshape2,
-    DataFrameConstr (>= 1.0.0)
+    DataFrameConstr (>= 1.1.0)
 Suggests:
     testthat,
     roxygen2,

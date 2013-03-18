@@ -8,6 +8,18 @@
 #' @exportMethod dimnames
 NULL
 
+CharacterArray <- setClass("CharacterArray", "array")
+
+setValidity("CharacterArray",
+            function(object) {
+              if (!is.character(object)) {
+                return("object is not a character vector.")
+              }
+              TRUE
+            })
+
+ListOfCharArrays <- subclass_homog_list("ListOfCharArrays", "CharacterArray")
+
 #' McmcdbParameters Class
 #'
 #' Metadata about MCMC parameters, including the names
@@ -45,9 +57,9 @@ NULL
 #' @examples
 #' showClass("McmcdbParameters")
 McmcdbParameters <-
-  setClass("McmcdbParameters",
-           representation(flatpars = "McmcdbFlatparList",
-                          pararrays = "McmcdbPararrayList"))
+  setClass("McmcdbParameters", 
+           representation(pararrays = "ListOfCharArrays"))
+                          
                           
 show.McmcdbParameters <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbParameters")))

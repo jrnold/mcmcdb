@@ -13,6 +13,9 @@
   \code{name} and \code{dim} and returns a vector of names
   to use.}
 }
+\value{
+  Named \code{numeric} vector
+}
 \description{
   Flatten an array of MCMC samples to a numeric vector. As
   with R, the samples are flattened in column-major order.
