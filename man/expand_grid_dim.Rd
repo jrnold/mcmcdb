@@ -2,10 +2,10 @@
 \alias{expand_grid_dim}
 \title{Generate indices for all dimensions}
 \usage{
-  expand_grid_dim(dim)
+  expand_grid_dim(d)
 }
 \arguments{
-  \item{dim}{Array dimensions}
+  \item{d}{Array dimensions}
 }
 \value{
   \code{matrix} with dimensions \code{c(prod(dim), dim)}.

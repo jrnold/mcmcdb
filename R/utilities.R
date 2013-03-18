@@ -6,9 +6,9 @@ NULL
 #' Create matrix if all indices for a given
 #' dimension vector.
 #'
-#' @param dim Array dimensions
+#' @param d Array dimensions
 #' @return \code{matrix} with dimensions \code{c(prod(dim), dim)}.
 #' @keywords internal
-expand_grid_dim <- function(dim) {
-  as.matrix(expand.grid(lapply(as.integer(dim), seq_len)))
+expand_grid_dim <- function(d) {
+  as.matrix(expand.grid(lapply(as.integer(d), seq_len)))
 }

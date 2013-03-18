@@ -1,4 +1,7 @@
 \name{mcmcdb_flatten-methods}
+\alias{mcmcdb_flatten}
+\alias{mcmcdb_flatten,array-method}
+\alias{mcmcdb_flatten,numeric-method}
 \alias{mcmcdb_flatten-methods}
 \title{Flatten Array of MCMC samples to a vector}
 \arguments{
@@ -13,5 +16,8 @@
 \description{
   Flatten an array of MCMC samples to a numeric vector. As
   with R, the samples are flattened in column-major order.
+
+  Currently these methods only handle objects representing
+  a single iteration.
 }
 
