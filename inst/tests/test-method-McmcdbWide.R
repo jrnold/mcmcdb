@@ -1,5 +1,6 @@
 context("method-McmcdbWide")
 source("data-samples.R")
+load("../line/line_mcmc_list.Rdata")
 
 test_that("McmcdbWide,matrix #1", {
   expect_is(McmcdbWide(samples, parameters = parameters, chains = chains, iters = iters),
@@ -40,5 +41,15 @@ test_that("McmcdbWide,data.frame works", {
   expect_is(McmcdbWide(as.data.frame(samples)), "McmcdbWide")
 })
 
+context("McmcdbWide,mcmc.list works", {
+  foo <- McmcdbWide(line_mcmc_list)
+  expect_is(foo, "McmcdbWide")
+  expect_equal(nrow(foo@samples), sum(sapply(line_mcmc_list, nrow)))
+})
 
+context("McmcdbWide,mcmc works", {
+  foo <- McmcdbWide(line_mcmc_list[[1]])
+  expect_is(foo, "McmcdbWide")
+  expect_equal(nrow(foo@samples), nrow(line_mcmc_list[[1]]))
+})
 

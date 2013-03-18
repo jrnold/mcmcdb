@@ -62,14 +62,15 @@ setMethod("McmcdbWide", "data.frame",
 
 McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
   mcpar <- attr(x, "mcpar")
-  chains <- data.frame(chain_id = 1L,
-                       n_iter = nrow(x),
-                       iter_start = mcpar[1],
-                       iter_end = mcpar[2],
-                       iter_thin = mcpar[3])
-  iters <- data.frame(chain_id = 1L,
-                      iter = seq_len(nrow(x)))
-  McmcdbWide(do.call(rbind, x), parameters = parameters,
+  chains <- McmcdbChains(data.frame(chain_id = 1L,
+                                    n_iter = nrow(x),
+                                    iter_start = mcpar[1],
+                                    iter_end = mcpar[2],
+                                    iter_thin = mcpar[3]))
+  iters <- McmcdbIters(data.frame(chain_id = 1L,
+                                  iter = seq_len(nrow(x))))
+  McmcdbWide(as(x, "matrix"),
+             parameters = parameters,
              chains = chains, iters = iters)
 }
 
@@ -79,18 +80,21 @@ McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
 setMethod("McmcdbWide", "mcmc", McmcdbWide.mcmc)
 
 McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
-  chains <- ldply(seq_along(x), 
-                  function(i) {
-                    mcpar <- attr(x[[i]], "mcpar")
-                    data.frame(chain_id = i,
-                               n_iter = nrow(x[[i]]),
-                               iter_start = mcpar[1],
-                               iter_end = mcpar[2],
-                               iter_thin = mcpar[3])
-                  })
-  iters <- ddply(chains, "chain_id",
-                 function(x) data.frame(iter = seq_len(x[["n_iter"]])))
-  McmcdbWide(as.matrix(do.call(rbind, x)), parameters = parameters,
+  chains <-
+    McmcdbChains(ldply(seq_along(x), 
+                      function(i) {
+                        mcpar <- attr(x[[i]], "mcpar")
+                        data.frame(chain_id = i,
+                                   n_iter = nrow(x[[i]]),
+                                   iter_start = mcpar[1],
+                                   iter_end = mcpar[2],
+                                   iter_thin = mcpar[3])
+                      }))
+  iters <-
+    McmcdbIters(ddply(chains, "chain_id",
+                      function(x) data.frame(iter = seq_len(x[["n_iter"]]))))
+  McmcdbWide(do.call(rbind, x),
+             parameters = parameters,
              chains = chains, iters = iters)
 }
 
