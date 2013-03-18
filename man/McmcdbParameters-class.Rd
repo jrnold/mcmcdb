@@ -33,6 +33,10 @@ showClass("McmcdbParameters")
 }
 \seealso{
   \code{\link{mcmc_parse_parnames}}
+
+  Other McmcdbParameters.methods:
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}}
 }
 \keyword{internal}
 

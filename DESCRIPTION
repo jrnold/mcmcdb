@@ -29,3 +29,4 @@ Collate:
     'valid_mcmc_parnames.R'
     'gen_mcmcdb_parameters.R'
     'method-mcmcdb_flatten.R'
+    'method-mcmcdb_flatpars.R'
