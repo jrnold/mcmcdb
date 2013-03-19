@@ -11,7 +11,6 @@ NULL
 #'
 #' @param object object
 #' @return An object of class \code{\linkS4class{McmcdbParameters}}.
-NULL
 setGeneric("mcmcdb_parameters",
            function(object, ...) {
              standardGeneric("mcmcdb_parameters")

@@ -17,7 +17,6 @@ NULL
 #' @name mcmcdb_paridx-methods
 #' @aliases mcmcdb_paridx
 #' @aliases mcmcdb_paridx-methods
-NULL
 setGeneric("mcmcdb_paridx",
            function(object, ...) standardGeneric("mcmcdb_paridx"))
 

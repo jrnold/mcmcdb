@@ -20,10 +20,7 @@ NULL
 #' @param k \code{integer}. Iteration number.
 #' @param drop \code{logical}. Determines the object returned. In general, if
 #' \code{drop=TRUE}, then a vector or array is returned, otherwise a \code{data.frame} is returned.
-#' @return TODO
-NULL
-
-# if the ... is not there, k will not be treated properly
+#' @return 
 `[.McmcdbWide` <- function(x, i, j, k, ..., drop=TRUE) {
   ## flatpar indices
   if (missing(i)) {
