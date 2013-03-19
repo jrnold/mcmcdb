@@ -24,3 +24,8 @@ setGeneric("mcmcdb_pardims",
 setMethod("mcmcdb_pardims", "McmcdbParameters",
           function(object) dim(object))
 
+#' @rdname mcmcdb_pardims-methods
+#' @aliases mcmcdb_pardims,McmcdbWide-method
+#' @family McmcdbWide methods
+setMethod("mcmcdb_pardims", "McmcdbWide",
+          function(object) callGeneric(object@paramters))

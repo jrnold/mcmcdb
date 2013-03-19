@@ -38,3 +38,8 @@ mcmcdb_paridx.McmcdbParameters <- function(object) {
 setMethod("mcmcdb_paridx", "McmcdbParameters",
           mcmcdb_paridx.McmcdbParameters)
 
+#' @rdname mcmcdb_paridx-methods
+#' @aliases mcmcdb_paridx,McmcdbParameters-method
+#' @family McmcdbParameters methods
+setMethod("mcmcdb_paridx", "McmcdbParameters",
+          function(object) callGeneric(object@parameters))
