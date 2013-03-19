@@ -41,3 +41,4 @@ Collate:
     'method-mcmcdb_metadata.R'
     'method-mcmcdb_unflatten.R'
     'method-extract.R'
+    'method-mcmcdb_iply.R'

@@ -32,10 +32,14 @@
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_aply}},
+  \code{\link{mcmcdb_aply-methods}},
   \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_fply}},
+  \code{\link{mcmcdb_fply-methods}},
   \code{\link{mcmcdb_iters}},
   \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},

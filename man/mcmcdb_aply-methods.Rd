@@ -1,27 +1,32 @@
-\name{mcmcdb_chains}
-\alias{mcmcdb_chains}
-\alias{mcmcdb_chains,McmcdbWide-method}
-\title{Get Chains data from Mcmcdb object}
+\docType{methods}
+\name{mcmcdb_aply-methods}
+\alias{mcmcdb_aply}
+\alias{mcmcdb_aply,McmcdbWide-method}
+\alias{mcmcdb_aply-methods}
+\title{Apply function to each parameter array in MCMC samples}
 \arguments{
-  \item{object}{object}
+  \item{x}{Object}
 
-  \item{drop}{\code{logical} Include data related to the
-  chains or just}
+  \item{.fun}{function to apply to each flat parameter. The
+  first argument of \code{.fun} will be a \code{numeric}
+  vector repres}
+
+  \item{...}{arguments passed to \code{\link{alply}} which
+  is used internally.}
 }
 \value{
-  If \code{drop=TRUE} then \code{integer}, if
-  \code{drop=FALSE}, then
-  \code{\linkS4class{McmcdbChains}}, of the chains.
+  \code{list}
 }
 \description{
-  Get Chains data from Mcmcdb object
+  Split the MCMC samples into flat paramers, vectors of
+  length equal to the total number of iterations, and apply
+  a function to each.
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{McmcdbWide-class}}, \code{\link{[}},
   \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_aply}},
-  \code{\link{mcmcdb_aply-methods}},
+  \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
@@ -34,8 +39,5 @@
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}}
-
-  Other get-methods: \code{\link{mcmcdb_flatpar_chains}},
-  \code{\link{mcmcdb_iters}}
 }
 
