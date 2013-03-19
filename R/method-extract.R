@@ -1,5 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
+#' @include method-mcmcdb_unflatten.R
+#' @include method-mcmcdb_flatpars.R
 #' @exportMethod [
 #' @exportMethod [[
 #' @exportMethod $
@@ -7,6 +9,7 @@ NULL
 
 #' @rdname extract-methods
 #' @name extract-methods
+#' @docType methods
 #' @title Extract
 #'
 #' @description The methods \code{[}, \code{[[} and \code{$} are
@@ -19,8 +22,9 @@ NULL
 #' @param j \code{integer}. Chain number.
 #' @param k \code{integer}. Iteration number.
 #' @param drop \code{logical}. Determines the object returned. In general, if
-#' \code{drop=TRUE}, then a vector or array is returned, otherwise a \code{data.frame} is returned.
-#' @return 
+#' @return If  \code{drop=TRUE}, then a vector or array is returned, otherwise a \code{data.frame} is returned.
+NULL
+
 `[.McmcdbWide` <- function(x, i, j, k, ..., drop=TRUE) {
   ## flatpar indices
   if (missing(i)) {
@@ -62,6 +66,7 @@ NULL
 
 #' @rdname extract-methods
 #' @aliases [,McmcdbWide,ANY,ANY-method
+#' @family McmcdbWide methods
 setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
 
 ###########################################################################

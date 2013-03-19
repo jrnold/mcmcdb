@@ -17,7 +17,9 @@
   Get Chains data from Mcmcdb object
 }
 \seealso{
-  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  Other McmcdbWide methods: \code{\link{$}},
+  \code{\link{McmcdbWide-class}}, \code{\link{[}},
+  \code{\link{[[}}, \code{\link{extract-methods}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},

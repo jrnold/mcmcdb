@@ -25,7 +25,9 @@
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
   \code{\link{mcmcdb_paridx-methods}}
 
-  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  Other McmcdbWide methods: \code{\link{$}},
+  \code{\link{McmcdbWide-class}}, \code{\link{[}},
+  \code{\link{[[}}, \code{\link{extract-methods}},
   \code{\link{mcmcdb_chains}}, \code{\link{mcmcdb_iters}},
   \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},

@@ -15,20 +15,58 @@
 
   \item{parameters}{Object mapping flattened parameters to
   parameter arrays}
-
-  \item{pararrays}{\code{character} or \code{NULL}. Names
-  of parameter arrays to use. If \code{NULL}, then it will
-  use all parameter arrays that are in \code{parameters}
-  and \code{x}. Any flat parameters implied by the
-  parameter arrays in \code{paramters} which do not appear
-  in the columns of \code{x} will be set to 0 in the
-  returned arrays.}
 }
 \value{
-  Named \code{list} of parameter arrays
+  Named \code{list} of parameter arrays.
 }
 \description{
   Convert parameter values from their flattened form to
   their original array shapes.
 }
+\section{Methods}{
+  \describe{ \item{\code{signature(x = "matrix", parameters
+  = "function")}}{ Each row if the matrix represents a
+  sample interation. The returned array for a parameter
+  array with dimension \code{d} is \code{c(d, n)}, where
+  \code{n} is the number of iterations.  The function
+  \code{parameters} should return an object of class
+  \code{McmcdbFlatpars}. }
+
+  \item{\code{signature(x = "matrix", parameters =
+  "McmcdbParameters")}}{ See method for \code{signature(x =
+  "matrix", parameters = "McmcdbParameters")}. }
+
+  \item{\code{signature(x = "matrix", parameters =
+  "missing")}}{ If \code{paramters} is missing, then the
+  default for \code{\link{McmcdbParameters}} is used. }
+
+  \item{\code{signature(x = "McmcdbWide", parameters =
+  "character")}}{ The character vector \code{parameters}
+  specifies a subset of paramater arrays to return.}
+
+  \item{\code{signature(x = "McmcdbWide", parameters =
+  "missing")}}{ Uses the result of
+  \code{mcmcdb_paramters(x)} as the paramter object. }
+
+  \item{\code{signature(x = "numeric", parameters =
+  "function")}}{ The numeric vector represents a single
+  iteration. }
+
+  \item{\code{signature(x = "numeric", parameters =
+  "McmcdbParameters")}}{ See method for \code{signature(x =
+  "numeric", parameters = "function")}. }
+
+  \item{\code{signature(x = "numeric", parameters =
+  "missing")}}{ See method for \code{signature(x =
+  "numeric", parameters = "function")}. } }
+}
+\examples{
+parnames <- c("alpha", "beta.1.1", "beta.1.2", "beta.2.1", "beta.2.2")
+parameters <- McmcdbParameters(parnames)
+samples <- rnorm(length(parnames))
+names(samples) <- parnames
+samples
+mcmcdb_unflatten(samples)
+}
+\keyword{methods}
 

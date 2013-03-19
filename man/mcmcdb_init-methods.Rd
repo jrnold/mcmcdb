@@ -5,10 +5,15 @@
 \title{Get parameter initial values from a Mcmcdb object}
 \arguments{
   \item{object}{An object for which the method is defined.}
+
+  \item{flatten}{\code{logical} Whether to return the
+  parameter values in their flattened or original array
+  shapes.}
 }
 \value{
-  Named \code{numeric} vector. Names are the flat parameter
-  names, values are the parmeter initial values.
+  If \code{flattened=TRUE}, then a named \code{numeric}
+  vector. If \code{flattened=FALSE}, then a list of numeric
+  \code{array} objects.
 }
 \description{
   Get the parameter initial values used in model

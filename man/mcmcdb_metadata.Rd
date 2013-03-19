@@ -14,7 +14,9 @@
 \seealso{
   \code{\linkS4class{McmcdbWide}}
 
-  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  Other McmcdbWide methods: \code{\link{$}},
+  \code{\link{McmcdbWide-class}}, \code{\link{[}},
+  \code{\link{[[}}, \code{\link{extract-methods}},
   \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
