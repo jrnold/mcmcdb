@@ -1,8 +1,9 @@
 \docType{class}
 \name{McmcdbParameters-class}
 \alias{McmcdbParameters-class}
-\alias{dim,McmcdbParameters-method}
-\alias{dimnames,McmcdbParameters-method}
+\alias{[}
+\alias{[,McmcdbParameters,ANY,ANY-method}
+\alias{[,McmcdbParameters,missing,ANY-method}
 \title{McmcdbParameters Class}
 \description{
   Metadata about MCMC parameters, providing information
@@ -18,15 +19,6 @@
   \code{list} in which all elements must be arrays
   containing \code{character} data.}
   \item{\code{namedList}}{By \code{ListOfCharArrays}} }
-}
-\section{Methods}{
-  \describe{ \item{dim}{\code{signature(x =
-  "McmcdbParameters")}: Returns a named \code{list} of
-  \code{integer} vectors with the dimensions of each
-  parameter array.} \item{dimnames}{\code{signature(x =
-  "McmcdbParameters")}: Returns a named \code{list} of
-  \code{character} vectors with names of the flat
-  parameters in each array.} }
 }
 \examples{
 showClass("McmcdbParameters")

@@ -41,17 +41,3 @@ foo <- list(alpha=array(c("alpha.1.1", "alpha.2.1",
               c(2L, 2L)),
             beta = "beta")
 foo <- McmcdbParameters(foo)
-
-test_that("dim,McmcdbParameters works as expected", {
-  expect_equal(dim(foo),
-               list(alpha = c(2L, 2L), beta = 1L))
-})
-
-test_that("dim,McmcdbParameters works as expected", {
-  expect_equal(dimnames(foo),
-               list(alpha = c("alpha.1.1", "alpha.2.1", "alpha.1.2", "alpha.2.2"),
-                    beta = "beta"))
-})
-
-
-

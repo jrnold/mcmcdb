@@ -2,8 +2,7 @@
 #' @include class-misc.R
 #' @exportClass McmcdbParameters
 #' @export McmcdbParameters
-#' @exportMethod dim
-#' @exportMethod dimnames
+#' @exportMethod [
 NULL
 
 CharacterArray <- setClass("CharacterArray", "array")
@@ -26,8 +25,6 @@ ListOfCharArrays <- function(x) {
 #' @rdname McmcdbParameters-class
 #' @docType class
 #' @aliases McmcdbParameters-class
-#' @aliases dim,McmcdbParameters-method
-#' @aliases dimnames,McmcdbParameters-method
 #' @title McmcdbParameters Class
 #'
 #' @description Metadata about MCMC parameters, providing information about
@@ -42,14 +39,6 @@ ListOfCharArrays <- function(x) {
 #'   \item{\code{ListOfCharArrays}}{directly. A \code{list} in which all
 #'   elements must be arrays containing \code{character} data.}
 #'   \item{\code{namedList}}{By \code{ListOfCharArrays}}
-#' }
-#' 
-#' @section Methods:
-#' \describe{
-#'  \item{dim}{\code{signature(x = "McmcdbParameters")}:
-#'  Returns a named \code{list} of \code{integer} vectors with the dimensions of each parameter array.}
-#'  \item{dimnames}{\code{signature(x = "McmcdbParameters")}:
-#'  Returns a named \code{list} of \code{character} vectors with names of the flat parameters in each array.}
 #' }
 #' 
 #' @keywords internal
@@ -83,3 +72,13 @@ show.McmcdbParameters <- function(object) {
 }
 
 setMethod("show", "McmcdbParameters", show.McmcdbParameters)
+
+#' @rdname McmcdbParameters-class
+#' @aliases [,McmcdbParameters,missing,ANY-method
+setMethod("[", c(x="McmcdbParameters", i="missing"),
+          function(x, i, j, ...) x)
+
+#' @rdname McmcdbParameters-class
+#' @aliases [,McmcdbParameters,ANY,ANY-method
+setMethod("[", c(x="McmcdbParameters", i="ANY"),
+          function(x, i, j, ...) new("McmcdbParameters", as(x, "ListOfCharArrays")[i]))

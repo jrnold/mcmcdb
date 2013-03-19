@@ -1,6 +1,8 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
 #' @exportMethod [
+#' @exportMethod [[
+#' @exportMethod $
 NULL
 
 #' @rdname extract-methods
@@ -21,7 +23,8 @@ NULL
 #' @return TODO
 NULL
 
-`[.McmcdbWide` <- function(x, i, j, k, drop=TRUE) {
+# if the ... is not there, k will not be treated properly
+`[.McmcdbWide` <- function(x, i, j, k, ..., drop=TRUE) {
   ## flatpar indices
   if (missing(i)) {
     ii <- TRUE
@@ -36,21 +39,23 @@ NULL
   if (missing(j)) {
     jj <- TRUE
   } else {
-    jj <- x@iters[["chain_id"]] == j
+    jj <- (x@iters[["chain_id"]] == j)
   }
+
   if (missing(k)) {
     kk <- TRUE
   } else {
-    kk <- x@iters[["iter"]] == k
+    kk <- (x@iters[["iter"]] == k)
   }
+  iters <- jj & kk
   ## select 
-  xsub <- melt(x@samples[jj & kk, ii, drop=FALSE],
+  xsub <- melt(x@samples[iters, ii, drop=FALSE],
                varnames = c("Var1", "flatpar"),
                value.name = "val")
   if (drop) {
     xsub[["val"]]
   } else {
-    chain_iters <- as(x@iters, "data.frame")[jj & kk, , drop=FALSE]
+    chain_iters <- as(x@iters, "data.frame")[iters, , drop=FALSE]
     ## Recycles over parameters
     xsub[["iter"]] <- chain_iters[["iter"]]
     xsub[["chain_id"]] <- chain_iters[["chain_id"]]
@@ -59,8 +64,8 @@ NULL
 }
 
 #' @rdname extract-methods
-#' @aliases [,McmcdbWide-method
-setMethod("[", c(x = "McmcdbWide"), `[.McmcdbWide`)
+#' @aliases [,McmcdbWide,ANY,ANY-method
+setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
 
 ###########################################################################
 
@@ -82,7 +87,7 @@ setMethod("[", c(x = "McmcdbWide"), `[.McmcdbWide`)
     kk <- x@iters[["iter"]] == k
   }
   if (drop == TRUE) {
-    mcmcdb_unflatten(x@samples[jj & kk, ], x@paramters[i])
+    mcmcdb_unflatten(x@samples[jj & kk, ], x@parameters[i])
   } else {
     ii <- names(mcmcdb_flatpars(x@parameters[i]))
     xsub <- melt(x@samples[jj & kk, ii, drop=FALSE],
@@ -96,10 +101,16 @@ setMethod("[", c(x = "McmcdbWide"), `[.McmcdbWide`)
   }
 }
 
+#' @rdname extract-methods
+#' @aliases [[,McmcdbWide-method
+setMethod("[[", c(x = "McmcdbWide"), `[[.McmcdbWide`)
+
 ##########################################################################
 
 `$.McmcdbWide` <- function(x, name) {
   mcmcdb_unflatten(x, name)
 }
 
+#' @rdname extract-methods
+#' @aliases $,McmcdbWide-method
 setMethod("$", c(x="McmcdbWide"), `$.McmcdbWide`)

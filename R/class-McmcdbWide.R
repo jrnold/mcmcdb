@@ -9,9 +9,13 @@ NULL
 ## setClassUnion("listOrNULL", c("namedList", "NULL"))
 ## setClassUnion("numericOrNULL", c("numeric", "NULL"))
 
-#' MCMC Samples in wide-format
+#' @name McmcdbWide-class
+#' @rdname McmcdbWide-class
+#' @aliases McmcdbWide-class
+#' 
+#' @title MCMC Samples in wide-format
 #'
-#' Mcmc samples stored as a matrix with (number of chains x number of
+#' @description Mcmc samples stored as a matrix with (number of chains x number of
 #' iterations) rows and (number of flat parameters) columns.
 #' 
 #' @section Slots:
@@ -28,9 +32,6 @@ NULL
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
 #' 
-#' @name McmcdbWide-class
-#' @rdname McmcdbWide-class
-#' @aliases McmcdbWide-class
 #' @docType class
 #' @family McmcdbWide methods
 #' @seealso \code{\link{McmcdbWide}} for the method usually used to create these objects.
@@ -70,8 +71,8 @@ setClass("McmcdbWide",
                    iters = McmcdbIters(),
                    metadata = list(),
                    version = VERSION,
-                   parinit = NULL,
-                   flatpar_chains = numeric(),
+                   parinit = numeric(),
+                   flatpar_chains = NULL,
                    model_data = nlist()))
 
 validate.McmcdbWide <- function(object) {

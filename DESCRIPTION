@@ -40,3 +40,5 @@ Collate:
     'method-mcmcdb_flatpar_chains.R'
     'method-mcmcdb_iters.R'
     'method-mcmcdb_metadata.R'
+    'method-extract.R'
+    'method-mcmcdb_unflatten.R'
