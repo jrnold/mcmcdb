@@ -1,5 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
+#' @include class-McmcdbWide.R
 #' @exportMethod mcmcdb_flatpars
 NULL
 
