@@ -19,7 +19,6 @@ NULL
 #' \code{name} and \code{dim} and returns a vector of names
 #' to use.
 #' @return Named \code{numeric} vector
-NULL
 setGeneric("mcmcdb_flatten",
            function(x, ...) standardGeneric("mcmcdb_flatten"))
 

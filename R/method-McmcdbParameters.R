@@ -29,7 +29,6 @@ pararrays_from_df <- function(x) {
 #' McmcdbParameters(c("alpha", "beta.1", "beta.2"))
 #' McmcdbParameters(c("alpha", "beta[1]", "beta[2]"),
 #'                 parser = mcmc_parparser_bugs)
-NULL
 setGeneric("McmcdbParameters",
            function(x, ...) {
              standardGeneric("McmcdbParameters")

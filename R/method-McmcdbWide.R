@@ -13,8 +13,6 @@ NULL
 #'
 #' @param x object
 #' @return An object of class \code{\linkS4class{McmcdbWide}} objects.
-NULL
-
 setGeneric("McmcdbWide",
            function(x, ...) standardGeneric("McmcdbWide"))
 
