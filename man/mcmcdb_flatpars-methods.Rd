@@ -26,6 +26,10 @@
   \code{\link{mcmcdb_paridx-methods}}
 
   Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_chains}}, \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_parameters-methods}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}}

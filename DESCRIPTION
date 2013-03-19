@@ -36,3 +36,7 @@ Collate:
     'method-mcmcdb_parameters.R'
     'method-mcmcdb_data.R'
     'method-mcmcdb_init.R'
+    'method-mcmcdb_chains.R'
+    'method-mcmcdb_flatpar_chains.R'
+    'method-mcmcdb_iters.R'
+    'method-mcmcdb_metadata.R'

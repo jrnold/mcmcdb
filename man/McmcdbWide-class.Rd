@@ -51,9 +51,14 @@ showClass("McmcdbWide")
   \code{\link{McmcdbWide}} for the method usually used to
   create these objects.
 
-  Other McmcdbWide methods: \code{\link{mcmcdb_flatpars}},
+  Other McmcdbWide methods: \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_parameters-methods}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}}
