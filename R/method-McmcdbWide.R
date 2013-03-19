@@ -22,7 +22,7 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
                               parameters = mcmc_parparser_guess,
                               flatpar_chains = NULL,
                               metadata = list(),
-                              parinit = NULL, model_data = NULL) {
+                              parinit = numeric(), model_data = list()) {
   # Attempt to fill in chains or iters if missing
   if (is.null(chains) & is.null(iters)) {
     chains <- McmcdbChains(data.frame(chain_id = 1L))
@@ -39,16 +39,11 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
   if (is(parameters, "function")) {
     parameters <- McmcdbParameters(colnames(x), parameters)
   }
-
-  # needed, because list does not extend
-  if (!is.null(model_data)) {
-    model_data <- as(model_data, "namedList")
-  }
   
   new("McmcdbWide", samples = x, chains = chains, iters = iters,
       parameters = parameters,
       flatpar_chains = flatpar_chains, metadata = metadata,
-      parinit = parinit, model_data = model_data)
+      parinit = parinit, model_data = as(model_data, "namedList"))
 }
 
 #' @rdname McmcdbWide-methods
