@@ -29,23 +29,23 @@
 \examples{
 showClass("McmcdbWide")
 
-# Example included in the package
-data("line_mcmcdbwide")
-print(line_mcmcdbwide)
-
-# access data
-mcmcdb_chains(line_mcmcdbwide)
-mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
-
-mcmcdb_parameters(line_mcmcdbwide)
-mcmcdb_pardims(line_mcmcdbwide)
-mcmcdb_pararrays(line_mcmcdbwide)
-mcmcdb_flatpars(line_mcmcdbwide)
-mcmcdb_par_indices(line_mcmcdbwide)
-
-mcmcdb_iters(line_mcmcdbwide)
-mcmcdb_flatpar_chains(line_mcmcdbwide)
-mcmcdb_metadata(line_mcmcdbwide)
+#  # Example included in the package
+#  data("line_mcmcdbwide")
+#  print(line_mcmcdbwide)
+#
+#  # access data
+#  mcmcdb_chains(line_mcmcdbwide)
+#  mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
+#
+#  mcmcdb_parameters(line_mcmcdbwide)
+#  mcmcdb_pardims(line_mcmcdbwide)
+#  mcmcdb_pararrays(line_mcmcdbwide)
+#  mcmcdb_flatpars(line_mcmcdbwide)
+#  mcmcdb_par_indices(line_mcmcdbwide)
+#
+#  mcmcdb_iters(line_mcmcdbwide)
+#  mcmcdb_flatpar_chains(line_mcmcdbwide)
+#  mcmcdb_metadata(line_mcmcdbwide)
 }
 \seealso{
   \code{\link{McmcdbWide}} for the method usually used to

@@ -57,7 +57,6 @@ ListOfCharArrays <- function(x) {
 #' @family McmcdbParameters methods
 #' @examples
 #' showClass("McmcdbParameters")
-NULL
 setClass("McmcdbParameters", "ListOfCharArrays")
 
 setValidity("McmcdbParameters",

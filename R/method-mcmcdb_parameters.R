@@ -17,5 +17,8 @@ setGeneric("mcmcdb_parameters",
              standardGeneric("mcmcdb_parameters")
            })
 
+#' @rdname mcmcb_parameters-methods
+#' @aliases mcmcb_parameters,McmcdbWide-method
+#' @family McmcdbWide methods
 setMethod("mcmcdb_parameters", "McmcdbWide",
           function(object) object@parameters)

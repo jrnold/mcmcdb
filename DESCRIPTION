@@ -34,3 +34,5 @@ Collate:
     'method-mcmcdb_paridx.R'
     'method-McmcdbWide.R'
     'method-mcmcdb_parameters.R'
+    'method-mcmcdb_data.R'
+    'method-mcmcdb_init.R'

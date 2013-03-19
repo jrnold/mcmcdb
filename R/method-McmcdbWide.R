@@ -1,6 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
-#' @exportMethod McmdbWide
+#' @exportMethod McmcdbWide
 NULL
 
 #' @name McmcdbWide-methods
@@ -52,11 +52,11 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
 }
 
 #' @rdname McmcdbWide-methods
-#' @aliases McmcdWide,matrix-method
+#' @aliases McmcdbWide,matrix-method
 setMethod("McmcdbWide", "matrix", McmcdbWide.matrix)
 
 #' @rdname McmcdbWide-methods
-#' @aliases McmcdWide,data.frame-method
+#' @aliases McmcdbWide,data.frame-method
 setMethod("McmcdbWide", "data.frame",
           function(x, ...) {
             callGeneric(as(x, "matrix"), ...)

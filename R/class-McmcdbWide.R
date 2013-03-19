@@ -6,8 +6,8 @@
 #' @exportClass McmcdbWide
 NULL
 
-setClassUnion("listOrNULL", c("namedList", "NULL"))
-setClassUnion("numericOrNULL", c("numeric", "NULL"))
+## setClassUnion("listOrNULL", c("namedList", "NULL"))
+## setClassUnion("numericOrNULL", c("numeric", "NULL"))
 
 #' MCMC Samples in wide-format
 #'
@@ -37,33 +37,33 @@ setClassUnion("numericOrNULL", c("numeric", "NULL"))
 #' @examples
 #' showClass("McmcdbWide")
 #' 
-#' # Example included in the package
-#' data("line_mcmcdbwide")
-#' print(line_mcmcdbwide)
-#' 
-#' # access data
-#' mcmcdb_chains(line_mcmcdbwide)
-#' mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
-#'
-#' mcmcdb_parameters(line_mcmcdbwide)
-#' mcmcdb_pardims(line_mcmcdbwide)
-#' mcmcdb_pararrays(line_mcmcdbwide)
-#' mcmcdb_flatpars(line_mcmcdbwide)
-#' mcmcdb_par_indices(line_mcmcdbwide)
-#' 
-#' mcmcdb_iters(line_mcmcdbwide)
-#' mcmcdb_flatpar_chains(line_mcmcdbwide)
-#' mcmcdb_metadata(line_mcmcdbwide)
+#' #  # Example included in the package
+#' #  data("line_mcmcdbwide")
+#' #  print(line_mcmcdbwide)
+#' #  
+#' #  # access data
+#' #  mcmcdb_chains(line_mcmcdbwide)
+#' #  mcmcdb_chains(line_mcmcdbwide, drop=TRUE)
+#' # 
+#' #  mcmcdb_parameters(line_mcmcdbwide)
+#' #  mcmcdb_pardims(line_mcmcdbwide)
+#' #  mcmcdb_pararrays(line_mcmcdbwide)
+#' #  mcmcdb_flatpars(line_mcmcdbwide)
+#' #  mcmcdb_par_indices(line_mcmcdbwide)
+#' #  
+#' #  mcmcdb_iters(line_mcmcdbwide)
+#' #  mcmcdb_flatpar_chains(line_mcmcdbwide)
+#' #  mcmcdb_metadata(line_mcmcdbwide)
 setClass("McmcdbWide",
          representation(samples="matrix",
                         parameters="McmcdbParameters",
                         chains="McmcdbChains", # chain_id
                         iters="McmcdbIters", # chain_id, iter
-                        flatpar_chains="McmcdbFlatparChainsOrNull", # parname, chain_id
+                        flatpar_chains="ANY", # parname, chain_id
                         metadata="list",
                         version="character",
-                        parinit="numericOrNULL",
-                        model_data="listOrNULL"),
+                        parinit="numeric",
+                        model_data="namedList"),
          prototype(samples = matrix(),
                    parameters = McmcdbParameters(),
                    chains = McmcdbChains(),
@@ -71,8 +71,8 @@ setClass("McmcdbWide",
                    metadata = list(),
                    version = VERSION,
                    parinit = NULL,
-                   flatpar_chains = NULL,
-                   model_data = NULL))
+                   flatpar_chains = numeric(),
+                   model_data = nlist()))
 
 validate.McmcdbWide <- function(object) {
   nsamples <- nrow(object@samples)
@@ -96,7 +96,7 @@ validate.McmcdbWide <- function(object) {
       return("flatpar_chains$flatpar does not match parameters")
     }
   }
-  if (!is.null(object@parinit)) {
+  if (length(object@parinit)) {
     if (!setequal(names(object@parinit), parameters)) {
       return("parinit names do not match parameters")
     }
