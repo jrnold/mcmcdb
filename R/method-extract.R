@@ -87,7 +87,7 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
     kk <- x@iters[["iter"]] == k
   }
   if (drop == TRUE) {
-    mcmcdb_unflatten(x@samples[jj & kk, ], x@parameters[i])
+    mcmcdb_unflatten(x@samples[jj & kk, ], x@parameters[i])[[1]]
   } else {
     ii <- names(mcmcdb_flatpars(x@parameters[i]))
     xsub <- melt(x@samples[jj & kk, ii, drop=FALSE],
@@ -108,7 +108,7 @@ setMethod("[[", c(x = "McmcdbWide"), `[[.McmcdbWide`)
 ##########################################################################
 
 `$.McmcdbWide` <- function(x, name) {
-  mcmcdb_unflatten(x, name)
+  mcmcdb_unflatten(x, name)[[1]]
 }
 
 #' @rdname extract-methods

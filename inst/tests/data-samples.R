@@ -8,9 +8,5 @@ chains <- McmcdbChains(data.frame(chain_id = 1:2,
                                 thin=1L, start=1L, end=4L))
 iters <- McmcdbIters(data.frame(chain_id = rep(1:2, each=4),
                               iter = rep(1:4, 2)))
-parameters <- McmcdbParameters(parnames)
-flatpar_chains <-
-  McmcdbFlatparChains(expand.grid(flatpar = names(mcmcdb_flatpars(parameters)),
-                                  chain_id = 1:2))
-metadata <- list()
+
 
