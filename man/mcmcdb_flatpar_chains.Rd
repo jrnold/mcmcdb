@@ -11,8 +11,8 @@
   their values).}
 }
 \value{
-  An object of \linkS4class{McmcdbFlatparChains} with flat
-  parameters and chains.
+  An object of \code{\linkS4class{McmcdbFlatparChains}}
+  with flat parameters and chains.
 }
 \description{
   Get flat parameter, chains from an Mcmcdb object

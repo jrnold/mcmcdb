@@ -13,7 +13,7 @@ setGeneric("mcmcdb_flatpar_chains",
 #' @param drop \code{logical}. If \code{TRUE}, only return
 #' \code{flatpar} and \code{} columns. If \code{FALSE}, then
 #' return all data related to the iterations (other than their values).
-#' @return An object of \linkS4class{McmcdbFlatparChains} with
+#' @return An object of \code{\linkS4class{McmcdbFlatparChains}} with
 #' flat parameters and chains.
 #' @family get-methods
 #' @aliases mcmcdb_flatpar_chains,McmcdbWide-method

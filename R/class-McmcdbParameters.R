@@ -83,19 +83,3 @@ show.McmcdbParameters <- function(object) {
 }
 
 setMethod("show", "McmcdbParameters", show.McmcdbParameters)
-
-setMethod("dim", "McmcdbParameters",
-          function(x) {
-            ret <- llply(seq_along(x), function(i) dim(x[[i]]))
-            names(ret) <- names(x)
-            ret
-          })
-
-setMethod("dimnames", "McmcdbParameters",
-          function(x) {
-            ret <- llply(seq_along(x), function(i) as.character(x[[i]]))
-            names(ret) <- names(x)
-            ret
-          })
-
-

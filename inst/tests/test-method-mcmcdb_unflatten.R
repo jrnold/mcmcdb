@@ -2,7 +2,7 @@ context("method-mcmcdb_unflatten")
 
 parnames <- c("alpha", "beta.1", "beta.2",
               "gamma.1.1", "gamma.1.2", "gamma.2.1", "gamma.2.2")
-parameters <- mcmc_parse_parnames(parnames, mcmc_parparser_stan)
+parameters <- McmcdbParameters(parnames, mcmc_parparser_stan)
 
 ############
 
