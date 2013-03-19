@@ -39,23 +39,22 @@ mcmc_parparser_scalar <- function(x) {
                             stringsAsFactors = FALSE))
 }
 
-
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_stan
 mcmc_parparser_stan <- function(x) {
-  x_split <- data.frame(str_split_fixed(x, fixed("."), 2),
+  regexp <- "^(.*?)(\\.(\\d+(\\.\\d+)?))?$"
+  x_split <- data.frame(str_match(x, regexp)[ , c(1, 2, 4)],
                         stringsAsFactors = FALSE)
-  names(x_split) <- c("pararray", "idx")
+  names(x_split) <- c("flatpar", "pararray", "idx")
   x_split$idx[x_split$idx == ""] <- "1"
   x_split$idx <- gsub("\\.", ",", x_split$idx)
-  x_split$flatpar <- x
-  McmcdbFlatpars(x_split[ , c("flatpar", "pararray", "idx")])
+  McmcdbFlatpars(x_split)
 }
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_bugs
 mcmc_parparser_bugs <- function(x) {
-  regexp <- "([^\\[]+)(\\[([0-9,]+)\\])?"
+  regexp <- "^(.*?)(\\[(\\d+(,\\d+)?)\\])?$"
   x_split <- data.frame(str_match(x, regexp)[ , c(1, 2, 4)],
                         stringsAsFactors = FALSE)
   names(x_split) <- c("flatpar", "pararray", "idx")
@@ -63,13 +62,21 @@ mcmc_parparser_bugs <- function(x) {
   McmcdbFlatpars(x_split)
 }
 
+has_bracket_index <- function(x) {
+  str_matchl(x, "(\\[(\\d+(,\\d+)?)\\])$")
+}
+
+has_dots_index <- function(x) {
+  str_matchl(x, "(\\.(\\d+(\\.\\d+)?))$")
+}
+
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparsers_guess
 mcmc_parparser_guess <- function(x) {
-  if (all(valid_mcmc_parnames(x, "stan"))) {
-    mcmc_parparser_stan(x)
-  } else if (all(valid_mcmc_parnames(x, "bugs"))) {
+  if (any(has_bracket_index(x))) {
     mcmc_parparser_bugs(x)
+  } else if (any(has_dots_index(x))) {
+    mcmc_parparser_stan(x)
   } else {
     mcmc_parparser_scalar(x)
   }
