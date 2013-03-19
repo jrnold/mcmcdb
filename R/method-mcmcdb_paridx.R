@@ -42,5 +42,5 @@ setMethod("mcmcdb_paridx", "McmcdbParameters",
 #' @rdname mcmcdb_paridx-methods
 #' @aliases mcmcdb_paridx,McmcdbParameters-method
 #' @family McmcdbParameters methods
-setMethod("mcmcdb_paridx", "McmcdbParameters",
+setMethod("mcmcdb_paridx", "McmcdbWide",
           function(object) callGeneric(object@parameters))

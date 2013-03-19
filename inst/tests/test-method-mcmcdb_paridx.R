@@ -1,4 +1,5 @@
 context("method-mcmcdb_paridx")
+source("data-McmcdbWide.R")
 
 test_McmcdbParameters <-
   McmcdbParameters(list(alpha = "alpha", beta = c("beta.1", "beta.2")))
@@ -11,4 +12,9 @@ test_that("mcmcdb_flatpars,McmcdbParameters-method works as expected", {
     structure(c("beta.1", "beta.2"), .Dim = 2L, class = structure("CharacterArray", package = "mcmcdb")), 
     "Var1"))), .Names = c("alpha", "beta"))
   expect_equal(mcmcdb_paridx(test_McmcdbParameters), expected)
+})
+
+test_that("mcmcdb_flatpars,McmcdbWide-method works as expected", {
+  expect_equal(mcmcdb_paridx(test_McmcdbWide),
+               mcmcdb_paridx(test_McmcdbWide@parameters))
 })

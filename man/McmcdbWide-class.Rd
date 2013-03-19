@@ -18,8 +18,8 @@
   \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
   \item{\code{metadata}}{\code{list} with metadata about
   the samples.} \item{\code{model_data}}{\code{listOrNULL}.
-  A \code{list} with the data used in the model. If the
-  data is not included, then \code{NULL}.}
+  A \code{namedList} with the data used in the model. If
+  the data is not included, then \code{NULL}.}
   \item{\code{parinit}}{\code{numericOrNULL}. A named
   \code{numeric} vector of the parameter starting values in
   the model.} \item{\code{version}}{\code{character}
@@ -50,5 +50,12 @@ mcmcdb_metadata(line_mcmcdbwide)
 \seealso{
   \code{\link{McmcdbWide}} for the method usually used to
   create these objects.
+
+  Other McmcdbWide methods: \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}}
 }
 

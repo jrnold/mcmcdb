@@ -26,13 +26,16 @@
 }
 \description{
   Functions that parse a vector of flat parameter names and
-  return an object of class \code{\linkS4class{Mcmcdb
+  return an object of class
+  \code{\linkS4class{McmcdbFlatpars}}.
+}
+\details{
+  \describe{ \item{\code{mcmc_parparser_stan}}{Parses
+  parameter names treating each parameter as a scalar. E.g.
+  \code{"beta.1"} and \code{"beta.2"} will be treated two
+  parameter arrays of size 1.}
   \item{\code{mcmc_parparser_stan}}{Parses parameter names
-  treating each parameter as a scalar. E.g. \code{"beta.1"}
-  and \code{"beta.2"} will be treated two parameter arrays
-  of size 1.} \item{\code{mcmc_parparser_stan}}{Parses
-  parameter names in the Stan style, e.g.
-  \code{"beta.1.1"}}
+  in the Stan style, e.g. \code{"beta.1.1"}}
   \item{\code{mcmc_parparser_guess}}{Tries to guess the
   format of the parameters} }
 }

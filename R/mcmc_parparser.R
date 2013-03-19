@@ -9,7 +9,9 @@ NULL
 #' Parse MCMC parameter names
 #'
 #' Functions that parse a vector of flat parameter names
-#' and return an object of class \code{\linkS4class{Mcmcdb
+#' and return an object of class \code{\linkS4class{McmcdbFlatpars}}.
+#'
+#' \describe{
 #' \item{\code{mcmc_parparser_stan}}{Parses parameter names
 #' treating each parameter as a scalar. E.g. \code{"beta.1"}
 #' and \code{"beta.2"} will be treated two parameter arrays of

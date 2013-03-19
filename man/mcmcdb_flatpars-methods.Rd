@@ -1,6 +1,7 @@
 \name{mcmcdb_flatpars-methods}
 \alias{mcmcdb_flatpars}
 \alias{mcmcdb_flatpars,McmcdbParameters-method}
+\alias{mcmcdb_flatpars,McmcdbWide-method}
 \alias{mcmcdb_flatpars-method}
 \alias{mcmcdb_flatpars-methods}
 \title{Get flat parameter names}
@@ -19,8 +20,14 @@
   Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}},
   \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}},
-  \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
   \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}}
 }
 

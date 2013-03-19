@@ -1,6 +1,7 @@
 \name{mcmcdb_pardims-methods}
 \alias{mcmcdb_pardims}
 \alias{mcmcdb_pardims,McmcdbParameters-method}
+\alias{mcmcdb_pardims,McmcdbWide-method}
 \alias{mcmcdb_pardims-methods}
 \title{Get parameter array dimensions}
 \arguments{
@@ -18,8 +19,14 @@
   Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}},
   \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
   \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbWide methods: \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}}
 }
 

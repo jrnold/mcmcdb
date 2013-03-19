@@ -3,6 +3,8 @@
 #' @exportMethod McmdbWide
 NULL
 
+#' @name McmcdbWide-methods
+#' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide-methods
 #' @aliases McmcdbWide
 #' @title Create \code{McmcdbWide} objects
@@ -75,7 +77,7 @@ McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
 }
 
 
-#' @rdname McmcdbWide-method
+#' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,mcmc-method
 setMethod("McmcdbWide", "mcmc", McmcdbWide.mcmc)
 
@@ -98,6 +100,6 @@ McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
              chains = chains, iters = iters)
 }
 
-#' @rdname McmcdbWide-method
+#' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,mcmc.list-method
 setMethod("McmcdbWide", "mcmc.list", McmcdbWide.mcmc.list)
