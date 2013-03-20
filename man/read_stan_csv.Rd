@@ -1,6 +1,6 @@
 \name{read_stan_csv}
 \alias{read_stan_csv}
-\title{Read STAN output}
+\title{Read csv output from command line Stan}
 \usage{
   read_stan_csv(file)
 }

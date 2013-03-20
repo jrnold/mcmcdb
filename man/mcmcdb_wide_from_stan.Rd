@@ -1,24 +1,18 @@
 \name{mcmcdb_wide_from_stan}
 \alias{mcmcdb_wide_from_stan}
-\title{Read STAN output}
+\title{Create McmdbWide from Stan csv}
 \usage{
   mcmcdb_wide_from_stan(file)
 }
 \arguments{
-  \item{file}{character. name of an output file produced by
+  \item{file}{character. Name of an output file produced by
   a STAN model.}
 }
 \value{
-  A \code{data.frame} with attributes \describe{
-  \item{\code{header}}{A \code{list} containing header
-  information} \item{\code{rejected}}{A \code{logical}
-  vector indicating whether the iteration was a rejected
-  sample (for samples only)} \item{\code{warmup}}{A
-  \code{logical} vector indicating whether the iteration
-  was in the warmup.} }
+  An object of class \code{"McmcdbWide"}
 }
 \description{
-  Read csv files produced by Stan.
+  Create McmdbWide from Stan csv
 }
 \details{
   This returns both the sample values and the metadata in

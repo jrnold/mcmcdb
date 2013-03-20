@@ -86,7 +86,25 @@ parse_stan_header <- function(file) {
   header
 }
 
-read_stan_csv <- function(file, chain_id=NULL, metadata=list()) {
+
+#' Read csv output from command line Stan
+#'
+#' Read csv files produced by Stan.
+#'
+#' This returns both the sample values and the metadata in the comments of the file.
+#' This function has been tested for the output of Stan 1.2.0.
+#'
+#' @param file character. name of an output file produced by a STAN model.
+#' 
+#' @return A \code{data.frame} with attributes
+#' \describe{
+#' \item{\code{header}}{A \code{list} containing header information}
+#' \item{\code{rejected}}{A \code{logical} vector indicating whether the iteration was
+#' a rejected sample (for samples only)}
+#' \item{\code{warmup}}{A \code{logical} vector indicating whether the iteration was in
+#' the warmup.}
+#' }
+read_stan_csv <- function(file) {
   header <- parse_stan_header(file)
   pointest <- header[["point_estimate"]]
   colClasses <- "numeric"
@@ -169,32 +187,25 @@ mcmcdb_wide_stan_one <- function(file) {
   list(samples=samples, chains=chains, iters=iters, flatpar_chains = flatpar_chains)
 }
 
-#' Read STAN output
+#' Create McmdbWide from Stan csv
 #'
-#' Read csv files produced by Stan.
+#' Create McmdbWide from Stan csv
 #'
 #' This returns both the sample values and the metadata in the comments of the file.
 #' This function has been tested for the output of Stan 1.2.0.
 #'
-#' @param file character. name of an output file produced by a STAN model.
+#' @param file character. Name of an output file produced by a STAN model.
 #' 
-#' @return A \code{data.frame} with attributes
-#' \describe{
-#' \item{\code{header}}{A \code{list} containing header information}
-#' \item{\code{rejected}}{A \code{logical} vector indicating whether the iteration was
-#' a rejected sample (for samples only)}
-#' \item{\code{warmup}}{A \code{logical} vector indicating whether the iteration was in
-#' the warmup.}
-#' }
+#' @return An object of class \code{"McmcdbWide"}
 mcmcdb_wide_from_stan <- function(file) {
   data <- llply(file, mcmcdb_wide_stan_one)
   samples <- do.call(rbind, llply(data, `[[`, i = "samples"))
   chains <- do.call(rbind, llply(data, `[[`, i = "chains"))
   iters <- do.call(rbind, llply(data, `[[`, i = "iters"))
   if (!is.null(data[[1]][["flatpar_samples"]])) {
-    flatpar_chains <- FlatParChains(do.call(rbind,
-                                            llply(data, `[[`,
-                                                  i = "flatpar_chains")))
+    flatpar_chains <- McmcdbFlatparChains(do.call(rbind,
+                                                  llply(data, `[[`,
+                                                        i = "flatpar_chains")))
   } else {
     flatpar_chains <- NULL
   }
