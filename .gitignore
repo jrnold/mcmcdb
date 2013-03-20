@@ -1,3 +1,6 @@
-/line/line.cpp
-/line/line.o
-/line/line.stanx
+/inst/line/*.cpp
+/inst/line/*.o
+/inst/line/*.stanx
+/inst/stan/line.cpp
+/inst/stan/line.o
+/inst/stan/line.stanx

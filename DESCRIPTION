@@ -42,3 +42,4 @@ Collate:
     'method-mcmcdb_unflatten.R'
     'method-extract.R'
     'method-mcmcdb_iply.R'
+    'read_stan.R'
