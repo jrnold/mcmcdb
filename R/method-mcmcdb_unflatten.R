@@ -17,7 +17,7 @@ NULL
 #' @param x Flattened parameter values
 #' @param parameters Object mapping flattened parameters to parameter arrays
 #' 
-#' @return Named \code{list} of parameter arrays.
+#' @return All methods return a named \code{list} of parameter arrays.
 #'
 #' @section Methods:
 #' 
