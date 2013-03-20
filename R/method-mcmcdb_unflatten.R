@@ -39,7 +39,7 @@ NULL
 #' }
 #' 
 #' \item{\code{signature(x = "McmcdbWide", parameters = "character")}}{
-#'   The character vector \code{parameters} specifies a subset of paramater arrays to return.}
+#'   The character vector \code{parameters} specifies a subset of parameter arrays to return.}
 #' 
 #' \item{\code{signature(x = "McmcdbWide", parameters = "missing")}}{
 #'   Uses the result of \code{mcmcdb_paramters(x)} as the paramter object.
@@ -70,13 +70,13 @@ setGeneric("mcmcdb_unflatten",
            standardGeneric("mcmcdb_unflatten")
          })
 
-mcmcdb_unflatten.numeric.McmcdbParameters <- function(x, parameters) {
+mcmcdb_unflatten.numeric.McmcdbParameters <- function(x, parameters, ...) {
   # bound: x
   unflatten_one_par <- function(param) {
     d <- dim(param)
     array(x[as.character(param)], d)
   }
-  ret <- llply(as(parameters, "list"), unflatten_one_par)
+  ret <- llply(as(parameters, "list"), unflatten_one_par, ...)
   names(ret) <- names(parameters)
   ret
 }
@@ -92,15 +92,17 @@ setMethod("mcmcdb_unflatten",
 #' @aliases mcmcdb_unflatten,numeric,function-method
 #' @family McmdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "numeric", parameters = "function"),
-          function(x, parameters) callGeneric(x, McmcdbParameters(names(x), parameters)))
+          function(x, parameters, ...)
+          callGeneric(x, McmcdbParameters(names(x), parameters), ...))
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,numeric,missing-method
 #' @family McmdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "numeric", parameters = "missing"),
-          function(x, parameters) callGeneric(x, McmcdbParameters(names(x))))
+          function(x, parameters, ...)
+          callGeneric(x, McmcdbParameters(names(x)), ...))
 
-mcmcdb_unflatten.matrix.McmcdbParameters <- function(x, parameters) {
+mcmcdb_unflatten.matrix.McmcdbParameters <- function(x, parameters, ...) {
   # bound: x
   unflatten_one_par <- function(param) {
     d <- dim(param)
@@ -110,7 +112,7 @@ mcmcdb_unflatten.matrix.McmcdbParameters <- function(x, parameters) {
     dim(xpar) <- c(d, n)
     xpar
   }
-  ret <- llply(as(parameters, "list"), unflatten_one_par)
+  ret <- llply(as(parameters, "list"), unflatten_one_par, ...)
   names(ret) <- names(parameters)
   ret
 }
@@ -125,24 +127,44 @@ setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "McmcdbParameters"),
 #' @aliases mcmcdb_unflatten,matrix,function-method
 #' @family McmdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "function"),
-          function(x, parameters) callGeneric(x, McmcdbParameters(colnames(x), parameters)))
+          function(x, parameters, ...) {
+            callGeneric(x, McmcdbParameters(colnames(x), parameters), ...)
+          })
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,matrix,missing-method
 #' @family McmdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "missing"),
-          function(x, parameters) callGeneric(x, McmcdbParameters(colnames(x))))
+          function(x, parameters, ...) {
+            callGeneric(x, McmcdbParameters(colnames(x)), ...)
+          })
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,McmcdbWide,missing-method
 #' @family McmdbWide methods
 setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "missing"),
-          function(x, parameters) callGeneric(x@samples, x@parameters))
+          function(x, parameters, .iter=NULL, .chain_id=NULL, ...) {
+            callGeneric(x, names(x@parameters), .iter=.iter, .chain_id=.chain_id, ...)
+          })
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,McmcdbWide,character-method
 #' @family McmdbWide methods
 setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "character"),
-          function(x, parameters) callGeneric(x@samples, x@parameters[parameters]))
+          function(x, parameters, .iter=NULL, .chain_id=NULL, ...) {
+            pp <- unname(unlist(mcmcdb_parameters(x)[parameters]))
+            if (is.null(.iter)) {
+              iters <- TRUE
+            } else {
+              iters <- (x@iters[["iter"]] == .iter)
+            }
+            if (is.null(.chain_id)) {
+              chains <- TRUE
+            } else {
+              chains <- (x@iters[["chain_id"]] == .chain_id)
+            }
+            callGeneric(x@samples[iters & chains, pp, drop=FALSE],
+                        x@parameters[parameters], ...)
+          })
 
 

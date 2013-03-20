@@ -4,6 +4,16 @@ parnames <- c("alpha", "beta.1", "beta.2",
               "gamma.1.1", "gamma.1.2", "gamma.2.1", "gamma.2.2")
 parameters <- McmcdbParameters(parnames, mcmc_parparser_stan)
 
+###
+parnames2 <- paste("beta", 1:2, sep=".")
+samples <- matrix(1:8, ncol=2)
+colnames(samples) <- parnames2
+chains <- McmcdbChains(data.frame(chain_id = rep(1:2, each = 2)))
+iters <- McmcdbIters(data.frame(chain_id = rep(1:2, each=2),
+                                iter = rep(1:2, 2)))
+test_wide2 <- McmcdbWide(samples, chains = chains, iters = iters)
+
+
 ############
 
 test_that("mcmcdb_flatten,numeric,McmcdbParameters works as expected", {
@@ -53,3 +63,20 @@ test_that("mcmcdb_flatten,matrix,missing works as expected", {
   expect_equal(lapply(foo, dim), list(alpha=c(1L, n), beta = c(2L, n),
                                       gamma = c(2L, 2L, n)))
 })
+
+
+test_that("mcmcdb_unflatten,McmcParameters works as expected #1", {
+  expect_equal(mcmcdb_unflatten(test_wide2),
+               list(beta = t(array(1:8, c(4, 2)))))
+})
+
+test_that("mcmcdb_unflatten,McmcParameters works as expected #2", {
+  expect_equal(mcmcdb_unflatten(test_wide2, "beta"),
+               list(beta = t(array(1:8, c(4, 2)))))
+})
+
+test_that("mcmcdb_unflatten,McmcParameters works as expected #2", {
+  expect_equal(mcmcdb_unflatten(test_wide2, "beta", .iter=2, .chain_id=1L),
+               list(beta = array(c(2L, 6L), c(2L, 1L))))
+})
+

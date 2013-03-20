@@ -31,10 +31,9 @@ NULL
     ii <- TRUE
   } else {
     if (is.numeric(i)) {
-      ii <- as.integer(i)
-    } else {
-      ii <- (colnames(x@samples) %in% as.character(i))
-    }
+      i <- names(mcmc_flatpars(x))[i]
+    } 
+    ii <- (colnames(x@samples) %in% as.character(i))
   }
   ## iterations
   if (missing(j)) {

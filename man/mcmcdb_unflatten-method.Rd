@@ -42,7 +42,7 @@
 
   \item{\code{signature(x = "McmcdbWide", parameters =
   "character")}}{ The character vector \code{parameters}
-  specifies a subset of paramater arrays to return.}
+  specifies a subset of parameter arrays to return.}
 
   \item{\code{signature(x = "McmcdbWide", parameters =
   "missing")}}{ Uses the result of
