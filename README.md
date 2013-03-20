@@ -30,15 +30,6 @@ still using the same functions to access the data.
 library(mcmcdb)
 ```
 
-# Install
-
-Use [devtools](https://github.com/hadley/devtools) to install **mcmcdb** from github.
-
-```
-library(devtools)
-install_github(c("DataFrameConstr", "mcmcdb"), "jrnold")
-```
-
 `line_samples` is a `McmcdbWide` object which is included in the
 package for examples.
 
@@ -48,8 +39,65 @@ line_samples
 ```
 
 The object include two parameter arrays `beta`, a vector of length 2,
-and `tau`, a scalar (vector of length 1). And samples from two 
+and `tau`, a scalar (vector of length 1). It has 2 chains, each with 
+100 samples. 
+
+The idiomatic **R** extract operators are defined.  A single bracket
+extracts a flat parameter. There are three flat parameters for this
+object: `beta[1]`, `beta[2]` and `tau`. The names of the flat paramters,
+and their associated parameter arrays can be found with,
+```
+mcmcdb_flatpars(line_samples)
+```
+
+To extract all samples for `beta.1` use,
+```
+str(line_samples["beta[1]"])
+```
+
+To extract the 1st iteration in chain 2 for `beta.1` use,
+```
+line_samples["beta[1]", 1, 2]
+```
+
+If `drop=FALSE`, then instead of a numeric vector, a data frame is
+returned, 
+```
+summary(line_samples["beta[1]", drop=FALSE])
+```
 
 
+While the single bracket is used to extract by flat parameters, 
+the double bracket is used to extract by paramter arrays.
 
+To extract all samples of `beta`, 
+```
+str(line_samples[["beta"]])
+```
+
+To extract the first chain, iterations 1-10 of `beta`, 
+```
+str(line_samples[["beta", 1, 1:10]])
+```
+
+To return the values in a data frame instead of an array, use 
+`drop=FALSE`,
+```
+line_samples[["beta", 1, 1:3, drop=FALSE]]
+```
+
+Use the dollar operator to extract all samples for a given paramter
+array,
+```
+str(line_samples$beta)
+```
+
+# Install
+
+Use [devtools](https://github.com/hadley/devtools) to install **mcmcdb** from github.
+
+```
+library(devtools)
+install_github(c("DataFrameConstr", "mcmcdb"), "jrnold")
+```
 
