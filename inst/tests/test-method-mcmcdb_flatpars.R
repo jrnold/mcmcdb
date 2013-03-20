@@ -11,6 +11,6 @@ test_that("mcmcdb_flatpars,McmcdbParameters-method works as expected", {
 })
 
 test_that("mcmcdb_flatpars,McmcdbWide-method works as expected", {
-  expect_equal(mcmcdb_flatpars(test_McmcdbWide),
-               mcmcdb_flatpars(test_McmcdbWide@parameters))
+  expect_equal(mcmcdb_flatpars(test_wide1),
+               mcmcdb_flatpars(test_wide1@parameters))
 })

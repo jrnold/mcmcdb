@@ -81,7 +81,7 @@ validate.McmcdbWide <- function(object) {
   chain_ids <- unique(object@chains$chain_id)
 
   if (!setequal(parameters, names(mcmcdb_flatpars(object@parameters)))) {
-    return("colnames of samples do not match paramters")
+    return("colnames of samples do not match parameters")
   }
   if (nsamples != nrow(object@iters)) {
     return("nrow(object@iters) != nrow(object@samples))")

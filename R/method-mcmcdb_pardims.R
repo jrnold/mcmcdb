@@ -32,4 +32,4 @@ setMethod("mcmcdb_pardims", "McmcdbParameters", dim.McmcdbParameters)
 #' @aliases mcmcdb_pardims,McmcdbWide-method
 #' @family McmcdbWide methods
 setMethod("mcmcdb_pardims", "McmcdbWide",
-          function(object) callGeneric(object@paramters))
+          function(object) callGeneric(object@parameters))

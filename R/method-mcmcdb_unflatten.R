@@ -35,14 +35,14 @@ NULL
 #' }
 #' 
 #' \item{\code{signature(x = "matrix", parameters = "missing")}}{
-#'     If \code{paramters} is missing, then the default for \code{\link{McmcdbParameters}} is used.
+#'     If \code{parameters} is missing, then the default for \code{\link{McmcdbParameters}} is used.
 #' }
 #' 
 #' \item{\code{signature(x = "McmcdbWide", parameters = "character")}}{
 #'   The character vector \code{parameters} specifies a subset of parameter arrays to return.}
 #' 
 #' \item{\code{signature(x = "McmcdbWide", parameters = "missing")}}{
-#'   Uses the result of \code{mcmcdb_paramters(x)} as the paramter object.
+#'   Uses the result of \code{mcmcdb_parameters(x)} as the paramter object.
 #' }
 #' 
 #' \item{\code{signature(x = "numeric", parameters = "function")}}{

@@ -7,7 +7,7 @@ NULL
 #' @rdname mcmcdb_parameters-methods
 #' @aliases mcmcdb_parameters
 #' @aliases mcmcdb_parameters-methods
-#' @title Get paramters of Mcmcdb object
+#' @title Get parameters of Mcmcdb object
 #'
 #' @param object object
 #' @return An object of class \code{\linkS4class{McmcdbParameters}}.
