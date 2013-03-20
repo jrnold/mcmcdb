@@ -1,116 +1,55 @@
-# Mcmcdb
+# mcmcdb
 
-**R** package for storing and accessing MCMC samples
+Stop wrangling and start analyzing your MCMC samples!
 
+This **R** package was born out of my own frustrations with dealing
+with MCMC samples.  I was wasting too much time wrangling the MCMC
+samples in order to get what I needed for my analyses.
 
-## API
+Sometimes the MCMC samples are needed in their flat form, e.g. in
+order to calculate convergence statistics. Sometimes the samples are
+needed in their original dimensions, e.g. in order to calculate the
+predicted values or other functions of the parameters. Sometimes, the
+samples need to be seperated by chain, e.g. convergence diagnostics.
+Sometimes the samples needed to be pooled across chains,
+e.g. calculating quantiles.
 
-### Extract
+This package aims to do one thing: make storing, accessing, and
+manipulating MCMC samples easier and faster.  It does not include
+convergence statistics, or plotting functions; although it makes make
+writing such functions easier.
 
-```
-x[i, j, k, ..., drop=TRUE]
-```
+It defines classes and some generic functions.  Classes are used to
+abstract how the samples; this means it will be possible to store MCMC
+samples in different formats, e.g. in memory, SQLite, HDF5, etc, while
+still using the same functions to access the data. 
 
-Arguments 
-
-- `i`: flat parameter names
-- `j`: chains
-- `k`: iterations
-- `drop`: `logical` determines what data type is returned
-
-Returns
-
-If `drop=FALSE`, `data.frame` with columns
-
-- `flatpar` : flat parameter name
-- `chain_id` : chain 
-- `iter` : iteration
-- `val` : parameter value
-
-If `drop=TRUE`, `numeric` vector with the parameter values.
+## Examples
 
 ```
-x[[i, j, k, ..., drop=TRUE]]
+library(mcmcdb)
 ```
 
-Arguments 
+# Install
 
-- `i`: parameter array names
-- `j`: chains
-- `k`: iterations
-- `drop`: `logical` determines what data type is returned
-
-Returns
-
-If `drop=FALSE`, `data.frame` with columns
-
-- `flatpar` : flat parameter name
-- `pararray`: parameter array name
-- `chain_id` : chain 
-- `iter` : iteration
-- `value` : parameter value
-
-If `drop=TRUE`, named `list` of `array` objects for each parameter
-array.  Each array has dimensions (dimensions of parameter array,
-chains * iterations).
+Use [devtools](https://github.com/hadley/devtools) to install **mcmcdb** from github.
 
 ```
-x$i
+library(devtools)
+install_github(c("DataFrameConstr", "mcmcdb"), "jrnold")
 ```
 
-Arguments
+`line_samples` is a `McmcdbWide` object which is included in the
+package for examples.
 
-- `i`: parameter array name
+```
+data(line_samples)
+line_samples
+```
 
-Returns
-
-`array` with dimensions (dimensions of parameter array, chains *
-iterations).
-
-### ply functions
-
-#### mcmc_iply
-
-Apply a function to each iteration. 
-The iteration is in the same shape as the original data.
-
-#### mcmc_fply
-
-Apply a function to flat parameters. 
-
-#### mcmc_aply
-
-Apply a function to parameter arrays  ?? What shape
-
-#### mcmc_cply
-
-Apply a function to chains
-
-### Accessors
-
-- `mcmcdb_chains`: `data.frame`
-- `mcmcdb_parameters`: `McmcParameters`
-- `mcmcdb_pararrays`: `list`
-- `mcmcdb_pardims`: `list`
-- `mcmcdb_par_indices`: `list`
-- `mcmcdb_flatpars`: `character`
-- `mcmcdb_iters`: `data.frame`
-- `mcmcdb_flatpar_chains`: `data.frame`
-- `mcmcdb_metadata`: `list`
-
-- `mcmcdb_data`:
-- `mcmcdb_init`: If `flatted=TRUE`, then named numeric. Else, `list`
-  of arrays.
+The object include two parameter arrays `beta`, a vector of length 2,
+and `tau`, a scalar (vector of length 1). And samples from two 
 
 
-# Notes
 
-Relevant SQL reserved keywords, `iterate`, `chain`, `parameter`,
-`parameters`, `value`.
-
-- Classes are capitalized, and CamelCase
-- Functions and methods are all lower and "_", and not "."
-- Internal functions which will be used as an S4 method are named
-  as if they were S3 methods.
-- External classes and methods use "mcmcdb_" prefix.
 
