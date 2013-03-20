@@ -17,7 +17,8 @@
   parameter arrays}
 }
 \value{
-  Named \code{list} of parameter arrays.
+  All methods return a named \code{list} of parameter
+  arrays.
 }
 \description{
   Convert parameter values from their flattened form to
