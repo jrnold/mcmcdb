@@ -118,7 +118,7 @@ show.McmcdbWide <- function(object) {
               if (nchains > 1) "s" else "",
               iterbychain))
   cat("Parameters:\n")
-  parameters <- object@parameters
+  parameters <- mcmcdb_parameters(object)
   for (i in seq_along(parameters)) {
     cat(sprintf("$ %s [%s]\n",
                 names(parameters)[i], paste(dim(parameters[[i]]), collapse=",")))
