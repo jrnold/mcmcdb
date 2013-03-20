@@ -29,12 +29,14 @@
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_fply}},
   \code{\link{mcmcdb_fply-methods}},
+  \code{\link{mcmcdb_mcpar}},
   \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},
   \code{\link{mcmcdb_parameters-methods}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}}
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmdb_mcpar-methods}}
 
   Other get-methods: \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_flatpar_chains}}

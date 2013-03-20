@@ -1,9 +1,5 @@
 context("method-extract")
 
-test_McmcdbWide <-new("McmcdbWide",
-                      samples = samples, parameters = parameters,
-                      chains = chains, iters = iters)
-
 parnames <- paste("beta", 1:2, sep=".")
 samples <- matrix(1:8, ncol=2)
 colnames(samples) <- parnames

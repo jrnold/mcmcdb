@@ -35,9 +35,10 @@
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_fply}},
   \code{\link{mcmcdb_fply-methods}},
-  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_iters}}, \code{\link{mcmcdb_mcpar}},
   \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}}
+  \code{\link{mcmcdb_parameters-methods}},
+  \code{\link{mcmdb_mcpar-methods}}
 }
 
