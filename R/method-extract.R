@@ -31,7 +31,7 @@ NULL
     ii <- TRUE
   } else {
     if (is.numeric(i)) {
-      i <- names(mcmc_flatpars(x))[i]
+      i <- names(mcmcdb_flatpars(x))[i]
     } 
     ii <- (colnames(x@samples) %in% as.character(i))
   }
