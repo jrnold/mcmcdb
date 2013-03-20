@@ -39,13 +39,13 @@ NULL
   if (missing(j)) {
     jj <- TRUE
   } else {
-    jj <- (x@iters[["chain_id"]] == j)
+    jj <- (x@iters[["chain_id"]] %in% j)
   }
 
   if (missing(k)) {
     kk <- TRUE
   } else {
-    kk <- (x@iters[["iter"]] == k)
+    kk <- (x@iters[["iter"]] %in% k)
   }
   iters <- jj & kk
   ## select 
@@ -80,12 +80,12 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
   if (missing(j)) {
     jj <- TRUE
   } else {
-    jj <- x@iters[["chain_id"]] == j
+    jj <- x@iters[["chain_id"]] %in% j
   }
   if (missing(k)) {
     kk <- TRUE
   } else {
-    kk <- x@iters[["iter"]] == k
+    kk <- x@iters[["iter"]] %in% k
   }
   if (drop == TRUE) {
     mcmcdb_unflatten(x@samples[jj & kk, ], x@parameters[i])[[1]]

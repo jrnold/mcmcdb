@@ -45,6 +45,11 @@ test_that("[,McmcdbWide,character,missing,missing drop=FALSE", {
   expect_equal(test_wide2[ , 1, , drop=FALSE], expected)
 })
 
+test_that("[,McmcdbWide works with multiple indices", {
+  foo <- test_wide2[c("beta.1", "beta.2"), 1:2, 1:2]
+  expect_equal(foo, 1:8)
+})
+
 ##########################################
 
 test_that("[[,McmcdbWide,character,missing,missing drop=TRUE", {
@@ -76,6 +81,12 @@ test_that("[[,McmcdbWide,character,missing,integer drop=FALSE", {
                                        val = as.integer(c(2, 4, 6, 8))))
   expect_equal(foo, expected)
 })
+
+test_that("[[,McmcdbWide works with multiple indices", {
+  foo <- test_wide2[["beta", 1:2, 1:2]]
+  expect_equal(dim(foo), c(2L, 4L))
+})
+
 
 ###############################################
 
