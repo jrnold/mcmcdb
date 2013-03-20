@@ -45,3 +45,4 @@ Collate:
     'method-mcmcdb_iply.R'
     'read_stan.R'
     'method-mcmcdb_mcpar.R'
+    'data.R'
