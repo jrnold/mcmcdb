@@ -38,7 +38,7 @@
   "matrix", parameters = "McmcdbParameters")}. }
 
   \item{\code{signature(x = "matrix", parameters =
-  "missing")}}{ If \code{paramters} is missing, then the
+  "missing")}}{ If \code{parameters} is missing, then the
   default for \code{\link{McmcdbParameters}} is used. }
 
   \item{\code{signature(x = "McmcdbWide", parameters =
@@ -47,7 +47,7 @@
 
   \item{\code{signature(x = "McmcdbWide", parameters =
   "missing")}}{ Uses the result of
-  \code{mcmcdb_paramters(x)} as the paramter object. }
+  \code{mcmcdb_parameters(x)} as the paramter object. }
 
   \item{\code{signature(x = "numeric", parameters =
   "function")}}{ The numeric vector represents a single

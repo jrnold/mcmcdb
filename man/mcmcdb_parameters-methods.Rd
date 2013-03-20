@@ -2,7 +2,7 @@
 \alias{mcmcdb_parameters}
 \alias{mcmcdb_parameters,McmcdbWide-method}
 \alias{mcmcdb_parameters-methods}
-\title{Get paramters of Mcmcdb object}
+\title{Get parameters of Mcmcdb object}
 \arguments{
   \item{object}{object}
 }
@@ -10,7 +10,7 @@
   An object of class \code{\linkS4class{McmcdbParameters}}.
 }
 \description{
-  Get paramters of Mcmcdb object
+  Get parameters of Mcmcdb object
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},

@@ -109,11 +109,14 @@ setValidity("McmcdbWide", validate.McmcdbWide)
 
 show.McmcdbWide <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbWide")))
-  nsamples <- nrow(object@samples)
-  nchains <- nrow(object@chains)
-  cat(sprintf("%d total observations from %d chain%s\n",
+  mcpar <- mcmcdb_mcpar(object)
+  nsamples <- sum(mcpar[["n_iter"]])
+  nchains <- nrow(mcpar)
+  iterbychain <- paste(mcpar[["n_iter"]], collapse=",")
+  cat(sprintf("%d samples from %d chain%s (%s)\n",
               nsamples, nchains,
-              if (nchains > 1) "s" else ""))
+              if (nchains > 1) "s" else "",
+              iterbychain))
   cat("Parameters:\n")
   parameters <- object@parameters
   for (i in seq_along(parameters)) {
