@@ -6,6 +6,7 @@ License: GPL-3
 Title: MCMC sample database classes
 Description: Classes for storing and accessing MCMC samples
 Depends:
+    R (>= 2.15.0),
     methods
 Imports:
     stringr,
