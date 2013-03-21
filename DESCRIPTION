@@ -45,4 +45,5 @@ Collate:
     'method-mcmcdb_iply.R'
     'read_stan.R'
     'method-mcmcdb_mcpar.R'
+    'method-mcmcdb_samples.R'
     'data.R'
