@@ -12,5 +12,3 @@ NULL
 expand_grid_dim <- function(d) {
   as.matrix(expand.grid(lapply(as.integer(d), seq_len)))
 }
-
-nlist <- function(...) as(list(...), "namedList")
