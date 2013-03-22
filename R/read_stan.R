@@ -2,6 +2,40 @@
 #' @export read_stan_csv
 NULL
 
+## setClass("StanSamples",
+##          contains = "matrix",
+##          representation(stan_version_major = "integer",
+##                         stan_version_minor = "integer",
+##                         stan_version_patch = "integer",
+##                         data = "character",
+##                         init = "character",
+##                         append_samples = "integer",
+##                         save_warmup = "integer",
+##                         # the seed can be larger than .Machine$integer.max
+##                         seed = "character", 
+##                         chain_id = "integer",
+##                         iter = "integer",
+##                         warmup = "integer",
+##                         thin = "integer",
+##                         nondiag_mass = "integer",
+##                         equal_step_sizes = "integer",
+##                         leapfrog_steps = "integer",
+##                         max_treedepth = "integer",
+##                         epsilon = "integer",
+##                         epsilon_pm = "integer",
+##                         delta = "numeric",
+##                         gamma = "numeric",
+##                         # Part of adaptation phase
+##                         step_size = "numeric",
+##                         step_size_multipliers = "numeric",
+##                         cov_matrix = "matrix",
+##                         # Per iteration 
+##                         rejected = "logical",
+##                         warmup = "logical",
+##                         treedepth = "integer",
+##                         stepsize = "numeric"
+##                         ))
+
 # For Stan 1.2.0 
 parse_stan_header <- function(file) {
   lines <- readLines(file)
@@ -184,7 +218,8 @@ mcmcdb_wide_stan_one <- function(file) {
                       stepsize = stepsize,
                       rejected = rejected,
                       warmup = warmup)
-  list(samples=samples, chains=chains, iters=iters, flatpar_chains = flatpar_chains)
+  list(samples = samples, chains = chains, iters = iters,
+       flatpar_chains = flatpar_chains)
 }
 
 #' Create McmdbWide from Stan csv
