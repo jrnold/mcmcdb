@@ -152,18 +152,10 @@ setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "missing"),
 #' @family McmdbWide methods
 setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "character"),
           function(x, parameters, .iter=NULL, .chain_id=NULL, ...) {
-            pp <- unname(unlist(mcmcdb_parameters(x)[parameters]))
-            if (is.null(.iter)) {
-              iters <- TRUE
-            } else {
-              iters <- (x@iters[["iter"]] == .iter)
-            }
-            if (is.null(.chain_id)) {
-              chains <- TRUE
-            } else {
-              chains <- (x@iters[["chain_id"]] == .chain_id)
-            }
-            callGeneric(x@samples[iters & chains, pp, drop=FALSE],
+            callGeneric(subset_mcmcdb_wide(x,
+                                           pararrays = parameters,
+                                           chain_id = .chain_id,
+                                           iter = .iter), 
                         x@parameters[parameters], ...)
           })
 

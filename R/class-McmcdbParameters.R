@@ -15,7 +15,7 @@ setValidity("CharacterArray",
               TRUE
             })
 
-subclass_homog_list("ListOfCharArrays", "CharacterArray")
+hlist_class("ListOfCharArrays", "CharacterArray")
 
 ListOfCharArrays <- function(x) {
   new("ListOfCharArrays", llply(x, CharacterArray))

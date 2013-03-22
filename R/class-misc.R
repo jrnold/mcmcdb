@@ -42,40 +42,46 @@ NULL
 #' showClass("McmcdbFlatpars")
 NULL
 
+mcmcdb_samples_checks <- 
+  ColumnCheckList(flatpar = ColumnChecks("factor"),
+                  chain_id = ColumnChecks("integer"),
+                  iter = ColumnChecks("integer"),
+                  val = ColumnChecks("numeric"))
+
 McmcdbSamples <- 
-  constrained_data_frame("McmcdbSamples",
-                         columns=c(flatpar="factor",
-                           chain_id="integer",
-                           iter="integer",
-                           val="numeric"))
+  checked_frame_class("McmcdbSamples",
+                      columns = mcmcdb_sampls_checks)
 
 McmcdbChains <- 
-  constrained_data_frame("McmcdbChains",
-                         columns = c(chain_id="integer"))
-
+  checked_frame_class("McmcdbChains",
+                      columns =
+                      ColumnCheckList(chain_id = ColumnChecks("integer")))
 
 McmcdbIters <- 
-  constrained_data_frame("McmcdbIters",
-                         columns = c(chain_id="integer",
-                           iter="integer"))
+  checked_frame_class("McmcdbIters",
+                      columns =
+                      ColumnCheckList(chain_id = ColumnChecks("integer"),
+                                 iter = ColumnChecks("integer")))
 
 McmcdbFlatparChains <- 
-  constrained_data_frame("McmcdbFlatparChains",
-                         columns = c(flatpar="factor",
-                           chain_id="integer"))
+  checked_frame_class("McmcdbFlatparChains",
+                      columns =
+                      ColumnCheckList(flatpar = ColumnChecks("factor"),
+                                 chain_id = ColumnChecks("integer"))) 
 
 setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
 
+mcmcdb_flatpars_checks <-
+  ColumnCheckList(idx = ColumnChecks("character"),
+                  flatpar = ColumnChecks("character"),
+                  pararray = ColumnChecks("character"))
+
 McmcdbFlatpars <-
-  constrained_data_frame("McmcdbFlatpars",
-                         columns
-                         = c(idx = "character",
-                           flatpar = "character",
-                           pararray = "character"),
-                         constraints =
-                         list(function(x) {
-                           if (nrow(x)) {
-                             all(str_matchl(x$idx, "^\\d+(,\\d)*$"))
-                           }
-                         }))
+  checked_frame_class(columns = mcmcdb_flatpars_checks,
+                      constraints =
+                      list(function(x) {
+                        if (nrow(x)) {
+                          all(str_matchl(x$idx, "^\\d+(,\\d)*$"))
+                        }
+                      }))
                          
