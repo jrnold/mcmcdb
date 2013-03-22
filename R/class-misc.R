@@ -42,26 +42,27 @@ NULL
 #' showClass("McmcdbFlatpars")
 NULL
 
-mcmcdb_samples_checks <- 
-  ColumnCheckList(flatpar = ColumnChecks("factor"),
-                  chain_id = ColumnChecks("integer"),
-                  iter = ColumnChecks("integer"),
-                  val = ColumnChecks("numeric"))
+mcmcdb_samples_checks <-
+  TableChecks(ColumnCheckList(flatpar = ColumnChecks("factor"),
+                              chain_id = ColumnChecks("integer"),
+                              iter = ColumnChecks("integer"),
+                              val = ColumnChecks("numeric")))
 
 McmcdbSamples <- 
   checked_frame_class("McmcdbSamples",
-                      columns = mcmcdb_sampls_checks)
+                      mcmcdb_samples_checks)
 
 McmcdbChains <- 
   checked_frame_class("McmcdbChains",
                       columns =
                       ColumnCheckList(chain_id = ColumnChecks("integer")))
 
+mcmcdb_iters_checks <-
+  TableChecks(ColumnCheckList(chain_id = ColumnChecks("integer"),
+                              iter = ColumnChecks("integer"))))
+
 McmcdbIters <- 
   checked_frame_class("McmcdbIters",
-                      columns =
-                      ColumnCheckList(chain_id = ColumnChecks("integer"),
-                                 iter = ColumnChecks("integer")))
 
 McmcdbFlatparChains <- 
   checked_frame_class("McmcdbFlatparChains",

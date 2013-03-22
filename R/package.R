@@ -8,7 +8,7 @@
 ##' @import plyr
 ##' @import stringr
 ##' @import reshape2
-##' @import DataFrameConstr
+##' @import checker
 NULL
 
 VERSION <- "0.3-0"
