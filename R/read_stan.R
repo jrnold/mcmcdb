@@ -222,9 +222,7 @@ mcmcdb_wide_stan_one <- function(file) {
        flatpar_chains = flatpar_chains)
 }
 
-#' Create McmdbWide from Stan csv
-#'
-#' Create McmdbWide from Stan csv
+#' Create McmdbWide from Stan csv files
 #'
 #' This returns both the sample values and the metadata in the comments of the file.
 #' This function has been tested for the output of Stan 1.2.0.
