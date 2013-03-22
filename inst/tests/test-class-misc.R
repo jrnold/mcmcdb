@@ -9,9 +9,8 @@ test_that("McmcdbFlatpars works as expected", {
 })
 
 test_that("McmcdbFlatpars error if bad idx column", {
-  expect_error(McmcdbFlatpars(data.frame(flatpar = "beta.1.1",
-                                         pararray = "beta",
-                                         idx = "a",
-                                         stringsAsFactors = FALSE)),
-               "invalid class")
+  foo <- McmcdbFlatpars(data.frame(flatpar = "beta.1.1",
+                                   pararray = "beta",
+                                   idx = "a",
+                                   stringsAsFactors = FALSE))
 })

@@ -8,8 +8,6 @@ NULL
 ##              standardGeneric("mcmcdb_samples_iters")
 ##            })
 
-
-
 ## #' Mcmcdb Object samples (Long form)
 ## setGeneric("mcmcdb_samples_long",
 ##            function(object, ...) {
@@ -56,36 +54,3 @@ NULL
 ## setMethod("mcmcdb_samples_flatpars_chains", "McmcdbWide",
 ##           function(object, ...) {
 ##           })
-
-## paramlist <- function(x, flatpars=NULL, pararrays=NULL) {
-##   flatpars <- union(flatpars,
-##                     unlist(mcmcdb_parameters(x)[pararrays]))
-##   if (is.null(flatpars)) {
-##     flatpars <- TRUE
-##   }
-##   flatpars
-## }
-          
-## select_iters <- function(x, chain_id = NULL, iter = NULL) {
-##   ## chains
-##   if (is.null(chain_id)) {
-##     ischain <- TRUE
-##   } else {
-##     ischain <- (x@iters[["chain_id"]] %in% chain_id)
-##   }
-##   # iterations
-##   if (is.null(iter)) {
-##     isiter <- TRUE
-##   } else {
-##     isiter <- (x@iters[["iter"]] %in% iter)
-##   }
-##   ischain & isiter
-## }
-
-## subset_mcmcdb_wide <- function(x, pararrays = NULL, flatpars = NULL,
-##                                chain_id = NULL, iter = NULL, drop=FALSE) {
-##   # Parameters
-##   rows <- select_iters(x, chain_id = unique(chain_id),
-##                        iter = unique(iter))
-##   x@samples[rows, flatpars, drop=drop]
-## }

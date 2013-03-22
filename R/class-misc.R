@@ -73,18 +73,22 @@ McmcdbFlatparChains <-
 
 setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
 
+index_regex <- function(x) {                        
+  if (nrow(x)) {
+    all(str_detect(x$idx, "^\\d+(,\\d)*$"))
+  }
+}
+
 mcmcdb_flatpars_columns <-
-  ColumnCheckList(idx = ColumnChecks("character"),
+  ColumnCheckList(idx =
+                  ColumnChecks("character",
+                               constraints =
+                               FunctionList(index_regex=index_regex)),
                   flatpar = ColumnChecks("character"),
                   pararray = ColumnChecks("character"))
 
 McmcdbFlatpars <-
   checked_frame_class("McmcdbFlatpars",
-                      columns = mcmcdb_flatpars_columns,
-                      constraints =
-                      FunctionList(function(x) {
-                        if (nrow(x)) {
-                          all(str_detect(x$idx, "^\\d+(,\\d)*$"))
-                        }
-                      }))
+                      columns = mcmcdb_flatpars_columns)
+
                          
