@@ -63,11 +63,11 @@ mcmc_parparser_bugs <- function(x) {
 }
 
 has_bracket_index <- function(x) {
-  str_matchl(x, "(\\[(\\d+(,\\d+)?)\\])$")
+  str_detect(x, "(\\[(\\d+(,\\d+)?)\\])$")
 }
 
 has_dots_index <- function(x) {
-  str_matchl(x, "(\\.(\\d+(\\.\\d+)?))$")
+  str_detect(x, "(\\.(\\d+(\\.\\d+)?))$")
 }
 
 #' @rdname mcmc_parparsers

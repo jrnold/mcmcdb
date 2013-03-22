@@ -13,8 +13,4 @@ expand_grid_dim <- function(d) {
   as.matrix(expand.grid(lapply(as.integer(d), seq_len)))
 }
 
-str_matchl <- function(string, pattern) {
-  !is.na(str_match(string, pattern)[ , 1])
-}
-
 nlist <- function(...) as(list(...), "namedList")

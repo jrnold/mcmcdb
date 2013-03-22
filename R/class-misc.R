@@ -59,30 +59,32 @@ McmcdbChains <-
 
 mcmcdb_iters_checks <-
   TableChecks(ColumnCheckList(chain_id = ColumnChecks("integer"),
-                              iter = ColumnChecks("integer"))))
+                              iter = ColumnChecks("integer")))
 
 McmcdbIters <- 
-  checked_frame_class("McmcdbIters",
+  checked_frame_class("McmcdbIters", mcmcdb_iters_checks)
+
 
 McmcdbFlatparChains <- 
   checked_frame_class("McmcdbFlatparChains",
                       columns =
                       ColumnCheckList(flatpar = ColumnChecks("factor"),
-                                 chain_id = ColumnChecks("integer"))) 
+                                      chain_id = ColumnChecks("integer"))) 
 
 setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
 
-mcmcdb_flatpars_checks <-
+mcmcdb_flatpars_columns <-
   ColumnCheckList(idx = ColumnChecks("character"),
                   flatpar = ColumnChecks("character"),
                   pararray = ColumnChecks("character"))
 
 McmcdbFlatpars <-
-  checked_frame_class(columns = mcmcdb_flatpars_checks,
+  checked_frame_class("McmcdbFlatpars",
+                      columns = mcmcdb_flatpars_columns,
                       constraints =
-                      list(function(x) {
+                      FunctionList(function(x) {
                         if (nrow(x)) {
-                          all(str_matchl(x$idx, "^\\d+(,\\d)*$"))
+                          all(str_detect(x$idx, "^\\d+(,\\d)*$"))
                         }
                       }))
                          
