@@ -32,10 +32,10 @@ select_iters <- function(x, chain_id = NULL, iter = NULL) {
 
 subset_mcmcdb_wide <- function(x, pararrays = NULL, flatpars = NULL,
                                chain_id = NULL, iter = NULL, drop=FALSE) {
-  
+  params <- select_params(x, flatpars, pararrays)
   rows <- select_iters(x, chain_id = unique(chain_id),
                        iter = unique(iter))
-  x@samples[rows, flatpars, drop=drop]
+  x@samples[rows, params, drop=drop]
 }
 
 #' @name mcmcdb_unflatten-method

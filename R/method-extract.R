@@ -28,38 +28,21 @@ NULL
 `[.McmcdbWide` <- function(x, i, j, k, ..., drop=TRUE) {
   ## flatpar indices
   if (missing(i)) {
-    ii <- TRUE
-  } else {
-    if (is.numeric(i)) {
-      i <- names(mcmcdb_flatpars(x))[i]
-    } 
-    ii <- (colnames(x@samples) %in% as.character(i))
+    i <- NULL
   }
-  ## iterations
   if (missing(j)) {
-    jj <- TRUE
-  } else {
-    jj <- (x@iters[["chain_id"]] %in% j)
+    j <- NULL
   }
-
   if (missing(k)) {
-    kk <- TRUE
-  } else {
-    kk <- (x@iters[["iter"]] %in% k)
+    k <- NULL
   }
-  iters <- jj & kk
-  ## select 
-  xsub <- melt(x@samples[iters, ii, drop=FALSE],
-               varnames = c("Var1", "flatpar"),
-               value.name = "val")
+  samples <- select_mcmcdb_wide(x, flatpars = i, chain_id = j, iter = k)
   if (drop) {
-    xsub[["val"]]
+    samples
   } else {
-    chain_iters <- as(x@iters, "data.frame")[iters, , drop=FALSE]
-    ## Recycles over parameters
-    xsub[["iter"]] <- chain_iters[["iter"]]
-    xsub[["chain_id"]] <- chain_iters[["chain_id"]]
-    McmcdbSamples(xsub[ , c("flatpar", "chain_id", "iter", "val")])
+    chain_iters <- x@iters[select_iters(x, chain_id = j, iter = k), ]
+    samples <-cbind(chain_iters, samples)
+    melt(mcmcdb_samples, id.vars = c("chain_id", "iter"))
   }
 }
 
@@ -78,27 +61,19 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
   }
   # iterations
   if (missing(j)) {
-    jj <- TRUE
-  } else {
-    jj <- x@iters[["chain_id"]] %in% j
-  }
+    j <- NULL
+  } 
   if (missing(k)) {
-    kk <- TRUE
-  } else {
-    kk <- x@iters[["iter"]] %in% k
+    k <- NULL
   }
+  samples <- subse_mcmcdb_wide(x, pararrays = i, chain_id = j,
+                               iter = k)
   if (drop == TRUE) {
-    mcmcdb_unflatten(x@samples[jj & kk, ], x@parameters[i])[[1]]
+    mcmcdb_unflatten(samples, x@parameters[i])[[1]]
   } else {
-    ii <- names(mcmcdb_flatpars(x@parameters[i]))
-    xsub <- melt(x@samples[jj & kk, ii, drop=FALSE],
-                 varnames = c("Var1", "flatpar"),
-                 value.name = "val")
-    chain_iters <- as(x@iters, "data.frame")[jj & kk, , drop=FALSE]
-    ## Recycles over parameters
-    xsub[["iter"]] <- chain_iters[["iter"]]
-    xsub[["chain_id"]] <- chain_iters[["chain_id"]]
-    McmcdbSamples(xsub[ , c("flatpar", "chain_id", "iter", "val")])
+    chain_iters <- x@iters[select_iters(x, chain_id = j, iter = k), ]
+    samples <-cbind(chain_iters, samples)
+    melt(mcmcdb_samples, id.vars = c("chain_id", "iter"))
   }
 }
 

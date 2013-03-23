@@ -15,7 +15,7 @@ NULL
 #' Miscellaneous classes
 #'
 #' Various classes used internally in this package.
-#' These are all subclasses of \linkS4class{DataFrameConstr},
+#' These are all subclasses of \code{\linkS4class{CheckedFrame}},
 #' i.e. \code{data.frame} objects with required
 #' columns.
 #'
@@ -52,10 +52,14 @@ McmcdbSamples <-
   checked_frame_class("McmcdbSamples",
                       mcmcdb_samples_checks)
 
+#######
+
 McmcdbChains <- 
   checked_frame_class("McmcdbChains",
                       columns =
                       ColumnCheckList(chain_id = ColumnChecks("integer")))
+
+#######
 
 mcmcdb_iters_checks <-
   TableChecks(ColumnCheckList(chain_id = ColumnChecks("integer"),
@@ -64,6 +68,7 @@ mcmcdb_iters_checks <-
 McmcdbIters <- 
   checked_frame_class("McmcdbIters", mcmcdb_iters_checks)
 
+#######
 
 McmcdbFlatparChains <- 
   checked_frame_class("McmcdbFlatparChains",
@@ -73,11 +78,9 @@ McmcdbFlatparChains <-
 
 setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
 
-index_regex <- function(x) {                        
-  if (nrow(x)) {
-    all(str_detect(x$idx, "^\\d+(,\\d)*$"))
-  }
-}
+#######
+
+index_regex <- function(x) all(str_detect(x, "^\\d+(,\\d)*$"))
 
 mcmcdb_flatpars_columns <-
   ColumnCheckList(idx =

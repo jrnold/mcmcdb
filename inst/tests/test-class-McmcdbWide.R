@@ -81,4 +81,3 @@ test_that("McmcdbWide throws error if bad parinit names", {
                "invalid class")
 })
 
-

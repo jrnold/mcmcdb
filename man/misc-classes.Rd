@@ -15,8 +15,8 @@
 \title{Miscellaneous classes}
 \description{
   Various classes used internally in this package. These
-  are all subclasses of \linkS4class{DataFrameConstr}, i.e.
-  \code{data.frame} objects with required columns.
+  are all subclasses of \code{\linkS4class{CheckedFrame}},
+  i.e. \code{data.frame} objects with required columns.
 }
 \examples{
 showClass("McmcdbSamples")
