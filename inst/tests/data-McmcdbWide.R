@@ -1,12 +1,6 @@
 # dummy McmcWide object used for testing
 source("data-samples.R")
 
-test_wide1 <- 
-  new("McmcdbWide",
-      samples = samples,
-      parameters = McmcdbParameters(parnames),
-      chains = chains, iters = iters)
-
 test_wide2 <- local({
   nchains <- 2
   niter <- 3
