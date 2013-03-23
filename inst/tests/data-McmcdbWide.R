@@ -8,12 +8,15 @@ test_wide1 <-
       chains = chains, iters = iters)
 
 test_wide2 <- local({
-  parnames <- paste("beta", 1:2, sep=".")
-  samples <- matrix(1:8, ncol=2)
+  nchains <- 2
+  niter <- 3
+  ncol <- 3
+  parnames <- paste("beta", 1:ncol, sep=".")
+  samples <- matrix(seq_len(nchains * niter * ncol), ncol=ncol)
   colnames(samples) <- parnames
-  chains <- McmcdbChains(data.frame(chain_id = rep(1:2)))
-  iters <- McmcdbIters(data.frame(chain_id = rep(1:2, each=2),
-                                  iter = rep(1:2, 2)))
+  chains <- McmcdbChains(data.frame(chain_id = seq_len(nchains)))
+  iters <- McmcdbIters(data.frame(chain_id = rep(seq_len(nchains), each=niter),
+                                  iter = rep(seq_len(niter), nchains)))
   McmcdbWide(samples, chains = chains, iters = iters)
 })
 

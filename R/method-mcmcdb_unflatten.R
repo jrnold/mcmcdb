@@ -4,40 +4,6 @@
 #' @exportMethod mcmcdb_unflatten
 NULL
 
-# returns list of flatparameters or TRUE
-select_params <- function(x, flatpars=NULL, pararrays=NULL) {
-  flatpars <- union(flatpars,
-                    unlist(mcmcdb_parameters(x)[pararrays]))
-  if (is.null(flatpars)) {
-    flatpars <- TRUE
-  }
-  flatpars
-}
-          
-select_iters <- function(x, chain_id = NULL, iter = NULL) {
-  ## chains
-  if (is.null(chain_id)) {
-    ischain <- TRUE
-  } else {
-    ischain <- (x@iters[["chain_id"]] %in% chain_id)
-  }
-  # iterations
-  if (is.null(iter)) {
-    isiter <- TRUE
-  } else {
-    isiter <- (x@iters[["iter"]] %in% iter)
-  }
-  ischain & isiter
-}
-
-subset_mcmcdb_wide <- function(x, pararrays = NULL, flatpars = NULL,
-                               chain_id = NULL, iter = NULL, drop=FALSE) {
-  params <- select_params(x, flatpars, pararrays)
-  rows <- select_iters(x, chain_id = unique(chain_id),
-                       iter = unique(iter))
-  x@samples[rows, params, drop=drop]
-}
-
 #' @name mcmcdb_unflatten-method
 #' @rdname mcmcdb_unflatten-method
 #' @keywords methods

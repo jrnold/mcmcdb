@@ -1,7 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
 #' @include method-mcmcdb_unflatten.R
-#' @include method-mcmcdb_flatpars.R
+#' @include mcmcdb_wide_misc.R
 #' @exportMethod [
 #' @exportMethod [[
 #' @exportMethod $
@@ -40,7 +40,8 @@ NULL
   if (drop) {
     samples
   } else {
-    chain_iters <- x@iters[select_iters(x, chain_id = j, iter = k), ]
+    iters_touse <- mcmcdb_wide_select_iters(x, chain_id = j, iter = k)
+    chain_iters <- x@iters[iters_touse, ]
     samples <-cbind(chain_iters, samples)
     melt(samples, id.vars = c("chain_id", "iter"))
   }
@@ -70,7 +71,8 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
   if (drop == TRUE) {
     mcmcdb_unflatten(samples, x@parameters[i])[[1]]
   } else {
-    chain_iters <- x@iters[select_iters(x, chain_id = j, iter = k), ]
+    iters_touse <- mcmcdb_wide_select_iters(x, chain_id = j, iter = k)
+    chain_iters <- x@iters[iters_touse, ]
     samples <-cbind(chain_iters, samples)
     melt(samples, id.vars = c("chain_id", "iter"))
   }

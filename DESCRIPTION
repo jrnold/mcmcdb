@@ -33,6 +33,7 @@ Collate:
     'method-McmcdbWide.R'
     'method-mcmcdb_flatpars.R'
     'method-mcmcdb_unflatten.R'
+    'mcmcdb_wide_misc.R'
     'method-extract.R'
     'method-mcmcdb_chains.R'
     'method-mcmcdb_data.R'

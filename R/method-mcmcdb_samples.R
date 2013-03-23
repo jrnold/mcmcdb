@@ -18,7 +18,7 @@ NULL
 ##           function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
 ##                    chain_id=NULL) {
 ##             ## TODO: skip this step
-##             iters <- select_iters(object, chain_id = chain_id, iter = iter)
+##             iters <- mcmcdb_wide_select_iters(object, chain_id = chain_id, iter = iter)
 ##             pars <- paramlist(object, flatpars=flatpars, pararrays=pararrays)
 ##             x <- as.data.frame(object@samples[iters, pars])
 ##             x[ , c("chain_id", "iter")] <-
@@ -44,7 +44,7 @@ NULL
 ##             pars <- paramlist(object, flatpars=flatpars,
 ##                               pararrays=pararrays)
 ##             f <- function(chain_id) {
-##               touse <- select_iters(object, chain_id = chain_id,
+##               touse <- mcmcdb_wide_select_iters(object, chain_id = chain_id,
 ##                                     iters = iters)
 ##               x@samples[touse, pars]
 ##             }
