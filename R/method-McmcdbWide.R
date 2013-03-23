@@ -66,7 +66,8 @@ McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
                                   iter = seq_len(nrow(x))))
   McmcdbWide(as(x, "matrix"),
              parameters = parameters,
-             chains = chains, iters = iters)
+             chains = chains,
+             iters = iters)
 }
 
 
@@ -90,7 +91,8 @@ McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
                       function(x) data.frame(iter = seq_len(x[["n_iter"]]))))
   McmcdbWide(do.call(rbind, x),
              parameters = parameters,
-             chains = chains, iters = iters)
+             chains = chains,
+             iters = iters)
 }
 
 #' @rdname McmcdbWide-methods

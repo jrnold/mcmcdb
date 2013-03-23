@@ -7,4 +7,4 @@ model_code <- paste(readLines("line.jag"),
 line_samples@metadata <-
   list(comment = "For use in the examples of package mcmcdb",
        model_code = model_code)
-save(line_samples, file="data/line_samples.rda")
+save(line_samples, file="../../data/line_samples.rda")
