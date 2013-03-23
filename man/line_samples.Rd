@@ -9,6 +9,12 @@ and 2 chains of 100 samples each.}
   A \code{"McmcdbWide"} object used for examples in this
   package.
 }
+\section{Model}{
+  The data was generated from this JAGS model,
+
+  \Sexpr[results=rd,stage=build]{data(line_samples);
+  mcmcdb:::print_rd_model_code(line_samples)}
+}
 \examples{
 data(line_samples)
 show(line_samples)
