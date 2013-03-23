@@ -1,7 +1,7 @@
 \name{mcmcdb_pardims-methods}
 \alias{mcmcdb_pardims}
+\alias{mcmcdb_pardims,McmcdbMem-method}
 \alias{mcmcdb_pardims,McmcdbParameters-method}
-\alias{mcmcdb_pardims,McmcdbWide-method}
 \alias{mcmcdb_pardims-methods}
 \title{Get parameter array dimensions}
 \arguments{
@@ -16,6 +16,14 @@
   Get parameter array dimensions
 }
 \seealso{
+  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}},
+  \code{\link{mcmcdb_parameters}},
+  \code{\link{mcmcdb_parameters-methods}}
+
   Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}}, \code{\link{[}},
   \code{\link{[}}, \code{\link{mcmcdb_flatpars}},
@@ -23,22 +31,5 @@
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
   \code{\link{mcmcdb_paridx-methods}}
-
-  Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_aply}},
-  \code{\link{mcmcdb_aply-methods}},
-  \code{\link{mcmcdb_chains}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}},
-  \code{\link{mcmcdb_iters}}, \code{\link{mcmcdb_mcpar}},
-  \code{\link{mcmcdb_metadata}},
-  \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}},
-  \code{\link{mcmdb_mcpar-methods}}
 }
 

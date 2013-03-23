@@ -1,7 +1,7 @@
 \name{mcmcdb_paridx-methods}
 \alias{mcmcdb_paridx}
+\alias{mcmcdb_paridx,Mcmcdb-method}
 \alias{mcmcdb_paridx,McmcdbParameters-method}
-\alias{mcmcdb_paridx,McmcdbWide-method}
 \alias{mcmcdb_paridx-methods}
 \title{Get parameter indices}
 \arguments{

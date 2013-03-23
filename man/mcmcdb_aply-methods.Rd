@@ -26,19 +26,7 @@
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{McmcdbWide-class}}, \code{\link{[}},
   \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_chains}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}},
-  \code{\link{mcmcdb_iters}}, \code{\link{mcmcdb_mcpar}},
-  \code{\link{mcmcdb_metadata}},
-  \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}},
-  \code{\link{mcmdb_mcpar-methods}}
+  \code{\link{mcmcdb_chains}}, \code{\link{mcmcdb_fply}},
+  \code{\link{mcmcdb_fply-methods}}
 }
 

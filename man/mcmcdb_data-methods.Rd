@@ -1,6 +1,6 @@
 \name{mcmcdb_data-methods}
 \alias{mcmcdb_data}
-\alias{mcmcdb_data,McmcdbWide-method}
+\alias{mcmcdb_data,McmcdbMem-method}
 \alias{mcmcdb_data-methods}
 \title{Get model data from a Mcmcdb object}
 \arguments{

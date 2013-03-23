@@ -1,6 +1,6 @@
 \name{mcmcdb_parameters-methods}
 \alias{mcmcdb_parameters}
-\alias{mcmcdb_parameters,McmcdbWide-method}
+\alias{mcmcdb_parameters,McmcdbMem-method}
 \alias{mcmcdb_parameters-methods}
 \title{Get parameters of Mcmcdb object}
 \arguments{
@@ -13,22 +13,13 @@
   Get parameters of Mcmcdb object
 }
 \seealso{
-  Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_aply}},
-  \code{\link{mcmcdb_aply-methods}},
-  \code{\link{mcmcdb_chains}},
-  \code{\link{mcmcdb_flatpars}},
+  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}},
-  \code{\link{mcmcdb_iters}}, \code{\link{mcmcdb_mcpar}},
+  \code{\link{mcmcdb_iters}},
   \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}},
-  \code{\link{mcmdb_mcpar-methods}}
+  \code{\link{mcmcdb_pardims-methods}}
 }
 

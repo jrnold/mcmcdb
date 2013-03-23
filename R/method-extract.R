@@ -42,7 +42,7 @@ NULL
   } else {
     chain_iters <- x@iters[select_iters(x, chain_id = j, iter = k), ]
     samples <-cbind(chain_iters, samples)
-    melt(mcmcdb_samples, id.vars = c("chain_id", "iter"))
+    melt(samples, id.vars = c("chain_id", "iter"))
   }
 }
 
@@ -72,7 +72,7 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
   } else {
     chain_iters <- x@iters[select_iters(x, chain_id = j, iter = k), ]
     samples <-cbind(chain_iters, samples)
-    melt(mcmcdb_samples, id.vars = c("chain_id", "iter"))
+    melt(samples, id.vars = c("chain_id", "iter"))
   }
 }
 

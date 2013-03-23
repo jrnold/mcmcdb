@@ -1,6 +1,6 @@
 \name{mcmcdb_iters}
 \alias{mcmcdb_iters}
-\alias{mcmcdb_iters,McmcdbWide-method}
+\alias{mcmcdb_iters,McmcdbMem-method}
 \title{Get iteration data from Mcmcdb object}
 \arguments{
   \item{object}{object}
@@ -18,25 +18,15 @@
   Get iteration data from Mcmcdb object
 }
 \seealso{
-  Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_aply}},
-  \code{\link{mcmcdb_aply-methods}},
-  \code{\link{mcmcdb_chains}},
-  \code{\link{mcmcdb_flatpars}},
+  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}},
-  \code{\link{mcmcdb_mcpar}},
   \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},
   \code{\link{mcmcdb_parameters-methods}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}},
-  \code{\link{mcmdb_mcpar-methods}}
+  \code{\link{mcmcdb_pardims-methods}}
 
   Other get-methods: \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_flatpar_chains}}

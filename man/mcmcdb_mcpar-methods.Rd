@@ -1,7 +1,7 @@
 \docType{methods}
 \name{mcmdb_mcpar-methods}
 \alias{mcmcdb_mcpar}
-\alias{mcmcdb_mcpar,McmcdbWide-method}
+\alias{mcmcdb_mcpar,Mcmcdb-method}
 \alias{mcmdb_mcpar-methods}
 \title{Methods for function \code{mcmcdb_par}}
 \arguments{
@@ -23,31 +23,10 @@
   iterations, first iteration, last iteration, thinning.
 }
 \section{Methods}{
-  \describe{ \item{\code{signature(object =
-  "McmcdbWide")}}{} }
+  \describe{ \item{\code{signature(object = "Mcmcdb")}}{} }
 }
 \examples{
 data(line_samples)
 mcmcdb_mcpar(line_samples)
-}
-\seealso{
-  Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_aply}},
-  \code{\link{mcmcdb_aply-methods}},
-  \code{\link{mcmcdb_chains}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}},
-  \code{\link{mcmcdb_iters}},
-  \code{\link{mcmcdb_metadata}},
-  \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}}
 }
 

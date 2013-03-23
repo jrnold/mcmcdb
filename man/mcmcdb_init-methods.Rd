@@ -1,6 +1,6 @@
 \name{mcmcdb_init-methods}
 \alias{mcmcdb_init}
-\alias{mcmcdb_init,McmcdbWide-method}
+\alias{mcmcdb_init,McmcdbMem-method}
 \alias{mcmcdb_init-methods}
 \title{Get parameter initial values from a Mcmcdb object}
 \arguments{

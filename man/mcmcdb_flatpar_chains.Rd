@@ -1,6 +1,6 @@
 \name{mcmcdb_flatpar_chains}
 \alias{mcmcdb_flatpar_chains}
-\alias{mcmcdb_flatpar_chains,McmcdbWide-method}
+\alias{mcmcdb_flatpar_chains,McmcdbMem-method}
 \title{Get flat parameter, chains from an Mcmcdb object}
 \arguments{
   \item{object}{object}
