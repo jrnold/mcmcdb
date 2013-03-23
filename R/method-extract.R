@@ -25,7 +25,7 @@ NULL
 #' @return If  \code{drop=TRUE}, then a vector or array is returned, otherwise a \code{data.frame} is returned.
 NULL
 
-`[.McmcdbWide` <- function(x, i, j, k, ..., drop=TRUE) {
+`[.McmcdbWide` <- function(x, i, j, k, drop=TRUE) {
   ## flatpar indices
   if (missing(i)) {
     i <- NULL
