@@ -1,5 +1,5 @@
 #' @include package.R
-#' @include class-McmcdbWide.R
+#' @include class-McmcdbMem.R
 #' @exportMethod mcmcdb_init
 NULL
 
@@ -23,8 +23,8 @@ setGeneric("mcmcdb_init",
 
 
 #' @rdname mcmcdb_init-methods
-#' @aliases mcmcdb_init,McmcdbWide-method
-setMethod("mcmcdb_init", "McmcdbWide",
+#' @aliases mcmcdb_init,McmcdbMem-method
+setMethod("mcmcdb_init", "McmcdbMem",
           function(object, flatten=TRUE) {
             if (flatten) {
               object@parinit

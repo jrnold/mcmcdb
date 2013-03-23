@@ -17,9 +17,8 @@
   \item{\code{iters}}{\linkS4class{McmcdbIters}.}
   \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
   \item{\code{metadata}}{\code{list} with metadata about
-  the samples.} \item{\code{model_data}}{\code{listOrNULL}.
-  A \code{namedList} with the data used in the model. If
-  the data is not included, then \code{NULL}.}
+  the samples.} \item{\code{model_data}}{\code{namedList}.
+  The data used in the model.}
   \item{\code{parinit}}{\code{numericOrNULL}. A named
   \code{numeric} vector of the parameter starting values in
   the model.} \item{\code{version}}{\code{character}
@@ -63,6 +62,9 @@ showClass("McmcdbWide")
 \seealso{
   \code{\link{McmcdbWide}} for the method usually used to
   create these objects.
+
+  Other Mcmcdb classes: \code{\link{Mcmcdb-class}},
+  \code{\link{McmcdbMem-class}}
 
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{[}}, \code{\link{[[}},

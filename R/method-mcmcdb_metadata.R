@@ -1,4 +1,4 @@
-#' @include class-McmcdbWide.R
+#' @include class-McmcdbMem.R
 #' @exportMethod mcmcdb_metadata
 NULL
 
@@ -11,9 +11,9 @@ setGeneric("mcmcdb_metadata",
 #'
 #' @param object object
 #' @return \code{list}
-#' @aliases mcmcdb_metadata,McmcdbWide-method
-#' @seealso \code{\linkS4class{McmcdbWide}}
-#' @family McmcdbWide methods
-setMethod("mcmcdb_metadata", "McmcdbWide",
+#' @aliases mcmcdb_metadata,McmcdbMem-method
+#' @seealso \code{\linkS4class{McmcdbMem}}
+#' @family McmcdbMem methods
+setMethod("mcmcdb_metadata", "McmcdbMem",
           function(object) object@metadata)
 

@@ -1,4 +1,4 @@
-#' @include class-McmcdbWide.R
+#' @include class-McmcdbMem.R
 #' @exportMethod mcmcdb_iters
 NULL
 
@@ -16,9 +16,9 @@ setGeneric("mcmcdb_iters",
 #' @return An object of \linkS4class{McmcdbIters} with chains and iterations,
 #' and associated data, if \code{drop=FALSE}.
 #' @family get-methods
-#' @aliases mcmcdb_iters,McmcdbWide-method
-#' @family McmcdbWide methods
-setMethod("mcmcdb_iters", "McmcdbWide",
+#' @aliases mcmcdb_iters,McmcdbMem-method
+#' @family McmcdbMem methods
+setMethod("mcmcdb_iters", "McmcdbMem",
           function(object, drop=TRUE) {
             if (drop) {
               object@iters[ , c("chain_id", "iter")]

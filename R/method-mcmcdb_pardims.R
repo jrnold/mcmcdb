@@ -1,6 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
-#' @include class-McmcdbWide.R
+#' @include class-McmcdbMem.R
 #' @exportMethod mcmcdb_pardims
 NULL
 
@@ -29,7 +29,7 @@ dim.McmcdbParameters <- function(object) {
 setMethod("mcmcdb_pardims", "McmcdbParameters", dim.McmcdbParameters)
 
 #' @rdname mcmcdb_pardims-methods
-#' @aliases mcmcdb_pardims,McmcdbWide-method
-#' @family McmcdbWide methods
-setMethod("mcmcdb_pardims", "McmcdbWide",
+#' @aliases mcmcdb_pardims,McmcdbMem-method
+#' @family McmcdbMem methods
+setMethod("mcmcdb_pardims", "McmcdbMem",
           function(object) callGeneric(object@parameters))

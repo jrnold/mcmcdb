@@ -1,6 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
-#' @include class-McmcdbWide.R
+#' @include class-Mcmcdb.R
 #' @exportMethod mcmcdb_paridx
 NULL
 
@@ -39,7 +39,7 @@ setMethod("mcmcdb_paridx", "McmcdbParameters",
           mcmcdb_paridx.McmcdbParameters)
 
 #' @rdname mcmcdb_paridx-methods
-#' @aliases mcmcdb_paridx,McmcdbWide-method
+#' @aliases mcmcdb_paridx,Mcmcdb-method
 #' @family McmcdbParameters methods
-setMethod("mcmcdb_paridx", "McmcdbWide",
-          function(object) callGeneric(object@parameters))
+setMethod("mcmcdb_paridx", "Mcmcdb",
+          function(object) callGeneric(mcmcdb_parameters(object)))

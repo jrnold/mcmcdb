@@ -1,4 +1,5 @@
 #' @include package.R
+#' @include mcmc_parnames.R
 #' @exportMethod mcmcdb_flatten
 NULL
 

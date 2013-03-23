@@ -1,4 +1,4 @@
-#' @include class-McmcdbWide.R
+#' @include class-McmcdbMem.R
 #' @exportMethod mcmcdb_flatpar_chains
 NULL
 
@@ -16,9 +16,9 @@ setGeneric("mcmcdb_flatpar_chains",
 #' @return An object of \code{\linkS4class{McmcdbFlatparChains}} with
 #' flat parameters and chains.
 #' @family get-methods
-#' @aliases mcmcdb_flatpar_chains,McmcdbWide-method
-#' @family McmcdbWide-methods
-setMethod("mcmcdb_flatpar_chains", "McmcdbWide",
+#' @aliases mcmcdb_flatpar_chains,McmcdbMem-method
+#' @family McmcdbMem-methods
+setMethod("mcmcdb_flatpar_chains", "McmcdbMem",
           function(object, drop=TRUE) {
             if (is.null(object@flatpar_chains)) {
               parameters <- names(object@parameters@flatpars)

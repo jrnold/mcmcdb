@@ -1,5 +1,5 @@
 #' @include package.R
-#' @include class-McmcdbWide.R
+#' @include class-McmcdbMem.R
 #' @exportMethod mcmcdb_data
 NULL
 
@@ -20,7 +20,7 @@ setGeneric("mcmcdb_data",
 
 
 #' @rdname mcmcdb_data-methods
-#' @aliases mcmcdb_data,McmcdbWide-method
-setMethod("mcmcdb_data", "McmcdbWide",
+#' @aliases mcmcdb_data,McmcdbMem-method
+setMethod("mcmcdb_data", "McmcdbMem",
           function(object) object@model_data)
 

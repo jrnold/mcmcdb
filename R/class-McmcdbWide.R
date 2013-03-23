@@ -2,6 +2,7 @@
 #' @include utilities.R
 #' @include class-misc.R
 #' @include class-matrix.R
+#' @include class-McmcdbMem.R
 #' @include class-McmcdbParameters.R
 #' @exportClass McmcdbWide
 NULL
@@ -27,7 +28,7 @@ NULL
 #' \item{\code{iters}}{\linkS4class{McmcdbIters}.}
 #' \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
 #' \item{\code{metadata}}{\code{list} with metadata about the samples.}
-#' \item{\code{model_data}}{\code{listOrNULL}. A \code{namedList} with the data used in the model. If the data is not included, then \code{NULL}.}
+#' \item{\code{model_data}}{\code{namedList}. The data used in the model.}
 #' \item{\code{parinit}}{\code{numericOrNULL}. A named \code{numeric} vector of the parameter starting values in the model.}
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
@@ -35,6 +36,7 @@ NULL
 #' @docType class
 #' @family McmcdbWide methods
 #' @seealso \code{\link{McmcdbWide}} for the method usually used to create these objects.
+#' @family Mcmcdb classes
 #' @examples
 #' showClass("McmcdbWide")
 #' 
@@ -69,25 +71,9 @@ NULL
 #'  # extract metadata
 #'  mcmcdb_metadata(line_samples)
 setClass("McmcdbWide",
-         representation(samples="matrix",
-                        parameters="McmcdbParameters",
-                        chains="McmcdbChains", # chain_id
-                        iters="McmcdbIters", # chain_id, iter
-                        flatpar_chains="ANY", # parname, chain_id
-                        metadata="list",
-                        version="character",
-                        parinit="numeric",
-                        model_data="namedList"),
-         prototype(samples = matrix(),
-                   parameters = McmcdbParameters(),
-                   chains = McmcdbChains(chain_id = integer()),
-                   iters = McmcdbIters(chain_id = integer(),
-                     iter = integer()),
-                   metadata = list(),
-                   version = VERSION,
-                   parinit = numeric(),
-                   flatpar_chains = NULL,
-                   model_data = nlist()))
+         contains = "McmcdbMem",
+         representation(samples="matrix"),
+         prototype(samples = matrix()))
 
 validate.McmcdbWide <- function(object) {
   nsamples <- nrow(object@samples)

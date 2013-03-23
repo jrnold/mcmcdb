@@ -1,5 +1,5 @@
 #' @include package.R
-#' @include class-McmcdbWide.R
+#' @include class-Mcmcdb.R
 #' @include method-mcmcdb_chains.R
 #' @include method-mcmcdb_iters.R
 #' @exportMethod mcmcdb_mcpar
@@ -25,7 +25,7 @@ NULL
 #' }
 #' @section Methods:
 #' \describe{
-#' \item{\code{signature(object = "McmcdbWide")}}{}
+#' \item{\code{signature(object = "Mcmcdb")}}{}
 #' }
 #' @examples
 #' data(line_samples)
@@ -36,9 +36,9 @@ setGeneric("mcmcdb_mcpar",
            })
 
 #' @rdname mcmcdb_mcpar-methods
-#' @aliases mcmcdb_mcpar,McmcdbWide-method
-#' @family McmcdbWide methods
-setMethod("mcmcdb_mcpar", "McmcdbWide", 
+#' @aliases mcmcdb_mcpar,Mcmcdb-method
+#' @family Mcmcdb methods
+setMethod("mcmcdb_mcpar", "Mcmcdb", 
           function(object) {
             chains <- mcmcdb_chains(object, drop=FALSE)
             mcpar <- as(chains, "data.frame")[ , "chain_id", drop=FALSE]
