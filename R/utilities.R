@@ -15,5 +15,5 @@ expand_grid_dim <- function(d) {
 
 
 print_rd_model_code <- function(x) {
-  cat(sprintf("\\preformatted{%s}\n", mcmcdb_metadata(line_samples)[["model_code"]]))
+  sprintf("\\preformatted{%s}\n", mcmcdb_metadata(line_samples)[["model_code"]])
 }
