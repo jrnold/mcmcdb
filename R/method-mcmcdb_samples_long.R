@@ -1,5 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
+#' @include mcmcdb_wide_misc.R
+#' @exportMethod mcmcdb_samples_long
 NULL
 
 #' @rdname mcmcdb_samples_long-methods
@@ -16,7 +18,13 @@ NULL
 #' \item{\code{val}}{\code{numeric}. Parameter values}
 #' }
 #' @examples
-
+#' library(plyr)
+#' data(line_samples)
+#' line_long <- mcmcdb_samples_long(line_samples)
+#' head(line_long)
+#' summary(line_long)
+#' ddply(line_long, "flatpar",
+#'       summarise, mean = mean(val), median = median(val))
 setGeneric("mcmcdb_samples_long",
            function(object, ...) {
              standardGeneric("mcmcdb_samples_long")

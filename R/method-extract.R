@@ -36,7 +36,7 @@ NULL
   if (missing(k)) {
     k <- NULL
   }
-  samples <- subset_mcmcdb_wide(x, flatpars = i, chain_id = j, iter = k)
+  samples <- mcmcdb_wide_subset(x, flatpars = i, chain_id = j, iter = k)
   if (drop) {
     samples
   } else {
@@ -67,7 +67,7 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
   if (missing(k)) {
     k <- NULL
   }
-  samples <- subset_mcmcdb_wide(x, pararrays = i, chain_id = j, iter = k)
+  samples <- mcmcdb_wide_subset(x, pararrays = i, chain_id = j, iter = k)
   if (drop == TRUE) {
     mcmcdb_unflatten(samples, x@parameters[i])[[1]]
   } else {

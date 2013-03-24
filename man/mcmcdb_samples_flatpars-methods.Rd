@@ -10,6 +10,13 @@
   Return samples from a Mcmcdb object in a matrix
   (iterations x flatpars).
 }
+\examples{
+data(line_samples)
+line_wide <- mcmcdb_samples_flatpars(line_samples)
+dim(line_wide)
+head(line_wide)
+summary(line_wide)
+}
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{McmcdbWide-class}}, \code{\link{[}},

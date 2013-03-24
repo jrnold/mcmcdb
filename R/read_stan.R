@@ -1,4 +1,5 @@
 #' @include package.R
+#' @exportClass StanSamples
 #' @export read_stan_csv
 NULL
 

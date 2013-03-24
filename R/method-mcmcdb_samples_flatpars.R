@@ -1,5 +1,6 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
+#' @exportMethod mcmcdb_samples_flatpars
 NULL
 
 #' @rdname mcmcdb_samples_flatpars-methods
@@ -10,6 +11,12 @@ NULL
 #' 
 #' @return \code{matrix}. Columns are the flatpars.
 #' Rows are the iterations (from all chains).
+#' @examples
+#' data(line_samples)
+#' line_wide <- mcmcdb_samples_flatpars(line_samples)
+#' dim(line_wide)
+#' head(line_wide)
+#' summary(line_wide)
 setGeneric("mcmcdb_samples_flatpars",
            function(object, ...) {
              standardGeneric("mcmcdb_samples_flatpars")

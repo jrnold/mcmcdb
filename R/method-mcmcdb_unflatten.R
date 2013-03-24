@@ -152,8 +152,7 @@ setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "missing"),
 #' @family McmdbWide methods
 setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "character"),
           function(x, parameters, .iter=NULL, .chain_id=NULL, ...) {
-            callGeneric(subset_mcmcdb_wide(x,
-                                           pararrays = parameters,
+            callGeneric(mcmcdb_wide_subset(x, pararrays = parameters,
                                            chain_id = .chain_id,
                                            iter = .iter), 
                         x@parameters[parameters], ...)
