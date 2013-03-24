@@ -33,7 +33,7 @@ setClass("McmcdbMem",
                    iters = McmcdbIters(chain_id = integer(),
                      iter = integer()),
                    metadata = list(),
-                   version = VERSION,
+                   version = as.character(packageVersion("mcmcdb")),
                    parinit = numeric(),
                    flatpar_chains = NULL,
                    model_data = nlist()))
