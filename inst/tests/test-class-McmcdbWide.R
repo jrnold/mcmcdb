@@ -11,7 +11,7 @@ test_that("McmcdbWide initialize works", {
   expect_equal(foo@parameters, parameters)
   expect_equal(foo@chains, chains)
   expect_equal(foo@iters, iters)
-  expect_equal(foo@version, mcmcdb:::VERSION)
+  expect_equal(foo@version, as.character(packageVersion("mcmcdb")))
 })
 
 test_that("McmcdbWide error if nrow(iters) != nrow(samples)", {

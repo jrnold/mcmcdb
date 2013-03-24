@@ -5,21 +5,24 @@
 #' @exportMethod [
 NULL
 
-CharacterArray <- setClass("CharacterArray", "array")
+setClass("ParnameArray", "array")
 
-setValidity("CharacterArray",
+ParnameArray <- function(x) {
+  x <- as.array(x)
+  d <- dim(x)
+  new("ParnameArray", array(as.character(x), d))
+}
+
+setValidity("ParnameArray",
             function(object) {
               if (!is.character(object)) {
                 return("object is not a character vector.")
               }
+              if (any(sapply(object, is.na))) {
+                return("No array elements can be missing")
+              }
               TRUE
             })
-
-hlist_class("ListOfCharArrays", "CharacterArray")
-
-ListOfCharArrays <- function(x) {
-  new("ListOfCharArrays", llply(x, CharacterArray))
-}
 
 #' @name McmcdbParameters-class
 #' @rdname McmcdbParameters-class
@@ -46,21 +49,10 @@ ListOfCharArrays <- function(x) {
 #' @family McmcdbParameters methods
 #' @examples
 #' showClass("McmcdbParameters")
-setClass("McmcdbParameters", "ListOfCharArrays")
+NULL
 
-setValidity("McmcdbParameters",
-            function(object) {
-              if (length(object)) {
-                if (any(sapply(object@names, is.na)) ||
-                    any(sapply(object@names, `==`, ""))) {
-                  return("No names can be missing")
-                }
-                if (any(unlist(lapply(object, is.na)))) {
-                  return("No array elements can be missing")
-                }
-              }
-              TRUE
-            })
+hlist_class("McmcdbParameters", "ParnameArray",
+            unique_names = TRUE, empty_names = FALSE)
 
 show.McmcdbParameters <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbParameters")))
@@ -72,13 +64,3 @@ show.McmcdbParameters <- function(object) {
 }
 
 setMethod("show", "McmcdbParameters", show.McmcdbParameters)
-
-#' @rdname extract-bracket1-methods
-#' @aliases [,McmcdbParameters,missing,ANY-method
-setMethod("[", c(x="McmcdbParameters", i="missing"),
-          function(x, i, j, ...) x)
-
-#' @rdname extract-bracket1-methods
-#' @aliases [,McmcdbParameters,ANY,ANY-method
-setMethod("[", c(x="McmcdbParameters", i="ANY"),
-          function(x, i, j, ...) new("McmcdbParameters", as(x, "ListOfCharArrays")[i]))

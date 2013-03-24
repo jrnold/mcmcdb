@@ -57,14 +57,7 @@ setMethod("McmcdbParameters", "McmcdbFlatpars",
 #' @aliases McmcdbParameters,list-method
 setMethod("McmcdbParameters", "list",
           function(x) {
-            callGeneric(ListOfCharArrays(x))
-          })
-
-#' @rdname McmcdbParameters-methods
-#' @aliases McmcdbParameters,ListOfCharArrays-method
-setMethod("McmcdbParameters", "ListOfCharArrays",
-          function(x) {
-            new("McmcdbParameters", x)
+            new("McmcdbParameters", llply(x, ParnameArray))
           })
 
 #' @rdname McmcdbParameters-methods

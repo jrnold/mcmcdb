@@ -44,9 +44,9 @@ summary(line_wide)
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
-  \code{\link{[}}, \code{\link{[}}, \code{\link{[}},
-  \code{\link{[-methods}}, \code{\link{[[}},
-  \code{\link{[[-methods}}, \code{\link{mcmcdb_chains}},
+  \code{\link{[}}, \code{\link{[-methods}},
+  \code{\link{[[}}, \code{\link{[[-methods}},
+  \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},

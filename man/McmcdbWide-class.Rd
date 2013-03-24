@@ -76,7 +76,6 @@ mcmcdb_metadata(line_samples)
 
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{$-methods}}, \code{\link{[}},
-  \code{\link{[}}, \code{\link{[}},
   \code{\link{[-methods}}, \code{\link{[[}},
   \code{\link{[[-methods}}, \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_samples_flatpars}},

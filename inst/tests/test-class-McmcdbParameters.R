@@ -1,18 +1,17 @@
 context("class-McmcdbParameters")
 
-test_that("Class CharacterArray works as expected", {
-  expect_is(CharacterArray(array(letters)), "CharacterArray")
+test_that("Class ParnameArray works as expected", {
+  expect_is(mcmcdb:::ParnameArray(array(letters)), "ParnameArray")
 })
 
-test_that("Class CharacterArray throws error with non-character data", {
-  expect_error(CharacterArray(array(1:10)), "invalid class")
+test_that("Class ParnameArray converts non-character data", {
+  expect_is(mcmcdb:::ParnameArray(array(1:10)), "ParnameArray")
 })
 
-test_that("ListOfCharArrays works as expected", {
-  expect_is(ListOfCharArrays(llply(list(a=letters, b=LETTERS),
-                                   CharacterArray)),
-            "ListOfCharArrays")
+test_that("Class ParnameArray throws error if NA", {
+  expect_error(mcmcdb:::ParnameArray(c("a", NA)), "invalid class")
 })
+
 
 foo <- list(alpha="alpha.1", beta=array(c("beta.1.1", "beta.1.2"), c(1, 2)))
 

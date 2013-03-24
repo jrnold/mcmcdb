@@ -25,7 +25,7 @@ mcmcdb_paridx.McmcdbParameters <- function(object) {
   ret <- lapply(object,
                 function(x) {
                   idx <- expand_grid_dim(dim(x))
-                  rownames(idx) <- unlist(x)
+                  rownames(idx) <- as.character(x)
                   idx
                 })
   names(ret) <- names(object)

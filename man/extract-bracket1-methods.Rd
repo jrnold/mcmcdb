@@ -1,9 +1,7 @@
 \docType{methods}
-\name{[}
+\name{[-methods}
 \alias{[}
 \alias{[,Mcmcdb,ANY,ANY-method}
-\alias{[,McmcdbParameters,ANY,ANY-method}
-\alias{[,McmcdbParameters,missing,ANY-method}
 \alias{[-methods}
 \title{Methods for function \code{[}}
 \arguments{
