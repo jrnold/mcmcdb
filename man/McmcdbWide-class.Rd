@@ -71,6 +71,10 @@ showClass("McmcdbWide")
   \code{\link{extract-methods}}, \code{\link{mcmcdb_aply}},
   \code{\link{mcmcdb_aply-methods}},
   \code{\link{mcmcdb_chains}}, \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}}
+  \code{\link{mcmcdb_fply-methods}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_long}}
 }
 

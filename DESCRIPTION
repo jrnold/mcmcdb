@@ -47,6 +47,7 @@ Collate:
     'method-mcmcdb_parameters.R'
     'method-mcmcdb_pardims.R'
     'method-mcmcdb_paridx.R'
-    'method-mcmcdb_samples.R'
     'read_stan.R'
     'stan_bugs_parnames.R'
+    'method-mcmcdb_samples_flatpars.R'
+    'method-mcmcdb_samples_long.R'

@@ -23,7 +23,11 @@
   \code{\link{mcmcdb_aply}},
   \code{\link{mcmcdb_aply-methods}},
   \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}}
+  \code{\link{mcmcdb_fply-methods}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_long}}
 
   Other get-methods: \code{\link{mcmcdb_flatpar_chains}},
   \code{\link{mcmcdb_iters}}

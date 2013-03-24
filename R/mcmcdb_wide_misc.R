@@ -1,5 +1,4 @@
 # Miscellaneous utility functions used with McmcdbWide functions
-
 # returns list of flatparameters or TRUE
 mcmcdb_wide_select_params <- function(x, flatpars=NULL, pararrays=NULL) {
   flatpars <- union(flatpars,
