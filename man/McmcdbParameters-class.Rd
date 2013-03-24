@@ -1,9 +1,6 @@
 \docType{class}
 \name{McmcdbParameters-class}
 \alias{McmcdbParameters-class}
-\alias{[}
-\alias{[,McmcdbParameters,ANY,ANY-method}
-\alias{[,McmcdbParameters,missing,ANY-method}
 \title{McmcdbParameters Class}
 \description{
   Metadata about MCMC parameters, providing information

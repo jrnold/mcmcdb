@@ -26,8 +26,8 @@
   \code{\link{mcmcdb_pardims-methods}}
 
   Other McmcdbParameters methods:
-  \code{\link{McmcdbParameters-class}}, \code{\link{[}},
-  \code{\link{[}}, \code{\link{mcmcdb_pardims}},
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},

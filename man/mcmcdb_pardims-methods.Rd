@@ -25,8 +25,8 @@
   \code{\link{mcmcdb_parameters-methods}}
 
   Other McmcdbParameters methods:
-  \code{\link{McmcdbParameters-class}}, \code{\link{[}},
-  \code{\link{[}}, \code{\link{mcmcdb_flatpars}},
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},

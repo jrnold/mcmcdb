@@ -3,6 +3,8 @@
 #' @export read_stan_csv
 NULL
 
+#' @rdname StanSamples-class
+#' @name StanSamples-class
 #' @docType class
 #' @title Class \code{StanSamples}
 #'

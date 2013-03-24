@@ -69,12 +69,5 @@ names(samples) <- parnames
 samples
 mcmcdb_unflatten(samples)
 }
-\seealso{
-  Other McmdbWide methods: \code{\link{mcmcdb_iply}},
-  \code{\link{mcmcdb_iply-methods}}
-
-  Other McmdbWide methods: \code{\link{mcmcdb_iply}},
-  \code{\link{mcmcdb_iply-methods}}
-}
 \keyword{methods}
 

@@ -20,8 +20,8 @@
 }
 \seealso{
   Other McmcdbParameters methods:
-  \code{\link{McmcdbParameters-class}}, \code{\link{[}},
-  \code{\link{[}}, \code{\link{mcmcdb_flatpars}},
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_pardims}},
@@ -29,8 +29,8 @@
   \code{\link{mcmcdb_pardims-methods}}
 
   Other McmcdbParameters methods:
-  \code{\link{McmcdbParameters-class}}, \code{\link{[}},
-  \code{\link{[}}, \code{\link{mcmcdb_flatpars}},
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_pardims}},

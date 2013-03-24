@@ -10,7 +10,7 @@ NULL
 #' @rdname extract-methods
 #' @name extract-methods
 #' @docType methods
-#' @title Extract
+#' @title Extract methods
 #'
 #' @description The methods \code{[}, \code{[[} and \code{$} are
 #' defined for \code{\linkS4class{McmcdbWide}} objects
@@ -22,7 +22,7 @@ NULL
 #' @param j \code{integer}. Chain number.
 #' @param k \code{integer}. Iteration number.
 #' @param drop \code{logical}. Determines the object returned. In general, if
-#' @return If  \code{drop=TRUE}, then a vector or array is returned, otherwise a \code{data.frame} is returned.
+#' @return If \code{drop=TRUE}, a matrix is returned, otherwise a \code{data.frame} is returned.
 NULL
 
 `[.McmcdbWide` <- function(x, i, j, k, drop=TRUE) {
@@ -37,9 +37,9 @@ NULL
     k <- NULL
   }
   if (drop == TRUE) {
-    mcmcd_samples_pararray(x, flatpars = i, chain_id = j, iter = k)[[1]]
+    mcmcdb_samples_flatpars(x, flatpars = i, chain_id = j, iter = k)
   } else {
-    mcmcd_samples_long(x, flatpars = i, chain_id = j, iter = k)
+    mcmcdb_samples_long(x, flatpars = i, chain_id = j, iter = k)
   }
 }
 
@@ -64,9 +64,9 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
     k <- NULL
   }
   if (drop == TRUE) {
-    mcmcd_samples_pararray(x, pararrays = i, chain_id = j, iter = k)[[i]]
+    mcmcdb_samples_pararrays(x, pararrays = i, chain_id = j, iter = k)[[i]]
   } else {
-    mcmcd_samples_long(x, pararrays = i, chain_id = j, iter = k)
+    mcmcdb_samples_long(x, pararrays = i, chain_id = j, iter = k)
   }
 }
 

@@ -40,7 +40,6 @@ Collate:
     'method-mcmcdb_flatpar_chains.R'
     'method-mcmcdb_flatten.R'
     'method-mcmcdb_init.R'
-    'method-mcmcdb_iply.R'
     'method-mcmcdb_iters.R'
     'method-mcmcdb_mcpar.R'
     'method-mcmcdb_metadata.R'
@@ -51,3 +50,5 @@ Collate:
     'stan_bugs_parnames.R'
     'method-mcmcdb_samples_flatpars.R'
     'method-mcmcdb_samples_long.R'
+    'method-mcmcdb_samples_iter.R'
+    'method-mcmcdb_samples_pararrays.R'

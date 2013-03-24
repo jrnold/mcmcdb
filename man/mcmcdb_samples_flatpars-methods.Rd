@@ -21,11 +21,12 @@ summary(line_wide)
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{McmcdbWide-class}}, \code{\link{[}},
   \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_aply}},
-  \code{\link{mcmcdb_aply-methods}},
-  \code{\link{mcmcdb_chains}}, \code{\link{mcmcdb_fply}},
-  \code{\link{mcmcdb_fply-methods}},
+  \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_long}}
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_pararrays}}
 }
 
