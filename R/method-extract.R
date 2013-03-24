@@ -36,14 +36,10 @@ NULL
   if (missing(k)) {
     k <- NULL
   }
-  samples <- mcmcdb_wide_subset(x, flatpars = i, chain_id = j, iter = k)
-  if (drop) {
-    samples
+  if (drop == TRUE) {
+    mcmcd_samples_pararray(x, flatpars = i, chain_id = j, iter = k)[[1]]
   } else {
-    iters_touse <- mcmcdb_wide_select_iters(x, chain_id = j, iter = k)
-    chain_iters <- x@iters[iters_touse, ]
-    samples <-cbind(chain_iters, samples)
-    melt(samples, id.vars = c("chain_id", "iter"))
+    mcmcd_samples_long(x, flatpars = i, chain_id = j, iter = k)
   }
 }
 
@@ -67,14 +63,10 @@ setMethod("[", c(x = "McmcdbWide", i="ANY", j="ANY"), `[.McmcdbWide`)
   if (missing(k)) {
     k <- NULL
   }
-  samples <- mcmcdb_wide_subset(x, pararrays = i, chain_id = j, iter = k)
   if (drop == TRUE) {
-    mcmcdb_unflatten(samples, x@parameters[i])[[1]]
+    mcmcd_samples_pararray(x, pararrays = i, chain_id = j, iter = k)[[i]]
   } else {
-    iters_touse <- mcmcdb_wide_select_iters(x, chain_id = j, iter = k)
-    chain_iters <- x@iters[iters_touse, ]
-    samples <-cbind(chain_iters, samples)
-    melt(samples, id.vars = c("chain_id", "iter"))
+    mcmcd_samples_long(x, pararrays = i, chain_id = j, iter = k)
   }
 }
 
@@ -85,7 +77,7 @@ setMethod("[[", c(x = "McmcdbWide"), `[[.McmcdbWide`)
 ##########################################################################
 
 `$.McmcdbWide` <- function(x, name) {
-  mcmcdb_unflatten(x, name)[[1]]
+  x[[name]]
 }
 
 #' @rdname extract-methods
