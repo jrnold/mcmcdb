@@ -13,4 +13,3 @@ test_wide2 <- local({
                                   iter = rep(seq_len(niter), nchains)))
   McmcdbWide(samples, chains = chains, iters = iters)
 })
-

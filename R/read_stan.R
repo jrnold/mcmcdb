@@ -2,80 +2,59 @@
 #' @export read_stan_csv
 NULL
 
-## setClass("StanSamples",
-##          contains = "matrix",
-##          representation(stan_version_major = "integer",
-##                         stan_version_minor = "integer",
-##                         stan_version_patch = "integer",
-##                         data = "character",
-##                         init = "character",
-##                         append_samples = "integer",
-##                         save_warmup = "integer",
-##                         # the seed can be larger than .Machine$integer.max
-##                         seed = "character", 
-##                         chain_id = "integer",
-##                         iter = "integer",
-##                         warmup = "integer",
-##                         thin = "integer",
-##                         nondiag_mass = "integer",
-##                         equal_step_sizes = "integer",
-##                         leapfrog_steps = "integer",
-##                         max_treedepth = "integer",
-##                         epsilon = "integer",
-##                         epsilon_pm = "integer",
-##                         delta = "numeric",
-##                         gamma = "numeric",
-##                         # Part of adaptation phase
-##                         step_size = "numeric",
-##                         step_size_multipliers = "numeric",
-##                         cov_matrix = "matrix",
-##                         # Per iteration 
-##                         rejected = "logical",
-##                         warmup = "logical",
-##                         treedepth = "integer",
-##                         stepsize = "numeric"
-##                         ))
+#' @docType class
+#' @title Class \code{StanSamples}
+#'
+#' @description Class representing samples generated
+#' by the Stan command line program.
+setClass("StanSamples",
+         contains = "matrix",
+         representation(stan_version_major = "integer",
+                        stan_version_minor = "integer",
+                        stan_version_patch = "integer",
+                        data = "character",
+                        init = "character",
+                        append_samples = "logical",
+                        save_warmup = "logical",
+                        # the seed can be larger than .Machine$integer.max
+                        seed = "character", 
+                        chain_id = "integer",
+                        iter = "integer",
+                        warmup = "integer",
+                        thin = "integer",
+                        nondiag_mass = "integer",
+                        equal_step_sizes = "integer",
+                        leapfrog_steps = "integer",
+                        max_treedepth = "integer",
+                        epsilon = "integer",
+                        epsilon_pm = "integer",
+                        delta = "numeric",
+                        gamma = "numeric",
+                        # Part of adaptation phase
+                        step_size = "numeric",
+                        step_size_multipliers = "numeric",
+                        cov_matrix = "matrix",
+                        point_estimate = "logical",
+                        adaptation_type = "character",
+                        # Per iteration 
+                        rejected = "logical",
+                        is_warmup = "logical",
+                        treedepth = "integer",
+                        stepsize = "numeric"
+                        ))
 
 # For Stan 1.2.0 
 parse_stan_header <- function(file) {
   lines <- readLines(file)
-  
-  header_classes <-
-    c(stan_version_major = "integer",
-      stan_version_minor = "integer",
-      stan_version_patch = "integer",
-      data = "character",
-      init = "character",
-      append_samples = "integer",
-      save_warmup = "integer",
-      # the seed can be larger than .Machine$integer.max
-      seed = "character", 
-      chain_id = "integer",
-      iter = "integer",
-      warmup = "integer",
-      thin = "integer",
-      nondiag_mass = "integer",
-      equal_step_sizes = "integer",
-      leapfrog_steps = "integer",
-      max_treedepth = "integer",
-      epsilon = "integer",
-      epsilon_pm = "integer",
-      delta = "numeric",
-      gamma = "numeric",
-      # Part of adaptation phase
-      step_size = "numeric")
-  
   comments <- lines[str_detect(lines, "^#")]
-
   header <- list()
   ## select lines where key=value
   eq_lines <- na.omit(str_match(comments, "# +(.*?)=(\\S+)"))
   for (i in 1:nrow(eq_lines)) {
     keyname <- gsub(" ", "_", eq_lines[i, 2])
-    value <- as(eq_lines[i, 3], header_classes[keyname])
+    value <- eq_lines[i, 3]
     header[[keyname]] <- value
   }
-  
   ## Saved parameters can be longer than step size multipliers because
   ## they include generated quantities.
   parln <- lines[which(str_detect(lines[1:min(50, length(lines))], "^lp__,"))]
@@ -116,7 +95,6 @@ parse_stan_header <- function(file) {
   } else {
     header[["adaptation_type"]] <- NA_character_
   }
-
   header
 }
 
@@ -130,96 +108,71 @@ parse_stan_header <- function(file) {
 #'
 #' @param file character. name of an output file produced by a STAN model.
 #' 
-#' @return A \code{data.frame} with attributes
-#' \describe{
-#' \item{\code{header}}{A \code{list} containing header information}
-#' \item{\code{rejected}}{A \code{logical} vector indicating whether the iteration was
-#' a rejected sample (for samples only)}
-#' \item{\code{warmup}}{A \code{logical} vector indicating whether the iteration was in
-#' the warmup.}
-#' }
+#' @return An object of class \code{"\linkS4class{StanSamples}"}.
 read_stan_csv <- function(file) {
   header <- parse_stan_header(file)
-  pointest <- header[["point_estimate"]]
   colClasses <- "numeric"
-  ## ncolumns <- length(header[["colnames"]])
-  ## if (!pointest) {
-  ##   colClasses <- c("numeric", "integer", "numeric", rep("numeric", ncolumns - 3))
-  ## } else {
-  ##   colClasses <- rep("numeric", ncolumns)
-  ## }
   x <- as.matrix(read.csv(file, header=TRUE,
                           comment.char="#", colClasses=colClasses))
+  treedepth <- as.integer(x[ , "treedepth__"])
+  stepsize <- x[ , "stepsize__"]
+  x <- new("StanSamples",
+           x[ , !colnames(x) %in% c("treedepth__", "stepsize__")])
+  x@treedepth <- treedepth
+  x@stepsize <- stepsize
   niter <- nrow(x)
-  if (!pointest) {
-    attr(x, "rejected") <- unname(c(FALSE, apply(x[2:niter, ]
-                                                 == x[1:(niter-1), ], 1, all)))
-    if (header[["save_warmup"]]) {
-      warmup <- header[["warmup"]]
-      thin <- header[["thin"]]
-      attr(x, "warmup") <- seq_len(niter) <= ceiling(warmup / thin)
+  slots <- getSlots(getClass("StanSamples"))
+  for (i in seq_along(header)) {
+    slotname <- names(header)[i]
+    slotval <- header[[i]]
+    if (slotname %in% names(slots)) {
+      if (slotname %in% c("append_samples", "save_warmup")) {
+        slotval <- as.logical(as.integer(slotval))
+      } else {
+        slotval <- as(slotval, slots[slotname])
+      }
+      slot(x, slotname) <- slotval
     } else {
-      attr(x, "warmup") <- rep(FALSE, niter)
+      if (! slotname %in% "colnames") {
+        warning(sprintf("%s found in csv header, but not in definition of StanSamples",
+                        slotname))
+      }
+    }
+  }
+  if (!x@point_estimate) {
+    slot(x, "rejected") <- unname(c(FALSE,
+                                    apply(x[2:niter, ]
+                                          == x[1:(niter-1), ], 1, all)))
+    if (x@warmup) {
+      slot(x, "is_warmup") <- seq_len(niter) <= ceiling(x@warmup / x@thin)
+    } else {
+      slot(x, "is_warmup") <- rep(FALSE, niter)
     }
   } else {
-    attr(x, "warmup") <- c(rep(seq_len(niter - 1), TRUE), FALSE)
+    slot(x, "warmup") <- c(rep(seq_len(niter - 1), TRUE), FALSE)
   }
-  attr(x, "header") <- header
   x
 }
 
 mcmcdb_wide_stan_one <- function(file) {
   samples <- read_stan_csv(file)
-  header <- attr(samples, "header")
-  rejected <- attr(samples, "rejected")
-  warmup <- attr(samples, "warmup")
-  # Drop non-parameter columns, but leave log-posterior
-  treedepth <- samples[ , "treedepth__"]
-  stepsize <- samples[ , "stepsize__"]
-  samples <- samples[ , setdiff(colnames(samples), c("treedepth__", "stepsize__"))]
-  chain_id <- header[["chain_id"]]
-  ## CHAINS
-  chains <- data.frame(chain_id = chain_id)
-  ## flatpar_chains <- data.frame(chain_id = chain_id,
-  ##                              flatpar = colnames(data))
-  ## TODO : put step_size_multipliers and covariance in here
-  for (i in seq_along(header)) {
-    key <- names(header)[i]
-    ## TODO: add cov_matrix to flatpar_chains
-    if (key %in% c("colnames", "covariance_matrix")) {
-      next
+  chains <- data.frame(chain_id = samples@chain_id)
+  exclude_slots <- c(".Data", "rejected", "is_warmup", "treedepth",
+                     "stepsize")
+  for (i in setdiff(slotNames(samples), exclude_slots)) {
+    if (i %in% c("step_size_multipliers", "cov_matrix")) {
+      chains[[i]] <- list(slot(samples, i))
+    } else {
+      chains[[i]] <- slot(samples, i)
     }
-    val <- header[[i]]
-    chains[[key]] <- val
   }
-  if ("step_size_multipliers" %in% names(header)) {
-    flatpar_chains <- data.frame(chain_id = chain_id,
-                                 flatpar = colnames(samples),
-                                 step_size_multipliers = NA)
-    step_sizes <- header[["step_size_multipliers"]]
-    flatpar_chains[ 2:(1 + length(step_sizes)), "step_size_multipliers"] <-
-      step_sizes
-  } else if ("covariance_matrix" %in% names(header)) {
-    ## flatpar_chains <- data.frame(chain_id = chain_id,
-    ##                              flatpar = colnames(samples))
-    ## cov_matrix <- header[["covariance_matrix"]]
-    ## d <- dim(cov_matrix)[1]
-    ## for (i in seq_along(colnames(samples)[2:(1 + d)])) {
-    ##   flatpar_chains[[paste("cov", i, sep=".")]] <- 1
-    ## }
-    flatpar_chains <- NULL
-  } else {
-    flatpar_chains <- NULL
-  }
-
-  iters <- data.frame(chain_id = chain_id,
+  iters <- data.frame(chain_id = samples@chain_id,
                       iter = seq_len(nrow(samples)),
-                      treedepth = treedepth,
-                      stepsize = stepsize,
-                      rejected = rejected,
-                      warmup = warmup)
-  list(samples = samples, chains = chains, iters = iters,
-       flatpar_chains = flatpar_chains)
+                      treedepth = samples@treedepth,
+                      stepsize = samples@stepsize,
+                      rejected = samples@rejected,
+                      warmup = samples@warmup)
+  list(samples = samples, chains = chains, iters = iters)
 }
 
 #' Create McmdbWide from Stan csv files
@@ -235,16 +188,7 @@ mcmcdb_wide_from_stan <- function(file) {
   samples <- do.call(rbind, llply(data, `[[`, i = "samples"))
   chains <- do.call(rbind, llply(data, `[[`, i = "chains"))
   iters <- do.call(rbind, llply(data, `[[`, i = "iters"))
-  if (!is.null(data[[1]][["flatpar_samples"]])) {
-    flatpar_chains <- McmcdbFlatparChains(do.call(rbind,
-                                                  llply(data, `[[`,
-                                                        i = "flatpar_chains")))
-  } else {
-    flatpar_chains <- NULL
-  }
   McmcdbWide(samples, chains = McmcdbChains(chains),
              iters = McmcdbIters(iters),
-             parameters = mcmc_parparser_stan,
-             flatpar_chains = flatpar_chains)
-             
+             parameters = mcmc_parparser_stan)
 }

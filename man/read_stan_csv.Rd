@@ -9,13 +9,7 @@
   a STAN model.}
 }
 \value{
-  A \code{data.frame} with attributes \describe{
-  \item{\code{header}}{A \code{list} containing header
-  information} \item{\code{rejected}}{A \code{logical}
-  vector indicating whether the iteration was a rejected
-  sample (for samples only)} \item{\code{warmup}}{A
-  \code{logical} vector indicating whether the iteration
-  was in the warmup.} }
+  An object of class \code{"\linkS4class{StanSamples}"}.
 }
 \description{
   Read csv files produced by Stan.
