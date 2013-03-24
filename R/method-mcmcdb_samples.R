@@ -1,7 +1,3 @@
-#' @include package.R
-#' @include class-McmcdbWide.R
-NULL
-
 ## #' Mcmcdb Object samples (iters forms)
 ## setGeneric("mcmcdb_samples_iters",
 ##            function(object, ...) {
@@ -26,17 +22,6 @@ NULL
 ##             reshape(x, id.vars=c("chain_id", "iter"))
 ##           })
 
-
-## #' Mcmcdb Object samples (Flatpars form)
-## setGeneric("mcmcdb_samples_flatpars",
-##            function(object, ...) {
-##              standardGeneric("mcmcdb_samples_flatpars")
-##            })
-
-## setMethod("mcmcdb_samples_flatpars", "McmcdbWide",
-##           function(object, ...) {
-##             subset_mcmcdb_wide(object, ...)
-##           })
 
 ## #' Mcmcdb Object samples (Chains,Flatpars form)
 ## setMethod("mcmcdb_samples_chains_flatpars", "McmcdbWide",
