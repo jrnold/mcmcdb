@@ -26,12 +26,16 @@ setGeneric("mcmcdb_samples_pararrays",
 #' @aliases mcmcdb_samples_pararrays,McmcdbWide-method
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_pararrays", "McmcdbWide",
-          function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
+          function(object, pararrays=NULL, iter=NULL,
                    chain_id=NULL, ...) {
+            if (is.null(pararrays)) {
+              parameters <- object@parameters
+            } else {
+              parameters <- object@parameters[pararrays]
+            }
             mcmcdb_unflatten(mcmcdb_wide_subset(object,
-                                                flatpars = flatpars,
                                                 pararrays = pararrays,
                                                 iter = iter,
                                                 chain_id = chain_id),
-                             parameters = object@parameters)
+                             parameters = parameters)
           })
