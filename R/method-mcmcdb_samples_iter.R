@@ -5,16 +5,21 @@
 NULL
 
 #' @rdname mcmcdb_samples_iter-methods
-#' @title Mcmcdb Object samples (by Iteration)
+#' @docType methods
+#' @title Extract MCMC samples (Iterations)
 #'
-#' @description Return samples from a Mcmcdb
-#' object in a list, one element for each iteration.
-#' Each element is a list of arrays, one for each
-#' parameter in its original dimensions.
+#' @description Return MCMC samples as a list of iterations,
+#' in which each iteration is a list of parameter arrays.
 #' 
-#' @return \code{list} with length equal to the number of
-#' elements. Each element of the list
-#' is a \code{list} of \code{array} objects.
+#' @param object An object containing the MCMC samples.
+#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
+#' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param ... Options passed to internal functions.
+#'
+#' @return \code{list}. Each element of the list is a \code{list} 
+#' of \code{array} objects representing the parameter arrays.
+#'
 #' @examples
 #' data(line_samples)
 #' line_samples_iter <- mcmcdb_samples_iter(line_samples)

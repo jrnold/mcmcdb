@@ -73,8 +73,12 @@ show.McmcdbParameters <- function(object) {
 
 setMethod("show", "McmcdbParameters", show.McmcdbParameters)
 
+#' @rdname extract-bracket1-methods
+#' @aliases [,McmcdbParameters,missing,ANY-method
 setMethod("[", c(x="McmcdbParameters", i="missing"),
           function(x, i, j, ...) x)
 
+#' @rdname extract-bracket1-methods
+#' @aliases [,McmcdbParameters,ANY,ANY-method
 setMethod("[", c(x="McmcdbParameters", i="ANY"),
           function(x, i, j, ...) new("McmcdbParameters", as(x, "ListOfCharArrays")[i]))

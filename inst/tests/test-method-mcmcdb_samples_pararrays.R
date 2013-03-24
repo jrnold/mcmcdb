@@ -4,7 +4,7 @@ local({
   source("data-McmcdbWide.R")
   
   test_that("mcmcdb_samples_pararray test #1", {
-    foo <- mcmcdb_samples_pararray(test_wide2)
+    foo <- mcmcdb_samples_pararrays(test_wide2)
     expect_is(foo, "list")
     expect_equal(length(foo), 1L)
     expect_equal(names(foo), "beta")
@@ -15,5 +15,3 @@ local({
   ##   expect_equal(length(foo), 3L)
   ## })
 })
-
-

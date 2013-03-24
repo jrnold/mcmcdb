@@ -5,12 +5,22 @@
 NULL
 
 #' @rdname mcmcdb_samples_long-methods
-#' @title Mcmcdb Object samples (Long form)
+#' @docType methods
+#' @title Extract MCMC Samples (Long form)
 #'
-#' @description Return samples from a Mcmcdb
-#' object in a matrix (iterations x long).
-#' 
-#' @return \code{data.frame} with columns
+#' @description Extract MCMC samples from an object as a data frame, with
+#' columns for the flat parameter, chain, iteration, and
+#' value.
+#'
+#' @param object An object containing the MCMC samples.
+#' @param flatpars \code{character}. Flat parameters to include. If \code{NULL}, all flat parameters.
+#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' The union of flat paramters in \code{pararrays} and \code{flatpars} is included.
+#' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
+#' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param ... Options passed to internal functions.
+#'
+#' @return A \code{data.frame} with columns
 #' \describe{
 #' \item{\code{chain_id}}{\code{integer}. Chain id}
 #' \item{\code{iter}}{\code{integer}. Iteration number}

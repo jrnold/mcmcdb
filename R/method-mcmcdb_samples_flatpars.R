@@ -4,13 +4,25 @@
 NULL
 
 #' @rdname mcmcdb_samples_flatpars-methods
-#' @title Mcmcdb Object samples (Flatpars form)
+#' @docType methods
+#' @title  Extract MCMC Samples (Flat parameter form)
 #'
-#' @description Return samples from a Mcmcdb
-#' object in a matrix (iterations x flatpars).
+#' @description Extract MCMC samples from an object as a 
+#' a matrix of flat parameters.
 #' 
-#' @return \code{matrix}. Columns are the flatpars.
-#' Rows are the iterations (from all chains).
+#' @param object An object containing the MCMC samples.
+#' @param flatpars \code{character}. Flat parameters to include. If \code{NULL}, all flat parameters.
+#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' The union of flat paramters in \code{pararrays} and \code{flatpars} is included.
+#' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
+#' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param drop \code{logical}. If \code{TRUE}, and only a single flat parameter is returned,
+#' the result is coerced to a \code{numeric} vector.
+#' @param ... Options passed to internal functions.
+#' 
+#' @return \code{matrix}. Columns are flat parameters.
+#' Rows are iterations, from all chains.
+#' 
 #' @examples
 #' data(line_samples)
 #' line_wide <- mcmcdb_samples_flatpars(line_samples)

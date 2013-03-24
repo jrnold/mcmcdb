@@ -18,8 +18,10 @@
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
+  \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
+  \code{\link{[}}, \code{\link{[}}, \code{\link{[}},
+  \code{\link{[-methods}}, \code{\link{[[}},
+  \code{\link{[[-methods}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},

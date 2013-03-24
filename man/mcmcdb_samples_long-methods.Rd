@@ -1,17 +1,38 @@
+\docType{methods}
 \name{mcmcdb_samples_long}
 \alias{mcmcdb_samples_long}
 \alias{mcmcdb_samples_long,McmcdbWide-method}
-\title{Mcmcdb Object samples (Long form)}
+\title{Extract MCMC Samples (Long form)}
+\arguments{
+  \item{object}{An object containing the MCMC samples.}
+
+  \item{flatpars}{\code{character}. Flat parameters to
+  include. If \code{NULL}, all flat parameters.}
+
+  \item{pararrays}{\code{character}. Parameter arrays to
+  include. If \code{NULL}, all parameter arrays. The union
+  of flat paramters in \code{pararrays} and \code{flatpars}
+  is included.}
+
+  \item{chain_id}{\code{integer}. Chains to include. If
+  \code{NULL}, all chains.}
+
+  \item{iter}{\code{integer}. Iterations to include. If
+  \code{NULL}, all iterations.}
+
+  \item{...}{Options passed to internal functions.}
+}
 \value{
-  \code{data.frame} with columns \describe{
+  A \code{data.frame} with columns \describe{
   \item{\code{chain_id}}{\code{integer}. Chain id}
   \item{\code{iter}}{\code{integer}. Iteration number}
   \item{\code{flatpar}}{\code{factor}. Flat parameter name}
   \item{\code{val}}{\code{numeric}. Parameter values} }
 }
 \description{
-  Return samples from a Mcmcdb object in a matrix
-  (iterations x long).
+  Extract MCMC samples from an object as a data frame, with
+  columns for the flat parameter, chain, iteration, and
+  value.
 }
 \examples{
 library(plyr)
@@ -24,9 +45,10 @@ ddply(line_long, "flatpar",
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_chains}},
+  \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
+  \code{\link{[}}, \code{\link{[}}, \code{\link{[}},
+  \code{\link{[-methods}}, \code{\link{[[}},
+  \code{\link{[[-methods}}, \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},

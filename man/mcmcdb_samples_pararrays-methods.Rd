@@ -1,24 +1,42 @@
+\docType{methods}
 \name{mcmcdb_samples_pararrays}
 \alias{mcmcdb_samples_pararrays}
 \alias{mcmcdb_samples_pararrays,McmcdbWide-method}
-\title{Mcmcdb object samples (by Parameter array)}
+\title{Extract MCMC samples (Parameter arrays)}
+\arguments{
+  \item{object}{An object containing the MCMC samples.}
+
+  \item{pararrays}{\code{character}. Parameter arrays to
+  include. If \code{NULL}, all parameter arrays.}
+
+  \item{chain_id}{\code{integer}. Chains to include. If
+  \code{NULL}, all chains.}
+
+  \item{iter}{\code{integer}. Iterations to include. If
+  \code{NULL}, all iterations.}
+
+  \item{...}{Options passed to internal functions.}
+}
 \value{
-  \code{list} with length equal to the number of parameter
-  arrays. Each element of the list is an \code{array}.
+  \code{list} of \code{array} objects. The arrays represent
+  all iterations of each parameter array.
 }
 \description{
-  Return samples from a Mcmcdb object in a list, one
-  element for each parameter array.
+  Extract MCMC samples from an object as a a list of
+  arrays.
 }
 \examples{
 data(line_samples)
-summary(mcmcdb_samples_pararrays(line_samples))
+line_arrays <- mcmcdb_samples_pararrays(line_samples)
+summary(line_arrays)
+lapply(line_arrays, dim)
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{McmcdbWide-class}}, \code{\link{[}},
-  \code{\link{[[}}, \code{\link{extract-methods}},
-  \code{\link{mcmcdb_chains}},
+  \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
+  \code{\link{[}}, \code{\link{[}}, \code{\link{[}},
+  \code{\link{[-methods}}, \code{\link{[[}},
+  \code{\link{[[-methods}}, \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},

@@ -40,36 +40,44 @@ NULL
 #' @examples
 #' showClass("McmcdbWide")
 #' 
-#' #  # Example included in the package
-#'  data("line_samples")
-#'  print(line_samples)
+#' # Example included in the package
+#' data("line_samples")
+#' print(line_samples)
 #' 
-#'  # number of iterations, start, end, thin
-#'  mcmcdb_mcpar(line_samples)
+#' # number of iterations, start, end, thin
+#' mcmcdb_mcpar(line_samples)
 #' 
-#'  # extract samples (flat parameters)
-#'  str(line_samples["beta[1]"])
-#'  line_samples["beta[1]", 1, 1:10]
-#'  summary(line_samples[["beta", 1, 1:4, drop=FALSE]])
-#'  # extract samples (parameter arrays)
-#'  str(line_samples[["beta"]])
-#'  summary(line_samples[["beta", 1, 1:4, drop=FALSE]])
+#' # Extract samples
+#' # As matrix of flat paramters
+#' mcmcdb_samples_flatpars(line_samples)
+#' mcmcdb_samples_pararrays(line_samples)
+#' mcmcdb_samples_iter(line_samples)
+#' mcmcdb_samples_long(line_samples)
 #' 
-#'  # Chain information
-#'  mcmcdb_chains(line_samples)
-#'  mcmcdb_chains(line_samples, drop=FALSE)
+#' # extract samples (flat parameters)
+#' str(line_samples["beta[1]"])
+#' line_samples["beta[1]", 1, 1:10]
+#' summary(line_samples[["beta", 1, 1:4, drop=FALSE]])
 #' 
-#'  # Iteration information
-#'  summary(mcmcdb_iters(line_samples))
+#' # extract samples (parameter arrays)
+#' str(line_samples[["beta"]])
+#' summary(line_samples[["beta", 1, 1:4, drop=FALSE]])
 #' 
-#'  # Paramater information
-#'  mcmcdb_parameters(line_samples)
-#'  mcmcdb_pardims(line_samples)
-#'  mcmcdb_flatpars(line_samples)
-#'  mcmcdb_paridx(line_samples)
+#' # Chain information
+#' mcmcdb_chains(line_samples)
+#' mcmcdb_chains(line_samples, drop=FALSE)
 #' 
-#'  # extract metadata
-#'  mcmcdb_metadata(line_samples)
+#' # Iteration information
+#' summary(mcmcdb_iters(line_samples))
+#' 
+#' # Paramater information
+#' mcmcdb_parameters(line_samples)
+#' mcmcdb_pardims(line_samples)
+#' mcmcdb_flatpars(line_samples)
+#' mcmcdb_paridx(line_samples)
+#' 
+#' # extract metadata
+#' mcmcdb_metadata(line_samples)
 setClass("McmcdbWide",
          contains = "McmcdbMem",
          representation(samples="matrix"),

@@ -5,18 +5,26 @@
 NULL
 
 #' @rdname mcmcdb_samples_pararrays-methods
-#' @title Mcmcdb object samples (by Parameter array)
+#' @docType methods
+#' @title Extract MCMC samples (Parameter arrays)
 #'
-#' @description Return samples from a Mcmcdb
-#' object in a list, one element for each parameter
-#' array.
+#' @description Extract MCMC samples from an object as a 
+#' a list of arrays.
+#'
+#' @param object An object containing the MCMC samples.
+#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
+#' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param ... Options passed to internal functions.
 #' 
-#' @return \code{list} with length equal to the number of
-#' parameter arrays. Each element of the list
-#' is an \code{array}.
+#' @return \code{list} of \code{array} objects. The arrays represent all
+#' iterations of each parameter array.
+#' 
 #' @examples
 #' data(line_samples)
-#' summary(mcmcdb_samples_pararrays(line_samples))
+#' line_arrays <- mcmcdb_samples_pararrays(line_samples)
+#' summary(line_arrays)
+#' lapply(line_arrays, dim)
 setGeneric("mcmcdb_samples_pararrays",
            function(object, ...) {
              standardGeneric("mcmcdb_samples_pararrays")
