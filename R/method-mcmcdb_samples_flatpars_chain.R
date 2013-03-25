@@ -42,6 +42,7 @@ setMethod("mcmcdb_samples_flatpars_chain", "Mcmcdb",
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object)
             }
+            names(chain_id) <- chain_id
             flatpars <-
               mcmcdb_wide_select_params2(object,
                                          flatpars = flatpars,

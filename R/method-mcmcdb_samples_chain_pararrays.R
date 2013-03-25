@@ -20,7 +20,8 @@ NULL
 #'
 #' @return \code{list}. Each element represents a chain.
 #' Each element of the chain is a named \code{list} of arrays,
-#' each array representing a parameter array and including the iterations of that parameter.
+#' each array representing a parameter array and including the iterations
+#' of that parameter.
 #' 
 #' @examples
 #' data(line_samples)

@@ -40,6 +40,7 @@ setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object)
             }
+            names(chain_id) <- chain_id
             if (is.null(pararrays)) {
               pararrays <- names(mcmcdb_parameters(object))
             }
@@ -47,7 +48,7 @@ setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
             .fun <- function(par) {
               .fun2 <- function(i) {
                 mcmcdb_samples_pararrays(object, pararrays = par,
-                                         chain_id = i)
+                                         chain_id = i)[[i]]
               }
               llply(chain_id, .fun = .fun2)
             }
