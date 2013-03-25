@@ -37,7 +37,6 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
   if (is(parameters, "function")) {
     parameters <- McmcdbParameters(colnames(x), parameters)
   }
-  
   new("McmcdbWide", samples = x, chains = chains, iters = iters,
       parameters = parameters,
       flatpar_chains = flatpar_chains, metadata = metadata,

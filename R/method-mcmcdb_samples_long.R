@@ -55,8 +55,8 @@ setMethod("mcmcdb_samples_long", "McmcdbWide",
             x <- mcmcdb_wide_subset(object,
                                     flatpars=flatpars, pararrays=pararrays,
                                     iter=iter, chain_id=chain_id, drop=FALSE)
-            melt(cbind(as.data.frame(x),
-                       as.data.frame(object@iters[iters, ])),
-                 id.vars = c("chain_id", "iter"),
-                 variable.name = "flatpar", value.name = "val")
+            x <- melt(cbind(as.data.frame(x),
+                            as.data.frame(object@iters[iters, ])),
+                      id.vars = c("chain_id", "iter"),
+                      variable.name = "flatpar", value.name = "val")
           })

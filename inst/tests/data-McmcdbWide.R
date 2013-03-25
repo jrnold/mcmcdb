@@ -9,5 +9,5 @@ test_wide2 <- local({
   chains <- McmcdbChains(data.frame(chain_id = seq_len(nchains)))
   iters <- McmcdbIters(data.frame(chain_id = rep(seq_len(nchains), each=niter),
                                   iter = rep(seq_len(niter), nchains)))
-  McmcdbWide(samples, chains = chains, iters = iters)
+  foo <- McmcdbWide(samples, chains = chains, iters = iters)
 })

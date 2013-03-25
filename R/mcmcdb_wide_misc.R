@@ -43,10 +43,10 @@ mcmcdb_wide_subset <- function(x, pararrays = NULL, flatpars = NULL,
   params <- mcmcdb_wide_select_params(x, flatpars, pararrays)
   rows <- mcmcdb_wide_select_iters(x, chain_id = unique(chain_id),
                                    iter = unique(iter))
-  #x_rownames <- alply(mcmcdb_iters(x, drop=TRUE)[rows, ], 1, paste, collapse=".")
+  #iters <- mcmcdb_iters(x, drop=TRUE)[rows, ]
   x@samples[rows, params, drop=drop]
-  #rownames(x) <- x_rownames
-  #x
+  #rownames(samples) <- paste(iters[["chain_id"]], iters[["iter"]], sep=".")
+  #samples
 }
 
 

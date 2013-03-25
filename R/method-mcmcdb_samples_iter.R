@@ -35,7 +35,7 @@ setGeneric("mcmcdb_samples_iter",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_iter", "McmcdbWide",
           function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, ...) {
+                   chain_id=NULL, .fun = identity, ...) {
             x <- mcmcdb_wide_subset(object,
                                     pararrays = pararrays,
                                     iter = iter,
@@ -45,5 +45,8 @@ setMethod("mcmcdb_samples_iter", "McmcdbWide",
             } else {
               parameters <- object@parameters[pararrays]
             }
-            alply(x, 1, mcmcdb_unflatten, parameters = parameters, ...)
+            FUN <- function(x) {
+              .fun(mcmcdb_unflatten(x, parameters = parameters))
+            }
+            alply(x, 1, FUN, ...)
           })

@@ -39,8 +39,13 @@ setGeneric("mcmcdb_samples_flatpars",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_flatpars", "McmcdbWide",
           function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, drop=FALSE) {
-            mcmcdb_wide_subset(object,
-                               flatpars=flatpars, pararrays=pararrays,
-                               iter=iter, chain_id=chain_id, drop=drop)
+                   chain_id=NULL, drop=FALSE, .fun=NULL, ...) {
+            x <- mcmcdb_wide_subset(object,
+                                    flatpars=flatpars, pararrays=pararrays,
+                                    iter=iter, chain_id=chain_id, drop=drop)
+            if (!is.null(.fun)) {
+              alply(x, 2, .fun, ...)
+            } else {
+              x
+            }
           })
