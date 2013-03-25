@@ -42,9 +42,17 @@ The object include two parameter arrays `beta`, a vector of length 2,
 and `tau`, a scalar (vector of length 1). It has 2 chains, each with 
 100 samples. 
 
+# Methods
+
+## Samples
+
+
+
+## Extract
+
 The idiomatic **R** extract operators are defined.  A single bracket
 extracts a flat parameter. There are three flat parameters for this
-object: `beta[1]`, `beta[2]` and `tau`. The names of the flat paramters,
+object: `beta[1]`, `beta[2]` and `tau`. The names of the flat parameters,
 and their associated parameter arrays can be found with,
 ```
 mcmcdb_flatpars(line_samples)
@@ -66,9 +74,8 @@ returned,
 summary(line_samples["beta[1]", drop=FALSE])
 ```
 
-
 While the single bracket is used to extract by flat parameters, 
-the double bracket is used to extract by paramter arrays.
+the double bracket is used to extract by parameter arrays.
 
 To extract all samples of `beta`, 
 ```
@@ -86,7 +93,7 @@ To return the values in a data frame instead of an array, use
 line_samples[["beta", 1, 1:3, drop=FALSE]]
 ```
 
-Use the dollar operator to extract all samples for a given paramter
+Use the dollar operator to extract all samples for a given parameter
 array,
 ```
 str(line_samples$beta)

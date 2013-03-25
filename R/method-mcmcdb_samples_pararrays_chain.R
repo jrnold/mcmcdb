@@ -10,8 +10,8 @@ NULL
 #' @docType methods
 #' @title Extract MCMC samples (Parameter arrays, chains)
 #'
-#' @description Return MCMC samples as a list of paramter arrays
-#' Each paramter array is a list of arrays, containing the iterations in each chain.
+#' @description Return MCMC samples as a list of parameter arrays
+#' Each parameter array is a list of arrays, containing the iterations in each chain.
 #' 
 #' @param object An object containing the MCMC samples.
 #' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
@@ -44,7 +44,6 @@ setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
               pararrays <- names(mcmcdb_parameters(object))
             }
             names(pararrays) <- pararrays
-            print(pararrays)
             .fun <- function(par) {
               .fun2 <- function(i) {
                 mcmcdb_samples_pararrays(object, pararrays = par,

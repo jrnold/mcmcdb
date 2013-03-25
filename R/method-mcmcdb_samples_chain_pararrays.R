@@ -40,6 +40,7 @@ setMethod("mcmcdb_samples_chain_pararrays", "McmcdbWide",
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
+            names(chain_id) <- chain_id
             .fun <- function(i) {
               mcmcdb_samples_pararrays(object, chain_id = i,
                                        pararrays = pararrays)

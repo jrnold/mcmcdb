@@ -44,6 +44,7 @@ setMethod("mcmcdb_samples_chain_flatpars", "Mcmcdb",
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
+            names(chain_id) <- chain_id
             .fun <- function(i) {
               mcmcdb_samples_flatpars(object, chain_id = i,
                                       flatpars = flatpars, 
