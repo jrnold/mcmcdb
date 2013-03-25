@@ -15,6 +15,8 @@ NULL
 #' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param FUN \code{function}. Function to apply to each paramter array. \code{function(x)} where
+#' \code{x} is the 
 #' @param ... Options passed to internal functions.
 #' 
 #' @return \code{list} of \code{array} objects. The arrays represent all
@@ -35,7 +37,7 @@ setGeneric("mcmcdb_samples_pararrays",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_pararrays", "McmcdbWide",
           function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, .fun = NULL, ...) {
+                   chain_id=NULL, FUN = NULL, ...) {
             if (is.null(pararrays)) {
               parameters <- object@parameters
             } else {
@@ -46,9 +48,12 @@ setMethod("mcmcdb_samples_pararrays", "McmcdbWide",
                                                      iter = iter,
                                                      chain_id = chain_id),
                                   parameters = parameters)
-            if (!is.null(.fun)) {
-              llply(x, .fun=.fun, ...)
-            } else {
-              x
-            }
+            # Apply function if there is one
+            if (!is.null(FUN)) {
+              x <- llply(x, FUN, ...)
+              for (i in c("split_type", "split_labels")) {
+                attr(x, i) <- NULL
+              }
+            } 
+            x
           })

@@ -19,10 +19,14 @@ NULL
 #' The union of flat parameters in \code{pararrays} and \code{flatpars} is included.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param FUN \code{function}. Function to apply to each flat paramter. Function of the form
+#' \code{function(x)}, where \code{x} is a \code{list} of \code{numeric} vectors, representing the
+#' flat parameters in each chain.
 #' @param ... Options passed to internal functions.
 #'
-#' @return \code{list}. Each element of the list is a \code{list} 
+#' @return \code{list}. If \code{FUN = NULL}, then each element of the list is a \code{list} 
 #' of \code{numeric} vectors, representing the samples of each flat parameter in each chain.
+#' If \code{FUN != NULL}, then the elements are the results of \code{FUN}.
 #'
 #' @examples
 #' data(line_samples)
@@ -38,7 +42,7 @@ setGeneric("mcmcdb_samples_flatpars_chain",
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_flatpars_chain", "Mcmcdb",
           function(object, flatpars=NULL, pararrays=NULL,
-                   iter=NULL, chain_id=NULL, ...) {
+                   iter=NULL, chain_id=NULL, FUN=NULL, ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object)
             }
@@ -48,12 +52,15 @@ setMethod("mcmcdb_samples_flatpars_chain", "Mcmcdb",
                                          flatpars = flatpars,
                                          pararrays = pararrays)
             names(flatpars) <- flatpars
+            if (is.null(FUN)) {
+              FUN <- identity
+            }
             .fun <- function(par) {
               .fun2 <- function(i) {
-                mcmcdb_samples_flatpars(object, flatpars = par,
-                                        chain_id = i, drop=TRUE)
+                as.numeric(mcmcdb_samples_flatpars(object, flatpars = par,
+                                                   chain_id = i))
               }
-              llply(chain_id, .fun = .fun2)
+              FUN(llply(chain_id, .fun = .fun2))
             }
             llply(flatpars, .fun = .fun, ...)
           })

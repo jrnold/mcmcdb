@@ -20,12 +20,19 @@
   \item{iter}{\code{integer}. Iterations to include. If
   \code{NULL}, all iterations.}
 
+  \item{FUN}{\code{function}. Function to apply to each
+  flat paramter. Function of the form \code{function(x)},
+  where \code{x} is a \code{list} of \code{numeric}
+  vectors, representing the flat parameters in each chain.}
+
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  \code{list}. Each element of the list is a \code{list} of
-  \code{numeric} vectors, representing the samples of each
-  flat parameter in each chain.
+  \code{list}. If \code{FUN = NULL}, then each element of
+  the list is a \code{list} of \code{numeric} vectors,
+  representing the samples of each flat parameter in each
+  chain. If \code{FUN != NULL}, then the elements are the
+  results of \code{FUN}.
 }
 \description{
   Return MCMC samples as a list of flat parameters. Each

@@ -16,12 +16,12 @@ NULL
 #' The union of flat parameters in \code{pararrays} and \code{flatpars} is included.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
-#' @param drop \code{logical}. If \code{TRUE}, and only a single flat parameter is returned,
-#' the result is coerced to a \code{numeric} vector.
+#' @param FUN \code{function}. Function to apply to each 
 #' @param ... Options passed to internal functions.
 #' 
-#' @return \code{matrix}. Columns are flat parameters.
-#' Rows are iterations, from all chains.
+#' @return If \code{FUN = NULL}, then a \code{matrix} with columns equal to flat paramters,
+#' and rows equal to iterations. If \code{FUN != NULL}, then a \code{list}, with the results
+#' of \code{FUN} applied to each flat parameter.
 #' 
 #' @examples
 #' data(line_samples)
@@ -39,13 +39,16 @@ setGeneric("mcmcdb_samples_flatpars",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_flatpars", "McmcdbWide",
           function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, drop=FALSE, .fun=NULL, ...) {
+                   chain_id=NULL, drop=FALSE, FUN=NULL, ...) {
             x <- mcmcdb_wide_subset(object,
                                     flatpars=flatpars, pararrays=pararrays,
-                                    iter=iter, chain_id=chain_id, drop=drop)
-            if (!is.null(.fun)) {
-              alply(x, 2, .fun, ...)
-            } else {
-              x
-            }
+                                    iter=iter, chain_id=chain_id)
+            if (!is.null(FUN)) {
+              params <- colnames(x)
+              x <- alply(x, 2, FUN, ...)
+              names(x) <- params
+              attr(x, "split_type") <- NULL
+              attr(x, "split_labels") <- NULL
+            } 
+            x
           })

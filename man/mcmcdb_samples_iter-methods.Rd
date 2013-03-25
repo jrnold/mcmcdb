@@ -15,11 +15,19 @@
   \item{iter}{\code{integer}. Iterations to include. If
   \code{NULL}, all iterations.}
 
+  \item{FUN}{\code{function}. Function to apply to each
+  iteration. \code{function(x)}, where \code{x} is a named
+  \code{list} of the parameter arrays for a single
+  iteration.}
+
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  \code{list}. Each element of the list is a \code{list} of
-  \code{array} objects representing the parameter arrays.
+  \code{list}. If \code{FUN = NULL}, then each element of
+  the list is a \code{list} of \code{array} objects
+  representing the parameter arrays. If \code{FUN != NULL},
+  then each element is the result of \code{FUN} applied to
+  the iteration.
 }
 \description{
   Return MCMC samples as a list of iterations, in which

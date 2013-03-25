@@ -15,10 +15,14 @@ NULL
 #' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param FUN \code{function}. Function to apply to each iteration. \code{function(x)}, where
+#' \code{x} is a named \code{list} of the parameter arrays for a single iteration.
 #' @param ... Options passed to internal functions.
 #'
-#' @return \code{list}. Each element of the list is a \code{list} 
-#' of \code{array} objects representing the parameter arrays.
+#' @return \code{list}. If \code{FUN = NULL}, then each element of the list
+#' is a \code{list} of \code{array} objects representing the parameter arrays.
+#' If \code{FUN != NULL}, then each element is the result of \code{FUN} applied to
+#' the iteration.
 #'
 #' @examples
 #' data(line_samples)
@@ -35,7 +39,7 @@ setGeneric("mcmcdb_samples_iter",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_iter", "McmcdbWide",
           function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, .fun = identity, ...) {
+                   chain_id=NULL, FUN = NULL, ...) {
             x <- mcmcdb_wide_subset(object,
                                     pararrays = pararrays,
                                     iter = iter,
@@ -45,8 +49,15 @@ setMethod("mcmcdb_samples_iter", "McmcdbWide",
             } else {
               parameters <- object@parameters[pararrays]
             }
-            FUN <- function(x) {
-              .fun(mcmcdb_unflatten(x, parameters = parameters))
+            if (is.null(FUN)) {
+              FUN <- identity
             }
-            alply(x, 1, FUN, ...)
+            .fun <- function(x) {
+              FUN(mcmcdb_unflatten(x, parameters=parameters))
+            }
+            x <- alply(x, 1, .fun = .fun, ...)
+            for (i in c("split_type", "split_labels")) {
+              attr(x, i) <- NULL
+            }
+            x
           })

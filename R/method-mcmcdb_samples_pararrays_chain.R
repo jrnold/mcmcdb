@@ -17,10 +17,13 @@ NULL
 #' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
+#' @param FUN \code{function}. Function to apply to each list of chains. The function should
+#' take the form \code{function(x)}, where \code{x} is a \code{list} of \code{array} objects.
 #' @param ... Options passed to internal functions.
 #'
-#' @return \code{list}. Each element of the list is a \code{list} 
-#' of \code{array} objects, representing the samples of each parameter array in each chain.
+#' @return \code{list}. If \code{FUN = NULL}, each element of the list is a \code{list} 
+#' of \code{array} objects, representing the sample values for each parameter array in each chain.
+#' If \code{FUN != NULL}, then each element contains the results of \code{FUN} for that parameter.
 #'
 #' @examples
 #' data(line_samples)
@@ -35,9 +38,8 @@ setGeneric("mcmcdb_samples_pararrays_chain",
 #' @aliases mcmcdb_samples_pararrays_chain,Mcmcdb-method
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
-          function(object, pararrays=NULL,
-                   iter=NULL, chain_id=NULL,
-                   .fun = NULL, ...) {
+          function(object, pararrays=NULL, iter=NULL, chain_id=NULL,
+                   FUN = NULL, ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object)
             }
@@ -46,15 +48,15 @@ setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
               pararrays <- names(mcmcdb_parameters(object))
             }
             names(pararrays) <- pararrays
-            if (is.null(.fun)) {
-              .fun <- identity
+            if (is.null(FUN)) {
+              FUN <- identity
             }
             .fun1 <- function(par) {
               .fun2 <- function(i) {
                 mcmcdb_samples_pararrays(object, pararrays = par,
                                          chain_id = i)[[1]]
               }
-              .fun(llply(chain_id, .fun = .fun2))
+              FUN(llply(chain_id, .fun = .fun2))
             }
             llply(pararrays, .fun = .fun1, ...)
           })

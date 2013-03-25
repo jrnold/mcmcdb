@@ -15,6 +15,9 @@
   \item{iter}{\code{integer}. Iterations to include. If
   \code{NULL}, all iterations.}
 
+  \item{FUN}{\code{function}. Function to apply to each
+  paramter array. \code{function(x)} where \code{x} is the}
+
   \item{...}{Options passed to internal functions.}
 }
 \value{

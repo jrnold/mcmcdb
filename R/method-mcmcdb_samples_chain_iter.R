@@ -40,14 +40,17 @@ setGeneric("mcmcdb_samples_chain_iter",
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_iter", "Mcmcdb",
           function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, ...) {
+                   chain_id=NULL, FUN = NULL, ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
             names(chain_id) <- chain_id
-            .fun <- function(i) {
-              mcmcdb_samples_iter(object, chain_id = i,
-                                  pararrays = pararrays)
+            if (is.null(FUN)) {
+              FUN <- identity
             }
-            llply(chain_id, .fun=.fun, ...)
+            .fun <- function(i) {
+              FUN(mcmcdb_samples_iter(object, chain_id = i,
+                                      pararrays = pararrays))
+            }
+            llply(chain_id, .fun = .fun, ...)
           })

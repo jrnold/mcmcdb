@@ -1,17 +1,20 @@
-context("method mcmcdb_samples_pararray")
+context("method mcmcdb_samples_pararrays")
 
 local({
   source("data-McmcdbWide.R")
   
-  test_that("mcmcdb_samples_pararray test #1", {
+  test_that("mcmcdb_samples_pararrays test #1", {
     foo <- mcmcdb_samples_pararrays(test_wide2)
-    expect_is(foo, "list")
-    expect_equal(length(foo), 1L)
-    expect_equal(names(foo), "beta")
+    expected <- structure(list(beta = structure(c(1L, 7L, 13L, 2L, 8L, 14L, 3L, 
+                                 9L, 15L, 4L, 10L, 16L, 5L, 11L, 17L, 6L, 12L, 18L),
+                                 .Dim = c(3L, 6L))), .Names = "beta")
+    expect_equal(foo, expected)
   })
 
-  ## test_that("mcmcdb_samples_pararray test #1", {
-  ##   foo <- mcmcdb_samples_pararray(test_wide2, chain_id = 1)
-  ##   expect_equal(length(foo), 3L)
-  ## })
+  test_that("mcmcdb_samples_pararrays test #2 (FUN)", {
+    foo <- mcmcdb_samples_pararrays(test_wide2, FUN = sum)
+    expected <- structure(list(beta = 171L), .Names = "beta")
+    expect_equal(foo, expected)
+  })
+
 })

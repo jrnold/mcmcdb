@@ -15,13 +15,20 @@
   \item{iter}{\code{integer}. Iterations to include. If
   \code{NULL}, all iterations.}
 
+  \item{FUN}{\code{function} Function to apply to each
+  chain's list of parameter arrays. \code{function(x)}
+  where \code{x} is a named \code{list} of \code{array}
+  objects.}
+
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  \code{list}. Each element represents a chain. Each
-  element of the chain is a named \code{list} of arrays,
-  each array representing a parameter array and including
-  the iterations of that parameter.
+  \code{list}. If \code{FUN = NULL}, then each element
+  represents a chain. Each element of the chain is a named
+  \code{list} of arrays, each array representing a
+  parameter array and including the iterations of that
+  parameter. If \code{FUN != NULL}, then each element is
+  the result of \code{FUN}.
 }
 \description{
   Extract MCMC samples as a list of chains, Each chain is a

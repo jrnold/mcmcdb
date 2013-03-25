@@ -18,12 +18,18 @@
   \item{iter}{\code{integer}. Iterations to include. If
   \code{NULL}, all iterations.}
 
+  \item{FUN}{\code{function} Function to apply to each
+  chain's flat paramter matrix. \code{function(x)} where
+  \code{x} is a \code{matrix}.}
+
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  \code{list}. Each element is a chain. Each chain is a
-  named \code{list} of \code{matrix} objects. Each matrix
-  contains the iterations of the flat parameters.
+  \code{list}. If \code{FUN = NULL}, then each element is a
+  chain. Each chain is a named \code{list} of \code{matrix}
+  objects. Each matrix contains the iterations of the flat
+  parameters. If \code{FUN != NULL}, then each element is
+  the result of \code{FUN}.
 }
 \description{
   Return MCMC samples as a list of chains. Each chain is a

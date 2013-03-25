@@ -20,15 +20,15 @@
   \item{iter}{\code{integer}. Iterations to include. If
   \code{NULL}, all iterations.}
 
-  \item{drop}{\code{logical}. If \code{TRUE}, and only a
-  single flat parameter is returned, the result is coerced
-  to a \code{numeric} vector.}
+  \item{FUN}{\code{function}. Function to apply to each}
 
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  \code{matrix}. Columns are flat parameters. Rows are
-  iterations, from all chains.
+  If \code{FUN = NULL}, then a \code{matrix} with columns
+  equal to flat paramters, and rows equal to iterations. If
+  \code{FUN != NULL}, then a \code{list}, with the results
+  of \code{FUN} applied to each flat parameter.
 }
 \description{
   Extract MCMC samples from an object as a a matrix of flat
