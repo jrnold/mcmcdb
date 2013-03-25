@@ -1,6 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbParameters.R
-#' @include class-McmcdbMem.R
+#' @include class-Mcmcdb.R
+#' @include method-mcmcdb_parameters.R
 #' @exportMethod mcmcdb_flatpars
 NULL
 
@@ -35,8 +36,7 @@ setMethod("mcmcdb_flatpars", "McmcdbParameters",
           mcmcdb_flatpars.McmcdbParameters)
 
 #' @rdname mcmcdb_flatpars-methods
-#' @aliases mcmcdb_flatpars,McmcdbMem-method
-#' @family McmcdbMem methods
-setMethod("mcmcdb_flatpars", "McmcdbMem",
-          function(object) callGeneric(object@parameters))
-
+#' @aliases mcmcdb_flatpars,Mcmcdb-method
+#' @family Mcmcdb methods
+setMethod("mcmcdb_flatpars", "Mcmcdb",
+          function(object) callGeneric(mcmcdb_parameters(object)))

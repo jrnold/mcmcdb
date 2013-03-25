@@ -14,14 +14,8 @@
 \seealso{
   \code{\linkS4class{McmcdbMem}}
 
-  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_iters}},
+  Other McmcdbMem methods: \code{\link{mcmcdb_iters}},
   \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}}
+  \code{\link{mcmcdb_parameters-methods}}
 }
 

@@ -13,13 +13,7 @@
   Get parameters of Mcmcdb object
 }
 \seealso{
-  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_iters}},
-  \code{\link{mcmcdb_metadata}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}}
+  Other McmcdbMem methods: \code{\link{mcmcdb_iters}},
+  \code{\link{mcmcdb_metadata}}
 }
 

@@ -18,15 +18,9 @@
   Get iteration data from Mcmcdb object
 }
 \seealso{
-  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars}},
-  \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_metadata}},
+  Other McmcdbMem methods: \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims}},
-  \code{\link{mcmcdb_pardims-methods}}
+  \code{\link{mcmcdb_parameters-methods}}
 
   Other get-methods: \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_flatpar_chains}}

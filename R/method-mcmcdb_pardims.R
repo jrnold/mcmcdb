@@ -29,7 +29,7 @@ dim.McmcdbParameters <- function(object) {
 setMethod("mcmcdb_pardims", "McmcdbParameters", dim.McmcdbParameters)
 
 #' @rdname mcmcdb_pardims-methods
-#' @aliases mcmcdb_pardims,McmcdbMem-method
-#' @family McmcdbMem methods
-setMethod("mcmcdb_pardims", "McmcdbMem",
-          function(object) callGeneric(object@parameters))
+#' @aliases mcmcdb_pardims,Mcmcdb-method
+#' @family Mcmcdb methods
+setMethod("mcmcdb_pardims", "Mcmcdb",
+          function(object) callGeneric(mcmcdb_parameters(object)))

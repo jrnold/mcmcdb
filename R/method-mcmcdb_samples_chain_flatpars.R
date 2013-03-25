@@ -37,7 +37,7 @@ setGeneric("mcmcdb_samples_chain_flatpars",
 
 #' @rdname mcmcdb_samples_chain_flatpars-methods
 #' @aliases mcmcdb_samples_chain_flatpars,Mcmcdb-method
-#' @family McmcdbWide methods
+#' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_flatpars", "Mcmcdb",
           function(object, flatpars=NULL, pararrays=NULL,
                    iter=NULL, chain_id=NULL, ...) {

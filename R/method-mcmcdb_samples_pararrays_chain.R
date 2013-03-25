@@ -33,7 +33,7 @@ setGeneric("mcmcdb_samples_pararrays_chain",
 
 #' @rdname mcmcdb_samples_pararrays_chain-methods
 #' @aliases mcmcdb_samples_pararrays_chain,Mcmcdb-method
-#' @family McmcdbWide methods
+#' @family Mcmcdb methods
 setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
           function(object, pararrays=NULL,
                    iter=NULL, chain_id=NULL, ...) {

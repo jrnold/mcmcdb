@@ -29,4 +29,24 @@
 data(line_samples)
 mcmcdb_mcpar(line_samples)
 }
+\seealso{
+  Other Mcmcdb methods: \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}},
+  \code{\link{mcmcdb_samples_chain_flatpars}},
+  \code{\link{mcmcdb_samples_chain_flatpars}},
+  \code{\link{mcmcdb_samples_chain_iter}},
+  \code{\link{mcmcdb_samples_chain_iter}},
+  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_flatpars_chain}},
+  \code{\link{mcmcdb_samples_flatpars_chain}},
+  \code{\link{mcmcdb_samples_pararrays_chain}},
+  \code{\link{mcmcdb_samples_pararrays_chain}}
+}
 

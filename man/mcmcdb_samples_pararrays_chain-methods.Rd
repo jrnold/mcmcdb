@@ -23,8 +23,8 @@
   parameter array in each chain.
 }
 \description{
-  Return MCMC samples as a list of paramter arrays Each
-  paramter array is a list of arrays, containing the
+  Return MCMC samples as a list of parameter arrays Each
+  parameter array is a list of arrays, containing the
   iterations in each chain.
 }
 \examples{
@@ -33,26 +33,22 @@ line_samples_pc <- mcmcdb_samples_pararrays_chain(line_samples)
 str(line_samples_pc)
 }
 \seealso{
-  Other McmcdbWide methods: \code{\link{$}},
-  \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
-  \code{\link{[}}, \code{\link{[-methods}},
-  \code{\link{[[}}, \code{\link{[[-methods}},
-  \code{\link{mcmcdb_chains}},
+  Other Mcmcdb methods: \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_mcpar}}, \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}},
   \code{\link{mcmcdb_samples_chain_flatpars}},
   \code{\link{mcmcdb_samples_chain_flatpars}},
   \code{\link{mcmcdb_samples_chain_iter}},
   \code{\link{mcmcdb_samples_chain_iter}},
   \code{\link{mcmcdb_samples_chain_pararrays}},
   \code{\link{mcmcdb_samples_chain_pararrays}},
-  \code{\link{mcmcdb_samples_flatpars}},
-  \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmcdb_samples_iter}},
-  \code{\link{mcmcdb_samples_iter}},
-  \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}}
+  \code{\link{mcmdb_mcpar-methods}}
 }
 

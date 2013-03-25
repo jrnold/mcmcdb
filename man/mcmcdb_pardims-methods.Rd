@@ -1,6 +1,6 @@
 \name{mcmcdb_pardims-methods}
 \alias{mcmcdb_pardims}
-\alias{mcmcdb_pardims,McmcdbMem-method}
+\alias{mcmcdb_pardims,Mcmcdb-method}
 \alias{mcmcdb_pardims,McmcdbParameters-method}
 \alias{mcmcdb_pardims-methods}
 \title{Get parameter array dimensions}
@@ -16,13 +16,23 @@
   Get parameter array dimensions
 }
 \seealso{
-  Other McmcdbMem methods: \code{\link{mcmcdb_flatpars}},
+  Other Mcmcdb methods: \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_iters}},
-  \code{\link{mcmcdb_metadata}},
-  \code{\link{mcmcdb_parameters}},
-  \code{\link{mcmcdb_parameters-methods}}
+  \code{\link{mcmcdb_mcpar}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}},
+  \code{\link{mcmcdb_samples_chain_flatpars}},
+  \code{\link{mcmcdb_samples_chain_flatpars}},
+  \code{\link{mcmcdb_samples_chain_iter}},
+  \code{\link{mcmcdb_samples_chain_iter}},
+  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_flatpars_chain}},
+  \code{\link{mcmcdb_samples_flatpars_chain}},
+  \code{\link{mcmcdb_samples_pararrays_chain}},
+  \code{\link{mcmcdb_samples_pararrays_chain}},
+  \code{\link{mcmdb_mcpar-methods}}
 
   Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}},

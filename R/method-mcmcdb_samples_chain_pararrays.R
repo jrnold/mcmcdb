@@ -32,9 +32,9 @@ setGeneric("mcmcdb_samples_chain_pararrays",
            })
 
 #' @rdname mcmcdb_samples_chain_pararrays-methods
-#' @aliases mcmcdb_samples_chain_pararrays,McmcdbWide-method
-#' @family McmcdbWide methods
-setMethod("mcmcdb_samples_chain_pararrays", "McmcdbWide",
+#' @aliases mcmcdb_samples_chain_pararrays,Mcmcdb-method
+#' @family Mcmcdb methods
+setMethod("mcmcdb_samples_chain_pararrays", "Mcmcdb",
           function(object, pararrays=NULL, iter=NULL,
                    chain_id=NULL, ...) {
             if (is.null(chain_id)) {

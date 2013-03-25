@@ -37,7 +37,7 @@ setGeneric("mcmcdb_samples_chain_iter",
 
 #' @rdname mcmcdb_samples_chain_iter-methods
 #' @aliases mcmcdb_samples_chain_iter,Mcmcdb-method
-#' @family McmcdbWide methods
+#' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_iter", "Mcmcdb",
           function(object, pararrays=NULL, iter=NULL,
                    chain_id=NULL, ...) {
