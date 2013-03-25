@@ -1,3 +1,8 @@
+#' @include class-McmcdbWide.R
+#' @include method-mcmcdb_flatpars.R
+#' @include method-mcmcdb_parameters.R
+NULL
+
 # Miscellaneous utility functions used with McmcdbWide functions
 # returns list of flatparameters or TRUE
 mcmcdb_wide_select_params <- function(x, flatpars=NULL, pararrays=NULL) {
@@ -7,6 +12,13 @@ mcmcdb_wide_select_params <- function(x, flatpars=NULL, pararrays=NULL) {
     flatpars <- TRUE
   }
   flatpars
+}
+
+mcmcdb_wide_select_params2 <- function(x, flatpars=NULL, pararrays=NULL) {
+  if (is.null(flatpars)) {
+    flatpars <- names(mcmcdb_flatpars(x))
+  }
+  union(flatpars, unlist(mcmcdb_parameters(x)[pararrays]))
 }
 
 # returns logical vector 

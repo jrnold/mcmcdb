@@ -47,3 +47,10 @@ setMethod("mcmcdb_samples_iter", "McmcdbWide",
             }
             alply(x, 1, mcmcdb_unflatten, parameters = parameters, ...)
           })
+
+
+## pararrays <- names(mcmcdb_parameters(line_samples))
+## chains <- mcmcdb_chains(line_samples)
+## by_chain <- function(par) llply(chains, function(i) mcmcdb_samples_pararrays(line_samples, pararrays = par, chain_id = i, drop=TRUE))
+## str(llply(pararrays, by_chain))
+

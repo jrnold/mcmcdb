@@ -42,7 +42,7 @@ NULL
 #'   The character vector \code{parameters} specifies a subset of parameter arrays to return.}
 #' 
 #' \item{\code{signature(x = "McmcdbWide", parameters = "missing")}}{
-#'   Uses the result of \code{mcmcdb_parameters(x)} as the paramter object.
+#'   Uses the result of \code{mcmcdb_parameters(x)} as the parameter object.
 #' }
 #' 
 #' \item{\code{signature(x = "numeric", parameters = "function")}}{

@@ -1,18 +1,13 @@
 \docType{methods}
-\name{mcmcdb_samples_long}
-\alias{mcmcdb_samples_long}
-\alias{mcmcdb_samples_long,McmcdbWide-method}
-\title{Extract MCMC Samples (Long form)}
+\name{mcmcdb_samples_pararrays_chain}
+\alias{mcmcdb_samples_pararrays_chain}
+\alias{mcmcdb_samples_pararrays_chain,Mcmcdb-method}
+\title{Extract MCMC samples (Parameter arrays, chains)}
 \arguments{
   \item{object}{An object containing the MCMC samples.}
 
-  \item{flatpars}{\code{character}. Flat parameters to
-  include. If \code{NULL}, all flat parameters.}
-
   \item{pararrays}{\code{character}. Parameter arrays to
-  include. If \code{NULL}, all parameter arrays. The union
-  of flat parameters in \code{pararrays} and
-  \code{flatpars} is included.}
+  include. If \code{NULL}, all parameter arrays.}
 
   \item{chain_id}{\code{integer}. Chains to include. If
   \code{NULL}, all chains.}
@@ -23,25 +18,19 @@
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  A \code{data.frame} with columns \describe{
-  \item{\code{chain_id}}{\code{integer}. Chain id}
-  \item{\code{iter}}{\code{integer}. Iteration number}
-  \item{\code{flatpar}}{\code{factor}. Flat parameter name}
-  \item{\code{val}}{\code{numeric}. Parameter values} }
+  \code{list}. Each element of the list is a \code{list} of
+  \code{array} objects, representing the samples of each
+  parameter array in each chain.
 }
 \description{
-  Extract MCMC samples from an object as a data frame, with
-  columns for the flat parameter, chain, iteration, and
-  value.
+  Return MCMC samples as a list of paramter arrays Each
+  paramter array is a list of arrays, containing the
+  iterations in each chain.
 }
 \examples{
-library(plyr)
 data(line_samples)
-line_long <- mcmcdb_samples_long(line_samples)
-head(line_long)
-summary(line_long)
-ddply(line_long, "flatpar",
-      summarise, mean = mean(val), median = median(val))
+line_samples_pc <- mcmcdb_samples_pararrays_chain(line_samples)
+str(line_samples_pc)
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
@@ -61,9 +50,9 @@ ddply(line_long, "flatpar",
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}}
+  \code{\link{mcmcdb_samples_pararrays}}
 }
 

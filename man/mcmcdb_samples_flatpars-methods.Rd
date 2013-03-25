@@ -11,8 +11,8 @@
 
   \item{pararrays}{\code{character}. Parameter arrays to
   include. If \code{NULL}, all parameter arrays. The union
-  of flat paramters in \code{pararrays} and \code{flatpars}
-  is included.}
+  of flat parameters in \code{pararrays} and
+  \code{flatpars} is included.}
 
   \item{chain_id}{\code{integer}. Chains to include. If
   \code{NULL}, all chains.}
@@ -47,11 +47,21 @@ summary(line_wide)
   \code{\link{[}}, \code{\link{[-methods}},
   \code{\link{[[}}, \code{\link{[[-methods}},
   \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_samples_chain_flatpars}},
+  \code{\link{mcmcdb_samples_chain_flatpars}},
+  \code{\link{mcmcdb_samples_chain_iter}},
+  \code{\link{mcmcdb_samples_chain_iter}},
+  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_flatpars_chain}},
+  \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}}
+  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_pararrays_chain}},
+  \code{\link{mcmcdb_samples_pararrays_chain}}
 }
 

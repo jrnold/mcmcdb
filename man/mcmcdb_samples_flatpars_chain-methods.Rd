@@ -1,8 +1,8 @@
 \docType{methods}
-\name{mcmcdb_samples_long}
-\alias{mcmcdb_samples_long}
-\alias{mcmcdb_samples_long,McmcdbWide-method}
-\title{Extract MCMC Samples (Long form)}
+\name{mcmcdb_samples_flatpars_chain}
+\alias{mcmcdb_samples_flatpars_chain}
+\alias{mcmcdb_samples_flatpars_chain,Mcmcdb-method}
+\title{Extract MCMC samples (Flat parameters, chains)}
 \arguments{
   \item{object}{An object containing the MCMC samples.}
 
@@ -23,25 +23,18 @@
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  A \code{data.frame} with columns \describe{
-  \item{\code{chain_id}}{\code{integer}. Chain id}
-  \item{\code{iter}}{\code{integer}. Iteration number}
-  \item{\code{flatpar}}{\code{factor}. Flat parameter name}
-  \item{\code{val}}{\code{numeric}. Parameter values} }
+  \code{list}. Each element of the list is a \code{list} of
+  \code{numeric} vectors, representing the samples of each
+  flat parameter in each chain.
 }
 \description{
-  Extract MCMC samples from an object as a data frame, with
-  columns for the flat parameter, chain, iteration, and
-  value.
+  Return MCMC samples as a list of flat parameters. Each
+  flat parameter is a list of numeric vectors, by chain.
 }
 \examples{
-library(plyr)
 data(line_samples)
-line_long <- mcmcdb_samples_long(line_samples)
-head(line_long)
-summary(line_long)
-ddply(line_long, "flatpar",
-      summarise, mean = mean(val), median = median(val))
+line_samples_fc <- mcmcdb_samples_flatpars_chain(line_samples)
+str(line_samples_fc)
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
@@ -57,10 +50,10 @@ ddply(line_long, "flatpar",
   \code{\link{mcmcdb_samples_chain_pararrays}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
-  \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_pararrays}},
   \code{\link{mcmcdb_samples_pararrays}},
   \code{\link{mcmcdb_samples_pararrays_chain}},

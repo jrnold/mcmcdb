@@ -48,7 +48,7 @@ NULL
 #' mcmcdb_mcpar(line_samples)
 #' 
 #' # Extract samples
-#' # As matrix of flat paramters
+#' # As matrix of flat parameters
 #' mcmcdb_samples_flatpars(line_samples)
 #' mcmcdb_samples_pararrays(line_samples)
 #' mcmcdb_samples_iter(line_samples)

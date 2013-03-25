@@ -47,7 +47,7 @@
 
   \item{\code{signature(x = "McmcdbWide", parameters =
   "missing")}}{ Uses the result of
-  \code{mcmcdb_parameters(x)} as the paramter object. }
+  \code{mcmcdb_parameters(x)} as the parameter object. }
 
   \item{\code{signature(x = "numeric", parameters =
   "function")}}{ The numeric vector represents a single
