@@ -53,6 +53,7 @@ str(line_samples_fc)
   \code{\link{mcmcdb_samples_chain_pararrays}},
   \code{\link{mcmcdb_samples_pararrays_chain}},
   \code{\link{mcmcdb_samples_pararrays_chain}},
-  \code{\link{mcmdb_mcpar-methods}}
+  \code{\link{mcmdb_mcpar-methods}}, \code{\link{summary}},
+  \code{\link{summary-methods}}
 }
 

@@ -59,3 +59,4 @@ Collate:
     'method-mcmcdb_samples_chain_pararrays.R'
     'method-mcmcdb_samples_flatpars_chain.R'
     'method-mcmcdb_samples_pararrays_chain.R'
+    'method-summary.R'

@@ -48,7 +48,7 @@ setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
             .fun <- function(par) {
               .fun2 <- function(i) {
                 mcmcdb_samples_pararrays(object, pararrays = par,
-                                         chain_id = i)[[i]]
+                                         chain_id = i)[[1]]
               }
               llply(chain_id, .fun = .fun2)
             }

@@ -49,6 +49,7 @@ str(line_samples_pc)
   \code{\link{mcmcdb_samples_chain_pararrays}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmdb_mcpar-methods}}
+  \code{\link{mcmdb_mcpar-methods}}, \code{\link{summary}},
+  \code{\link{summary-methods}}
 }
 
