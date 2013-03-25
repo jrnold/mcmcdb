@@ -1,7 +1,9 @@
 context("method mcmcdb_samples_long")
 
+
 local({
   source("data-McmcdbWide.R")
+
   
   test_that("mcmcdb_samples_long passes test #1", {
     foo <- mcmcdb_samples_long(test_wide2)
