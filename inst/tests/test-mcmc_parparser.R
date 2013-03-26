@@ -45,7 +45,7 @@ test_that("mcmc_parparser_underscore works", {
   expect_equivalent(mcmc_parparser_underscore(UNDERSCORE), underscore_flatpars)
 })
 
-test_that("mcmc_parparser_underscore works", {
+test_that("mcmc_parparser_pattern passes test #1", {
   parameters <- c("alpha", "beta<1>", "gamma<1;2>", "gamma<1;2>bar<1;2>")
   expected <-
     McmcdbFlatpars(data.frame(flatpar = parameters,
@@ -56,6 +56,17 @@ test_that("mcmc_parparser_underscore works", {
   expect_equivalent(foo, expected)
 })
 
+
+test_that("mcmc_parparser_pattern passes test #1", {
+  parameters <- c("alpha", "beta|1|", "gamma<1;2>", "bar<1,2>")
+  expected <-
+    McmcdbFlatpars(data.frame(flatpar = parameters,
+                              pararray = c("alpha", "beta", "gamma", "bar"),
+                              idx = c("1", "1", "1,2", "1,2"),
+                              stringsAsFactors = FALSE))
+  foo <- mcmc_parparser_pattern(parameters, pre="(?:[<|])", sep="[,;]", post="(?:[>|])")
+  expect_equivalent(foo, expected)
+})
 
 test_that("mcmc_parparser_guess with BUGS works", {
   expect_equivalent(mcmc_parparser_guess(BUGS), bugs_flatpars)

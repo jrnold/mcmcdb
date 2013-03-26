@@ -26,7 +26,8 @@ NULL
 #' }
 #'
 #' @param x \code{character} vector with flat parameter names.
-#' @param pre \code{character} Pattern between parameter name and indices.
+#' @param pre \code{character} Pattern between parameter name and indices. If a pattern
+#' grouping must be used, use "(?: )". 
 #' @param sep \code{character} Pattern seperating each index.
 #' @param post \code{character} Pattern following the indices.
 #' @return Object of class \code{McmcdbFlatpars}
@@ -39,6 +40,8 @@ NULL
 #' mcmc_parparser_guess(c("beta[1,1]", "beta[1,2]"))
 #' mcmc_parparser_guess(c("beta.1.1", "beta.1.2"))
 #' mcmc_parparser_scalar(c("beta[1,1]", "beta[1,2]"))
+#' # for pattern groups, you must use (?:
+#' mcmc_parparser_pattern(c("beta<1;1>", "beta.1,2"), "[<.]", "[;,]", "(?:>|)")
 mcmc_parparser_scalar <- function(x) {
   McmcdbFlatpars(data.frame(flatpar = x,
                             pararray = x,

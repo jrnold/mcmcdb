@@ -24,7 +24,8 @@
   names.}
 
   \item{pre}{\code{character} Pattern between parameter
-  name and indices.}
+  name and indices. If a pattern grouping must be used, use
+  "(?: )".}
 
   \item{sep}{\code{character} Pattern seperating each
   index.}
@@ -59,5 +60,7 @@ mcmc_parparser_pattern(c("beta<1;1>", "beta<1;2>"), "<", ";", ">")
 mcmc_parparser_guess(c("beta[1,1]", "beta[1,2]"))
 mcmc_parparser_guess(c("beta.1.1", "beta.1.2"))
 mcmc_parparser_scalar(c("beta[1,1]", "beta[1,2]"))
+# for pattern groups, you must use (?:
+mcmc_parparser_pattern(c("beta<1;1>", "beta.1,2"), "[<.]", "[;,]", "(?:>|)")
 }
 
