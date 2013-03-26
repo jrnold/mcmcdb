@@ -18,14 +18,13 @@ NULL
 #' summary(line_samples)
 setGeneric("summary")
 
-summary.Mcmcdb <- function(object, .fun = mean, pararrays = NULL, ...) {
-  .FUN <- function(x) {
+summary.Mcmcdb <- function(object, FUN = mean, pararrays = NULL, ...) {
+  .fun <- function(x) {
     ndim <- length(dim(x))
     margins <- seq_len(ndim - 1)
-    aaply(x, margins, .fun)
+    aaply(x, margins, FUN)
   }
-  llply(mcmcdb_samples_pararrays(object, pararrays = pararrays),
-        .fun = .FUN, ...)
+  mcmcdb_samples_pararrays(object, pararrays = pararrays, FUN = .fun, ...)
 }
 
 #' @rdname summary-methods
