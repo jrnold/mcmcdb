@@ -1,7 +1,7 @@
 Package: mcmcdb
 Authors@R: c(person("Jeffrey B.", "Arnold", role = c("aut", "cre"),
     email = "jeffrey.arnold@gmail.com"))
-Version: 0.5-2
+Version: 0.6-0
 License: GPL-3
 Title: MCMC sample database classes
 Description: Classes for storing and accessing MCMC samples
