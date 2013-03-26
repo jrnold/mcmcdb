@@ -17,8 +17,10 @@
   Get flat parameter names
 }
 \seealso{
-  Other Mcmcdb methods: \code{\link{mcmcdb_mcpar}},
-  \code{\link{mcmcdb_pardims}},
+  Other Mcmcdb methods: \code{\link{Mcmcdb-class}},
+  \code{\link{McmcdbMem-class}},
+  \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_mcpar}}, \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},

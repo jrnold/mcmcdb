@@ -12,4 +12,5 @@ NULL
 #' @description Virtual class for all MCMC samples.
 #'
 #' @family Mcmcdb classes
+#' @family Mcmcdb methods
 setClass("Mcmcdb")

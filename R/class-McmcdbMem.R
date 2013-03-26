@@ -18,6 +18,8 @@ NULL
 #' @description Class for storing MCMC samples in-memory.
 #'
 #' @family Mcmcdb classes
+#' @family Mcmcdb methods
+#' @family McmcdbMem methods
 setClass("McmcdbMem",
          contains = "Mcmcdb",
          representation(parameters="McmcdbParameters",

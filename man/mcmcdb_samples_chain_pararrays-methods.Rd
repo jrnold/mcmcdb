@@ -40,7 +40,10 @@ line_samples_chain_pars <- mcmcdb_samples_chain_pararrays(line_samples)
 lapply(line_samples_chain_pars[[1]], dim)
 }
 \seealso{
-  Other Mcmcdb methods: \code{\link{mcmcdb_flatpars}},
+  Other Mcmcdb methods: \code{\link{Mcmcdb-class}},
+  \code{\link{McmcdbMem-class}},
+  \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_mcpar}}, \code{\link{mcmcdb_pardims}},

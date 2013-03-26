@@ -34,9 +34,11 @@ NULL
 #' }
 #' 
 #' @docType class
-#' @family McmcdbWide methods
 #' @seealso \code{\link{McmcdbWide}} for the method usually used to create these objects.
 #' @family Mcmcdb classes
+#' @family Mcmcdb methods
+#' @family McmcdbWide methods
+#' @family McmcdbMem methods
 #' @examples
 #' showClass("McmcdbWide")
 #' 

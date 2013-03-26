@@ -14,7 +14,9 @@
 \seealso{
   \code{\linkS4class{McmcdbMem}}
 
-  Other McmcdbMem methods: \code{\link{mcmcdb_iters}},
+  Other McmcdbMem methods: \code{\link{McmcdbMem-class}},
+  \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_iters}},
   \code{\link{mcmcdb_parameters}},
   \code{\link{mcmcdb_parameters-methods}}
 }

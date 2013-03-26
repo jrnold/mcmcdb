@@ -26,81 +26,30 @@ same functions. Currently, this package only contains a class for
 storing samples in memory. However, SQLite and other backends are
 planned.
 
-# Examples
-
-```
-library(mcmcdb)
-```
-
-`line_samples` is a `McmcdbWide` object which is included in the
-package for examples.
-
-```
-data(line_samples)
-line_samples
-```
-
-The object include two parameter arrays `beta`, a vector of length 2,
-and `tau`, a scalar (vector of length 1). It has 2 chains, each with 
-100 samples. 
-
-## Extract Samples
-
-The idiomatic **R** extract operators are defined.  A single bracket
-extracts a flat parameter. There are three flat parameters for this
-object: `beta[1]`, `beta[2]` and `tau`. The names of the flat parameters,
-and their associated parameter arrays can be found with,
-```
-mcmcdb_flatpars(line_samples)
-```
-
-To extract all samples for `beta.1` use,
-```
-str(line_samples["beta[1]"])
-```
-
-To extract the 1st iteration in chain 2 for `beta.1` use,
-```
-line_samples["beta[1]", 1, 2]
-```
-
-If `drop=FALSE`, then instead of a numeric vector, a data frame is
-returned, 
-```
-summary(line_samples["beta[1]", drop=FALSE])
-```
-
-While the single bracket is used to extract by flat parameters, 
-the double bracket is used to extract by parameter arrays.
-
-To extract all samples of `beta`, 
-```
-str(line_samples[["beta"]])
-```
-
-To extract the first chain, iterations 1-10 of `beta`, 
-```
-str(line_samples[["beta", 1, 1:10]])
-```
-
-To return the values in a data frame instead of an array, use 
-`drop=FALSE`,
-```
-line_samples[["beta", 1, 1:3, drop=FALSE]]
-```
-
-Use the dollar operator to extract all samples for a given parameter
-array,
-```
-str(line_samples$beta)
-```
-
 # Install
 
 Use [devtools](https://github.com/hadley/devtools) to install **mcmcdb** from github.
 
-```
+```r
 library(devtools)
-install_github(c("DataFrameConstr", "mcmcdb"), "jrnold")
+install_github(c(r-"checker", "mcmcdb"), "jrnold")
 ```
+
+<!-- # Examples -->
+
+<!-- Object which store MCMC samples all inherit from class `Mcmcdb`. -->
+<!-- Currently, **mcmcdb** package only defines one such class -->
+<!-- `McmcdbWide`. However, this package aims to make the details of how -->
+<!-- the samples are stored unimportant to the user, as the data in the  -->
+<!-- class can all be accessed through methods. -->
+
+<!-- ## Creating McmcdbWide Objects -->
+
+<!-- `McmcdbWide` objects can be created directly, however it is more -->
+<!-- likely that MCMC samples are either written to disk or in an R object -->
+<!-- of another format. The function `McmcdbWide` will create new -->
+<!-- `McmcdbWide` from matrix, `mcmc`, and `mcmc.list` objects.  The -->
+<!-- function `mcmcdb_wide_from_stan` will create a `McmcdbWide` object -->
+<!-- from the csv files output by a Stan command line program.  -->
+
 

@@ -18,7 +18,9 @@
   Get iteration data from Mcmcdb object
 }
 \seealso{
-  Other McmcdbMem methods: \code{\link{mcmcdb_metadata}},
+  Other McmcdbMem methods: \code{\link{McmcdbMem-class}},
+  \code{\link{McmcdbWide-class}},
+  \code{\link{mcmcdb_metadata}},
   \code{\link{mcmcdb_parameters}},
   \code{\link{mcmcdb_parameters-methods}}
 
