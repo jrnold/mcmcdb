@@ -1,6 +1,14 @@
 #' @include package.R
 NULL
 
+parnames_from_flatpars <- function(x, pre, sep, post) {
+  FUN <- function(flatpar, pararray, idx, scalar) {
+    mcmc_parnames_pattern_idx(pararray, as.integer(str_split(idx, ",")[[1]]),
+                              scalar, pre, sep, post)
+  }
+  as.character(dlply(x, "flatpar", splat(FUN)))
+}
+
 #' Convert between BUGS/JAGS and Stan style flat parameter names
 #'
 #' Utility functions to convert flat parameter names between the BUGS (\code{"alpha[1,1]"}) and
@@ -15,17 +23,12 @@ NULL
 #' identical(bugs_to_stan_parnames(bugs_parnames), stan_parnames)
 #' identical(stan_to_bugs_parnames(stan_parnames), bugs_parnames)
 bugs_to_stan_parnames <- function(x) {
-  parsed <- mcmc_parparser_bugs(x)
-  gsub("]", "", gsub("[\\[,]", ".", x))
+  parnames_from_flatpars(mcmc_parparser_bugs(x), ".", ".", "")
 }
 
 #' @rdname bugs_to_stan_parnames
 #' @aliases stan_to_bugs_parnamse
 #' @export
 stan_to_bugs_parnames <- function(x) {
-  y <- str_split_fixed(x, fixed("."), 2)
-  apply(y, 1, function(yi) {
-    paste0(yi[1],
-           ifelse(yi[2] == "", "", paste0("[", gsub("\\.", ",", yi[2]), "]")))
-  })
+  parnames_from_flatpars(mcmc_parparser_stan(x), "[", ",", "]")
 }

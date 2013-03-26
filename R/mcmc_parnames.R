@@ -32,14 +32,15 @@ NULL
 #' mcmc_parnames_underscore("alpha", c(1, 2))
 #' mcmc_parnames_pattern("alpha", c(1, 2), "<", ";", ">")
 mcmc_parnames_pattern <- function(x, d, pre=".", sep=".", post="") {
+  scalar <- identical(d, 1L)
   FUN <- function(i) {
-    mcmc_parnames_pattern_idx(x, i, d, pre=pre, sep=sep, post=post)
+    mcmc_parnames_pattern_idx(x, i, scalar, pre=pre, sep=sep, post=post)
   }
   apply(expand_grid_dim(d), 1, FUN)
 }
 
-mcmc_parnames_pattern_idx <- function(x, idx, d, pre=".", sep=".", post="") {
-  if (identical(as.integer(d), 1L)) {
+mcmc_parnames_pattern_idx <- function(x, idx, scalar=FALSE, pre=".", sep=".", post="") {
+  if (scalar) {
     x
   } else {
     paste0(x, pre, paste(idx, collapse=sep), post)
