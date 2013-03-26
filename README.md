@@ -16,15 +16,17 @@ e.g. calculating quantiles.
 
 This package aims to do one thing: make storing, accessing, and
 manipulating MCMC samples easier and faster.  It does not include
-convergence statistics, or plotting functions; although it makes make
-writing such functions easier.
+convergence statistics, or plotting functions; although it will make
+applying such functions to samples easier.
 
-It defines classes and some generic functions.  Classes are used to
-abstract how the samples; this means it will be possible to store MCMC
-samples in different formats, e.g. in memory, SQLite, HDF5, etc, while
-still using the same functions to access the data. 
+It defines generic functions to access the MCMC samples in a common
+manner, regardless of how they are stored. This makes is possible to
+store samples in a variety of formats, while accessing them with the
+same functions. Currently, this package only contains a class for
+storing samples in memory. However, SQLite and other backends are
+planned.
 
-## Examples
+# Examples
 
 ```
 library(mcmcdb)
@@ -42,13 +44,7 @@ The object include two parameter arrays `beta`, a vector of length 2,
 and `tau`, a scalar (vector of length 1). It has 2 chains, each with 
 100 samples. 
 
-# Methods
-
-## Samples
-
-
-
-## Extract
+## Extract Samples
 
 The idiomatic **R** extract operators are defined.  A single bracket
 extracts a flat parameter. There are three flat parameters for this
