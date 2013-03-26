@@ -46,6 +46,7 @@ mcmc_parparser_scalar <- function(x) {
   McmcdbFlatpars(data.frame(flatpar = x,
                             pararray = x,
                             idx = as.character("1"),
+                            scalar = TRUE,
                             stringsAsFactors = FALSE))
 }
 
@@ -58,8 +59,8 @@ mcmc_parparser_pattern <- function(x, pre, sep, post) {
   x_split <- data.frame(str_match(x, regexp)[ , c(1, 2, 4)],
                         stringsAsFactors = FALSE)
   names(x_split) <- c("flatpar", "pararray", "idx")
-  scalar <- (x_split$idx == "")
-  x_split$idx[scalar] <- "1"
+  x_split$scalar <- (x_split$idx == "")
+  x_split$idx[x_split$scalar] <- "1"
   x_split$idx <- gsub(sep, ",", x_split$idx)
   McmcdbFlatpars(x_split)
 }

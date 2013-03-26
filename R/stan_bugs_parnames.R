@@ -15,6 +15,7 @@ NULL
 #' identical(bugs_to_stan_parnames(bugs_parnames), stan_parnames)
 #' identical(stan_to_bugs_parnames(stan_parnames), bugs_parnames)
 bugs_to_stan_parnames <- function(x) {
+  parsed <- mcmc_parparser_bugs(x)
   gsub("]", "", gsub("[\\[,]", ".", x))
 }
 
