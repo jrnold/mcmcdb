@@ -39,8 +39,12 @@ setMethod("mcmcdb_init", "McmcdbMem",
             if (flatten) {
               inits
             } else {
-              alply(inits, 1, mcmcdb_unflatten,
-                    parameters = object@parameters)
+              inits <- alply(inits, 1, mcmcdb_unflatten,
+                             parameters = object@parameters)
+              for (i in c("split_type", "split_labels")) {
+                attr(inits, i) <- NULL
+              }
+              inits
             }
           })
 
