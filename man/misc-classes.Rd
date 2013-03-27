@@ -4,7 +4,6 @@
 \alias{McmcdbChains-class}
 \alias{McmcdbFlatparChains}
 \alias{McmcdbFlatparChains-class}
-\alias{McmcdbFlatparChainsOrNull-class}
 \alias{McmcdbFlatpars}
 \alias{McmcdbFlatpars-class}
 \alias{McmcdbIters}

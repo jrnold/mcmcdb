@@ -29,7 +29,6 @@ NULL
 #' \item{\code{flatpar_chains}}{\linkS4class{McmcdbFlatparChains}.}
 #' \item{\code{metadata}}{\code{list} with metadata about the samples.}
 #' \item{\code{model_data}}{\code{namedList}. The data used in the model.}
-#' \item{\code{parinit}}{\code{numericOrNULL}. A named \code{numeric} vector of the parameter starting values in the model.}
 #' \item{\code{version}}{\code{character} version of \pkg{mcmcdb} with which the object was created}
 #' }
 #' 
@@ -99,18 +98,11 @@ validate.McmcdbWide <- function(object) {
   if (!setequal(chain_ids, unique(object@iters$chain_id))) {
     return("iters$chain_id does not match chains$chain_id values")
   }
-  if (!is.null(object@flatpar_chains)) {
-    if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
-      return("flatpar_chains$chain_id does not match chains$chain_id values")
-    }
-    if (!setequal(unique(object@flatpar_chains$flatpar), parameters)) {
-      return("flatpar_chains$flatpar does not match parameters")
-    }
+  if (!setequal(unique(object@flatpar_chains$chain_id), chain_ids)) {
+    return("flatpar_chains$chain_id does not match chains$chain_id values")
   }
-  if (length(object@parinit)) {
-    if (!setequal(names(object@parinit), parameters)) {
-      return("parinit names do not match parameters")
-    }
+  if (!setequal(levels(object@flatpar_chains$flatpar), parameters)) {
+    return("flatpar_chains$flatpar does not match parameters")
   }
   TRUE
 }

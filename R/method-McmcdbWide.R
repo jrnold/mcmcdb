@@ -14,20 +14,21 @@ NULL
 #' @param x An object for which a method is available.
 #' @return An object of class \code{\linkS4class{McmcdbWide}} objects.
 #' @examples
-#' ## notrun:
+#' \dontrun{
 #' # Convert stanfit object
 #' library(rstan)
-scode <- "
-     parameters {
-       real y[2]; 
-     } 
-     model {
-       y[1] ~ normal(0, 1);
-       y[2] ~ double_exponential(0, 2);
-     } 
-     "
-fit1 <- stan(model_code = scode, iter = 10, verbose = FALSE)
-fit2 <- McmcdbWide(fit1)
+#' scode <- "
+#'      parameters {
+#'        real y[2]; 
+#'      } 
+#'      model {
+#'        y[1] ~ normal(0, 1);
+#'        y[2] ~ double_exponential(0, 2);
+#'      } 
+#'      "
+#' fit1 <- stan(model_code = scode, iter = 10, verbose = FALSE)
+#' fit2 <- McmcdbWide(fit1)
+#' }
 setGeneric("McmcdbWide",
            function(x, ...) standardGeneric("McmcdbWide"))
 
@@ -77,19 +78,19 @@ setMethod("McmcdbWide", "data.frame",
 
 McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
   mcpar <- attr(x, "mcpar")
-  chains <- McmcdbChains(data.frame(chain_id = 1L,
-                                    n_iter = nrow(x),
-                                    iter_start = mcpar[1],
-                                    iter_end = mcpar[2],
-                                    iter_thin = mcpar[3]))
-  iters <- McmcdbIters(data.frame(chain_id = 1L,
-                                  iter = seq_len(nrow(x))))
+  chains <-
+    McmcdbChains(chain_id = 1L,
+                 n_iter = nrow(x),
+                 iter_start = mcpar[1],
+                 iter_end = mcpar[2],
+                 iter_thin = mcpar[3])
+  iters <- McmcdbIters(chain_id = 1L,
+                       iter = seq_len(nrow(x)))
   McmcdbWide(as(x, "matrix"),
              parameters = parameters,
              chains = chains,
              iters = iters)
 }
-
 
 #' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,mcmc-method
@@ -97,18 +98,21 @@ setMethod("McmcdbWide", "mcmc", McmcdbWide.mcmc)
 
 McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
   chains <-
-    McmcdbChains(ldply(seq_along(x), 
-                      function(i) {
-                        mcpar <- attr(x[[i]], "mcpar")
-                        data.frame(chain_id = i,
-                                   n_iter = nrow(x[[i]]),
-                                   iter_start = mcpar[1],
-                                   iter_end = mcpar[2],
-                                   iter_thin = mcpar[3])
-                      }))
+    new("McmcdbChains", 
+        ldply(seq_along(x), 
+              function(i) {
+                mcpar <- attr(x[[i]], "mcpar")
+                data.frame(chain_id = i,
+                           n_iter = nrow(x[[i]]),
+                           iter_start = mcpar[1],
+                           iter_end = mcpar[2],
+                           iter_thin = mcpar[3])
+              }))
   iters <-
-    McmcdbIters(ddply(chains, "chain_id",
-                      function(x) data.frame(iter = seq_len(x[["n_iter"]]))))
+    new("McmcdbIters", 
+        ddply(chains, "chain_id",
+              function(x) data.frame(iter = seq_len(x[["n_iter"]]))))
+  
   McmcdbWide(do.call(rbind, x),
              parameters = parameters,
              chains = chains,
