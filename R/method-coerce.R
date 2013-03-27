@@ -1,5 +1,4 @@
 #' @include package.R
-#' @include 
 #' @include method-mcmcdb_chains.R
 #' @include method-mcmcdb_samples_flatpars.R
 #' @include method-mcmcdb_samples_pararrays.R
@@ -18,7 +17,7 @@ setAs("Mcmcdb", "mcmc.list",
         for (i in nrow(chains)) {
           if ("iter_start" %in% colnames(chains)) {
             mcpar <- as.numeric(chains[i, c("iter_start", "iter_end", "iter_thin")])
-            attr(to[[i]], "mcpar") <- chain          
+            attr(to[[i]], "mcpar") <- mcpar
           } 
         }
         class(to) <- "mcmc.list"
