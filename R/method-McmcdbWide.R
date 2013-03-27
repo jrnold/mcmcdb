@@ -154,15 +154,24 @@ McmcdbWide.stanfit <- function(x) {
   flatpar_chains <-
     expand.grid(flatpar = as.character(colnames(samples)),
                 chain_id = chains[["chain_id"]])
-  flatpar_chains[["init"]] <- NA_real_
-
+  # flatpar_chains[["init"]] <- NA_real_
+  inits <- ldply(seq_along(x@inits),
+                 function(i) {
+                   init <- mcmcdb_flatten(x@inits[[i]],
+                                          FUN = mcmc_parnames_bugs)
+                   data.frame(chain_id = chains[["chain_id"]][i],
+                              flatpar = names(init),
+                              init = unname(init))
+                 })
+  flatpar_chains <- merge(flatpar_chains, inits, all.x=TRUE)
+  
   metadata <- list()
   metadata[["model_name"]] <- x@model_name
   metadata[["date"]] <- x@date
   metadata[["stanmodel"]] <- x@stanmodel
-  
+
   McmcdbWide(samples,
-             parameters = mcmc_parparser_stan,
+             parameters = mcmc_parparser_bugs,
              flatpar_chains = McmcdbFlatparChains(flatpar_chains),
              chains = McmcdbChains(chains),
              iters = McmcdbIters(iters),
