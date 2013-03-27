@@ -60,3 +60,4 @@ Collate:
     'method-mcmcdb_samples_flatpars_chain.R'
     'method-mcmcdb_samples_pararrays_chain.R'
     'method-summary.R'
+    'method-coerce.R'
