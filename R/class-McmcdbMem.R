@@ -25,10 +25,9 @@ setClass("McmcdbMem",
          representation(parameters="McmcdbParameters",
                         chains="McmcdbChains", # chain_id
                         iters="McmcdbIters", # chain_id, iter
-                        flatpar_chains="ANY", # parname, chain_id
+                        flatpar_chains="McmcdbFlatparChains", # parname, chain_id
                         metadata="list",
                         version="character",
-                        parinit="numeric",
                         model_data="namedList"),
          prototype(parameters = McmcdbParameters(),
                    chains = McmcdbChains(chain_id = integer()),
@@ -36,7 +35,7 @@ setClass("McmcdbMem",
                      iter = integer()),
                    metadata = list(),
                    version = as.character(packageVersion("mcmcdb")),
-                   parinit = numeric(),
-                   flatpar_chains = NULL,
+                   flatpar_chains = McmcdbFlatparChains(flatpar = factor(),
+                     chain_id = integer(), init = numeric()),
                    model_data = nlist()))
 

@@ -13,6 +13,21 @@ NULL
 #'
 #' @param x An object for which a method is available.
 #' @return An object of class \code{\linkS4class{McmcdbWide}} objects.
+#' @examples
+#' ## notrun:
+#' # Convert stanfit object
+#' library(rstan)
+scode <- "
+     parameters {
+       real y[2]; 
+     } 
+     model {
+       y[1] ~ normal(0, 1);
+       y[2] ~ double_exponential(0, 2);
+     } 
+     "
+fit1 <- stan(model_code = scode, iter = 10, verbose = FALSE)
+fit2 <- McmcdbWide(fit1)
 setGeneric("McmcdbWide",
            function(x, ...) standardGeneric("McmcdbWide"))
 
@@ -20,7 +35,7 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
                               parameters = mcmc_parparser_guess,
                               flatpar_chains = NULL,
                               metadata = list(),
-                              parinit = numeric(), model_data = list()) {
+                              model_data = list()) {
   # Attempt to fill in chains or iters if missing
   if (is.null(chains) & is.null(iters)) {
     chains <- McmcdbChains(data.frame(chain_id = 1L))
@@ -37,10 +52,16 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
   if (is(parameters, "function")) {
     parameters <- McmcdbParameters(colnames(x), parameters)
   }
+  if (is.null(flatpar_chains)) {
+    flatpar_chains <- expand.grid(flatpar = colnames(x),
+                                  chain_id = chains[["chain_id"]])
+    flatpar_chains[["init"]] <- NA_real_
+    flatpar_chains <- McmcdbFlatparChains(flatpar_chains)
+  }
   new("McmcdbWide", samples = x, chains = chains, iters = iters,
       parameters = parameters,
       flatpar_chains = flatpar_chains, metadata = metadata,
-      parinit = parinit, model_data = as(model_data, "namedList"))
+      model_data = as(model_data, "namedList"))
 }
 
 #' @rdname McmcdbWide-methods
@@ -98,8 +119,6 @@ McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
 #' @aliases McmcdbWide,mcmc.list-method
 setMethod("McmcdbWide", "mcmc.list", McmcdbWide.mcmc.list)
 
-
-
 McmcdbWide.stanfit <- function(x) {
   samples <-
     do.call(rbind, llply(x@sim[["samples"]],
@@ -128,6 +147,11 @@ McmcdbWide.stanfit <- function(x) {
           })
   iters <- cbind(iters, sampler_params)
 
+  flatpar_chains <-
+    expand.grid(flatpar = as.character(colnames(samples)),
+                chain_id = chains[["chain_id"]])
+  flatpar_chains[["init"]] <- NA_real_
+
   metadata <- list()
   metadata[["model_name"]] <- x@model_name
   metadata[["date"]] <- x@date
@@ -135,6 +159,7 @@ McmcdbWide.stanfit <- function(x) {
   
   McmcdbWide(samples,
              parameters = mcmc_parparser_stan,
+             flatpar_chains = McmcdbFlatparChains(flatpar_chains),
              chains = McmcdbChains(chains),
              iters = McmcdbIters(iters),
              metadata = metadata)

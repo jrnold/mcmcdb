@@ -3,7 +3,6 @@
 #' @exportClass McmcdbChains
 #' @exportClass McmcdbIters
 #' @exportClass McmcdbFlatparChains
-#' @exportClass McmcdbFlatparChainsOrNull
 #' @exportClass McmcdbFlatpars
 #' @export McmcdbSamples
 #' @export McmcdbChains
@@ -29,7 +28,6 @@ NULL
 #' @aliases McmcdbIters
 #' @aliases McmcdbFlatparChains-class
 #' @aliases McmcdbFlatparChains
-#' @aliases McmcdbFlatparChainsOrNull-class
 #' @aliases McmcdbFlatpars-class
 #' @aliases McmcdbFlatpars
 #' @keywords classes
@@ -74,9 +72,8 @@ McmcdbFlatparChains <-
   checked_frame_class("McmcdbFlatparChains",
                       columns =
                       ColumnCheckList(flatpar = ColumnChecks("factor"),
-                                      chain_id = ColumnChecks("integer"))) 
-
-setClassUnion("McmcdbFlatparChainsOrNull", c("McmcdbFlatparChains", "NULL"))
+                                      chain_id = ColumnChecks("integer"),
+                                      init = ColumnChecks("numeric")))
 
 #######
 

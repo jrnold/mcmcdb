@@ -26,10 +26,6 @@ setGeneric("mcmcdb_init",
 #' @aliases mcmcdb_init,McmcdbMem-method
 setMethod("mcmcdb_init", "McmcdbMem",
           function(object, flatten=TRUE) {
-            if (flatten) {
-              object@parinit
-            } else {
-              mcmcdb_unflatten(object@parinit, mcmcdb_parameters(object))
-            }
+            NULL
           })
 
