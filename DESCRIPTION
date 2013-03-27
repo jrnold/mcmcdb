@@ -1,7 +1,7 @@
 Package: mcmcdb
 Authors@R: c(person("Jeffrey B.", "Arnold", role = c("aut", "cre"),
     email = "jeffrey.arnold@gmail.com"))
-Version: 0.7-0
+Version: 0.8-0
 License: GPL-3
 Title: MCMC sample database classes
 Description: Classes for storing and accessing MCMC samples
@@ -51,7 +51,6 @@ Collate:
     'method-mcmcdb_samples_long.R'
     'method-mcmcdb_samples_iter.R'
     'method-mcmcdb_samples_pararrays.R'
-    'method-extract-bracket1.R'
     'method-extract-bracket2.R'
     'method-extract-dollar.R'
     'method-mcmcdb_samples_chain_iter.R'
@@ -61,3 +60,4 @@ Collate:
     'method-mcmcdb_samples_pararrays_chain.R'
     'method-summary.R'
     'method-coerce.R'
+    'method-extract-bracket1.R'

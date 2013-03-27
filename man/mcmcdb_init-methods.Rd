@@ -11,9 +11,11 @@
   shapes.}
 }
 \value{
-  If \code{flattened=TRUE}, then a named \code{numeric}
-  vector. If \code{flattened=FALSE}, then a list of numeric
-  \code{array} objects.
+  If \code{flattened=TRUE}, then a \code{matrix}; rows are
+  chains, columns are flat parameters. If
+  \code{flattened=FALSE}, then a list of numeric
+  \code{array} objects; the elements of the list are
+  chains, the arrays are the parameter arrays.
 }
 \description{
   Get the parameter initial values used in model

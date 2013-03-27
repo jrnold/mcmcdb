@@ -19,11 +19,8 @@
   \item{\code{metadata}}{\code{list} with metadata about
   the samples.} \item{\code{model_data}}{\code{namedList}.
   The data used in the model.}
-  \item{\code{parinit}}{\code{numericOrNULL}. A named
-  \code{numeric} vector of the parameter starting values in
-  the model.} \item{\code{version}}{\code{character}
-  version of \pkg{mcmcdb} with which the object was
-  created} }
+  \item{\code{version}}{\code{character} version of
+  \pkg{mcmcdb} with which the object was created} }
 }
 \examples{
 showClass("McmcdbWide")

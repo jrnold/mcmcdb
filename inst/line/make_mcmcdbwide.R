@@ -2,8 +2,7 @@
 library(mcmcdb)
 load("line_mcmc_list.Rdata")
 line_samples <- McmcdbWide(line_mcmc_list)
-model_code <- paste(readLines("line.jag"),
-                    collapse = "\n")
+model_code <- paste(readLines("line.jag"), collapse = "\n")
 line_samples@metadata <-
   list(comment = "For use in the examples of package mcmcdb",
        model_code = model_code)
