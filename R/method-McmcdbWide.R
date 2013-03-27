@@ -11,7 +11,7 @@ NULL
 #' @description
 #' Create \code{\linkS4class{McmcdbWide}} objects.
 #'
-#' @param x object
+#' @param x An object for which a method is available.
 #' @return An object of class \code{\linkS4class{McmcdbWide}} objects.
 setGeneric("McmcdbWide",
            function(x, ...) standardGeneric("McmcdbWide"))
@@ -97,3 +97,50 @@ McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
 #' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,mcmc.list-method
 setMethod("McmcdbWide", "mcmc.list", McmcdbWide.mcmc.list)
+
+
+
+McmcdbWide.stanfit <- function(x) {
+  samples <-
+    do.call(rbind, llply(x@sim[["samples"]],
+                         function(y) do.call(cbind, y)))
+
+  chains <-
+    ldply(x@sim[["samples"]],
+          function(DF) {
+            y <- as.data.frame(Filter(Negate(is.null), attr(DF, "args")))
+            y[["adaptation_info"]] <- attr(DF, "adaptation_info")
+            y
+          })
+
+  iters <- 
+    mdply(chains[ , c("chain_id", "iter_save", "warmup")],
+          function(chain_id, iter_save, warmup) {
+            data.frame(chain_id = chain_id,
+                       iter = seq_len(iter_save),
+                       warmup = (seq_len(iter_save) <= warmup))
+          })
+
+  sampler_params <- 
+    ldply(x@sim[["samples"]],
+          function(x) {
+            as.data.frame(attr(x, "sampler_params"))
+          })
+  iters <- cbind(iters, sampler_params)
+
+  metadata <- list()
+  metadata[["model_name"]] <- x@model_name
+  metadata[["date"]] <- x@date
+  metadata[["stanmodel"]] <- x@stanmodel
+  
+  McmcdbWide(samples,
+             parameters = mcmc_parparser_stan,
+             chains = McmcdbChains(chains),
+             iters = McmcdbIters(iters),
+             metadata = metadata)
+}
+
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,stanfit-method
+setMethod("McmcdbWide", "stanfit", McmcdbWide.stanfit)
+
