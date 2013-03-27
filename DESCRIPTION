@@ -51,7 +51,6 @@ Collate:
     'method-mcmcdb_samples_long.R'
     'method-mcmcdb_samples_iter.R'
     'method-mcmcdb_samples_pararrays.R'
-    'method-exgtract-bracket1.R'
     'method-extract-bracket2.R'
     'method-extract-dollar.R'
     'method-mcmcdb_samples_chain_iter.R'
@@ -60,3 +59,4 @@ Collate:
     'method-mcmcdb_samples_flatpars_chain.R'
     'method-mcmcdb_samples_pararrays_chain.R'
     'method-summary.R'
+    'method-extract-bracket1.R'

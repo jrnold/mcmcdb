@@ -154,7 +154,6 @@ McmcdbWide.stanfit <- function(x) {
   flatpar_chains <-
     expand.grid(flatpar = as.character(colnames(samples)),
                 chain_id = chains[["chain_id"]])
-  # flatpar_chains[["init"]] <- NA_real_
   inits <- ldply(seq_along(x@inits),
                  function(i) {
                    init <- mcmcdb_flatten(x@inits[[i]],
@@ -170,6 +169,7 @@ McmcdbWide.stanfit <- function(x) {
   metadata[["date"]] <- x@date
   metadata[["stanmodel"]] <- x@stanmodel
 
+  # stanfit objects use BUGS-style names for some reason
   McmcdbWide(samples,
              parameters = mcmc_parparser_bugs,
              flatpar_chains = McmcdbFlatparChains(flatpar_chains),
