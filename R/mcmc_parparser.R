@@ -30,6 +30,8 @@ NULL
 #' grouping must be used, use "(?: )". 
 #' @param sep \code{character} Pattern seperating each index.
 #' @param post \code{character} Pattern following the indices.
+#' @param colmajor \code{logical}. If \code{TRUE}, then indices are
+#' in column-major order (R's default), else row-major.
 #' @return Object of class \code{McmcdbFlatpars}
 #'
 #' @examples
@@ -53,15 +55,21 @@ mcmc_parparser_scalar <- function(x) {
 
 #' @rdname mcmc_parparsers
 #' @aliases mcmc_parparser_pattern
-mcmc_parparser_pattern <- function(x, pre, sep, post) {
+mcmc_parparser_pattern <- function(x, pre, sep, post, colmajor=TRUE) {
   regexp <-
-    sprintf("^(.*?)(%s(\\d+(%s\\d+)?)%s)?$", pre, sep, post)
+    sprintf("^(.*?)(%s(\\d+(%s\\d+)*)%s)?$", pre, sep, post)
   x_split <- data.frame(str_match(x, regexp)[ , c(1, 2, 4)],
                         stringsAsFactors = FALSE)
   names(x_split) <- c("flatpar", "pararray", "idx")
   x_split$scalar <- (x_split$idx == "")
   x_split$idx[x_split$scalar] <- "1"
   x_split$idx <- gsub(sep, ",", x_split$idx)
+  # If row-major reverse the order of the index
+  if (!colmajor) {
+    x_split$idx <-
+      sapply(str_split(x_split$idx, fixed(",")),
+             function(string) paste(rev(string), collapse=","))
+  }
   McmcdbFlatpars(x_split)
 }
 

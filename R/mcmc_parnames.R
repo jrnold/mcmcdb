@@ -24,6 +24,8 @@ NULL
 #' @param pre \code{character} String to put before indices.
 #' @param sep \code{character} String used to seperate indices.
 #' @param post \code{character} String to put after indices.
+#' @param colmajor \code{logical}. If \code{TRUE}, then indices are
+#' in column-major order (R's default), else row-major.
 #' @return \code{character} vector of flat parameter names.
 #'
 #' @examples
@@ -31,36 +33,51 @@ NULL
 #' mcmc_parnames_stan("alpha", c(1, 2))
 #' mcmc_parnames_underscore("alpha", c(1, 2))
 #' mcmc_parnames_pattern("alpha", c(1, 2), "<", ";", ">")
-mcmc_parnames_pattern <- function(x, d, pre=".", sep=".", post="") {
+mcmc_parnames_pattern <- function(x, d, pre=".", sep=".", post="",
+                                  colmajor = TRUE) {
   scalar <- identical(d, 1L)
   FUN <- function(i) {
-    mcmc_parnames_pattern_idx(x, i, scalar, pre=pre, sep=sep, post=post)
+    mcmc_parnames_pattern_idx(x, i, scalar, pre=pre, sep=sep, post=post,
+                              colmajor = colmajor)
   }
   apply(expand_grid_dim(d), 1, FUN)
 }
 
-mcmc_parnames_pattern_idx <- function(x, idx, scalar=FALSE, pre=".", sep=".", post="") {
+mcmc_parnames_pattern_idx <- function(x, idx, scalar=FALSE, pre=".", sep=".",
+                                      post="", colmajor = TRUE) {
   if (scalar) {
     x
   } else {
-    paste0(x, pre, paste(idx, collapse=sep), post)
+    if (!colmajor) {
+      if (is.matrix(idx)) {
+        idx <- apply(idx, 1, rev)
+      } else {
+        idx <- rev(idx)
+      }
+    }
+    if (is.matrix(idx)) {
+      idxstr <- apply(idx, 1, paste, collapse=sep)
+    } else {
+      idxstr <- paste(idx, collapse=sep)
+    }
+    paste0(x, pre, idxstr, post)
   }
 }
 
 #' @rdname mcmc_parnames
 #' @aliases mcmc_parnames_stan
-mcmc_parnames_stan <- function(x, d) {
-  mcmc_parnames_pattern(x, d, ".", ".", "")
+mcmc_parnames_stan <- function(x, d, colmajor=TRUE) {
+  mcmc_parnames_pattern(x, d, ".", ".", "", colmajor)
 }
 
 #' @rdname mcmc_parnames
 #' @aliases mcmc_parnames_bugs
-mcmc_parnames_bugs <- function(x, d) {
-  mcmc_parnames_pattern(x, d, "[", ",", "]")
+mcmc_parnames_bugs <- function(x, d, colmajor=TRUE) {
+  mcmc_parnames_pattern(x, d, "[", ",", "]", colmajor)
 }
 
 #' @rdname mcmc_parnames
 #' @aliases mcmc_parnames_underscore
-mcmc_parnames_underscore <- function(x, d) {
-  mcmc_parnames_pattern(x, d, "_", "_", "")
+mcmc_parnames_underscore <- function(x, d, colmajor=TRUE) {
+  mcmc_parnames_pattern(x, d, "_", "_", "", colmajor)
 }

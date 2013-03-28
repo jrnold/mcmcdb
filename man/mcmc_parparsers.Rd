@@ -9,7 +9,8 @@
 \usage{
   mcmc_parparser_scalar(x)
 
-  mcmc_parparser_pattern(x, pre, sep, post)
+  mcmc_parparser_pattern(x, pre, sep, post,
+    colmajor = TRUE)
 
   mcmc_parparser_stan(x)
 
@@ -32,6 +33,10 @@
 
   \item{post}{\code{character} Pattern following the
   indices.}
+
+  \item{colmajor}{\code{logical}. If \code{TRUE}, then
+  indices are in column-major order (R's default), else
+  row-major.}
 }
 \value{
   Object of class \code{McmcdbFlatpars}

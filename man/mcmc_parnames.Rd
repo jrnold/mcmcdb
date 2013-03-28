@@ -7,13 +7,13 @@
 \title{Create paramter names for flattened parameters}
 \usage{
   mcmc_parnames_pattern(x, d, pre = ".", sep = ".",
-    post = "")
+    post = "", colmajor = TRUE)
 
-  mcmc_parnames_stan(x, d)
+  mcmc_parnames_stan(x, d, colmajor = TRUE)
 
-  mcmc_parnames_bugs(x, d)
+  mcmc_parnames_bugs(x, d, colmajor = TRUE)
 
-  mcmc_parnames_underscore(x, d)
+  mcmc_parnames_underscore(x, d, colmajor = TRUE)
 }
 \arguments{
   \item{x}{\code{character} Parameter name.}
@@ -28,6 +28,10 @@
 
   \item{post}{\code{character} String to put after
   indices.}
+
+  \item{colmajor}{\code{logical}. If \code{TRUE}, then
+  indices are in column-major order (R's default), else
+  row-major.}
 }
 \value{
   \code{character} vector of flat parameter names.

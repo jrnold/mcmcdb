@@ -1,28 +1,28 @@
 context("mcmc_parparsers")
 
 # Not all valid parameter names
-STAN <- c("alpha", "beta.1", "gamma.1.1", "foo.1.bar.1.2")
-BUGS <- c("alpha", "beta[1]", "gamma[1,1]", "foo.[1,1].bar[1,2]")
-UNDERSCORE <- c("alpha", "beta_1", "gamma_1_1", "foo_1_1_bar_1_2")
+STAN <- c("alpha", "beta.1", "gamma.1.1", "foo.1.bar.1.2.3")
+BUGS <- c("alpha", "beta[1]", "gamma[1,1]", "foo.[1,1].bar[1,2,3]")
+UNDERSCORE <- c("alpha", "beta_1", "gamma_1_1", "foo_1_1_bar_1_2_3")
 
 stan_flatpars <-
   McmcdbFlatpars(data.frame(flatpar = STAN,
                             pararray = c("alpha", "beta", "gamma", "foo.1.bar"),
-                            idx = c("1", "1", "1,1", "1,2"),
+                            idx = c("1", "1", "1,1", "1,2,3"),
                             scalar = c(TRUE, rep(FALSE, 3)),
                             stringsAsFactors = FALSE))
 
 bugs_flatpars <-
   McmcdbFlatpars(data.frame(flatpar = BUGS,
                             pararray = c("alpha", "beta", "gamma", "foo.[1,1].bar"),
-                            idx = c("1", "1", "1,1", "1,2"),
+                            idx = c("1", "1", "1,1", "1,2,3"),
                             scalar = c(TRUE, rep(FALSE, 3)),
                             stringsAsFactors = FALSE))
 
 underscore_flatpars <-
   McmcdbFlatpars(data.frame(flatpar = UNDERSCORE,
                             pararray = c("alpha", "beta", "gamma", "foo_1_1_bar"),
-                            idx = c("1", "1", "1,1", "1,2"),
+                            idx = c("1", "1", "1,1", "1,2,3"),
                             scalar = c(TRUE, rep(FALSE, 3)),
                             stringsAsFactors = FALSE))
 
@@ -80,5 +80,22 @@ test_that("mcmc_parparser_guess with BUGS works", {
 
 test_that("mcmc_parparser_guess with Stan works", {
   expect_equivalent(mcmc_parparser_guess(STAN), stan_flatpars)
+})
+
+
+test_that("mcmc_parparser works with row major", {
+  parnames <- c("omega", "beta.1",
+                "alpha.1.1", "alpha.1.2", "alpha.2.1", "alpha.2.2",
+                "delta.3.2.1")
+  foo <- mcmc_parparser_pattern(parnames, "\\.", "\\.", "",
+                                colmajor = FALSE)
+  expected <- McmcdbFlatpars(flatpar = parnames,
+                             pararray = c("omega", "beta", rep("alpha", 4),
+                               "delta"),
+                             idx = c("1", "1", "1,1", "2,1", "1,2", "2,2",
+                               "1,2,3"),
+                             scalar = c(TRUE, rep(FALSE, 6)),
+                             stringsAsFactors = FALSE)
+  expect_equal(foo, expected)
 })
 
