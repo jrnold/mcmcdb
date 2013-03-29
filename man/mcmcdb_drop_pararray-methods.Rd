@@ -1,28 +1,25 @@
-\name{mcmcdb_chains}
-\alias{mcmcdb_chains}
-\alias{mcmcdb_chains,McmcdbMem-method}
-\title{Get Chains data from Mcmcdb object}
+\name{mcmcdb_drop_pararray}
+\alias{mcmcdb_drop_pararray}
+\alias{mcmcdb_drop_pararray,McmcdbWide,character-method}
+\title{Methods for function \code{mcmcdb_drop_pararray}}
 \arguments{
-  \item{object}{object}
+  \item{object}{An object containing MCMC samples}
 
-  \item{drop}{\code{logical} Include data related to the
-  chains or just}
+  \item{pararray}{Names of the parameter arrays}
 }
 \value{
-  If \code{drop=TRUE} then \code{integer}, if
-  \code{drop=FALSE}, then
-  \code{\linkS4class{McmcdbChains}}, of the chains.
+  An object of the same class as \code{object}.
 }
 \description{
-  Get Chains data from Mcmcdb object
+  Drop specified parameter arrays from a \code{Mcmcdb}
+  object.
 }
 \seealso{
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
   \code{\link{[}}, \code{\link{[-methods}},
   \code{\link{[[}}, \code{\link{[[-methods}},
-  \code{\link{mcmcdb_drop_pararray}},
-  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},
@@ -31,8 +28,5 @@
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_pararrays}},
   \code{\link{mcmcdb_samples_pararrays}}
-
-  Other get-methods: \code{\link{mcmcdb_flatpar_chains}},
-  \code{\link{mcmcdb_iters}}
 }
 
