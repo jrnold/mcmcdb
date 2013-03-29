@@ -4,7 +4,7 @@
 NULL
 
 #' @rdname mcmcdb_drop_pararray-methods
-#' @docType method
+#' @docType methods
 #' @title Methods for function \code{mcmcdb_drop_pararray}
 #'
 #' @description Drop specified parameter arrays from a \code{Mcmcdb} object.
