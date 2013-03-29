@@ -35,21 +35,13 @@ library(devtools)
 install_github(c(r-"checker", "mcmcdb"), "jrnold")
 ```
 
-<!-- # Examples -->
+# Usage
 
-<!-- Object which store MCMC samples all inherit from class `Mcmcdb`. -->
-<!-- Currently, **mcmcdb** package only defines one such class -->
-<!-- `McmcdbWide`. However, this package aims to make the details of how -->
-<!-- the samples are stored unimportant to the user, as the data in the  -->
-<!-- class can all be accessed through methods. -->
 
-<!-- ## Creating McmcdbWide Objects -->
-
-<!-- `McmcdbWide` objects can be created directly, however it is more -->
-<!-- likely that MCMC samples are either written to disk or in an R object -->
-<!-- of another format. The function `McmcdbWide` will create new -->
-<!-- `McmcdbWide` from matrix, `mcmc`, and `mcmc.list` objects.  The -->
-<!-- function `mcmcdb_wide_from_stan` will create a `McmcdbWide` object -->
-<!-- from the csv files output by a Stan command line program.  -->
-
+`McmcdbWide` objects can be created directly, however it is more
+likely that MCMC samples are either written to disk or in an R object
+of another format. The function `McmcdbWide` will create new
+`McmcdbWide` from matrix, `mcmc`, and `mcmc.list` objects.  The
+function `mcmcdb_wide_from_stan` will create a `McmcdbWide` object
+from the csv files output by a Stan command line program.
 
