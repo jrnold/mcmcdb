@@ -104,6 +104,8 @@ mcmcdb_metadata(line_samples)
   \code{\link{$-methods}}, \code{\link{[}},
   \code{\link{[-methods}}, \code{\link{[[}},
   \code{\link{[[-methods}}, \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_pararray}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},

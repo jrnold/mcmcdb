@@ -61,3 +61,4 @@ Collate:
     'method-summary.R'
     'method-coerce.R'
     'method-extract-bracket1.R'
+    'method-mcmcdb_drop_pararray.R'
