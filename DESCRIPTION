@@ -63,3 +63,4 @@ Collate:
     'method-extract-bracket1.R'
     'method-mcmcdb_drop_pararray.R'
     'method-mcmcdb_drop_chain.R'
+    'method-mcmcdb_drop_iter.R'

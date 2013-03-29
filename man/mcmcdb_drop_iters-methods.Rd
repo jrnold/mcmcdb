@@ -1,41 +1,29 @@
 \docType{methods}
-\name{[-methods}
-\alias{[}
-\alias{[,Mcmcdb,ANY,ANY-method}
-\alias{[-methods}
-\title{Methods for function \code{[}}
+\name{mcmcdb_drop_iters}
+\alias{mcmcdb_drop_iters}
+\alias{mcmcdb_drop_iters,McmcdbWide,integer-method}
+\alias{mcmcdb_drop_iters,McmcdbWide,numeric-method}
+\title{Methods for function \code{mcmcdb_drop_iters}}
 \arguments{
-  \item{x}{An object.}
+  \item{object}{An object containing MCMC samples}
 
-  \item{i}{\code{character} Flat parameter names.}
-
-  \item{j}{\code{integer}. Chain ids.}
-
-  \item{k}{\code{integer}. Iteration numbers.}
-
-  \item{drop}{\code{logical}. Determines the type of object
-  returned.}
+  \item{iter}{Iteration identifiers}
 }
 \value{
-  If \code{drop=TRUE}, a matrix is returned, otherwise a
-  \code{data.frame} is returned.
+  An object of the same class as \code{object}.
 }
 \description{
-  Methods for function \code{[}
+  Drop specified iterations from a \code{Mcmcdb} object.
 }
 \seealso{
-  See \code{\linkS4class{McmcdbWide}} for examples.
-
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
+  \code{\link{[}}, \code{\link{[-methods}},
   \code{\link{[[}}, \code{\link{[[-methods}},
   \code{\link{mcmcdb_chains}},
   \code{\link{mcmcdb_drop_chain}},
   \code{\link{mcmcdb_drop_chain}},
   \code{\link{mcmcdb_drop_chain}},
-  \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_pararray}},
   \code{\link{mcmcdb_drop_pararray}},
   \code{\link{mcmcdb_samples_flatpars}},

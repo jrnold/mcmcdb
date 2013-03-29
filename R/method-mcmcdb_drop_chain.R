@@ -10,7 +10,7 @@ NULL
 #' @description Drop specified chains from a \code{Mcmcdb} object.
 #'
 #' @param object An object containing MCMC samples
-#' @param chain_id Names of the parameter arrays
+#' @param chain_id Chains to drop.
 #' @return An object of the same class as \code{object}.
 #' @family McmcdbWide methods
 setGeneric("mcmcdb_drop_chain",
