@@ -61,7 +61,11 @@ McmcdbChains <-
 
 mcmcdb_iters_checks <-
   TableChecks(ColumnCheckList(chain_id = ColumnChecks("integer"),
-                              iter = ColumnChecks("integer")))
+                              iter = ColumnChecks("integer")),
+              constraints =
+              FunctionList(function(x) {
+                ! any(duplicated(x[ , c("chain_id", "iter")]))
+              }))
 
 McmcdbIters <- 
   checked_frame_class("McmcdbIters", mcmcdb_iters_checks)
@@ -73,7 +77,12 @@ McmcdbFlatparChains <-
                       columns =
                       ColumnCheckList(flatpar = ColumnChecks("factor"),
                                       chain_id = ColumnChecks("integer"),
-                                      init = ColumnChecks("numeric")))
+                                      init = ColumnChecks("numeric")),
+                      constraints =
+                      FunctionList(function(x) {
+                        ! any(duplicated(x[ , c("flatpar", "chain_id")]))
+                      }))
+
 
 #######
 
@@ -84,7 +93,7 @@ mcmcdb_flatpars_columns <-
                   ColumnChecks("character",
                                constraints =
                                FunctionList(index_regex=index_regex)),
-                  flatpar = ColumnChecks("character"),
+                  flatpar = ColumnChecks("character", unique=TRUE),
                   pararray = ColumnChecks("character"),
                   scalar = ColumnChecks("logical"))
 

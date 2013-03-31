@@ -48,19 +48,10 @@ test_that("McmcdbWide works with flatpar_chains", {
 })
 
 test_that("McmcdbWide error if flatpar_chains has bad flatpar values", {
-  flatpar_chains$flatpar <- factor("alpha")
-  expect_error(new("McmcdbWide",
-                   samples = samples, parameters = parameters,
-                   chains = chains, iters = iters,
-                   flatpar_chains = flatpar_chains),
+  expect_error(flatpar_chains$flatpar <- factor("alpha"),
                "invalid class")
 })
 
 test_that("McmcdbWide error if flatpar_chains has bad chain_id values", {
-  flatpar_chains$chain_id <- 3L
-  expect_error(new("McmcdbWide",
-                   samples = samples, parameters = parameters,
-                   chains = chains, iters = iters,
-                   flatpar_chains = flatpar_chains),
-               "invalid class")
+  expect_error(flatpar_chains$chain_id <- 3L, "invalid class")
 })

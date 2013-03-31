@@ -17,3 +17,31 @@ test_that("McmcdbFlatpars error if bad idx column", {
                                          stringsAsFactors = FALSE)),
                "invalid class")
 })
+
+test_that("McmcdbIters works", {
+  foo <- McmcdbIters(chain_id = 1L, iter = 1:5)
+  expect_is(foo, "McmcdbIters")
+})
+
+test_that("McmcdbIters error if duplicates", {
+  expect_error(McmcdbIters(chain_id = 1L, iter = c(1L, 1L)),
+               "invalid class")
+})
+
+######
+
+test_that("McmcdbFlatparChains works", {
+  foo <- McmcdbFlatparChains(chain_id = 1L,
+                             flatpar = paste("beta", 1:2, sep="."),
+                             init = 0)
+  expect_is(foo, "McmcdbFlatparChains")
+})
+
+test_that("McmcdbFlatparChains error if duplicates", {
+  expect_error(McmcdbFlatparChains(chain_id = 1L,
+                                   flatpar = rep("beta", 2),
+                                   init = 0),
+               "invalid class")
+})
+
+
