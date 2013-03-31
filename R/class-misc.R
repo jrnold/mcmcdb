@@ -55,7 +55,7 @@ McmcdbSamples <-
 McmcdbChains <- 
   checked_frame_class("McmcdbChains",
                       columns =
-                      ColumnCheckList(chain_id = ColumnChecks("integer")))
+                      ColumnCheckList(chain_id = ColumnChecks("integer", unique=TRUE)))
 
 #######
 
