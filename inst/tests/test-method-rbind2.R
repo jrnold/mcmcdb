@@ -1,4 +1,4 @@
-context("method-rbind2.R")
+context("rbind2 method")
 
 local({
   source("data-McmcdbWide.R")

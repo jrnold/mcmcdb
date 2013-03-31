@@ -66,3 +66,4 @@ Collate:
     'method-mcmcdb_drop_iter.R'
     'method-rbind2.R'
     'method-c.R'
+    'method-mcmcdb_rename_chain.R'
