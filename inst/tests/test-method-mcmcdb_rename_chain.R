@@ -7,6 +7,6 @@ local({
     wide1 <- create_McmcdbWide(1L, 2L, c("beta", "gamma"))
     wide1 <- mcmcdb_rename_chain(wide1, 1L, 2L)
     expect_is(wide1, "McmcdbWide")
-    expect_equal(mcmcdb_chains(wide1, drop=TRUE), 2L)m
+    expect_equal(mcmcdb_chains(wide1, drop=TRUE), 2L)
   })
 })
