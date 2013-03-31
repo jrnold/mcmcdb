@@ -16,6 +16,8 @@ Imports:
 Suggests:
     testthat,
     roxygen2,
+Enhances: 
+    rstan
 Collate:
     'package.R'
     'class-matrix.R'

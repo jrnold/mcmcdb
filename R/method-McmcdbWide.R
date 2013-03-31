@@ -178,7 +178,9 @@ McmcdbWide.stanfit <- function(x) {
              metadata = metadata)
 }
 
-#' @rdname McmcdbWide-methods
-#' @aliases McmcdbWide,stanfit-method
-setMethod("McmcdbWide", "stanfit", McmcdbWide.stanfit)
-
+if (require("rstan")) {
+  #' @rdname McmcdbWide-methods
+  #' @aliases McmcdbWide,stanfit-method
+  setMethod("McmcdbWide", "stanfit", McmcdbWide.stanfit)
+  
+}

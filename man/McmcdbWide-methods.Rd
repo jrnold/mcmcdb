@@ -4,7 +4,6 @@
 \alias{McmcdbWide,matrix-method}
 \alias{McmcdbWide,mcmc-method}
 \alias{McmcdbWide,mcmc.list-method}
-\alias{McmcdbWide,stanfit-method}
 \alias{McmcdbWide-methods}
 \title{Create \code{McmcdbWide} objects}
 \arguments{
