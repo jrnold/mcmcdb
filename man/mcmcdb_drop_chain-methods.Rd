@@ -7,7 +7,7 @@
 \arguments{
   \item{object}{An object containing MCMC samples}
 
-  \item{chain_id}{Names of the parameter arrays}
+  \item{chain_id}{Chains to drop.}
 }
 \value{
   An object of the same class as \code{object}.

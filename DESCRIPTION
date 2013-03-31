@@ -64,3 +64,5 @@ Collate:
     'method-mcmcdb_drop_pararray.R'
     'method-mcmcdb_drop_chain.R'
     'method-mcmcdb_drop_iter.R'
+    'method-rbind2.R'
+    'method-c.R'
