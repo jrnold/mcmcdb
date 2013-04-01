@@ -66,3 +66,7 @@ setMethod("McmcdbParameters", "missing",
           function(x) {
             new("McmcdbParameters")
           })
+
+#' @rdname McmcdbParameters-methods
+#' @aliases McmcdbParameters,McmcdbParameters-method
+setMethod("McmcdbParameters", "McmcdbParameters", identity)

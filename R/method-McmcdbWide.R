@@ -32,6 +32,11 @@ NULL
 setGeneric("McmcdbWide",
            function(x, ...) standardGeneric("McmcdbWide"))
 
+
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,McmcdbWide-method
+setMethod("McmcdbWide", "McmcdbWide", identity)
+
 McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
                               parameters = mcmc_parparser_guess,
                               flatpar_chains = NULL,
