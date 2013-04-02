@@ -1,7 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
 #' @include method-mcmcdb_chains.R
-#' @include method-mcmc_parparser.R
+#' @include mcmc_parparser.R
 NULL
 
 #' @rdname mcmcdb_add_parameters-methods
@@ -20,15 +20,15 @@ setGeneric("mcmcdb_add_parameters",
 
 
 mcmcdb_add_parameters.McmcdbWide.matrix <-
-  function(object, value, parameters = mcmc_parparser_guess(colnames(value)),
+  function(object, value, parameters = McmcdbParameters(colnames(value)),
            flatpar_chains = NULL) {
     object@parameters <- c(object@parameters, parameters)
-    object@samples < cbind(object@samples, value)
+    object@samples <- cbind(object@samples, value)
     if (is.null(flatpar_chains)) {
       chains <- mcmcdb_chains(object, drop=TRUE)
       flatpar_chains <-
-        data.frame(expand.grid(chains = chains,
-                               flatpars = colnames(value)),
+        data.frame(expand.grid(flatpar = colnames(value),
+                               chain_id = chains),
                    init = NA_real_)
     }
     object@flatpar_chains <-

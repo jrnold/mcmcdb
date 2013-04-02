@@ -1,5 +1,6 @@
 \name{McmcdbWide-methods}
 \alias{McmcdbWide}
+\alias{McmcdbWide,McmcdbWide-method}
 \alias{McmcdbWide,data.frame-method}
 \alias{McmcdbWide,matrix-method}
 \alias{McmcdbWide,mcmc-method}

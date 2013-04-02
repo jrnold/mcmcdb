@@ -1,6 +1,7 @@
 \name{McmcdbParameters}
 \alias{McmcdbParameters}
 \alias{McmcdbParameters,McmcdbFlatpars-method}
+\alias{McmcdbParameters,McmcdbParameters-method}
 \alias{McmcdbParameters,character-method}
 \alias{McmcdbParameters,data.frame-method}
 \alias{McmcdbParameters,list-method}
