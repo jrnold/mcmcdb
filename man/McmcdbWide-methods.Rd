@@ -1,8 +1,10 @@
 \name{McmcdbWide-methods}
 \alias{McmcdbWide}
+\alias{McmcdbWide,McarrayList-method}
 \alias{McmcdbWide,McmcdbWide-method}
 \alias{McmcdbWide,data.frame-method}
 \alias{McmcdbWide,matrix-method}
+\alias{McmcdbWide,mcarray-method}
 \alias{McmcdbWide,mcmc-method}
 \alias{McmcdbWide,mcmc.list-method}
 \alias{McmcdbWide-methods}

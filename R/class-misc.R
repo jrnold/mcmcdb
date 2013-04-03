@@ -4,11 +4,13 @@
 #' @exportClass McmcdbIters
 #' @exportClass McmcdbFlatparChains
 #' @exportClass McmcdbFlatpars
+#' @exportClass McarrayList
 #' @export McmcdbSamples
 #' @export McmcdbChains
 #' @export McmcdbIters
 #' @export McmcdbFlatparChains
 #' @export McmcdbFlatpars
+#' @export McarrayList
 NULL
 
 #' Miscellaneous classes
@@ -30,6 +32,8 @@ NULL
 #' @aliases McmcdbFlatparChains
 #' @aliases McmcdbFlatpars-class
 #' @aliases McmcdbFlatpars
+#' @aliases McarrayList-class
+#' @aliases McarrayList
 #' @keywords classes
 #' @docType class
 #' @examples
@@ -38,6 +42,7 @@ NULL
 #' showClass("McmcdbIters")
 #' showClass("McmcdbFlatparChains")
 #' showClass("McmcdbFlatpars")
+#' showClass("McarrayList")
 NULL
 
 mcmcdb_samples_checks <-
@@ -101,4 +106,7 @@ McmcdbFlatpars <-
   checked_frame_class("McmcdbFlatpars",
                       columns = mcmcdb_flatpars_columns)
 
-                         
+#######
+
+McarrayList <- hlist_class("McarrayList", "mcarray",
+                           empty_names = FALSE, unique_names = TRUE)

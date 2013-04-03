@@ -190,13 +190,37 @@ if (require("rstan")) {
   
 }
 
-## McmcdbWide.mcarray <- function(x, parname, FUN = mcmc_parnames_bugs) {
-##   McmcdbWide(mcmcdb_flatten(x, parname, FUN = FUN),
-## }
+McmcdbWide.mcarray <- function(x, parname = "Par") {
+  d <- dim(x)
+  nchains <- dim(x)["chain"]
+  niter <- dim(x)["iteration"]
+  chains <- McmcdbChains(chain_id = seq_len(nchains))
+  iters <-
+    McmcdbIters(chain_id = rep(seq_len(nchains), each=niter),
+                iter = rep(seq_len(niter), nchains))
+  McmcdbWide(mcmcdb_flatten(x, parname, FUN = mcmc_parnames_bugs),
+             chains = chains, iters = iters,
+             parameters = mcmc_parparser_bugs)
+}
 
-## setMethod(
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,mcarray-method
+setMethod("McmcdbWide", "mcarray", McmcdbWide.mcarray)
 
+McmcdbWide.McarrayList <- function(x) {
+  d <- dim(x[[1]])
+  nchains <- dim(x[[1]])["chain"]
+  niter <- dim(x[[1]])["iteration"]
+  chains <- McmcdbChains(chain_id = seq_len(nchains))
+  iters <-
+    McmcdbIters(chain_id = rep(seq_len(nchains), each=niter),
+                iter = rep(seq_len(niter), nchains))
+  samples <- mcmcdb_flatten(x, FUN = mcmc_parnames_bugs)
+  McmcdbWide(samples, 
+             chains = chains, iters = iters,
+             parameters = mcmc_parparser_bugs)
+}
 
-## McmcdbWide.McarrayList <- function(x, parname, FUN = mcmc_parnames_bugs) {
-##   mcmcdb_flatten(x, FUN = mcmcdb_parnames_bugs)
-## }
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,McarrayList-method
+setMethod("McmcdbWide", "McarrayList", McmcdbWide.McarrayList)

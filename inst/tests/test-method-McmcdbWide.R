@@ -42,6 +42,15 @@ test_that("McmcdbWide,data.frame works", {
   expect_is(McmcdbWide(as.data.frame(samples)), "McmcdbWide")
 })
 
+## foo <- array(c(rbind(1:3, 11:13), rbind(4:6, 14:16)), c(2, 3, 2))
+## names(dim(foo)) <- c("", "iteration", "chain")
+## class(foo) <- "mcarray"
+## McmcdbWide.mcarray(foo, "foo")
+
+## foobar <- McarrayList(foo = foo, bar = foo + 100)
+## mcmcdb_flatten.McarrayList(foobar)
+## McmcdbWide.McarrayList(foobar)
+
 ## test_that("McmcdbWide,mcmc.list works", {
 ##   foo <- McmcdbWide(line_mcmc_list)
 ##   expect_is(foo, "McmcdbWide")
