@@ -2,6 +2,7 @@
 \alias{mcmcdb_flatten}
 \alias{mcmcdb_flatten,array-method}
 \alias{mcmcdb_flatten,list-method}
+\alias{mcmcdb_flatten,mcarray-method}
 \alias{mcmcdb_flatten,numeric-method}
 \alias{mcmcdb_flatten-methods}
 \title{Flatten Array of MCMC samples to a vector}

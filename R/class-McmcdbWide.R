@@ -128,3 +128,4 @@ show.McmcdbWide <- function(object) {
 }
 
 setMethod("show", "McmcdbWide", show.McmcdbWide)
+

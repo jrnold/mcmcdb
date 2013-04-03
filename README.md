@@ -37,7 +37,6 @@ install_github(c(r-"checker", "mcmcdb"), "jrnold")
 
 # Usage
 
-
 `McmcdbWide` objects can be created directly, however it is more
 likely that MCMC samples are either written to disk or in an R object
 of another format. The function `McmcdbWide` will create new

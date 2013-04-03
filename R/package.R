@@ -13,3 +13,4 @@ NULL
 
 setOldClass("mcmc")
 setOldClass("mcmc.list")
+setOldClass("mcarray")
