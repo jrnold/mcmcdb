@@ -200,8 +200,9 @@ mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=N
   samples <- do.call(rbind, llply(data, `[[`, i = "samples"))
   chains <- do.call(rbind, llply(data, `[[`, i = "chains"))
   iters <- do.call(rbind, llply(data, `[[`, i = "iters"))
-
-  ## TODO: file names for init, data, and model_code
+  
+  flatpar_chains <- expand.grid(flatpar = colnames(samples),
+                                chain_id = chains[["chain_id"]])
   ## Initial values
   if (!is.null(init)) {
     if (is(init, "list")) {
@@ -211,13 +212,22 @@ mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=N
       stop("%s must be object of class NULL, list, character, or connection",
            sQuote("init"))
     }
-    initvals <- do.call(c, llply(init, mcmcdb_flatten, FUN = mcmc_parnames_stan))
+
+    initvals <- 
+      ldply(seq_along(init),
+            function(i) {
+              vals <- mcmcdb_flatten(init[[i]], FUN = mcmc_parnames_stan)
+              data.frame(flatpar = names(vals),
+                         chain_id = as.integer(i),
+                         init = unname(vals))
+            })
+    flatpar_chains <-
+      merge(flatpar_chains,
+            initvals,
+            all.x = TRUE)
   } else {
-    initvals <- NA_real_
+    flatpar_chains[["init"]] <- initvals
   }
-  flatpar_chains <- expand.grid(flatpar = colnames(samples),
-                                chain_id = chains[["chain_id"]])
-  flatpar_chains[["init"]] <- initvals
   flatpar_chains <- McmcdbFlatparChains(flatpar_chains)
 
   ##
@@ -239,5 +249,6 @@ mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=N
              iters = McmcdbIters(iters),
              parameters = mcmc_parparser_stan,
              metadata = metadata,
-             model_data = model_data)
+             model_data = model_data,
+             flatpar_chains = flatpar_chains)
 }
