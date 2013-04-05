@@ -164,10 +164,14 @@ mcmcdb_wide_stan_one <- function(file) {
   exclude_slots <- c(".Data", "rejected", "is_warmup", "treedepth",
                      "stepsize")
   for (i in setdiff(slotNames(samples), exclude_slots)) {
-    if (i %in% c("step_size_multipliers", "cov_matrix")) {
-      chains[[i]] <- list(slot(samples, i))
-    } else {
-      chains[[i]] <- slot(samples, i)
+    val <- slot(samples, i)
+    # Ignore empty lines
+    if (length(val)) {
+      if (i %in% c("step_size_multipliers", "cov_matrix")) {
+        chains[[i]] <- list(val)
+      } else {
+        chains[[i]] <- val
+      }
     }
   }
   iters <- data.frame(chain_id = samples@chain_id,
