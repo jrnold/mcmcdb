@@ -1,6 +1,7 @@
 #' @include package.R
 #' @exportClass StanSamples
 #' @export read_stan_csv
+#' @export mcmcdb_wide_from_stan
 NULL
 
 #' @rdname StanSamples-class
