@@ -188,15 +188,56 @@ mcmcdb_wide_stan_one <- function(file) {
 #' This returns both the sample values and the metadata in the comments of the file.
 #' This function has been tested for the output of Stan 1.2.0.
 #'
-#' @param file character. Name of an output file produced by a STAN model.
+#' @param file \code{character}. Name of an output file produced by a STAN model.
+#' @param init \code{list} or \code{NULL}. List of initial values.
+#' @param model_data \code{list} or \code{NULL}. List of model data.
+#' @param model_name \code{character} Model name.
+#' @param model_code \code{character} Stan model code.
 #' 
 #' @return An object of class \code{"McmcdbWide"}
-mcmcdb_wide_from_stan <- function(file) {
+mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=NULL, model_code=NULL)  {
   data <- llply(file, mcmcdb_wide_stan_one)
   samples <- do.call(rbind, llply(data, `[[`, i = "samples"))
   chains <- do.call(rbind, llply(data, `[[`, i = "chains"))
   iters <- do.call(rbind, llply(data, `[[`, i = "iters"))
+
+  ## TODO: file names for init, data, and model_code
+  ## Initial values
+  if (!is.null(init)) {
+    if (is(init, "list")) {
+    } else if (is(init, "character") || is(init, "connection")) {
+      init <- source_list(init)
+    } else {
+      stop("%s must be object of class NULL, list, character, or connection",
+           sQuote("init"))
+    }
+    initvals <- do.call(c, llply(init, mcmcdb_flatten, FUN = mcmc_parnames_stan))
+  } else {
+    initvals <- NA_real_
+  }
+  flatpar_chains <- expand.grid(flatpar = colnames(samples),
+                                chain_id = chains[["chain_id"]])
+  flatpar_chains[["init"]] <- initvals
+  flatpar_chains <- McmcdbFlatparChains(flatpar_chains)
+
+  ##
+  if (!is.null(model_data)) {
+    if (is(model_data, "list")) {
+    } else if (is(model_data, "character") || is(model_data, "connection")) {
+      model_data <- source_list(model_data)
+    } else {
+      stop("%s must be object of class NULL, list, character, or connection",
+           sQuote("model_data"))
+    }
+  }
+
+  metadata <- list()
+  metadata[["model_name"]] <- model_name
+  metadata[["model_code"]] <- model_code
+  
   McmcdbWide(samples, chains = McmcdbChains(chains),
              iters = McmcdbIters(iters),
-             parameters = mcmc_parparser_stan)
+             parameters = mcmc_parparser_stan,
+             metadata = metadata,
+             model_data = model_data)
 }
