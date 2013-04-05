@@ -40,21 +40,23 @@ setMethod("mcmcdb_flatten", "array", mcmcdb_flatten.array)
 #' @aliases mcmcdb_flatten,numeric-method
 setMethod("mcmcdb_flatten", "numeric",
           function(x, ...) {
-            callGeneric(as(x, "array"), ...)
+            mcmcdb_flatten(as(x, "array"), ...)
           })
 
 mcmcdb_flatten.list <- function(x, FUN = mcmc_parnames_stan, ...) {
   if(is.null(names(x))) {
-    paramnames <- paste0("Par", 1:length(x))
+    params <- paste0("Par", 1:length(x))
   } else {
-    paramnames <- names(x)
+    params <- names(x)
   }
   
+  ilist <- seq_len(length(x))
   flatten_el <- function(i) {
-    parname <- paramnames[i]
-    mcmcdb_flatten(x[[i]], parname=parname, FUN=FUN)
+    parname <- params[i]
+    mcmcdb_flatten(x[[i]], parname = parname, FUN = FUN)
   }
-  do.call(c, unname(llply(seq_len(length(x)), flatten_el, ...)))
+  ret <- llply(ilist, flatten_el, ...)
+  do.call(c, unname(ret))
 }
 
 #' @rdname mcmcdb_flatten-methods
