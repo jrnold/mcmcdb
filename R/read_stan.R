@@ -226,7 +226,7 @@ mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=N
             initvals,
             all.x = TRUE)
   } else {
-    flatpar_chains[["init"]] <- initvals
+    flatpar_chains[["init"]] <- NA_real_
   }
   flatpar_chains <- McmcdbFlatparChains(flatpar_chains)
 
