@@ -42,6 +42,16 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
                               flatpar_chains = NULL,
                               metadata = list(),
                               model_data = list()) {
+
+  isany <- function(object, class) {
+    any(sapply(class, function(class2) is(object, class2)))
+  }
+  valid_parameter_classes <- c("character", "function", "McmcdbParameter")
+  if (! isany(parameters, valid_parameter_classes)) { 
+    stop(sprintf("%s must be an object of class: %s",
+                 sQuote("parameters"), paste(dQuote(valid_parameter_classes)), ","))
+  }
+  
   # Attempt to fill in chains or iters if missing
   if (is.null(chains) & is.null(iters)) {
     chains <- McmcdbChains(data.frame(chain_id = 1L))

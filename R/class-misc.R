@@ -91,7 +91,7 @@ McmcdbFlatparChains <-
 
 #######
 
-index_regex <- function(x) all(str_detect(x, "^\\d+(,\\d)*$"))
+index_regex <- function(x) all(str_detect(x, "^\\d+(,\\d+)*$"))
 
 mcmcdb_flatpars_columns <-
   ColumnCheckList(idx =
