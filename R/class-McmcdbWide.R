@@ -114,8 +114,8 @@ show.McmcdbWide <- function(object) {
     iterbychain <- paste(ddply(object@iters, "chain_id",
                                function(x) {
                                  data.frame(niter = nrow(x))
-                               })[["n_iter"]],
-                         collapse=",")
+                               })[["niter"]],
+                         collapse=", ")
   } else {
     iterbychain <- "0"
   }
