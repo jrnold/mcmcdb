@@ -191,12 +191,9 @@ if (require("rstan")) {
 }
 
 ## McmcdbWide.mcarray <- function(x, parname, FUN = mcmc_parnames_bugs) {
-##   McmcdbWide(mcmcdb_flatten(x, parname, FUN = FUN),
+##   McmcdbWide(mcmcdb_flatten(x, parname, FUN = FUN)
 ## }
 
-## setMethod(
-
-
 ## McmcdbWide.McarrayList <- function(x, parname, FUN = mcmc_parnames_bugs) {
-##   mcmcdb_flatten(x, FUN = mcmcdb_parnames_bugs)
+##   McmcdbWide(mcmcdb_flatten(x, FUN = mcmcdb_parnames_bugs))
 ## }

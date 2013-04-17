@@ -102,3 +102,6 @@ McmcdbFlatpars <-
                       columns = mcmcdb_flatpars_columns)
 
                          
+########
+
+McarrayList <- hlist_class("Mcarraylist", "mcarray")
