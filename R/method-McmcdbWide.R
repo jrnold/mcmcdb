@@ -42,6 +42,16 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
                               flatpar_chains = NULL,
                               metadata = list(),
                               model_data = list()) {
+
+  isany <- function(object, class) {
+    any(sapply(class, function(class2) is(object, class2)))
+  }
+  valid_parameter_classes <- c("character", "function", "McmcdbParameter")
+  if (! isany(parameters, valid_parameter_classes)) { 
+    stop(sprintf("%s must be an object of class: %s",
+                 sQuote("parameters"), paste(dQuote(valid_parameter_classes)), ","))
+  }
+  
   # Attempt to fill in chains or iters if missing
   if (is.null(chains) & is.null(iters)) {
     chains <- McmcdbChains(data.frame(chain_id = 1L))
@@ -190,10 +200,38 @@ if (require("rstan")) {
   
 }
 
-## McmcdbWide.mcarray <- function(x, parname, FUN = mcmc_parnames_bugs) {
-##   McmcdbWide(mcmcdb_flatten(x, parname, FUN = FUN)
-## }
+McmcdbWide.mcarray <- function(x, parname = "Par") {
+  d <- dim(x)
+  nchains <- dim(x)["chain"]
+  niter <- dim(x)["iteration"]
+  chains <- McmcdbChains(chain_id = seq_len(nchains))
+  iters <-
+    McmcdbIters(chain_id = rep(seq_len(nchains), each=niter),
+                iter = rep(seq_len(niter), nchains))
+  McmcdbWide(mcmcdb_flatten(x, parname, FUN = mcmc_parnames_bugs),
+             chains = chains, iters = iters,
+             parameters = mcmc_parparser_bugs)
+}
 
-## McmcdbWide.McarrayList <- function(x, parname, FUN = mcmc_parnames_bugs) {
-##   McmcdbWide(mcmcdb_flatten(x, FUN = mcmcdb_parnames_bugs))
-## }
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,mcarray-method
+setMethod("McmcdbWide", "mcarray", McmcdbWide.mcarray)
+
+McmcdbWide.McarrayList <- function(x) {
+  d <- dim(x[[1]])
+  nchains <- dim(x[[1]])["chain"]
+  niter <- dim(x[[1]])["iteration"]
+  chains <- McmcdbChains(chain_id = seq_len(nchains))
+  iters <-
+    McmcdbIters(chain_id = rep(seq_len(nchains), each=niter),
+                iter = rep(seq_len(niter), nchains))
+  samples <- mcmcdb_flatten(x, FUN = mcmc_parnames_bugs)
+  McmcdbWide(samples, 
+             chains = chains, iters = iters,
+             parameters = mcmc_parparser_bugs)
+}
+
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,McarrayList-method
+setMethod("McmcdbWide", "McarrayList", McmcdbWide.McarrayList)
+

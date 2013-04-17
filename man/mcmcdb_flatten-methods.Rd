@@ -1,5 +1,6 @@
 \name{mcmcdb_flatten-methods}
 \alias{mcmcdb_flatten}
+\alias{mcmcdb_flatten,McarrayList-method}
 \alias{mcmcdb_flatten,array-method}
 \alias{mcmcdb_flatten,list-method}
 \alias{mcmcdb_flatten,mcarray-method}

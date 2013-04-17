@@ -40,38 +40,51 @@ setMethod("mcmcdb_flatten", "array", mcmcdb_flatten.array)
 #' @aliases mcmcdb_flatten,numeric-method
 setMethod("mcmcdb_flatten", "numeric",
           function(x, ...) {
-            callGeneric(as(x, "array"), ...)
+            mcmcdb_flatten(as(x, "array"), ...)
           })
 
 mcmcdb_flatten.list <- function(x, FUN = mcmc_parnames_stan, ...) {
   if(is.null(names(x))) {
-    paramnames <- paste0("Par", 1:length(x))
+    params <- paste0("Par", 1:length(x))
   } else {
-    paramnames <- names(x)
+    params <- names(x)
   }
   
+  ilist <- seq_len(length(x))
   flatten_el <- function(i) {
-    parname <- paramnames[i]
-    mcmcdb_flatten(x[[i]], parname=parname, FUN=FUN)
+    parname <- params[i]
+    mcmcdb_flatten(x[[i]], parname = parname, FUN = FUN)
   }
-  do.call(c, unname(llply(seq_len(length(x)), flatten_el, ...)))
+  ret <- llply(ilist, flatten_el, ...)
+  do.call(c, unname(ret))
 }
 
 #' @rdname mcmcdb_flatten-methods
 #' @aliases mcmcdb_flatten,list-method
 setMethod("mcmcdb_flatten", "list", mcmcdb_flatten.list)
 
-mcmcdb_flatten.mcarray <- function(x, name, FUN=mcmc_parnames_stan) {
+mcmcdb_flatten.mcarray <- function(x, parname="Par", FUN=mcmc_parnames_bugs) {
   x <- as(x, "array")
   ndim <- length(dim(x))
   array_dim <- dim(x)[1:(ndim - 2)]
   chain_iter_dim <- dim(x)[(ndim - 1):ndim]
   dim(x) <- c(prod(array_dim), prod(chain_iter_dim))
-  rownames(x) <- FUN(name, array_dim)
+  rownames(x) <- FUN(parname, array_dim)
   t(x)
 }
 
 #' @rdname mcmcdb_flatten-methods
 #' @aliases mcmcdb_flatten,mcarray-method
 setMethod("mcmcdb_flatten", "mcarray", mcmcdb_flatten.mcarray)
-          
+
+mcmcdb_flatten.McarrayList <- function(x, FUN=mcmc_parnames_bugs, ...) {
+  parnames <- names(x)
+  flatten_el <- function(i) {
+    mcmcdb_flatten(x[[i]], parname = parnames[i], FUN = FUN)
+  }
+  do.call(cbind, unname(llply(seq_len(length(x)), flatten_el, ...)))
+}
+
+#' @rdname mcmcdb_flatten-methods
+#' @aliases mcmcdb_flatten,McarrayList-method
+setMethod("mcmcdb_flatten", "McarrayList", mcmcdb_flatten.McarrayList)

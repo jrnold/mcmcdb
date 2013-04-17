@@ -1,5 +1,7 @@
 \docType{class}
 \name{misc-classes}
+\alias{McarrayList}
+\alias{McarrayList-class}
 \alias{McmcdbChains}
 \alias{McmcdbChains-class}
 \alias{McmcdbFlatparChains}
@@ -23,6 +25,7 @@ showClass("McmcdbChains")
 showClass("McmcdbIters")
 showClass("McmcdbFlatparChains")
 showClass("McmcdbFlatpars")
+showClass("McarrayList")
 }
 \keyword{classes}
 

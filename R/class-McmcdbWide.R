@@ -45,9 +45,6 @@ NULL
 #' data("line_samples")
 #' print(line_samples)
 #' 
-#' # number of iterations, start, end, thin
-#' mcmcdb_mcpar(line_samples)
-#' 
 #' # Extract samples
 #' # As matrix of flat parameters
 #' mcmcdb_samples_flatpars(line_samples)
@@ -111,13 +108,20 @@ setValidity("McmcdbWide", validate.McmcdbWide)
 
 show.McmcdbWide <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbWide")))
-  mcpar <- mcmcdb_mcpar(object)
-  nsamples <- sum(mcpar[["n_iter"]])
-  nchains <- nrow(mcpar)
-  iterbychain <- paste(mcpar[["n_iter"]], collapse=",")
+  nsamples <- nrow(object@iters)
+  nchains <- nrow(object@chains)
+  if (nsamples > 0) {
+    iterbychain <- paste(ddply(object@iters, "chain_id",
+                               function(x) {
+                                 data.frame(niter = nrow(x))
+                               })[["niter"]],
+                         collapse=", ")
+  } else {
+    iterbychain <- "0"
+  }
   cat(sprintf("%d samples from %d chain%s (%s)\n",
               nsamples, nchains,
-              if (nchains > 1) "s" else "",
+              if (nchains != 1) "s" else "",
               iterbychain))
   cat("Parameters:\n")
   parameters <- mcmcdb_parameters(object)

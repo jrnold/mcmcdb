@@ -1,6 +1,7 @@
 #' @include package.R
 #' @exportClass StanSamples
 #' @export read_stan_csv
+#' @export mcmcdb_wide_from_stan
 NULL
 
 #' @rdname StanSamples-class
@@ -163,10 +164,14 @@ mcmcdb_wide_stan_one <- function(file) {
   exclude_slots <- c(".Data", "rejected", "is_warmup", "treedepth",
                      "stepsize")
   for (i in setdiff(slotNames(samples), exclude_slots)) {
-    if (i %in% c("step_size_multipliers", "cov_matrix")) {
-      chains[[i]] <- list(slot(samples, i))
-    } else {
-      chains[[i]] <- slot(samples, i)
+    val <- slot(samples, i)
+    # Ignore empty lines
+    if (length(val)) {
+      if (i %in% c("step_size_multipliers", "cov_matrix")) {
+        chains[[i]] <- list(val)
+      } else {
+        chains[[i]] <- val
+      }
     }
   }
   iters <- data.frame(chain_id = samples@chain_id,
@@ -183,15 +188,67 @@ mcmcdb_wide_stan_one <- function(file) {
 #' This returns both the sample values and the metadata in the comments of the file.
 #' This function has been tested for the output of Stan 1.2.0.
 #'
-#' @param file character. Name of an output file produced by a STAN model.
+#' @param file \code{character}. Name of an output file produced by a STAN model.
+#' @param init \code{list} or \code{NULL}. List of initial values.
+#' @param model_data \code{list} or \code{NULL}. List of model data.
+#' @param model_name \code{character} Model name.
+#' @param model_code \code{character} Stan model code.
 #' 
 #' @return An object of class \code{"McmcdbWide"}
-mcmcdb_wide_from_stan <- function(file) {
+mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=NULL, model_code=NULL)  {
   data <- llply(file, mcmcdb_wide_stan_one)
   samples <- do.call(rbind, llply(data, `[[`, i = "samples"))
   chains <- do.call(rbind, llply(data, `[[`, i = "chains"))
   iters <- do.call(rbind, llply(data, `[[`, i = "iters"))
+  
+  flatpar_chains <- expand.grid(flatpar = colnames(samples),
+                                chain_id = chains[["chain_id"]])
+  ## Initial values
+  if (!is.null(init)) {
+    if (is(init, "list")) {
+    } else if (is(init, "character") || is(init, "connection")) {
+      init <- source_list(init)
+    } else {
+      stop("%s must be object of class NULL, list, character, or connection",
+           sQuote("init"))
+    }
+
+    initvals <- 
+      ldply(seq_along(init),
+            function(i) {
+              vals <- mcmcdb_flatten(init[[i]], FUN = mcmc_parnames_stan)
+              data.frame(flatpar = names(vals),
+                         chain_id = as.integer(i),
+                         init = unname(vals))
+            })
+    flatpar_chains <-
+      merge(flatpar_chains,
+            initvals,
+            all.x = TRUE)
+  } else {
+    flatpar_chains[["init"]] <- NA_real_
+  }
+  flatpar_chains <- McmcdbFlatparChains(flatpar_chains)
+
+  ##
+  if (!is.null(model_data)) {
+    if (is(model_data, "list")) {
+    } else if (is(model_data, "character") || is(model_data, "connection")) {
+      model_data <- source_list(model_data)
+    } else {
+      stop("%s must be object of class NULL, list, character, or connection",
+           sQuote("model_data"))
+    }
+  }
+
+  metadata <- list()
+  metadata[["model_name"]] <- model_name
+  metadata[["model_code"]] <- model_code
+  
   McmcdbWide(samples, chains = McmcdbChains(chains),
              iters = McmcdbIters(iters),
-             parameters = mcmc_parparser_stan)
+             parameters = mcmc_parparser_stan,
+             metadata = metadata,
+             model_data = model_data,
+             flatpar_chains = flatpar_chains)
 }
