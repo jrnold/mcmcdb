@@ -24,5 +24,4 @@ NULL
 #' data(line_samples)
 #' show(line_samples)
 #' mcmcdb_flatpars(line_samples)
-#' mcmcdb_mcpar(line_samples)
 NULL

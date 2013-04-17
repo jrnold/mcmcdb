@@ -42,7 +42,6 @@ Collate:
     'method-mcmcdb_flatten.R'
     'method-mcmcdb_init.R'
     'method-mcmcdb_iters.R'
-    'method-mcmcdb_mcpar.R'
     'method-mcmcdb_metadata.R'
     'method-mcmcdb_pardims.R'
     'method-mcmcdb_paridx.R'
@@ -69,3 +68,4 @@ Collate:
     'method-c.R'
     'method-mcmcdb_rename_chain.R'
     'method-mcmcdb_add_parameters.R'
+    'method-mcmcdb_set_iters.R'
