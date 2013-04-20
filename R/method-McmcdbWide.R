@@ -237,3 +237,4 @@ McmcdbWide.McarrayList <- function(object) {
 #' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,McarrayList-method
 setMethod("McmcdbWide", "McarrayList", McmcdbWide.McarrayList)
+

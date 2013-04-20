@@ -106,7 +106,5 @@ McmcdbFlatpars <-
   checked_frame_class("McmcdbFlatpars",
                       columns = mcmcdb_flatpars_columns)
 
-#######
-
 McarrayList <- hlist_class("McarrayList", "mcarray",
                            empty_names = FALSE, unique_names = TRUE)
