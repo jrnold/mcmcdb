@@ -11,7 +11,7 @@ NULL
 #' @description
 #' Create \code{\linkS4class{McmcdbWide}} objects.
 #'
-#' @param x An object for which a method is available.
+#' @param object An object for which a method is available.
 #' @return An object of class \code{\linkS4class{McmcdbWide}} objects.
 #' @examples
 #' \dontrun{
@@ -30,14 +30,17 @@ NULL
 #' fit2 <- McmcdbWide(fit1)
 #' }
 setGeneric("McmcdbWide",
-           function(x, ...) standardGeneric("McmcdbWide"))
+           function(object, ...) standardGeneric("McmcdbWide"))
 
+McmcdbWide.McmcdbWide <- function(object, ...) {
+  new("McmcdbWide", object, ...)
+}
 
 #' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,McmcdbWide-method
-setMethod("McmcdbWide", "McmcdbWide", identity)
+setMethod("McmcdbWide", "McmcdbWide", McmcdbWide.McmcdbWide)
 
-McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
+McmcdbWide.matrix <- function(object, chains = NULL, iters = NULL,
                               parameters = mcmc_parparser_guess,
                               flatpar_chains = NULL,
                               metadata = list(),
@@ -55,7 +58,7 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
   # Attempt to fill in chains or iters if missing
   if (is.null(chains) & is.null(iters)) {
     chains <- McmcdbChains(data.frame(chain_id = 1L))
-    iters <- McmcdbIters(data.frame(chain_id = 1L, iter = seq_len(nrow(x))))
+    iters <- McmcdbIters(data.frame(chain_id = 1L, iter = seq_len(nrow(object))))
   } else if (is.null(chains) & ! is.null(iters)) {
     chains <- McmcdbChains(data.frame(chain_id = unique(iters[["chain_id"]])))
   } else if (!is.null(chains) & is.null(iters)) {
@@ -66,15 +69,15 @@ McmcdbWide.matrix <- function(x, chains = NULL, iters = NULL,
     parameters <- match.fun(parameters)
   }
   if (is(parameters, "function")) {
-    parameters <- McmcdbParameters(colnames(x), parameters)
+    parameters <- McmcdbParameters(colnames(object), parameters)
   }
   if (is.null(flatpar_chains)) {
-    flatpar_chains <- expand.grid(flatpar = colnames(x),
+    flatpar_chains <- expand.grid(flatpar = colnames(object),
                                   chain_id = chains[["chain_id"]])
     flatpar_chains[["init"]] <- NA_real_
     flatpar_chains <- McmcdbFlatparChains(flatpar_chains)
   }
-  new("McmcdbWide", samples = x, chains = chains, iters = iters,
+  new("McmcdbWide", samples = object, chains = chains, iters = iters,
       parameters = parameters,
       flatpar_chains = flatpar_chains, metadata = metadata,
       model_data = as(model_data, "namedList"))
@@ -87,21 +90,21 @@ setMethod("McmcdbWide", "matrix", McmcdbWide.matrix)
 #' @rdname McmcdbWide-methods
 #' @aliases McmcdbWide,data.frame-method
 setMethod("McmcdbWide", "data.frame",
-          function(x, ...) {
-            callGeneric(as(x, "matrix"), ...)
+          function(object, ...) {
+            callGeneric(as(object, "matrix"), ...)
           })
 
-McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
-  mcpar <- attr(x, "mcpar")
+McmcdbWide.mcmc <- function(object, parameters = mcmc_parparser_guess) {
+  mcpar <- attr(object, "mcpar")
   chains <-
     McmcdbChains(chain_id = 1L,
-                 n_iter = nrow(x),
+                 n_iter = nrow(object),
                  iter_start = mcpar[1],
                  iter_end = mcpar[2],
                  iter_thin = mcpar[3])
   iters <- McmcdbIters(chain_id = 1L,
-                       iter = seq_len(nrow(x)))
-  McmcdbWide(as(x, "matrix"),
+                       iter = seq_len(nrow(object)))
+  McmcdbWide(as(object, "matrix"),
              parameters = parameters,
              chains = chains,
              iters = iters)
@@ -111,14 +114,14 @@ McmcdbWide.mcmc <- function(x, parameters = mcmc_parparser_guess) {
 #' @aliases McmcdbWide,mcmc-method
 setMethod("McmcdbWide", "mcmc", McmcdbWide.mcmc)
 
-McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
+McmcdbWide.mcmc.list <- function(object, parameters = mcmc_parparser_guess) {
   chains <-
     new("McmcdbChains", 
-        ldply(seq_along(x), 
+        ldply(seq_along(object), 
               function(i) {
-                mcpar <- attr(x[[i]], "mcpar")
+                mcpar <- attr(object[[i]], "mcpar")
                 data.frame(chain_id = i,
-                           n_iter = nrow(x[[i]]),
+                           n_iter = nrow(object[[i]]),
                            iter_start = mcpar[1],
                            iter_end = mcpar[2],
                            iter_thin = mcpar[3])
@@ -126,9 +129,9 @@ McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
   iters <-
     new("McmcdbIters", 
         ddply(chains, "chain_id",
-              function(x) data.frame(iter = seq_len(x[["n_iter"]]))))
+              function(object) data.frame(iter = seq_len(object[["n_iter"]]))))
   
-  McmcdbWide(do.call(rbind, x),
+  McmcdbWide(do.call(rbind, object),
              parameters = parameters,
              chains = chains,
              iters = iters)
@@ -138,13 +141,13 @@ McmcdbWide.mcmc.list <- function(x, parameters = mcmc_parparser_guess) {
 #' @aliases McmcdbWide,mcmc.list-method
 setMethod("McmcdbWide", "mcmc.list", McmcdbWide.mcmc.list)
 
-McmcdbWide.stanfit <- function(x) {
+McmcdbWide.stanfit <- function(object) {
   samples <-
-    do.call(rbind, llply(x@sim[["samples"]],
+    do.call(rbind, llply(object@sim[["samples"]],
                          function(y) do.call(cbind, y)))
 
   chains <-
-    ldply(x@sim[["samples"]],
+    ldply(object@sim[["samples"]],
           function(DF) {
             y <- as.data.frame(Filter(Negate(is.null), attr(DF, "args")))
             y[["adaptation_info"]] <- attr(DF, "adaptation_info")
@@ -160,29 +163,29 @@ McmcdbWide.stanfit <- function(x) {
           })
 
   sampler_params <- 
-    ldply(x@sim[["samples"]],
-          function(x) {
-            as.data.frame(attr(x, "sampler_params"))
+    ldply(object@sim[["samples"]],
+          function(object) {
+            as.data.frame(attr(object, "sampler_params"))
           })
   iters <- cbind(iters, sampler_params)
 
   flatpar_chains <-
     expand.grid(flatpar = as.character(colnames(samples)),
                 chain_id = chains[["chain_id"]])
-  inits <- ldply(seq_along(x@inits),
+  inits <- ldply(seq_along(object@inits),
                  function(i) {
-                   init <- mcmcdb_flatten(x@inits[[i]],
+                   init <- mcmcdb_flatten(object@inits[[i]],
                                           FUN = mcmc_parnames_bugs)
                    data.frame(chain_id = chains[["chain_id"]][i],
                               flatpar = names(init),
                               init = unname(init))
                  })
-  flatpar_chains <- merge(flatpar_chains, inits, all.x=TRUE)
+  flatpar_chains <- merge(flatpar_chains, inits, all.object=TRUE)
   
   metadata <- list()
-  metadata[["model_name"]] <- x@model_name
-  metadata[["date"]] <- x@date
-  metadata[["stanmodel"]] <- x@stanmodel
+  metadata[["model_name"]] <- object@model_name
+  metadata[["date"]] <- object@date
+  metadata[["stanmodel"]] <- object@stanmodel
 
   # stanfit objects use BUGS-style names for some reason
   McmcdbWide(samples,
@@ -200,15 +203,15 @@ if (require("rstan")) {
   
 }
 
-McmcdbWide.mcarray <- function(x, parname = "Par") {
-  d <- dim(x)
-  nchains <- dim(x)["chain"]
-  niter <- dim(x)["iteration"]
+McmcdbWide.mcarray <- function(object, parname = "Par") {
+  d <- dim(object)
+  nchains <- dim(object)["chain"]
+  niter <- dim(object)["iteration"]
   chains <- McmcdbChains(chain_id = seq_len(nchains))
   iters <-
     McmcdbIters(chain_id = rep(seq_len(nchains), each=niter),
                 iter = rep(seq_len(niter), nchains))
-  McmcdbWide(mcmcdb_flatten(x, parname, FUN = mcmc_parnames_bugs),
+  McmcdbWide(mcmcdb_flatten(object, parname, FUN = mcmc_parnames_bugs),
              chains = chains, iters = iters,
              parameters = mcmc_parparser_bugs)
 }
@@ -217,15 +220,15 @@ McmcdbWide.mcarray <- function(x, parname = "Par") {
 #' @aliases McmcdbWide,mcarray-method
 setMethod("McmcdbWide", "mcarray", McmcdbWide.mcarray)
 
-McmcdbWide.McarrayList <- function(x) {
-  d <- dim(x[[1]])
-  nchains <- dim(x[[1]])["chain"]
-  niter <- dim(x[[1]])["iteration"]
+McmcdbWide.McarrayList <- function(object) {
+  d <- dim(object[[1]])
+  nchains <- dim(object[[1]])["chain"]
+  niter <- dim(object[[1]])["iteration"]
   chains <- McmcdbChains(chain_id = seq_len(nchains))
   iters <-
     McmcdbIters(chain_id = rep(seq_len(nchains), each=niter),
                 iter = rep(seq_len(niter), nchains))
-  samples <- mcmcdb_flatten(x, FUN = mcmc_parnames_bugs)
+  samples <- mcmcdb_flatten(object, FUN = mcmc_parnames_bugs)
   McmcdbWide(samples, 
              chains = chains, iters = iters,
              parameters = mcmc_parparser_bugs)

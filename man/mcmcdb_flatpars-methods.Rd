@@ -20,7 +20,7 @@
   Other Mcmcdb methods: \code{\link{Mcmcdb-class}},
   \code{\link{McmcdbMem-class}},
   \code{\link{McmcdbWide-class}},
-  \code{\link{mcmcdb_mcpar}}, \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
@@ -35,8 +35,7 @@
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_pararrays_chain}},
   \code{\link{mcmcdb_samples_pararrays_chain}},
-  \code{\link{mcmdb_mcpar-methods}}, \code{\link{summary}},
-  \code{\link{summary-methods}}
+  \code{\link{summary}}, \code{\link{summary-methods}}
 
   Other McmcdbParameters methods:
   \code{\link{McmcdbParameters-class}},
