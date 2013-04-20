@@ -233,12 +233,15 @@ mcmcdb_wide_from_stan <- function(file, init=NULL, model_data=NULL, model_name=N
   ##
   if (!is.null(model_data)) {
     if (is(model_data, "list")) {
+      model_data <- new("namedList", model_data)
     } else if (is(model_data, "character") || is(model_data, "connection")) {
       model_data <- source_list(model_data)
     } else {
       stop("%s must be object of class NULL, list, character, or connection",
            sQuote("model_data"))
     }
+  } else {
+    model_data <- nlist()
   }
 
   metadata <- list()

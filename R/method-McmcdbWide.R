@@ -49,7 +49,7 @@ McmcdbWide.matrix <- function(object, chains = NULL, iters = NULL,
   isany <- function(object, class) {
     any(sapply(class, function(class2) is(object, class2)))
   }
-  valid_parameter_classes <- c("character", "function", "McmcdbParameter")
+  valid_parameter_classes <- c("character", "function", "McmcdbParameters")
   if (! isany(parameters, valid_parameter_classes)) { 
     stop(sprintf("%s must be an object of class: %s",
                  sQuote("parameters"), paste(dQuote(valid_parameter_classes)), ","))
