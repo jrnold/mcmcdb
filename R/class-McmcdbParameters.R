@@ -5,12 +5,17 @@
 #' @exportMethod [
 NULL
 
-setClass("ParnameArray", "array")
+setClassUnion("CharacterOrArray", c("character", "array"))
+
+setClass("ParnameArray", "CharacterOrArray")
 
 ParnameArray <- function(x) {
-  x <- as.array(x)
-  d <- dim(x)
-  new("ParnameArray", array(as.character(x), d))
+  if(is.null(dim(x))) {
+    x <- as.character(x)
+  } else {
+    x <- array(as.character(x), dim(x))
+  }
+  new("ParnameArray", x)
 }
 
 setValidity("ParnameArray",

@@ -73,8 +73,12 @@ setGeneric("mcmcdb_unflatten",
 mcmcdb_unflatten.numeric.McmcdbParameters <- function(x, parameters, ...) {
   # bound: x
   unflatten_one_par <- function(param) {
+    y <- x[as.character(param)]
     d <- dim(param)
-    array(x[as.character(param)], d)
+    if (!is.null(d)) {
+      y <- array(y, d)
+    }
+    y
   }
   ret <- llply(as(parameters, "list"), unflatten_one_par, ...)
   names(ret) <- names(parameters)
@@ -109,7 +113,9 @@ mcmcdb_unflatten.matrix.McmcdbParameters <- function(x, parameters, ...) {
     n <- nrow(x)
     # put iterations into columns to reshape
     xpar <- t(x[ , as.character(param)])
-    dim(xpar) <- c(d, n)
+    if (!is.null(d)) {
+      dim(xpar) <- c(d, n)
+    }
     xpar
   }
   ret <- llply(as(parameters, "list"), unflatten_one_par, ...)
