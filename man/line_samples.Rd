@@ -19,7 +19,6 @@ and 2 chains of 100 samples each.}
 data(line_samples)
 show(line_samples)
 mcmcdb_flatpars(line_samples)
-mcmcdb_mcpar(line_samples)
 }
 \keyword{datasets}
 

@@ -50,3 +50,11 @@ stridx <- function(x) {
   }
   dstr
 }
+
+dimlen <- function(x) {
+  d <- dim(x)
+  if (is.null(d)) {
+    d <- length(x)
+  }
+  d
+}

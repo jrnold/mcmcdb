@@ -1,7 +1,5 @@
 context("method-McmcdbWide")
 source("data-samples.R")
-## print(dir(system.file("line", package="mcmcdb")))
-## load(system.file("line/line_mcmc_list.Rdata", package="mcmcdb"))
 
 test_that("McmcdbWide,matrix #1", {
   expect_is(McmcdbWide(samples, parameters = parameters, chains = chains, iters = iters),

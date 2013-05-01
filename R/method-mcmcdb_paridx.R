@@ -1,4 +1,5 @@
 #' @include package.R
+#' @include utilities.R
 #' @include class-McmcdbParameters.R
 #' @include class-Mcmcdb.R
 #' @include method-mcmcdb_parameters.R
@@ -25,7 +26,8 @@ mcmcdb_paridx.McmcdbParameters <- function(object) {
   # llply returns matrix (why?)
   ret <- lapply(object,
                 function(x) {
-                  idx <- expand_grid_dim(dim(x))
+                  d <- dimlen(x)
+                  idx <- expand_grid_dim(d)
                   rownames(idx) <- as.character(x)
                   idx
                 })

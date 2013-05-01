@@ -10,7 +10,11 @@ pararrays_from_df <- function(x) {
                  llply(str_split(x$idx, fixed(",")),
                        as.integer))
   d <- as.integer(aaply(idx, 2, max))
-  tmpl <- array(NA_character_, d)
+  if (all(x[["scalar"]])) {
+    tmpl <- rep(NA_character_, d)
+  } else {
+    tmpl <- array(NA_character_, d)
+  }
   tmpl[idx] <- as.character(x[["flatpar"]])
   tmpl
 }

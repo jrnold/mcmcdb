@@ -10,7 +10,7 @@
 \alias{McmcdbWide-methods}
 \title{Create \code{McmcdbWide} objects}
 \arguments{
-  \item{x}{An object for which a method is available.}
+  \item{object}{An object for which a method is available.}
 }
 \value{
   An object of class \code{\linkS4class{McmcdbWide}}
