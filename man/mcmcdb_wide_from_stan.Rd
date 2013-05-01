@@ -2,11 +2,23 @@
 \alias{mcmcdb_wide_from_stan}
 \title{Create McmdbWide from Stan csv files}
 \usage{
-  mcmcdb_wide_from_stan(file)
+  mcmcdb_wide_from_stan(file, init = NULL,
+    model_data = NULL, model_name = NULL,
+    model_code = NULL)
 }
 \arguments{
-  \item{file}{character. Name of an output file produced by
-  a STAN model.}
+  \item{file}{\code{character}. Name of an output file
+  produced by a STAN model.}
+
+  \item{init}{\code{list} or \code{NULL}. List of initial
+  values.}
+
+  \item{model_data}{\code{list} or \code{NULL}. List of
+  model data.}
+
+  \item{model_name}{\code{character} Model name.}
+
+  \item{model_code}{\code{character} Stan model code.}
 }
 \value{
   An object of class \code{"McmcdbWide"}

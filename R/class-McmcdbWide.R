@@ -126,8 +126,8 @@ show.McmcdbWide <- function(object) {
   cat("Parameters:\n")
   parameters <- mcmcdb_parameters(object)
   for (i in seq_along(parameters)) {
-    cat(sprintf("$ %s [%s]\n",
-                names(parameters)[i], paste(dim(parameters[[i]]), collapse=",")))
+    cat(sprintf("$ %s %s\n",
+                names(object)[i], stridx(object[i])))
   }
 }
 

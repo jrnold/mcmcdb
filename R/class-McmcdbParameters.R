@@ -58,8 +58,8 @@ show.McmcdbParameters <- function(object) {
   cat(sprintf("An object of class %s\n", dQuote("McmcdbParameters")))
   cat("Parameters:\n")
   for (i in seq_along(object)) {
-    cat(sprintf("$ %s [%s]\n",
-                names(object)[i], paste(dim(object[[i]]), collapse=",")))
+    cat(sprintf("$ %s %s\n",
+                names(object)[i], stridx(object[i])))
   }
 }
 

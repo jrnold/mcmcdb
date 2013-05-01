@@ -46,7 +46,7 @@ str(line_samples_pc)
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
-  \code{\link{mcmcdb_mcpar}}, \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims}},
   \code{\link{mcmcdb_pardims-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
@@ -59,7 +59,6 @@ str(line_samples_pc)
   \code{\link{mcmcdb_samples_chain_pararrays}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmdb_mcpar-methods}}, \code{\link{summary}},
-  \code{\link{summary-methods}}
+  \code{\link{summary}}, \code{\link{summary-methods}}
 }
 

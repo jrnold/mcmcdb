@@ -28,3 +28,25 @@ source_env <- function(file, ..., env.opts = list(parent=parent.frame()) ) {
 source_list <- function(...) {
     as.list(source_env(...))
 }
+
+stridx <- function(x) {
+  d <- dim(x)
+  if (is.null(d)) {
+    if (length(x) > 1) {
+      dstr <- sprintf("[1:%d]", length(x))
+    } else {
+      dstr <- ""
+    }
+  } else {
+    dstr <- sapply(d,
+                   function(di) {
+                     if (di == 1) {
+                       "1"
+                     } else {
+                       sprintf("1:%d", di)
+                     }
+                   })
+    dstr <- sprintf("[%s]", paste(dstr, collapse = ", "))
+  }
+  dstr
+}
