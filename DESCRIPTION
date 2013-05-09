@@ -1,7 +1,7 @@
 Package: mcmcdb
 Authors@R: c(person("Jeffrey B.", "Arnold", role = c("aut", "cre"),
     email = "jeffrey.arnold@gmail.com"))
-Version: 0.18-1
+Version: 0.19.0
 License: GPL-3
 Title: MCMC sample database classes
 Description: Classes for storing and accessing MCMC samples
@@ -12,7 +12,8 @@ Imports:
     stringr,
     plyr,
     reshape2,
-    checker (>= 0.2.2)
+    checker (>= 0.2.2),
+    stanmisc (>= 0.4.0)
 Suggests:
     testthat,
     roxygen2,
@@ -44,7 +45,6 @@ Collate:
     'method-mcmcdb_metadata.R'
     'method-mcmcdb_pardims.R'
     'method-mcmcdb_paridx.R'
-    'read_stan.R'
     'stan_bugs_parnames.R'
     'method-mcmcdb_samples_flatpars.R'
     'method-mcmcdb_samples_long.R'
@@ -67,3 +67,4 @@ Collate:
     'method-c.R'
     'method-mcmcdb_rename_chain.R'
     'method-mcmcdb_add_parameters.R'
+    'mcmcdb_wide_from_stan.R'

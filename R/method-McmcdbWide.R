@@ -12,6 +12,8 @@ NULL
 #' Create \code{\linkS4class{McmcdbWide}} objects.
 #'
 #' @param object An object for which a method is available.
+#' @param model_name \code{character} Model name.
+#' @param model_code \code{character} Stan model code.
 #' @return An object of class \code{\linkS4class{McmcdbWide}} objects.
 setGeneric("McmcdbWide",
            function(object, ...) standardGeneric("McmcdbWide"))
@@ -63,7 +65,8 @@ McmcdbWide.matrix <- function(object, chains = NULL, iters = NULL,
   }
   new("McmcdbWide", samples = object, chains = chains, iters = iters,
       parameters = parameters,
-      flatpar_chains = flatpar_chains, metadata = metadata,
+      flatpar_chains = flatpar_chains,
+      metadata = as(metadata, "namedList"),
       model_data = as(model_data, "namedList"))
 }
 
@@ -160,3 +163,77 @@ McmcdbWide.McarrayList <- function(object) {
 #' @aliases McmcdbWide,McarrayList-method
 setMethod("McmcdbWide", "McarrayList", McmcdbWide.McarrayList)
 
+McmcdbWide.StanSamples <- function(object, init = NULL, model_data = NULL, model_name = NULL, model_code = NULL) {
+  chains <- McmcdbChains(chain_id = object@chain_id)
+  exclude_slots <- c(".Data", "rejected", "is_warmup", "treedepth",
+                     "stepsize")
+  for (i in setdiff(slotNames(object), exclude_slots)) {
+    val <- slot(object, i)
+    # Ignore empty lines
+    if (length(val)) {
+      if (i %in% c("step_size_multipliers", "cov_matrix")) {
+        chains[[i]] <- list(val)
+      } else {
+        chains[[i]] <- val
+      }
+    }
+  }
+  iters <- McmcdbIters(chain_id = object@chain_id,
+                       iter = seq_len(nrow(object)),
+                       treedepth = object@treedepth,
+                       stepsize = object@stepsize,
+                       rejected = object@rejected,
+                       warmup = object@warmup)
+
+  flatpar_chains <-
+    McmcdbFlatparChains(data.frame(flatpar = colnames(object),
+                                   chain_id = object@chain_id,
+                                   init = NA_real_))
+
+  # Initial values
+  if (!is.null(init)) {
+    if (is(init, "list")) {
+    } else if (is(init, "character") || is(init, "connection")) {
+      init <- source_list(init)
+    } else {
+      stop("%s must be object of class NULL, list, character, or connection",
+           sQuote("init"))
+    }
+    initvals <- 
+      ldply(seq_along(init),
+            function(i) {
+              vals <- mcmcdb_flatten(init[[i]], FUN = mcmc_parnames_stan)
+              data.frame(flatpar = names(vals),
+                         init = unname(vals))
+            })
+    flatpar_chains <-
+      McmcdbFlatparChains(merge(flatpar_chains, initvals, all.x = TRUE))
+  }
+
+  # Data
+  if (!is.null(model_data)) {
+    if (is(model_data, "list")) {
+      model_data <- new("namedList", model_data)
+    } else if (is(model_data, "character") || is(model_data, "connection")) {
+      model_data <- source_list(model_data)
+    } else {
+      stop("%s must be object of class NULL, list, character, or connection",
+           sQuote("model_data"))
+    }
+  } else {
+    model_data <- nlist()
+  }
+
+  metadata <- list()
+  metadata[["model_name"]] <- model_name
+  metadata[["model_code"]] <- model_code
+
+  McmcdbWide(as.matrix(object), chains = chains, iters = iters,
+             flatpar_chains = flatpar_chains,
+             model_data = model_data,
+             metadata = metadata)
+}
+
+#' @rdname McmcdbWide-methods
+#' @aliases McmcdbWide,StanSamples-method
+setMethod("McmcdbWide", "StanSamples", McmcdbWide.StanSamples)
