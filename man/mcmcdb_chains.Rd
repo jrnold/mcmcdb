@@ -36,7 +36,16 @@
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}}
+  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten-method}}
 
   Other get-methods: \code{\link{mcmcdb_flatpar_chains}},
   \code{\link{mcmcdb_iters}}

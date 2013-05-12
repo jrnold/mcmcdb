@@ -62,6 +62,15 @@ ddply(line_long, "flatpar",
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}}
+  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten-method}}
 }
 

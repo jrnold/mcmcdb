@@ -53,6 +53,15 @@ lapply(line_arrays, dim)
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_long}}
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten-method}}
 }
 

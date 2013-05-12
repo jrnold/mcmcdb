@@ -42,6 +42,15 @@
   \code{\link{mcmcdb_flatpars}},
   \code{\link{mcmcdb_flatpars-methods}},
   \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
-  \code{\link{mcmcdb_paridx-methods}}
+  \code{\link{mcmcdb_paridx-methods}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten}},
+  \code{\link{mcmcdb_unflatten-method}}
 }
 

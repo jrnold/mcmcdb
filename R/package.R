@@ -9,6 +9,7 @@
 ##' @import stringr
 ##' @import reshape2
 ##' @import checker
+##' @import stanmisc
 NULL
 
 setOldClass("mcmc")

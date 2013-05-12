@@ -87,21 +87,21 @@ mcmcdb_unflatten.numeric.McmcdbParameters <- function(x, parameters, ...) {
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,numeric,McmcdbParameters-method
-#' @family McmdbParameters methosd
+#' @family McmcdbParameters methosd
 setMethod("mcmcdb_unflatten",
           c(x = "numeric", parameters = "McmcdbParameters"),
           mcmcdb_unflatten.numeric.McmcdbParameters)
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,numeric,function-method
-#' @family McmdbParameters methods
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "numeric", parameters = "function"),
           function(x, parameters, ...)
           callGeneric(x, McmcdbParameters(names(x), parameters), ...))
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,numeric,missing-method
-#' @family McmdbParameters methods
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "numeric", parameters = "missing"),
           function(x, parameters, ...)
           callGeneric(x, McmcdbParameters(names(x)), ...))
@@ -125,13 +125,13 @@ mcmcdb_unflatten.matrix.McmcdbParameters <- function(x, parameters, ...) {
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,matrix,McmcdbParameters-method
-#' @family McmdbParameters methods
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "McmcdbParameters"),
           mcmcdb_unflatten.matrix.McmcdbParameters)
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,matrix,function-method
-#' @family McmdbParameters methods
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "function"),
           function(x, parameters, ...) {
             callGeneric(x, McmcdbParameters(colnames(x), parameters), ...)
@@ -139,7 +139,7 @@ setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "function"),
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,matrix,missing-method
-#' @family McmdbParameters methods
+#' @family McmcdbParameters methods
 setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "missing"),
           function(x, parameters, ...) {
             callGeneric(x, McmcdbParameters(colnames(x)), ...)
@@ -147,7 +147,7 @@ setMethod("mcmcdb_unflatten", c(x = "matrix", parameters = "missing"),
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,McmcdbWide,missing-method
-#' @family McmdbWide methods
+#' @family McmcdbWide methods
 setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "missing"),
           function(x, parameters, .iter=NULL, .chain_id=NULL, ...) {
             callGeneric(x, names(x@parameters), .iter=.iter, .chain_id=.chain_id, ...)
@@ -155,7 +155,7 @@ setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "missing"),
 
 #' @rdname mcmcdb_unflatten-method
 #' @aliases mcmcdb_unflatten,McmcdbWide,character-method
-#' @family McmdbWide methods
+#' @family McmcdbWide methods
 setMethod("mcmcdb_unflatten", c(x = "McmcdbWide", parameters = "character"),
           function(x, parameters, .iter=NULL, .chain_id=NULL, ...) {
             callGeneric(mcmcdb_wide_subset(x, pararrays = parameters,

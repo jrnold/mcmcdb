@@ -69,5 +69,105 @@ names(samples) <- parnames
 samples
 mcmcdb_unflatten(samples)
 }
+\seealso{
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbParameters methods:
+  \code{\link{McmcdbParameters-class}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars}},
+  \code{\link{mcmcdb_flatpars-methods}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims}},
+  \code{\link{mcmcdb_pardims-methods}},
+  \code{\link{mcmcdb_paridx}}, \code{\link{mcmcdb_paridx}},
+  \code{\link{mcmcdb_paridx-methods}}
+
+  Other McmcdbWide methods: \code{\link{$}},
+  \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
+  \code{\link{[}}, \code{\link{[-methods}},
+  \code{\link{[[}}, \code{\link{[[-methods}},
+  \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_drop_chain}},
+  \code{\link{mcmcdb_drop_chain}},
+  \code{\link{mcmcdb_drop_chain}},
+  \code{\link{mcmcdb_drop_iters}},
+  \code{\link{mcmcdb_drop_iters}},
+  \code{\link{mcmcdb_drop_iters}},
+  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_pararrays}}
+
+  Other McmcdbWide methods: \code{\link{$}},
+  \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
+  \code{\link{[}}, \code{\link{[-methods}},
+  \code{\link{[[}}, \code{\link{[[-methods}},
+  \code{\link{mcmcdb_chains}},
+  \code{\link{mcmcdb_drop_chain}},
+  \code{\link{mcmcdb_drop_chain}},
+  \code{\link{mcmcdb_drop_chain}},
+  \code{\link{mcmcdb_drop_iters}},
+  \code{\link{mcmcdb_drop_iters}},
+  \code{\link{mcmcdb_drop_iters}},
+  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_flatpars}},
+  \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_iter}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_long}},
+  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_pararrays}}
+}
 \keyword{methods}
 

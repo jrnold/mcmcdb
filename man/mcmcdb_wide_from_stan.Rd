@@ -1,6 +1,6 @@
 \name{mcmcdb_wide_from_stan}
 \alias{mcmcdb_wide_from_stan}
-\title{Create McmdbWide from Stan csv files}
+\title{Create McmcdbWide from Stan csv files}
 \usage{
   mcmcdb_wide_from_stan(file, init = NULL,
     model_data = NULL, model_name = NULL,
