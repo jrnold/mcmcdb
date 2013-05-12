@@ -228,7 +228,7 @@ McmcdbWide.StanSamples <- function(object, init = NULL, model_data = NULL, model
   metadata[["model_name"]] <- model_name
   metadata[["model_code"]] <- model_code
 
-  McmcdbWide(as.matrix(object), chains = chains, iters = iters,
+  McmcdbWide(getDataPart(object), chains = chains, iters = iters,
              flatpar_chains = flatpar_chains,
              model_data = model_data,
              metadata = metadata)
