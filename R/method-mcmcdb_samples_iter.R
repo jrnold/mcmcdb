@@ -34,30 +34,33 @@ setGeneric("mcmcdb_samples_iter",
              standardGeneric("mcmcdb_samples_iter")
            })
 
+mcmcdb_samples_iter.McmcdbWide <-
+  function(object, pararrays=NULL, iter=NULL,
+           chain_id=NULL, FUN = NULL, use_splat = TRUE, ...) {
+    x <- mcmcdb_wide_subset(object,
+                            pararrays = pararrays,
+                            iter = iter,
+                            chain_id = chain_id)
+    if (is.null(pararrays)) {
+      parameters <- object@parameters
+    } else {
+      parameters <- object@parameters[pararrays]
+    }
+    if (is.null(FUN)) {
+      FUN <- identity
+    }
+    .fun <- function(x) {
+      FUN(mcmcdb_unflatten(x, parameters=parameters))
+    }
+    x <- alply(x, 1, .fun = .fun, ...)
+    for (i in c("split_type", "split_labels")) {
+      attr(x, i) <- NULL
+    }
+    x
+  }
+
 #' @rdname mcmcdb_samples_iter-methods
 #' @aliases mcmcdb_samples_iter,McmcdbWide-method
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_iter", "McmcdbWide",
-          function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, FUN = NULL, ...) {
-            x <- mcmcdb_wide_subset(object,
-                                    pararrays = pararrays,
-                                    iter = iter,
-                                    chain_id = chain_id)
-            if (is.null(pararrays)) {
-              parameters <- object@parameters
-            } else {
-              parameters <- object@parameters[pararrays]
-            }
-            if (is.null(FUN)) {
-              FUN <- identity
-            }
-            .fun <- function(x) {
-              FUN(mcmcdb_unflatten(x, parameters=parameters))
-            }
-            x <- alply(x, 1, .fun = .fun, ...)
-            for (i in c("split_type", "split_labels")) {
-              attr(x, i) <- NULL
-            }
-            x
-          })
+          mcmcdb_samples_iter.McmcdbWide)
