@@ -36,11 +36,12 @@ setGeneric("mcmcdb_samples_iter",
 
 mcmcdb_samples_iter.McmcdbWide <-
   function(object, pararrays=NULL, iter=NULL,
-           chain_id=NULL, FUN = NULL, use_splat = TRUE, ...) {
+           chain_id=NULL, FUN = NULL, return_type = "l", ...) {
     x <- mcmcdb_wide_subset(object,
                             pararrays = pararrays,
                             iter = iter,
                             chain_id = chain_id)
+    plyr_fun <- match.fun(sprintf("a%sply", return_type))
     if (is.null(pararrays)) {
       parameters <- object@parameters
     } else {
@@ -52,7 +53,7 @@ mcmcdb_samples_iter.McmcdbWide <-
     .fun <- function(x) {
       FUN(mcmcdb_unflatten(x, parameters=parameters))
     }
-    x <- alply(x, 1, .fun = .fun, ...)
+    x <- plyr_fun(x, 1, .fun = .fun, ...)
     for (i in c("split_type", "split_labels")) {
       attr(x, i) <- NULL
     }
