@@ -37,7 +37,7 @@ setGeneric("mcmcdb_samples_pararrays",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_pararrays", "McmcdbWide",
           function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, FUN = NULL, ...) {
+                   chain_id=NULL, FUN = identity, return_type = "l",  ...) {
             if (is.null(pararrays)) {
               parameters <- object@parameters
             } else {
@@ -48,12 +48,11 @@ setMethod("mcmcdb_samples_pararrays", "McmcdbWide",
                                                      iter = iter,
                                                      chain_id = chain_id),
                                   parameters = parameters)
-            # Apply function if there is one
-            if (!is.null(FUN)) {
-              x <- llply(x, FUN, ...)
+            if (!(identical(FUN, identity) && identical(return_type, "l"))) {
+              x <- plyr_fun("l", return_type)(x, FUN, ...)
               for (i in c("split_type", "split_labels")) {
                 attr(x, i) <- NULL
               }
-            } 
+            }
             x
           })

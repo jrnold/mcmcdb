@@ -17,12 +17,10 @@ NULL
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param FUN \code{function}. Function to apply to each iteration. \code{function(x)}, where
 #' \code{x} is a named \code{list} of the parameter arrays for a single iteration.
+#' @param return_type \code{character} Return type of the plyr function used internally.
 #' @param ... Options passed to internal functions.
 #'
-#' @return \code{list}. If \code{FUN = NULL}, then each element of the list
-#' is a \code{list} of \code{array} objects representing the parameter arrays.
-#' If \code{FUN != NULL}, then each element is the result of \code{FUN} applied to
-#' the iteration.
+#' @return Return type specified in \code{return_type}.
 #'
 #' @examples
 #' data(line_samples)
@@ -41,7 +39,6 @@ mcmcdb_samples_iter.McmcdbWide <-
                             pararrays = pararrays,
                             iter = iter,
                             chain_id = chain_id)
-    plyr_fun <- match.fun(sprintf("a%sply", return_type))
     if (is.null(pararrays)) {
       parameters <- object@parameters
     } else {
@@ -53,7 +50,7 @@ mcmcdb_samples_iter.McmcdbWide <-
     .fun <- function(x) {
       FUN(mcmcdb_unflatten(x, parameters=parameters))
     }
-    x <- plyr_fun(x, 1, .fun = .fun, ...)
+    x <- plyr_fun("a", return_type)(x, 1, .fun = .fun, ...)
     for (i in c("split_type", "split_labels")) {
       attr(x, i) <- NULL
     }

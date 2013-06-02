@@ -20,6 +20,7 @@ NULL
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param FUN \code{function} Function to apply to each chain's flat paramter matrix.
 #' \code{function(x)} where \code{x} is a \code{matrix}.
+#' @param return_type \code{character}
 #' @param ... Options passed to internal functions.
 #'
 #' @return \code{list}. If \code{FUN = NULL}, then each element is a chain.
@@ -43,7 +44,7 @@ setGeneric("mcmcdb_samples_chain_flatpars",
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_flatpars", "Mcmcdb",
           function(object, flatpars=NULL, pararrays=NULL,
-                   iter=NULL, chain_id=NULL, FUN=NULL, ...) {
+                   iter=NULL, chain_id=NULL, FUN=NULL, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
@@ -56,5 +57,5 @@ setMethod("mcmcdb_samples_chain_flatpars", "Mcmcdb",
                                           flatpars = flatpars, 
                                           pararrays = pararrays))
             }
-            llply(chain_id, .fun=.fun, ...)
+            plyr_fun("l", return_type)(chain_id, .fun=.fun, ...)
           })

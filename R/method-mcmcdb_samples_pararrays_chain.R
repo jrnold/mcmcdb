@@ -39,7 +39,7 @@ setGeneric("mcmcdb_samples_pararrays_chain",
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
           function(object, pararrays=NULL, iter=NULL, chain_id=NULL,
-                   FUN = NULL, ...) {
+                   FUN = NULL, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object)
             }
@@ -58,5 +58,5 @@ setMethod("mcmcdb_samples_pararrays_chain", "Mcmcdb",
               }
               FUN(llply(chain_id, .fun = .fun2))
             }
-            llply(pararrays, .fun = .fun1, ...)
+            plyr_fun("l", return_type)(pararrays, .fun = .fun1, ...)
           })

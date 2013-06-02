@@ -19,7 +19,7 @@ NULL
 #' @param FUN \code{function}. Function to apply to each 
 #' @param ... Options passed to internal functions.
 #' 
-#' @return If \code{FUN = NULL}, then a \code{matrix} with columns equal to flat paramters,
+#' @return If \code{FUN = NULL}, then a \code{matrix} with columns equal to flat parameters,
 #' and rows equal to iterations. If \code{FUN != NULL}, then a \code{list}, with the results
 #' of \code{FUN} applied to each flat parameter.
 #' 
@@ -39,16 +39,14 @@ setGeneric("mcmcdb_samples_flatpars",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_flatpars", "McmcdbWide",
           function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, drop=FALSE, FUN=NULL, ...) {
+                   chain_id=NULL, drop=FALSE, FUN=identity, return_type = "a", ...) {
             x <- mcmcdb_wide_subset(object,
                                     flatpars=flatpars, pararrays=pararrays,
                                     iter=iter, chain_id=chain_id)
-            if (!is.null(FUN)) {
-              params <- colnames(x)
-              x <- alply(x, 2, FUN, ...)
-              names(x) <- params
-              attr(x, "split_type") <- NULL
-              attr(x, "split_labels") <- NULL
-            } 
-            x
+            if (identical(FUN, identity) && identical(return_type, "a")) {
+              # Notable Special case 
+              x
+            } else {
+              plyr_fun("a", return_type)(x, 2, FUN, ...)
+            }
           })

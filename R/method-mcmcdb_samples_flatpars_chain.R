@@ -42,7 +42,7 @@ setGeneric("mcmcdb_samples_flatpars_chain",
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_flatpars_chain", "Mcmcdb",
           function(object, flatpars=NULL, pararrays=NULL,
-                   iter=NULL, chain_id=NULL, FUN=NULL, ...) {
+                   iter=NULL, chain_id=NULL, FUN=NULL, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object)
             }
@@ -62,5 +62,5 @@ setMethod("mcmcdb_samples_flatpars_chain", "Mcmcdb",
               }
               FUN(llply(chain_id, .fun = .fun2))
             }
-            llply(flatpars, .fun = .fun, ...)
+            plyr_fun("l", return_type)chain_id, .fun=.fun, ...)
           })

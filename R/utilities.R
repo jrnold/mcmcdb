@@ -58,3 +58,7 @@ dimlen <- function(x) {
   }
   d
 }
+
+plyr_fun <- function(input, output) {
+  match.fun(sprintf("%s%sply", input, output))
+}
