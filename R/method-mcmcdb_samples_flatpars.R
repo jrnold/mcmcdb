@@ -39,7 +39,7 @@ setGeneric("mcmcdb_samples_flatpars",
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_flatpars", "McmcdbWide",
           function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, drop=FALSE, FUN=identity, return_type = "a", ...) {
+                   chain_id=NULL, FUN=identity, return_type = "a", ...) {
             x <- mcmcdb_wide_subset(object,
                                     flatpars=flatpars, pararrays=pararrays,
                                     iter=iter, chain_id=chain_id)
