@@ -14,7 +14,7 @@ NULL
 #' Each iteration is a list of parameter arrays.
 #' 
 #' @param object An object containing the MCMC samples.
-#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' @param parameters \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param ... Options passed to internal functions.
@@ -39,18 +39,15 @@ setGeneric("mcmcdb_samples_chain_iter",
 #' @aliases mcmcdb_samples_chain_iter,Mcmcdb-method
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_iter", "Mcmcdb",
-          function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, FUN = NULL, return_type = "l", ...) {
+          function(object, parameters=NULL, iter=NULL,
+                   chain_id=NULL, FUN = identity, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
             names(chain_id) <- chain_id
-            if (is.null(FUN)) {
-              FUN <- identity
-            }
             .fun <- function(i) {
               FUN(mcmcdb_samples_iter(object, chain_id = i,
-                                      pararrays = pararrays))
+                                      parameters = parameters))
             }
             plyr_fun("l", return_type)(chain_id, .fun = .fun, ...)
           })

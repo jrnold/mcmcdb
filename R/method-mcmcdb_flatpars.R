@@ -20,13 +20,13 @@ setGeneric("mcmcdb_flatpars",
 
 mcmcdb_flatpars.McmcdbParameters <- function(object) {
   flatpars <- unlist(object)
-  pararrays <-
+  parameters <-
     unlist(llply(seq_along(object),
                  function(i) {
                    rep(names(object)[i], length(object[[i]]))
                  }))
-  names(pararrays) <- flatpars
-  pararrays
+  names(parameters) <- flatpars
+  parameters
 }
 
 #' @rdname mcmcdb_flatpars-methods

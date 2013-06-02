@@ -12,8 +12,8 @@ NULL
 #' 
 #' @param object An object containing the MCMC samples.
 #' @param flatpars \code{character}. Flat parameters to include. If \code{NULL}, all flat parameters.
-#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
-#' The union of flat parameters in \code{pararrays} and \code{flatpars} is included.
+#' @param parameters \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' The union of flat parameters in \code{parameters} and \code{flatpars} is included.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param FUN \code{function}. Function to apply to each 
@@ -34,19 +34,22 @@ setGeneric("mcmcdb_samples_flatpars",
              standardGeneric("mcmcdb_samples_flatpars")
            })
 
+mcmcdb_samples_flatpars.McmcdbWide <-
+  function(object, flatpars=NULL, parameters=NULL, iter=NULL,
+           chain_id=NULL, FUN=identity, return_type = "a", ...) {
+    x <- mcmcdb_wide_subset(object,
+                            flatpars=flatpars, parameters=parameters,
+                            iter=iter, chain_id=chain_id)
+    if (identical(FUN, identity) && identical(return_type, "a")) {
+      # Notable Special case 
+      x
+    } else {
+      plyr_fun("a", return_type)(x, 2, FUN, ...)
+    }
+  }
+
 #' @rdname mcmcdb_samples_flatpars-methods
 #' @aliases mcmcdb_samples_flatpars,McmcdbWide-method
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_flatpars", "McmcdbWide",
-          function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, FUN=identity, return_type = "a", ...) {
-            x <- mcmcdb_wide_subset(object,
-                                    flatpars=flatpars, pararrays=pararrays,
-                                    iter=iter, chain_id=chain_id)
-            if (identical(FUN, identity) && identical(return_type, "a")) {
-              # Notable Special case 
-              x
-            } else {
-              plyr_fun("a", return_type)(x, 2, FUN, ...)
-            }
-          })
+          mcmcdb_samples_flatpars.McmcdbWide)

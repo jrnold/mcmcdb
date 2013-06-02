@@ -1,12 +1,12 @@
 \docType{methods}
-\name{mcmcdb_samples_pararrays_chain}
-\alias{mcmcdb_samples_pararrays_chain}
-\alias{mcmcdb_samples_pararrays_chain,Mcmcdb-method}
+\name{mcmcdb_samples_parameters_chain}
+\alias{mcmcdb_samples_parameters_chain}
+\alias{mcmcdb_samples_parameters_chain,Mcmcdb-method}
 \title{Extract MCMC samples (Parameter arrays, chains)}
 \arguments{
   \item{object}{An object containing the MCMC samples.}
 
-  \item{pararrays}{\code{character}. Parameter arrays to
+  \item{parameters}{\code{character}. Parameter arrays to
   include. If \code{NULL}, all parameter arrays.}
 
   \item{chain_id}{\code{integer}. Chains to include. If
@@ -36,7 +36,7 @@
 }
 \examples{
 data(line_samples)
-line_samples_pc <- mcmcdb_samples_pararrays_chain(line_samples)
+line_samples_pc <- mcmcdb_samples_parameters_chain(line_samples)
 str(line_samples_pc)
 }
 \seealso{
@@ -55,8 +55,8 @@ str(line_samples_pc)
   \code{\link{mcmcdb_samples_chain_flatpars}},
   \code{\link{mcmcdb_samples_chain_iter}},
   \code{\link{mcmcdb_samples_chain_iter}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{summary}}, \code{\link{summary-methods}}

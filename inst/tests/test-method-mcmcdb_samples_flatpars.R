@@ -18,8 +18,7 @@ local({
 
   test_that("mcmcdb_samples_flatpars passes test #3 (", {
     foo <- mcmcdb_samples_flatpars(test_wide2, chain_id=1, FUN = mean)
-    expected <- structure(list(beta.1 = 2, beta.2 = 8, beta.3 = 14),
-                          .Names = c("beta.1", "beta.2", "beta.3"))
+    expected <- c(beta.1 = 2, beta.2 = 8, beta.3 = 14)
     expect_equal(foo, expected)
   })
   

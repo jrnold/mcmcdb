@@ -32,7 +32,7 @@ print(line_samples)
 # Extract samples
 # As matrix of flat parameters
 mcmcdb_samples_flatpars(line_samples)
-mcmcdb_samples_pararrays(line_samples)
+mcmcdb_samples_parameters(line_samples)
 mcmcdb_samples_iter(line_samples)
 mcmcdb_samples_long(line_samples)
 
@@ -82,12 +82,12 @@ mcmcdb_metadata(line_samples)
   \code{\link{mcmcdb_samples_chain_flatpars}},
   \code{\link{mcmcdb_samples_chain_iter}},
   \code{\link{mcmcdb_samples_chain_iter}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}},
+  \code{\link{mcmcdb_samples_parameters_chain}},
+  \code{\link{mcmcdb_samples_parameters_chain}},
   \code{\link{summary}}, \code{\link{summary-methods}}
 
   Other McmcdbMem methods: \code{\link{McmcdbMem-class}},
@@ -106,16 +106,16 @@ mcmcdb_metadata(line_samples)
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_pararray}},
-  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_parameter}},
+  \code{\link{mcmcdb_drop_parameter}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_parameters}},
+  \code{\link{mcmcdb_samples_parameters}},
   \code{\link{mcmcdb_unflatten}},
   \code{\link{mcmcdb_unflatten}},
   \code{\link{mcmcdb_unflatten}},

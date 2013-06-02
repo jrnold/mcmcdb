@@ -11,20 +11,20 @@ NULL
 #'
 #' @param object Object containing the MCMC samples
 #' @param .fun Function used to summarize the samples.
-#' @param pararrays Parameter arrays to use.
+#' @param parameters Parameter arrays to use.
 #' @return Named \code{list} of \code{array} objects, one for each
 #' parameter array.
 #' data(line_samples)
 #' summary(line_samples)
 setGeneric("summary")
 
-summary.Mcmcdb <- function(object, FUN = mean, pararrays = NULL, ...) {
+summary.Mcmcdb <- function(object, FUN = mean, parameters = NULL, ...) {
   .fun <- function(x) {
     ndim <- length(dim(x))
     margins <- seq_len(ndim - 1)
     aaply(x, margins, FUN)
   }
-  mcmcdb_samples_pararrays(object, pararrays = pararrays, FUN = .fun, ...)
+  mcmcdb_samples_parameters(object, parameters = parameters, FUN = .fun, ...)
 }
 
 #' @rdname summary-methods

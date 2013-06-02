@@ -9,7 +9,7 @@
   \item{flatpars}{\code{character}. Flat parameters to
   include. If \code{NULL}, all flat parameters.}
 
-  \item{pararrays}{\code{character}. Parameter arrays to
+  \item{parameters}{\code{character}. Parameter arrays to
   include. If \code{NULL}, all parameter arrays.}
 
   \item{chain_id}{\code{integer}. Chains to include. If
@@ -21,6 +21,8 @@
   \item{FUN}{\code{function} Function to apply to each
   chain's flat paramter matrix. \code{function(x)} where
   \code{x} is a \code{matrix}.}
+
+  \item{return_type}{\code{character}}
 
   \item{...}{Options passed to internal functions.}
 }
@@ -56,12 +58,12 @@ summary(line_samples_chain_pars[[1]])
   \code{\link{mcmcdb_paridx-methods}},
   \code{\link{mcmcdb_samples_chain_iter}},
   \code{\link{mcmcdb_samples_chain_iter}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}},
+  \code{\link{mcmcdb_samples_parameters_chain}},
+  \code{\link{mcmcdb_samples_parameters_chain}},
   \code{\link{summary}}, \code{\link{summary-methods}}
 }
 

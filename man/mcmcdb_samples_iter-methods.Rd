@@ -6,7 +6,7 @@
 \arguments{
   \item{object}{An object containing the MCMC samples.}
 
-  \item{pararrays}{\code{character}. Parameter arrays to
+  \item{parameters}{\code{character}. Parameter arrays to
   include. If \code{NULL}, all parameter arrays.}
 
   \item{chain_id}{\code{integer}. Chains to include. If
@@ -20,14 +20,13 @@
   \code{list} of the parameter arrays for a single
   iteration.}
 
+  \item{return_type}{\code{character} Return type of the
+  plyr function used internally.}
+
   \item{...}{Options passed to internal functions.}
 }
 \value{
-  \code{list}. If \code{FUN = NULL}, then each element of
-  the list is a \code{list} of \code{array} objects
-  representing the parameter arrays. If \code{FUN != NULL},
-  then each element is the result of \code{FUN} applied to
-  the iteration.
+  Return type specified in \code{return_type}.
 }
 \description{
   Return MCMC samples as a list of iterations, in which
@@ -51,14 +50,14 @@ line_samples_iter[[1]]
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_pararray}},
-  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_parameter}},
+  \code{\link{mcmcdb_drop_parameter}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_parameters}},
+  \code{\link{mcmcdb_samples_parameters}},
   \code{\link{mcmcdb_unflatten}},
   \code{\link{mcmcdb_unflatten}},
   \code{\link{mcmcdb_unflatten}},

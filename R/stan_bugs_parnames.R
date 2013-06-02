@@ -2,8 +2,8 @@
 NULL
 
 parnames_from_flatpars <- function(x, pre, sep, post) {
-  FUN <- function(flatpar, pararray, idx, scalar) {
-    mcmc_parnames_pattern_idx(pararray, as.integer(str_split(idx, ",")[[1]]),
+  FUN <- function(flatpar, parameter, idx, scalar) {
+    mcmc_parnames_pattern_idx(parameter, as.integer(str_split(idx, ",")[[1]]),
                               scalar, pre, sep, post)
   }
   as.character(dlply(x, "flatpar", splat(FUN)))

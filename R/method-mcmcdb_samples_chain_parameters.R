@@ -1,11 +1,11 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
 #' @include method-mcmcdb_chains.R
-#' @include method-mcmcdb_samples_pararrays.R
-#' @exportMethod mcmcdb_samples_chain_pararrays
+#' @include method-mcmcdb_samples_parameters.R
+#' @exportMethod mcmcdb_samples_chain_parameters
 NULL
 
-#' @rdname mcmcdb_samples_chain_pararrays-methods
+#' @rdname mcmcdb_samples_chain_parameters-methods
 #' @docType methods
 #' @title  Extract MCMC Samples (Chains, Paramter arrays)
 #'
@@ -13,7 +13,7 @@ NULL
 #' Each chain is a named list of parameter arrays.
 #' 
 #' @param object An object containing the MCMC samples.
-#' @param pararrays \code{character}. Parameter arrays to include. 
+#' @param parameters \code{character}. Parameter arrays to include. 
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param FUN \code{function} Function to apply to each chain's list of parameter arrays.
@@ -28,29 +28,26 @@ NULL
 #' 
 #' @examples
 #' data(line_samples)
-#' line_samples_chain_pars <- mcmcdb_samples_chain_pararrays(line_samples)
+#' line_samples_chain_pars <- mcmcdb_samples_chain_parameters(line_samples)
 #' lapply(line_samples_chain_pars[[1]], dim)
-setGeneric("mcmcdb_samples_chain_pararrays",
+setGeneric("mcmcdb_samples_chain_parameters",
            function(object, ...) {
-             standardGeneric("mcmcdb_samples_chain_pararrays")
+             standardGeneric("mcmcdb_samples_chain_parameters")
            })
 
-#' @rdname mcmcdb_samples_chain_pararrays-methods
-#' @aliases mcmcdb_samples_chain_pararrays,Mcmcdb-method
+#' @rdname mcmcdb_samples_chain_parameters-methods
+#' @aliases mcmcdb_samples_chain_parameters,Mcmcdb-method
 #' @family Mcmcdb methods
-setMethod("mcmcdb_samples_chain_pararrays", "Mcmcdb",
-          function(object, pararrays=NULL, iter=NULL,
-                   chain_id=NULL, FUN=NULL, return_type = "l", ...) {
+setMethod("mcmcdb_samples_chain_parameters", "Mcmcdb",
+          function(object, parameters = NULL, iter = NULL,
+                   chain_id = NULL, FUN = identity, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
             names(chain_id) <- chain_id
-            if (is.null(FUN)) {
-              FUN <- identity
-            }
             .fun <- function(i) {
-              FUN(mcmcdb_samples_pararrays(object, chain_id = i,
-                                           pararrays = pararrays))
+              FUN(mcmcdb_samples_parameters(object, chain_id = i,
+                                           parameters = parameters))
             }
             plyr_fun("l", return_type)(chain_id, .fun=.fun, ...)
           })

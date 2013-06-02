@@ -99,7 +99,7 @@ mcmcdb_flatpars_columns <-
                                constraints =
                                FunctionList(index_regex=index_regex)),
                   flatpar = ColumnChecks("character", unique=TRUE),
-                  pararray = ColumnChecks("character"),
+                  parameter = ColumnChecks("character"),
                   scalar = ColumnChecks("logical"))
 
 McmcdbFlatpars <-

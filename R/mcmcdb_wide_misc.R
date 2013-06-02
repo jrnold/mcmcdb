@@ -5,20 +5,20 @@ NULL
 
 # Miscellaneous utility functions used with McmcdbWide functions
 # returns list of flatparameters or TRUE
-mcmcdb_wide_select_params <- function(x, flatpars=NULL, pararrays=NULL) {
+mcmcdb_wide_select_params <- function(x, flatpars=NULL, parameters=NULL) {
   flatpars <- union(flatpars,
-                    unlist(mcmcdb_parameters(x)[pararrays]))
+                    unlist(mcmcdb_parameters(x)[parameters]))
   if (is.null(flatpars)) {
     flatpars <- TRUE
   }
   flatpars
 }
 
-mcmcdb_wide_select_params2 <- function(x, flatpars=NULL, pararrays=NULL) {
+mcmcdb_wide_select_params2 <- function(x, flatpars=NULL, parameters=NULL) {
   if (is.null(flatpars)) {
     flatpars <- names(mcmcdb_flatpars(x))
   }
-  union(flatpars, unlist(mcmcdb_parameters(x)[pararrays]))
+  union(flatpars, unlist(mcmcdb_parameters(x)[parameters]))
 }
 
 # returns logical vector 
@@ -38,9 +38,9 @@ mcmcdb_wide_select_iters <- function(x, chain_id = NULL, iter = NULL) {
   ischain & isiter
 }
 
-mcmcdb_wide_subset <- function(x, pararrays = NULL, flatpars = NULL,
+mcmcdb_wide_subset <- function(x, parameters = NULL, flatpars = NULL,
                                chain_id = NULL, iter = NULL, drop=FALSE) {
-  params <- mcmcdb_wide_select_params(x, flatpars, pararrays)
+  params <- mcmcdb_wide_select_params(x, flatpars, parameters)
   rows <- mcmcdb_wide_select_iters(x, chain_id = unique(chain_id),
                                    iter = unique(iter))
   #iters <- mcmcdb_iters(x, drop=TRUE)[rows, ]

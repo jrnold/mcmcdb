@@ -9,9 +9,9 @@
   \item{flatpars}{\code{character}. Flat parameters to
   include. If \code{NULL}, all flat parameters.}
 
-  \item{pararrays}{\code{character}. Parameter arrays to
+  \item{parameters}{\code{character}. Parameter arrays to
   include. If \code{NULL}, all parameter arrays. The union
-  of flat parameters in \code{pararrays} and
+  of flat parameters in \code{parameters} and
   \code{flatpars} is included.}
 
   \item{chain_id}{\code{integer}. Chains to include. If
@@ -55,14 +55,14 @@ ddply(line_long, "flatpar",
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_pararray}},
-  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_parameter}},
+  \code{\link{mcmcdb_drop_parameter}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}},
+  \code{\link{mcmcdb_samples_parameters}},
+  \code{\link{mcmcdb_samples_parameters}},
   \code{\link{mcmcdb_unflatten}},
   \code{\link{mcmcdb_unflatten}},
   \code{\link{mcmcdb_unflatten}},

@@ -1,7 +1,7 @@
 #' @include package.R
 #' @include class-Mcmcdb.R
 #' @include method-mcmcdb_samples_long.R
-#' @include method-mcmcdb_samples_pararrays.R
+#' @include method-mcmcdb_samples_parameters.R
 #' @include mcmcdb_wide_misc.R
 #' @exportMethod [[
 NULL
@@ -36,9 +36,9 @@ NULL
     k <- NULL
   }
   if (drop == TRUE) {
-    mcmcdb_samples_pararrays(x, pararrays = i, chain_id = j, iter = k)[[i]]
+    mcmcdb_samples_parameters(x, parameters = i, chain_id = j, iter = k)[[i]]
   } else {
-    mcmcdb_samples_long(x, pararrays = i, chain_id = j, iter = k)
+    mcmcdb_samples_long(x, parameters = i, chain_id = j, iter = k)
   }
 }
 

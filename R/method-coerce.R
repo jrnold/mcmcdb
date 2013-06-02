@@ -1,7 +1,7 @@
 #' @include package.R
 #' @include method-mcmcdb_chains.R
 #' @include method-mcmcdb_samples_flatpars.R
-#' @include method-mcmcdb_samples_pararrays.R
+#' @include method-mcmcdb_samples_parameters.R
 NULL
 
 setAs("Mcmcdb", "mcmc.list",
@@ -31,5 +31,5 @@ setAs("Mcmcdb", "matrix",
 
 setAs("Mcmcdb", "list",
       function(from) {
-        mcmcdb_samples_pararrays(from)
+        mcmcdb_samples_parameters(from)
       })

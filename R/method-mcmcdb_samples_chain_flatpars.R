@@ -15,7 +15,7 @@ NULL
 #' 
 #' @param object An object containing the MCMC samples.
 #' @param flatpars \code{character}. Flat parameters to include. If \code{NULL}, all flat parameters.
-#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' @param parameters \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param FUN \code{function} Function to apply to each chain's flat paramter matrix.
@@ -43,19 +43,16 @@ setGeneric("mcmcdb_samples_chain_flatpars",
 #' @aliases mcmcdb_samples_chain_flatpars,Mcmcdb-method
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_flatpars", "Mcmcdb",
-          function(object, flatpars=NULL, pararrays=NULL,
-                   iter=NULL, chain_id=NULL, FUN=NULL, return_type = "l", ...) {
+          function(object, flatpars=NULL, parameters=NULL,
+                   iter=NULL, chain_id=NULL, FUN=identity, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
             names(chain_id) <- chain_id
-            if (is.null(FUN)) {
-              FUN <- identity
-            }
             .fun <- function(i) {
               FUN(mcmcdb_samples_flatpars(object, chain_id = i,
                                           flatpars = flatpars, 
-                                          pararrays = pararrays))
+                                          parameters = parameters))
             }
             plyr_fun("l", return_type)(chain_id, .fun=.fun, ...)
           })

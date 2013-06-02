@@ -1,7 +1,7 @@
 #' @include package.R
 #' @include class-McmcdbWide.R
 #' @include method-mcmcdb_samples_long.R
-#' @include method-mcmcdb_samples_pararrays.R
+#' @include method-mcmcdb_samples_parameters.R
 #' @exportMethod [
 NULL
 

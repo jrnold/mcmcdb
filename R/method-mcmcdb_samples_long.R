@@ -14,8 +14,8 @@ NULL
 #'
 #' @param object An object containing the MCMC samples.
 #' @param flatpars \code{character}. Flat parameters to include. If \code{NULL}, all flat parameters.
-#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
-#' The union of flat parameters in \code{pararrays} and \code{flatpars} is included.
+#' @param parameters \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' The union of flat parameters in \code{parameters} and \code{flatpars} is included.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param ... Options passed to internal functions.
@@ -44,16 +44,16 @@ setGeneric("mcmcdb_samples_long",
 #' @aliases mcmcdb_samples_long,McmcdbWide-method
 #' @family McmcdbWide methods
 setMethod("mcmcdb_samples_long", "McmcdbWide",
-          function(object, flatpars=NULL, pararrays=NULL, iter=NULL,
+          function(object, flatpars=NULL, parameters=NULL, iter=NULL,
                    chain_id=NULL) {
             params <- mcmcdb_wide_select_params(object,
                                                 flatpars = flatpars,
-                                                pararrays = pararrays)
+                                                parameters = parameters)
             iters <- mcmcdb_wide_select_iters(object,
                                               iter = iter,
                                               chain_id = chain_id)
             x <- mcmcdb_wide_subset(object,
-                                    flatpars=flatpars, pararrays=pararrays,
+                                    flatpars=flatpars, parameters=parameters,
                                     iter=iter, chain_id=chain_id, drop=FALSE)
             x <- melt(cbind(as.data.frame(x),
                             as.data.frame(object@iters[iters, ])),

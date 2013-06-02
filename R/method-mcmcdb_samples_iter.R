@@ -12,7 +12,7 @@ NULL
 #' in which each iteration is a list of parameter arrays.
 #' 
 #' @param object An object containing the MCMC samples.
-#' @param pararrays \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
+#' @param parameters \code{character}. Parameter arrays to include. If \code{NULL}, all parameter arrays.
 #' @param chain_id \code{integer}. Chains to include. If \code{NULL}, all chains.
 #' @param iter \code{integer}. Iterations to include. If \code{NULL}, all iterations.
 #' @param FUN \code{function}. Function to apply to each iteration. \code{function(x)}, where
@@ -33,19 +33,16 @@ setGeneric("mcmcdb_samples_iter",
            })
 
 mcmcdb_samples_iter.McmcdbWide <-
-  function(object, pararrays=NULL, iter=NULL,
-           chain_id=NULL, FUN = NULL, return_type = "l", ...) {
+  function(object, parameters = NULL, iter = NULL,
+           chain_id = NULL, FUN = identity, return_type = "l", ...) {
     x <- mcmcdb_wide_subset(object,
-                            pararrays = pararrays,
+                            parameters = parameters,
                             iter = iter,
                             chain_id = chain_id)
-    if (is.null(pararrays)) {
+    if (is.null(parameters)) {
       parameters <- object@parameters
     } else {
-      parameters <- object@parameters[pararrays]
-    }
-    if (is.null(FUN)) {
-      FUN <- identity
+      parameters <- object@parameters[parameters]
     }
     .fun <- function(x) {
       FUN(mcmcdb_unflatten(x, parameters=parameters))

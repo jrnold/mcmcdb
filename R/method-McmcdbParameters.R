@@ -5,7 +5,7 @@ NULL
 
 # Data frame should have columns idx, flatpar
 # x$idx should be comma separated indices
-pararrays_from_df <- function(x) {
+parameters_from_df <- function(x) {
   idx <- do.call(rbind,
                  llply(str_split(x$idx, fixed(",")),
                        as.integer))
@@ -54,7 +54,7 @@ setMethod("McmcdbParameters", "data.frame",
 #' @aliases McmcdbParameters,McmcdbFlatpars-method
 setMethod("McmcdbParameters", "McmcdbFlatpars",
           function(x) {
-            callGeneric(dlply(x, "pararray", pararrays_from_df))
+            callGeneric(dlply(x, "parameter", parameters_from_df))
           })
 
 #' @rdname McmcdbParameters-methods

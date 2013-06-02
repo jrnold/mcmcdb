@@ -136,16 +136,16 @@ mcmcdb_unflatten(samples)
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_pararray}},
-  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_parameter}},
+  \code{\link{mcmcdb_drop_parameter}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}}
+  \code{\link{mcmcdb_samples_parameters}},
+  \code{\link{mcmcdb_samples_parameters}}
 
   Other McmcdbWide methods: \code{\link{$}},
   \code{\link{$-methods}}, \code{\link{McmcdbWide-class}},
@@ -158,16 +158,16 @@ mcmcdb_unflatten(samples)
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
   \code{\link{mcmcdb_drop_iters}},
-  \code{\link{mcmcdb_drop_pararray}},
-  \code{\link{mcmcdb_drop_pararray}},
+  \code{\link{mcmcdb_drop_parameter}},
+  \code{\link{mcmcdb_drop_parameter}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_flatpars}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_iter}},
   \code{\link{mcmcdb_samples_long}},
   \code{\link{mcmcdb_samples_long}},
-  \code{\link{mcmcdb_samples_pararrays}},
-  \code{\link{mcmcdb_samples_pararrays}}
+  \code{\link{mcmcdb_samples_parameters}},
+  \code{\link{mcmcdb_samples_parameters}}
 }
 \keyword{methods}
 

@@ -7,21 +7,21 @@ UNDERSCORE <- c("alpha", "beta_1", "gamma_1_1", "foo_1_1_bar_1_2_3")
 
 stan_flatpars <-
   McmcdbFlatpars(data.frame(flatpar = STAN,
-                            pararray = c("alpha", "beta", "gamma", "foo.1.bar"),
+                            parameter = c("alpha", "beta", "gamma", "foo.1.bar"),
                             idx = c("1", "1", "1,1", "1,2,3"),
                             scalar = c(TRUE, rep(FALSE, 3)),
                             stringsAsFactors = FALSE))
 
 bugs_flatpars <-
   McmcdbFlatpars(data.frame(flatpar = BUGS,
-                            pararray = c("alpha", "beta", "gamma", "foo.[1,1].bar"),
+                            parameter = c("alpha", "beta", "gamma", "foo.[1,1].bar"),
                             idx = c("1", "1", "1,1", "1,2,3"),
                             scalar = c(TRUE, rep(FALSE, 3)),
                             stringsAsFactors = FALSE))
 
 underscore_flatpars <-
   McmcdbFlatpars(data.frame(flatpar = UNDERSCORE,
-                            pararray = c("alpha", "beta", "gamma", "foo_1_1_bar"),
+                            parameter = c("alpha", "beta", "gamma", "foo_1_1_bar"),
                             idx = c("1", "1", "1,1", "1,2,3"),
                             scalar = c(TRUE, rep(FALSE, 3)),
                             stringsAsFactors = FALSE))
@@ -30,7 +30,7 @@ underscore_flatpars <-
 test_that("mcmc_parparser_scalar works", {
   expected <-
     McmcdbFlatpars(data.frame(flatpar = STAN,
-                              pararray = STAN,
+                              parameter = STAN,
                               idx = "1",
                               scalar = TRUE,
                               stringsAsFactors = FALSE))
@@ -53,7 +53,7 @@ test_that("mcmc_parparser_pattern passes test #1", {
   parameters <- c("alpha", "beta<1>", "gamma<1;2>", "gamma<1;2>bar<1;2>")
   expected <-
     McmcdbFlatpars(data.frame(flatpar = parameters,
-                              pararray = c("alpha", "beta", "gamma", "gamma<1;2>bar"),
+                              parameter = c("alpha", "beta", "gamma", "gamma<1;2>bar"),
                               idx = c("1", "1", "1,2", "1,2"),
                               scalar = c(TRUE, rep(FALSE, 3)),
                               stringsAsFactors = FALSE))
@@ -66,7 +66,7 @@ test_that("mcmc_parparser_pattern passes test #1", {
   parameters <- c("alpha", "beta|1|", "gamma<1;2>", "bar<1,2>")
   expected <-
     McmcdbFlatpars(data.frame(flatpar = parameters,
-                              pararray = c("alpha", "beta", "gamma", "bar"),
+                              parameter = c("alpha", "beta", "gamma", "bar"),
                               idx = c("1", "1", "1,2", "1,2"),
                               scalar = c(TRUE, rep(FALSE, 3)),
                               stringsAsFactors = FALSE))
@@ -90,7 +90,7 @@ test_that("mcmc_parparser works with row major", {
   foo <- mcmc_parparser_pattern(parnames, "\\.", "\\.", "",
                                 colmajor = FALSE)
   expected <- McmcdbFlatpars(flatpar = parnames,
-                             pararray = c("omega", "beta", rep("alpha", 4),
+                             parameter = c("omega", "beta", rep("alpha", 4),
                                "delta"),
                              idx = c("1", "1", "1,1", "2,1", "1,2", "2,2",
                                "1,2,3"),

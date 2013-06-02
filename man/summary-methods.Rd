@@ -8,7 +8,7 @@
 
   \item{.fun}{Function used to summarize the samples.}
 
-  \item{pararrays}{Parameter arrays to use.}
+  \item{parameters}{Parameter arrays to use.}
 }
 \value{
   Named \code{list} of \code{array} objects, one for each
@@ -33,12 +33,12 @@
   \code{\link{mcmcdb_samples_chain_flatpars}},
   \code{\link{mcmcdb_samples_chain_iter}},
   \code{\link{mcmcdb_samples_chain_iter}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
-  \code{\link{mcmcdb_samples_chain_pararrays}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
+  \code{\link{mcmcdb_samples_chain_parameters}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
   \code{\link{mcmcdb_samples_flatpars_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}},
-  \code{\link{mcmcdb_samples_pararrays_chain}}
+  \code{\link{mcmcdb_samples_parameters_chain}},
+  \code{\link{mcmcdb_samples_parameters_chain}}
 }
 \keyword{methods}
 
