@@ -62,5 +62,5 @@ setMethod("mcmcdb_samples_flatpars_chain", "Mcmcdb",
               }
               FUN(llply(chain_id, .fun = .fun2))
             }
-            plyr_fun("l", return_type)chain_id, .fun=.fun, ...)
+            plyr_fun("l", return_type)(chain_id, .fun=.fun, ...)
           })
