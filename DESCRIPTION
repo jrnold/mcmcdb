@@ -68,3 +68,4 @@ Collate:
     'method-mcmcdb_drop_parameter.R'
     'method-mcmcdb_samples_chain_parameters.R'
     'method-mcmcdb_samples_parameters_chain.R'
+    'method-mcmcdb_resample.R'
