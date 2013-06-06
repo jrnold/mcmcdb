@@ -35,8 +35,9 @@ setGeneric("mcmcdb_samples_flatpars",
            })
 
 mcmcdb_samples_flatpars.McmcdbWide <-
-  function(object, flatpars=NULL, parameters=NULL, iter=NULL,
-           chain_id=NULL, FUN=identity, return_type = "a", ...) {
+  function(object, FUN=identity,
+           flatpars=NULL, parameters=NULL, iter=NULL,
+           chain_id=NULL, return_type = "a", ...) {
     x <- mcmcdb_wide_subset(object,
                             flatpars=flatpars, parameters=parameters,
                             iter=iter, chain_id=chain_id)

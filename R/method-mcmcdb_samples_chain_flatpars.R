@@ -43,8 +43,9 @@ setGeneric("mcmcdb_samples_chain_flatpars",
 #' @aliases mcmcdb_samples_chain_flatpars,Mcmcdb-method
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_flatpars", "Mcmcdb",
-          function(object, flatpars=NULL, parameters=NULL,
-                   iter=NULL, chain_id=NULL, FUN=identity, return_type = "l", ...) {
+          function(object, FUN=identity,
+                   flatpars=NULL, parameters=NULL,
+                   iter=NULL, chain_id=NULL, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }

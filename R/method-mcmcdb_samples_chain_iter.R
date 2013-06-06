@@ -39,8 +39,8 @@ setGeneric("mcmcdb_samples_chain_iter",
 #' @aliases mcmcdb_samples_chain_iter,Mcmcdb-method
 #' @family Mcmcdb methods
 setMethod("mcmcdb_samples_chain_iter", "Mcmcdb",
-          function(object, parameters=NULL, iter=NULL,
-                   chain_id=NULL, FUN = identity, return_type = "l", ...) {
+          function(object, parameters=NULL, iter=NULL, FUN = identity,
+                   chain_id=NULL, return_type = "l", ...) {
             if (is.null(chain_id)) {
               chain_id <- mcmcdb_chains(object, drop=TRUE)
             }
