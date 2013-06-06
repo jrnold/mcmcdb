@@ -1,4 +1,4 @@
-#' @exportMethod mcmcdb_sample
+#' @exportMethod mcmcdb_resample
 NULL
 
 
@@ -21,8 +21,8 @@ setGeneric("mcmcdb_resample",
            function(object, ...) standardGeneric("mcmcdb_resample"))
 
 mcmcdb_resample.matrix <- function(object, n = 1, scale_mult = 1, df = Inf) {
-  mu <- aaply(flatpars, 2, mean)
-  sigma <- cov(flatpars) * scale_mult
+  mu <- aaply(object, 2, mean)
+  sigma <- cov(object) * scale_mult
   if (is.infinite(df)) {
     rmvnorm(n, mu, sigma)
   } else {

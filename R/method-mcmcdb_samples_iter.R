@@ -44,10 +44,10 @@ mcmcdb_samples_iter.McmcdbWide <-
     } else {
       parameters <- object@parameters[parameters]
     }
-    .fun <- function(x) {
-      FUN(mcmcdb_unflatten(x, parameters=parameters))
+    .fun <- function(x, ...) {
+      FUN(mcmcdb_unflatten(x, parameters=parameters), ...)
     }
-    x <- plyr_fun("a", return_type)(x, 1, .fun = .fun, ...)
+    x <- plyr_fun("a", return_type)(x, .margins = 1, .fun = .fun, ...)
     for (i in c("split_type", "split_labels")) {
       attr(x, i) <- NULL
     }

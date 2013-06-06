@@ -10,6 +10,7 @@
 ##' @import reshape2
 ##' @import checker
 ##' @import stanmisc
+##' @import mvtnorm
 NULL
 
 setOldClass("mcmc")

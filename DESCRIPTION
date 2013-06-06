@@ -13,7 +13,8 @@ Imports:
     plyr,
     reshape2,
     checker (>= 0.2.2),
-    stanmisc (>= 0.4.0)
+    stanmisc (>= 0.4.0),
+    mvtnorm
 Suggests:
     testthat,
     roxygen2,
