@@ -2,9 +2,7 @@
 \name{mcmcdb_resample}
 \alias{mcmcdb_resample}
 \alias{mcmcdb_resample,Mcmcdb-method}
-\alias{mcmcdb_resample,matrix-method}
 \alias{mcmcdb_resample-methods}
-\alias{mcmcdb_resample_approx}
 \title{Resample from a MCMC Samples}
 \arguments{
   \item{object}{object with flat parameters.}

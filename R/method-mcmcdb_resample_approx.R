@@ -33,8 +33,8 @@ mcmcdb_resample_approx.matrix <-
     }
   }
 
-#' @rdname mcmcdb_resample
-#' @aliases mcmcdb_resample,matrix-method
+#' @rdname mcmcdb_resample_approx
+#' @aliases mcmcdb_resample_approx,matrix-method
 setMethod("mcmcdb_resample_approx", "matrix", mcmcdb_resample_approx.matrix)
 
 mcmcdb_resample_approx.Mcmcdb <-
@@ -42,6 +42,6 @@ mcmcdb_resample_approx.Mcmcdb <-
     mcmcdb_resample(mcmcdb_samples_flatpars(object, ...))
   }
 
-#' @rdname mcmcdb_resample
-#' @aliases mcmcdb_resample,Mcmcdb-method
+#' @rdname mcmcdb_resample_approx
+#' @aliases mcmcdb_resample_approx,Mcmcdb-method
 setMethod("mcmcdb_resample_approx", "Mcmcdb", mcmcdb_resample_approx.Mcmcdb)

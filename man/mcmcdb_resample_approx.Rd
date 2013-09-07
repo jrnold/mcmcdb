@@ -1,6 +1,8 @@
 \docType{methods}
 \name{mcmcdb_resample_approx}
 \alias{mcmcdb_resample_approx}
+\alias{mcmcdb_resample_approx,Mcmcdb-method}
+\alias{mcmcdb_resample_approx,matrix-method}
 \alias{mcmcdb_resample_approx-methods}
 \title{Resample from a Posterior Approximation}
 \arguments{
