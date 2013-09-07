@@ -9,6 +9,12 @@
   \code{chain_id} and \code{iter} columns. If \code{FALSE},
   then return all data related to the iterations (other
   than their values).}
+
+  \item{iter}{Select only iterations with an interation
+  number in \code{iter}.}
+
+  \item{chain_id}{Select only iteration with a chain in
+  \code{chain_id}.}
 }
 \value{
   An object of \linkS4class{McmcdbIters} with chains and

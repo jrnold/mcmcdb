@@ -13,17 +13,28 @@ setGeneric("mcmcdb_iters",
 #' @param drop \code{logical}. If \code{TRUE}, only return
 #' \code{chain_id} and \code{iter} columns. If \code{FALSE}, then
 #' return all data related to the iterations (other than their values).
+#' @param iter Select only iterations with an interation number in \code{iter}.
+#' @param chain_id Select only iteration with a chain in \code{chain_id}.
 #' @return An object of \linkS4class{McmcdbIters} with chains and iterations,
 #' and associated data, if \code{drop=FALSE}.
 #' @family get-methods
 #' @aliases mcmcdb_iters,McmcdbMem-method
 #' @family McmcdbMem methods
 setMethod("mcmcdb_iters", "McmcdbMem",
-          function(object, drop=TRUE) {
-            if (drop) {
-              object@iters[ , c("chain_id", "iter")]
+          function(object, chain_id = NULL, iter = NULL, drop=TRUE) {
+            if (is.null(chain_id) && is.null(iter)) {
+              touse <- TRUE
             } else {
-              object@iters
+              touse <- ((is.null(chain_id)
+                         || object@iters[["chain_id"]] %in% chain_id)
+                        &&
+                        (is.null(chain_id)
+                         || object@iters[["iter"]] %in% iter))
+            }
+            if (drop) {
+              object@iters[touse, c("chain_id", "iter")]
+            } else {
+              object@iters[touse, ]
             }
           })
 

@@ -1,17 +1,18 @@
 \docType{methods}
-\name{mcmcdb_resample}
-\alias{mcmcdb_resample}
-\alias{mcmcdb_resample,Mcmcdb-method}
-\alias{mcmcdb_resample,matrix-method}
-\alias{mcmcdb_resample-methods}
+\name{mcmcdb_resample_approx}
 \alias{mcmcdb_resample_approx}
-\title{Resample from a MCMC Samples}
+\alias{mcmcdb_resample_approx-methods}
+\title{Resample from a Posterior Approximation}
 \arguments{
   \item{object}{object with flat parameters.}
 
   \item{n}{Number of samples to draw.}
 
-  \item{replace}{Sample with replacement?}
+  \item{scale_mult}{Multiplier of scale matrix}
+
+  \item{df}{Degrees of freedom. If \code{Inf}, then a
+  normal distribution is used. Otherwise, a Student t
+  distribution is used.}
 
   \item{...}{Passed to
   \code{\link{mcmcdb_samples_flatpars}}.}
