@@ -26,7 +26,7 @@ mcmcdb_resample.Mcmcdb <- function(object, n = 1, replace = FALSE,
                                  parameters = NULL, flatpars = NULL) {
   chains <- mcmcdb_iters(object, drop = TRUE)
   i <- sample.int(nrow(chains), size = n, replace = replace)
-  chains <- chains[i, , drop=FALSE]
+  chains <- as(chains[i, , drop=FALSE], "data.frame")
   maply(chains, function(chain_id, iter) {
     mcmcdb_samples_flatpars(object, chain_id = chain_id, iter = iter,
                             parameters = parameters, flatpars = flatpars)
