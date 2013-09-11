@@ -21,8 +21,9 @@ setGeneric("mcmcdb_resample",
            function(object, ...) standardGeneric("mcmcdb_resample"))
 
 mcmcdb_resample.Mcmcdb <- function(object, n = 1, replace = FALSE,
-                                 chain_id = NULL, iter = NULL,
-                                 parameters = NULL, flatpars = NULL, flatten=TRUE) {
+                                   chain_id = NULL, iter = NULL,
+                                   parameters = NULL,
+                                   flatten=TRUE) {
   chains <- mcmcdb_iters(object, drop = TRUE)
   i <- sample.int(nrow(chains), size = n, replace = replace)
   chains <- as(chains[i, , drop=FALSE], "data.frame")
@@ -34,8 +35,7 @@ mcmcdb_resample.Mcmcdb <- function(object, n = 1, replace = FALSE,
   }    
   
   maply(chains, function(chain_id, iter) {
-    FUN(object, chain_id = chain_id, iter = iter,
-        parameters = parameters, flatpars = flatpars)
+    FUN(object, chain_id = chain_id, iter = iter, parameters = parameters)
   })
 }
 

@@ -38,8 +38,8 @@ mcmcdb_resample_approx.matrix <-
 setMethod("mcmcdb_resample_approx", "matrix", mcmcdb_resample_approx.matrix)
 
 mcmcdb_resample_approx.Mcmcdb <-
-  function(object, n = 1, scale_mult = 1, df = Inf, flatten = TRUE, ...) {
-    mcmcdb_resample(mcmcdb_samples_flatpars(object, ...), flatten = flatten)
+  function(object, n = 1, scale_mult = 1, df = Inf, ...) {
+    mcmcdb_resample(mcmcdb_samples_flatpars(object, ...))
   }
 
 #' @rdname mcmcdb_resample_approx
