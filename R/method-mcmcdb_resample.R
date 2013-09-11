@@ -23,20 +23,22 @@ setGeneric("mcmcdb_resample",
 mcmcdb_resample.Mcmcdb <- function(object, n = 1, replace = FALSE,
                                    chain_id = NULL, iter = NULL,
                                    parameters = NULL,
-                                   flatten=TRUE) {
-  chains <- mcmcdb_iters(object, drop = TRUE)
+                                   flatten = TRUE) {
+  chains <- mcmcdb_iters(object, chain_id = chain_id, iter = iter, drop = TRUE)
   i <- sample.int(nrow(chains), size = n, replace = replace)
   chains <- as(chains[i, , drop=FALSE], "data.frame")
 
   if (flatten) {
-    FUN <- mcmcdb_samples_flatpars
+    maply(chains, function(chain_id, iter) {
+      mcmcdb_samples_flatpars(object, chain_id = chain_id, iter = iter,
+                              parameters = parameters)
+    })
   } else {
-    FUN <- mcmcdb_samples_iter
+    mlply(chains, function(chain_id, iter) {
+      mcmcdb_samples_iter(object, chain_id = chain_id,
+                          iter = iter, parameters = parameters)[[1]]
+    })
   }    
-  
-  maply(chains, function(chain_id, iter) {
-    FUN(object, chain_id = chain_id, iter = iter, parameters = parameters)
-  })
 }
 
 #' @rdname mcmcdb_resample
