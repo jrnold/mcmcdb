@@ -10,9 +10,6 @@
   \item{n}{Number of samples to draw.}
 
   \item{replace}{Sample with replacement?}
-
-  \item{...}{Passed to
-  \code{\link{mcmcdb_samples_flatpars}}.}
 }
 \description{
   Draw samples from a normal or t-distribution
