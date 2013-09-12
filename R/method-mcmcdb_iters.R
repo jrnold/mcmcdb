@@ -7,6 +7,24 @@ setGeneric("mcmcdb_iters",
              standardGeneric("mcmcdb_iters")
            })
 
+mcmcdb_iters.McmcdbMem <- 
+          function(object, chain_id = NULL, iter = NULL, drop=TRUE) {
+            if (is.null(chain_id) && is.null(iter)) {
+              touse <- TRUE
+            } else {
+              touse <- ((is.null(chain_id)
+                         | object@iters[["chain_id"]] %in% chain_id)
+                        &
+                        (is.null(iter)
+                         | object@iters[["iter"]] %in% iter))
+            }
+            if (drop) {
+              object@iters[touse, c("chain_id", "iter")]
+            } else {
+              object@iters[touse, ]
+            }
+          }
+
 #' Get iteration data from Mcmcdb object
 #'
 #' @param object object
@@ -20,21 +38,4 @@ setGeneric("mcmcdb_iters",
 #' @family get-methods
 #' @aliases mcmcdb_iters,McmcdbMem-method
 #' @family McmcdbMem methods
-setMethod("mcmcdb_iters", "McmcdbMem",
-          function(object, chain_id = NULL, iter = NULL, drop=TRUE) {
-            if (is.null(chain_id) && is.null(iter)) {
-              touse <- TRUE
-            } else {
-              touse <- ((is.null(chain_id)
-                         || object@iters[["chain_id"]] %in% chain_id)
-                        &&
-                        (is.null(chain_id)
-                         || object@iters[["iter"]] %in% iter))
-            }
-            if (drop) {
-              object@iters[touse, c("chain_id", "iter")]
-            } else {
-              object@iters[touse, ]
-            }
-          })
-
+setMethod("mcmcdb_iters", "McmcdbMem", mcmcdb_iters.McmcdbMem)
